@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.Objects;
+
 public class Site
 {
     private String address;
@@ -62,7 +64,9 @@ public class Site
 
     public Location getLocation() {return location;}
 
-    public boolean equals(Site siteOther) {return this.siteName == siteOther.siteName && this.address==siteOther.address;}
+    public boolean equals(Site siteOther) {
+        return Objects.equals(this.siteName, siteOther.siteName) && Objects.equals(this.address, siteOther.address);
+    }
 
 
 
