@@ -19,6 +19,7 @@ public class Truck
 
     }
 
+
     public boolean setInitialWeight(double num)
     {
         if (num >= 0)
@@ -72,6 +73,8 @@ public class Truck
         return maxWeight;
     }
 
+    public int getLicensePlate() {return licensePlate;}
+
     public TypeOfLicense getTypeOfLicense() {
         return typeOfLicense;
     }
@@ -87,7 +90,6 @@ public class Truck
             return false;
         }
         return this.licensePlate == t.licensePlate;
-
     }
 
 }

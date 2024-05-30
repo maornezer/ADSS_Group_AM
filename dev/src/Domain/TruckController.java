@@ -7,22 +7,22 @@ import java.util.ArrayList;
 
 public class TruckController
 {
-    //noa
     ArrayList <Truck> trucks;
 
+    public TruckController() {
+    }
 
-
-    //////
-    public boolean addTruck(int LicensePlate, String truckModel, TypeOfLicense typeOfLicense, double initialWeight, double maxWeight)
+    public boolean addTruck(String truckModel, TypeOfLicense typeOfLicense, double initialWeight, double maxWeight)
     {
-        Truck t = new Truck(LicensePlate, truckModel, typeOfLicense, initialWeight, maxWeight);
+        boolean bool = false;
+        Truck t = new Truck(truckModel,typeOfLicense,initialWeight,maxWeight );
         for (int i=0; i<trucks.size(); i++)
         {
             if (t.equals(trucks.get(i)))
                 return false;
         }
-        trucks.add(t);
-        return true;
+        bool = trucks.add(t);
+        return bool;
     }
     //remove??
     public boolean addTruck(Truck t)
@@ -32,32 +32,63 @@ public class TruckController
             if (t.equals(trucks.get(i)))
                 return false;
         }
-        trucks.add(t);
-        return true;
+        return trucks.add(t);
     }
-    public Truck getTruckByLicenceType(String type )
+    public Truck getTruckByLicenceType(TypeOfLicense type )
     {
-        for (int i=0; i<trucks.size(); i++)
-        {
-            if (trucks.get(i).getTypeOfLicense().equals(type))
-            {
-                return trucks.get(i);
+        for (Truck truck : trucks) {
+            if (truck.getTypeOfLicense().equals(type)) {
+                return truck;
             }
         }
         return null;//exception
     }
     public Truck getTruckByLicencePlate(int platenum )
     {
-        for (int i=0; i<trucks.size(); i++)
-        {
-            if (trucks.get(i).getLicensePlate()==platenum)
-            {
-                return trucks.get(i);
+        for (Truck truck : trucks) {
+            if (truck.getLicensePlate() == platenum) {
+                return truck;
             }
         }
         return null;//exception
     }
-    //String to sting ??
+    public Truck getTruckByTypeLicence(TypeOfLicense type)
+    {
+        for (Truck truck : trucks) {
+            if (truck.getTypeOfLicense().equals(type)) {
+                return truck;
+            }
+        }
+        return null;//exception
+    }
+    private ArrayList<Truck> getAllTrucksByLicence(TypeOfLicense licenceType)
+    {
+        ArrayList<Truck> trucksByLicence = new ArrayList<>();
+        for (Truck truck : trucks) {
+            if (truck.getTypeOfLicense().equals(licenceType)) {
+                trucksByLicence.add(truck);
+            }
+        }
+        return trucksByLicence;
 
-}
+
+    }
+    public boolean removeTruckByLicencePlate(int LP)
+    {
+        for (int i=0; i<trucks.size(); i++)
+        {
+            if(trucks.get(i).getLicensePlate() == LP)
+            {
+                trucks.remove(trucks.get(i));
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+    }
 
