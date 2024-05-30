@@ -8,6 +8,7 @@ public class Truck
     private TypeOfLicense typeOfLicense;
     private String truckModel;
 
+
     public Truck(String model,TypeOfLicense typeLicense,double initialWeight,double maxWeight )
     {
         setTruckModel(model);
