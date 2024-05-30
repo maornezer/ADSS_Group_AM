@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class TruckController
 {
+    //noa
     ArrayList <Truck> trucks;
 
 
