@@ -1,13 +1,12 @@
 package Domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
-//singleTone
 
 public class TruckController
 {
-    ArrayList <Truck> trucks;
+    private List <Truck> trucks;
     private static TruckController instance;
 
     private TruckController()
@@ -24,24 +23,21 @@ public class TruckController
     }
     public boolean addTruck(String truckModel, TypeOfLicense typeOfLicense, double initialWeight, double maxWeight)
     {
-        boolean bool = false;
-        Truck t = new Truck(truckModel,typeOfLicense,initialWeight,maxWeight );
-        for (int i=0; i<trucks.size(); i++)
-        {
-            if (t.equals(trucks.get(i)))
-                return false;
-        }
-        bool = trucks.add(t);
-        return bool;
+        Truck t = new Truck(truckModel, typeOfLicense, initialWeight, maxWeight );
+        return addTruck(t);
     }
     public boolean addTruck(Truck t)
     {
-        for (int i=0; i<trucks.size(); i++)
+        if (isTruckExists(t))
         {
-            if (t.equals(trucks.get(i)))
-                return false;
+            return false;
         }
         return trucks.add(t);
+    }
+
+    public boolean isTruckExists(Truck truck)
+    {
+    return trucks.contains(truck);
     }
     public Truck getTruckByLicenceType(TypeOfLicense type )
     {
@@ -51,55 +47,45 @@ public class TruckController
                 return truck;
             }
         }
-        return null;//exception
+        return null;//throw new IllegalArgumentException("Truck with license type " + type + " not found");
+
     }
 
-    public Truck getTruckByLicencePlate(int platenum )
+    public Truck getTruckByLicencePlate(int lp )
     {
         for (Truck truck : trucks) {
-            if (truck.getLicensePlate() == platenum) {
+            if (truck.getLicensePlate() == lp) {
                 return truck;
             }
         }
-        return null;//exception
+        return null;//throw new IllegalArgumentException("Truck with license plate " + lp + " not found");
+
     }
-    public Truck getTruckByTypeLicence(TypeOfLicense type)
+
+    private List<Truck> getAllTrucksByLicence(TypeOfLicense licenceType)
     {
-        for (Truck truck : trucks) {
-            if (truck.getTypeOfLicense().equals(type)) {
-                return truck;
-            }
-        }
-        return null;//exception
-    }
-    private ArrayList<Truck> getAllTrucksByLicence(TypeOfLicense licenceType)
-    {
-        ArrayList<Truck> trucksByLicence = new ArrayList<>();
+        List<Truck> trucksByLicence = new ArrayList<>();
         for (Truck truck : trucks) {
             if (truck.getTypeOfLicense().equals(licenceType)) {
                 trucksByLicence.add(truck);
             }
         }
         return trucksByLicence;
-
-
     }
-    public boolean removeTruckByLicencePlate(int LP)
+    public boolean removeTruckByLicencePlate(int lp)
     {
-        for (int i=0; i<trucks.size(); i++)
+        for (int i = 0; i<trucks.size(); i++)
         {
-            if(trucks.get(i).getLicensePlate() == LP)
+            if(trucks.get(i).getLicensePlate() == lp)
             {
-                trucks.remove(trucks.get(i));
+                trucks.remove(i);
                 return true;
             }
         }
         return false;
     }
 
-    public int getAmountofTrucks(){return trucks.size();}
-
-
+    public int getAmountOfTrucks(){return trucks.size();}
 
 
     }
