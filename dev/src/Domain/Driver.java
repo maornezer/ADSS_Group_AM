@@ -33,4 +33,11 @@ public class Driver
     {
         return typeOfLicense.LimitWeight();
     }
-}
+
+//    public String toString() {
+//        return "Name: " + name + "ID: " + id + "Type of licence: " + typeOfLicense;
+//    }
+    //("Name: %s\t ID: %s\tLicenceType: %s\t ",
+    //getName(),getId(),getTypeOfLicense().toString());
+
+    }
