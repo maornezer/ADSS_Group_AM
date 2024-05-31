@@ -5,21 +5,15 @@ import java.util.HashMap;
 public class SiteController
 {
     private HashMap <Integer, Site> sites;
-    private static int IDSite;
+    private static int nextSiteID = 1;
     private static SiteController instance;
 
-    private SiteController(HashMap<Integer,Site> sites, int id)
-    {
-        this.sites = sites;
-        IDSite = id;
-        instance = this;
-    }
     private SiteController()
     {
         this.sites = new HashMap<>();
-        IDSite = 1;
         instance = this;
     }
+
     public static SiteController getInstance()
     {
         if (instance == null)
@@ -29,6 +23,14 @@ public class SiteController
         }
         return instance;
     }
+
+
+//    private SiteController(HashMap<Integer,Site> sites, int id)
+//    {
+//        this.sites = sites;
+//        IDSite = id;
+//        instance = this;
+//    }
 
     public Site getSite(String name)
     {
@@ -42,12 +44,20 @@ public class SiteController
         }
         return null;
     }
+//    public  Site getSite(String name) {
+//        return sites.values().stream()
+//                .filter(site -> site.getSiteName().equals(name))
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException("Site with name " + name + " not found"));
+//    }
 
     public Site getSite(int id)
     {
-//        if (sites.get(id)== null)
-//            throw new IllegalArgumentException("");
-        return sites.get(id);
+        Site site = sites.get(id);
+        if (site == null) {
+            throw new IllegalArgumentException("Site with ID " + id + " not found");
+        }
+        return site;
     }
 
     public int getMachID(String name)
@@ -70,21 +80,25 @@ public class SiteController
         {
          return false;
         }
-        sites.put(IDSite++, site);
+        sites.put(nextSiteID++, site);
         return true;
     }
+
+
+
+
     public boolean addSite(String siteName, String contactName, String phoneNumber, String address, int x , int y , Site.SiteType siteType)
     {
         if (getSite(siteName) == null)
         {
             return false;
         }
-        Site newSite= new Site(siteName,contactName,phoneNumber,address,x,y,siteType);
+        Site newSite = new Site(siteName,contactName,phoneNumber,address,x,y,siteType);
         if (isSiteAlreadyIn(newSite))
         {
             return false;
         }
-        sites.put(IDSite++, newSite);
+        sites.put(nextSiteID++, newSite);
         return true;
     }
 

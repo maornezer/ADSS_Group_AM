@@ -10,17 +10,18 @@ public class Site
     private String siteName;
     private SiteType siteType;
     private Location location;
-    public Site(String siteName,String contactName, String phoneNumber,String address, int x , int y ,SiteType siteType)
+    public Site(String siteName, String contactName, String phoneNumber, String address, int x , int y , SiteType siteType)
     {
         setSiteName(siteName);
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
-        setLocation(x,y);
-        setSiteType(siteType);
+        setLocation(x, y);
+        this.address = address;
+        this.siteType = siteType;
     }
     public boolean setPhoneNumber(String phoneNumber)
     {
-        if (phoneNumber.isBlank() && !phoneNumber.chars().allMatch(Character::isDigit) && phoneNumber.length()==10)
+        if (phoneNumber.isBlank() || !phoneNumber.chars().allMatch(Character::isDigit) || phoneNumber.length()!=10)
         {
             return false;
         }
@@ -29,7 +30,7 @@ public class Site
     }
     public boolean setContactName(String contactName)
     {
-        if (contactName.isBlank() && !contactName.chars().allMatch(Character::isLetter))
+        if (contactName.isBlank() || !contactName.chars().allMatch(Character::isLetter))
         {
            return false;
         }
@@ -38,7 +39,7 @@ public class Site
     }
     public boolean setSiteName(String siteName)
     {
-        if (siteName.isBlank() && !siteName.chars().allMatch(Character::isLetter))
+        if (siteName.isBlank() || !siteName.chars().allMatch(Character::isLetter))
         {
             return false;
         }
@@ -47,8 +48,8 @@ public class Site
     }
     public void setLocation(int x, int y)
     {
-        this.location.setX(x);
-        this.location.setY(y);
+        this.location = new Location(x,y);
+
     }
     public void setSiteType(SiteType site) { this.siteType =site;}
 
@@ -64,10 +65,21 @@ public class Site
 
     public Location getLocation() {return location;}
 
-    public boolean equals(Site siteOther) {
-        return Objects.equals(this.siteName, siteOther.siteName) && Objects.equals(this.address, siteOther.address);
+      @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Site siteOther = (Site) obj;
+        return Objects.equals(siteName, siteOther.siteName) && Objects.equals(address, siteOther.address);
     }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(siteName, address);
+    }
 
 
     public enum SiteType
@@ -83,7 +95,7 @@ public class Site
             return this == Factory;
         }
     }
-    class Location
+    public class Location
     {
         private int x;
         private int y;
