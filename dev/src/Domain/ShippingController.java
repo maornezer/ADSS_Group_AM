@@ -133,7 +133,7 @@ public class ShippingController {
 
     public boolean isDriverCanDrive()
     {
-        return false;
+        return true;
     }
 
     public void setShippingSource() {

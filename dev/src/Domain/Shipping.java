@@ -108,7 +108,7 @@ public class Shipping {
     {
         return (status == ShippingStatus.ItemError || status == ShippingStatus.DriverError || status == ShippingStatus.ShipmentError);
     }
-
+//check
     public TypeOfLicense getLicenseForThisTruck(){
         return truck.getTypeOfLicense();
     }
