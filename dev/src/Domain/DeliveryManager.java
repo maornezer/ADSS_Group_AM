@@ -27,6 +27,9 @@ public class DeliveryManager
         this.siteInventoryMap = siteToItemsTable;
         this.itemWeightMap = itemToWeightTable;
     }
+    public Site getSite(int siteID){
+        return shipmentRoute.get(siteID);
+    }
 
     public ArrayList<Site> getShipmentRoute()
     {
@@ -116,7 +119,7 @@ public class DeliveryManager
         }
         return -1;
     }
-    private double getWeightUntilSiteX(int siteNumber){
+    public double getWeightUntilSiteX(int siteNumber){
         double sumWeight = 0;
         for (int i = 0; i <= siteNumber; i++)
         {
@@ -137,4 +140,30 @@ public class DeliveryManager
     public void setOrder(ArrayList<Site> shipmentRoute) {
         this.shipmentRoute = shipmentRoute;
     }
+
+
+    public boolean isShipmentInfoValid(){
+        if (shipmentRoute.isEmpty()){
+            return false;
+        }
+        for (Site site: shipmentRoute){
+            if (site == null || !site.validSite() | !doesSiteHaveItems(site)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean doesSiteHaveItems(Site site)
+    {
+        if(siteInventoryMap.get(site) == null||siteInventoryMap.get(site).isEmpty())
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
 }

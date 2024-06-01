@@ -4,17 +4,22 @@ public enum TypeOfLicense
 {
     B,C,D;
 
-    public int LimitWeight(){
-        if ( this == B)
-            return 2;
+    public int LimitWeight()
+    {
+        int noLimit = Integer.MAX_VALUE;
+        if(this == B)
+        {
+            return 2000;
+
+        }
         else if (this== C)
         {
-            return 8;
+            return 10000;
         }
         else
-            return 15;
+            return noLimit;
     }
-    public static TypeOfLicense WhichTypeOfLicense( double w)
+    public static TypeOfLicense WhichTypeOfLicense(double w)
     {
         if (w <= B.LimitWeight())
         {
@@ -25,6 +30,5 @@ public enum TypeOfLicense
             return C;
         }
         else return D;
-
     }
 }

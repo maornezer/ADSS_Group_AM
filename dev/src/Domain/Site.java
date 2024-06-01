@@ -81,6 +81,12 @@ public class Site
         return Objects.hash(siteName, address);
     }
 
+    public boolean validSite()
+    { return !(siteName == null || siteName.trim().isEmpty()||
+               address == null || address.trim().isEmpty() ||
+               contactName == null || contactName.trim().isEmpty() ||
+               phoneNumber == null || phoneNumber.trim().isEmpty());
+    }
 
     public enum SiteType
     {
