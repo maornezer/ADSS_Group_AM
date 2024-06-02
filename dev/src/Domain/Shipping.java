@@ -12,7 +12,7 @@ public class Shipping {
     private Truck truck;
     private ShippingStatus status;
     private ShippingZone zone;
-    private DeliveryManager deliveryManager;
+    private DeliveryManager deliveryManager;//?
 
 
     //without truck and driver
@@ -76,13 +76,13 @@ public class Shipping {
 
     //set//
     public void setShippingID(int shippingID) {
-        shippingID = shippingID;
+        this.shippingID = shippingID;
     }
 
     public void setShippingDate(LocalDate shippingDate)//to continue -ShiftController
     {
         if (shippingDate != null) {
-            shippingDate = shippingDate;
+            this.shippingDate = shippingDate;
         }
     }
     //    public void setShippingDate(LocalDate newDate) {
@@ -100,7 +100,7 @@ public class Shipping {
     public void setDepartureTime(LocalTime departureTime)//to continue -ShiftController
     {
         if (departureTime != null) {
-            departureTime = departureTime;
+            this.departureTime = departureTime;
         }
     }
     //    public void setShippingStartTime(LocalTime newStartTime) {
@@ -145,6 +145,7 @@ public class Shipping {
         this.zone = zone;
     }
 
+    //אין הוספות אחראיות הקונטרולר
     public void addDes(Site site)
     {
         deliveryManager.addSite(site);
@@ -191,7 +192,7 @@ public class Shipping {
         return true;
     }
 
-    @Override
+    @Override//why override? and check if this need to be in controller
     public boolean equals(Object other)
     {
         if (this == other)
