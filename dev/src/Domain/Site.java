@@ -7,23 +7,21 @@ public class Site
     private String address;
     private String phoneNumber;
     private String contactName;
-    private Shipping.ShippingZone siteZone;
+    private Transport.TransportZone zone;
 
 //    private SiteType siteType;
 //    private Location location;
-    public Site( String address,Shipping.ShippingZone zone ,String contactName, String phoneNumber)
+    public Site( String address,Transport.TransportZone zone ,String contactName, String phoneNumber)
     {
         setAddress(address);
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
         setSiteZone(zone);
 
-//      setLocation(x, y);
-//      this.siteType = siteType;
     }
     public boolean setAddress(String address)
     {
-        if (address.isBlank() || !address.chars().allMatch(Character::isLetter))
+        if (address.isBlank())
         {
             return false;
         }
@@ -50,19 +48,15 @@ public class Site
         return true;
     }
 
-    public void setSiteZone(Shipping.ShippingZone siteZone) {
-        this.siteZone = siteZone;
+    public void setSiteZone(Transport.TransportZone zone) {
+        this.zone = zone;
     }
-    //    public void setLocation(int x, int y)
-//    {
-//        this.location = new Location(x,y);
-//
-//    }
-//    public void setSiteType(SiteType site) { this.siteType =site;}
+
+
 
     public String getAddress() {return address;}
 
-    public Shipping.ShippingZone getSiteZone() {return siteZone;}
+    public Transport.TransportZone getSiteZone() {return zone;}
 
     public String getPhoneNumber() {return phoneNumber;}
 
@@ -85,17 +79,16 @@ public class Site
         return Objects.hash(address);
     }
 
-    public boolean validSite()
-    { return !(address == null || address.trim().isEmpty() ||
-               contactName == null || contactName.trim().isEmpty() ||
-               phoneNumber == null || phoneNumber.trim().isEmpty());
-    }
-
     public String toString()//add site zone?
     {
-        return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber;
+        return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber + "Located in the area: " + zone;
 
     }
+//    public boolean validSite()
+//    { return !(address == null || address.trim().isEmpty() ||
+//            contactName == null || contactName.trim().isEmpty() ||
+//            phoneNumber == null || phoneNumber.trim().isEmpty());
+//    }
 
 //    public SiteType getSiteType() {return siteType;}
 

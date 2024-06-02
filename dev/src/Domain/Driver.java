@@ -11,12 +11,25 @@ public class Driver {
         setTypeOfLicense(typeOfLicense);
     }
 
-    public void setName(String name) {
+    public boolean setName(String name)
+    {
+        if (name.isBlank() || !name.chars().allMatch(Character::isLetter))
+        {
+            return false;
+        }
         this.name = name;
+        return true;
     }
 
-    public void setId(int id) {
+
+    public boolean setId(int id)
+    {
+        if (id < 0)
+        {
+            return false;
+        }
         this.id = id;
+        return true;
     }
 
     public void setTypeOfLicense(TypeOfLicense type) {

@@ -21,9 +21,9 @@ public class TruckController
         return instance;
     }
 
-    public boolean addTruck(int idTruck,double initialWeight, double maxWeight, String model)
+    public boolean addTruck(int idT,double initialWeight, double maxWeight, String model)
     {
-        Truck t = new Truck( idTruck,  initialWeight,  maxWeight,  model);
+        Truck t = new Truck( idT,  initialWeight,  maxWeight,  model);
         return addTruck(t);
     }
     public boolean addTruck(Truck t)
@@ -60,18 +60,15 @@ public class TruckController
     public void editTruckMaxWeightByIDTruck(int id, double w)
     {
         getTruckByID(id).setMaxWeight(w);
-        //return false;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
     }
 
     public void editTruckInitialWeightByIDTruck(int id, double w)
     {
         getTruckByID(id).setInitialWeight(w);
-        //return false;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
     }
     public void editTruckIDtByIDTruck(int oldID, int newID)
     {
         getTruckByID(oldID).setIdTruck(newID);
-        //return false;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
     }
 
     public Truck getTruckByLicenceType(TypeOfLicense type )
@@ -82,7 +79,7 @@ public class TruckController
                 return truck;
             }
         }
-        return null;//throw new IllegalArgumentException("Truck with license type " + type + " not found");
+        return null;
     }
 
     public Truck getTruckByID(int id )
@@ -92,7 +89,7 @@ public class TruckController
                 return truck;
             }
         }
-        return null;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
+        return null;
     }
     private List<Truck> getAllTrucksByLicence(TypeOfLicense licenceType)
     {

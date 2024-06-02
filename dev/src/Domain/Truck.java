@@ -4,38 +4,69 @@ public class Truck
     private double initialWeight;
     private double currWeight;
     private double maxWeight;
-    private int idTruck;
-    private String truckModel;
+    private int id;
+    private String model;
 
 
-    //private static int nextLicensePlate = 1;
-    //private TypeOfLicense typeOfLicense;
-
-
-    public Truck(int idTruck, double initialWeight, double maxWeight, String model )
+    public Truck(int id, double initialWeight, double maxWeight, String model )
     {
-        setIdTruck(idTruck);
+        setIdTruck(id);
         setInitialWeight(initialWeight);
         setMaxWeight(maxWeight);
         setTruckModel(model);
         setAddToCurrWeight(initialWeight);
-        //this.licensePlate = nextLicensePlate ++;
 
     }
 
-    public void setIdTruck(int idTruck) {this.idTruck = idTruck;}
-    public void setInitialWeight(double num) {this.initialWeight = num; }
-    public void setAddToCurrWeight(double num) {this.currWeight += num;}
+    public boolean setIdTruck(int id) {
+        if (id < 0)
+        {
+            return false;
+        }
+        this.id = id;
+        return true;
+    }
+    public boolean setInitialWeight(double num) {
+        if (id < 0)
+        {
+            return false;
+        }
+        this.initialWeight = num;
+        return true;
+    }
+    public boolean setAddToCurrWeight(double num) {
+        if (id < 0)
+        {
+            return false;
+        }
+        this.currWeight += num;
+        return true;
+    }
     public void setSubFromCurrWeight(double num) { this.currWeight -= num;}
-    public void setMaxWeight(double maxWeight) {this.maxWeight = maxWeight+initialWeight;}
-    public void setTruckModel(String truckModel) {this.truckModel = truckModel;}
+    public boolean setMaxWeight(double maxWeight) {
+        if (maxWeight < 0)
+        {
+            return false;
+        }
+        this.maxWeight = maxWeight+initialWeight;
+        return true;
+    }
+    public boolean setTruckModel(String truckModel)
+    {
+        if (model.isBlank() || !model.chars().allMatch(Character::isLetter))
+        {
+            return false;
+        }
+        this.model = truckModel;
+        return true;
+    }
 
 
-    public int getIdTruck() {return idTruck;}
+    public int getIdTruck() {return id;}
     public double getInitialWeight() {return initialWeight;}
     public double getCurrWeight() {return currWeight;}
     public double getMaxWeight() {return maxWeight;}
-    public String getTruckModel() {return truckModel;}
+    public String getTruckModel() {return model;}
 
     @Override
     public boolean equals(Object obj)
@@ -47,12 +78,12 @@ public class Truck
             return false;
         }
         Truck truck = (Truck) obj;
-        return idTruck == truck.idTruck;
+        return id == truck.id;
     }
     @Override
     public int hashCode()
     {
-        return Integer.hashCode(idTruck);
+        return Integer.hashCode(id);
     }
 
     public TypeOfLicense getTypeOfLicense()
@@ -61,7 +92,7 @@ public class Truck
     }
     public String toString()
     {
-        return "Truck ID: " + idTruck + ", Model: " + truckModel + ", Initial Weight: " + initialWeight +
+        return "Truck ID: " + id + ", Model: " + model + ", Initial Weight: " + initialWeight +
                 ", Max Weight: " + maxWeight + ", License required: " + getTypeOfLicense();
     }
 
