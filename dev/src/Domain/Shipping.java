@@ -336,10 +336,7 @@ public class Shipping {
         }
         //checkAndSetErrorStatus();
     }
-    public enum ShippingZone
-    {
-        North, South, East, West, Center;
-    }
+
     public enum ShippingStatus
     {
         TruckError, DriverError, ShipmentError, ItemError, SiteError, StandBy, InProgress, Done;
