@@ -12,7 +12,7 @@ public class DeliveryManager
     //key - site
     //value - hashtable ( key - item name, item amount)
     //This table is used to manage the inventory of items on each site.
-    // Each site contains a table that indicates the amount of items that are received or sent from it.
+    //Each site contains a table that indicates the amount of items.
     Hashtable<Site, Hashtable<String,Integer>> siteInventoryMap;
     Hashtable<String,Double> itemWeightMap;
     //A table that maps each item name to its weight.

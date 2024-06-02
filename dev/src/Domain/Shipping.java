@@ -228,7 +228,7 @@ public class Shipping {
         }
         else
         {
-            weight = truck.getCurrWeight();
+            weight = truck.getMaxWeight();
         }
 
         double maxShipmentWeight = getShipmentRouteWeight();
