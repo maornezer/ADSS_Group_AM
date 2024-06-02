@@ -10,7 +10,6 @@ public enum TypeOfLicense
         if(this == B)
         {
             return 2000;
-
         }
         else if (this== C)
         {

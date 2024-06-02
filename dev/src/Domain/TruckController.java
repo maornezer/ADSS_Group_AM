@@ -50,12 +50,11 @@ public class TruckController
                 return true;
             }
         }
-        return false;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
+        return false;
     }
     public void editTruckModelByIDTruck(int id, String model)
     {
         getTruckByID(id).setTruckModel(model);
-        //return false;//throw new IllegalArgumentException("Truck with this id " + id + " not found");
     }
 
     public void editTruckMaxWeightByIDTruck(int id, double w)
