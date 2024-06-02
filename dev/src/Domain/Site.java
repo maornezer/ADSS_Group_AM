@@ -7,17 +7,16 @@ public class Site
     private String address;
     private String phoneNumber;
     private String contactName;
-    private String siteName;
-    private SiteType siteType;
-    private Location location;
-    public Site(String siteName, String contactName, String phoneNumber, String address, int x , int y , SiteType siteType)
+
+//    private SiteType siteType;
+//    private Location location;
+    public Site( String address, String contactName, String phoneNumber)
     {
-        setSiteName(siteName);
+        setSiteAddress(address);
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
-        setLocation(x, y);
-        this.address = address;
-        this.siteType = siteType;
+//      setLocation(x, y);
+//      this.siteType = siteType;
     }
     public boolean setPhoneNumber(String phoneNumber)
     {
@@ -37,21 +36,21 @@ public class Site
         this.contactName = contactName;
         return true;
     }
-    public boolean setSiteName(String siteName)
+    public boolean setSiteAddress(String address)
     {
-        if (siteName.isBlank() || !siteName.chars().allMatch(Character::isLetter))
+        if (address.isBlank() || !address.chars().allMatch(Character::isLetter))
         {
             return false;
         }
-        this.siteName = siteName;
+        this.address = address;
         return true;
     }
-    public void setLocation(int x, int y)
-    {
-        this.location = new Location(x,y);
-
-    }
-    public void setSiteType(SiteType site) { this.siteType =site;}
+//    public void setLocation(int x, int y)
+//    {
+//        this.location = new Location(x,y);
+//
+//    }
+//    public void setSiteType(SiteType site) { this.siteType =site;}
 
     public String getAddress() {return address;}
 
@@ -59,11 +58,9 @@ public class Site
 
     public String getContactName() {return contactName;}
 
-    public String getSiteName() {return siteName;}
+//    public SiteType getSiteType() {return siteType;}
 
-    public SiteType getSiteType() {return siteType;}
-
-    public Location getLocation() {return location;}
+//    public Location getLocation() {return location;}
 
       @Override
     public boolean equals(Object obj) {
@@ -74,49 +71,55 @@ public class Site
             return false;
         }
         Site siteOther = (Site) obj;
-        return Objects.equals(siteName, siteOther.siteName) && Objects.equals(address, siteOther.address);
+        return Objects.equals(address, siteOther.address);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(siteName, address);
+        return Objects.hash(address);
     }
 
     public boolean validSite()
-    { return !(siteName == null || siteName.trim().isEmpty()||
-               address == null || address.trim().isEmpty() ||
+    { return !(address == null || address.trim().isEmpty() ||
                contactName == null || contactName.trim().isEmpty() ||
                phoneNumber == null || phoneNumber.trim().isEmpty());
     }
 
-    public enum SiteType
+    public String toString()
     {
-        Factory, Branch, Supplier;
-        public boolean isSupplier(){
-            return this == Supplier;
-        }
-        public boolean isBranch(){
-            return this == Branch;
-        }
-        public boolean isFactory(){
-            return this == Factory;
-        }
+        return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber;
+
     }
-    public class Location
-    {
-        private int x;
-        private int y;
-        public Location(int x, int y)
-        {
-            setX(x);
-            setY(y);
-        }
-        public void setX(int x) {this.x = x;}
 
-        public void setY(int y) {this.y = y;}
 
-        public int getX() {return x;}
-
-        public int getY() {return y;}
-        public double distance(Location l) {return Math.sqrt(Math.pow(x- l.x, 2) + Math.pow(y- l.y, 2));}
-    }
+//    public enum SiteType
+//    {
+//        Factory, Branch, Supplier;
+//        public boolean isSupplier(){
+//            return this == Supplier;
+//        }
+//        public boolean isBranch(){
+//            return this == Branch;
+//        }
+//        public boolean isFactory(){
+//            return this == Factory;
+//        }
+//    }
+//    public class Location
+//    {
+//        private int x;
+//        private int y;
+//        public Location(int x, int y)
+//        {
+//            setX(x);
+//            setY(y);
+//        }
+//        public void setX(int x) {this.x = x;}
+//
+//        public void setY(int y) {this.y = y;}
+//
+//        public int getX() {return x;}
+//
+//        public int getY() {return y;}
+//        public double distance(Location l) {return Math.sqrt(Math.pow(x- l.x, 2) + Math.pow(y- l.y, 2));}
+//    }
 }

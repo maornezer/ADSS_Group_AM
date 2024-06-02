@@ -4,85 +4,38 @@ public class Truck
     private double initialWeight;
     private double currWeight;
     private double maxWeight;
-    private int licensePlate;
-    private static int nextLicensePlate = 1;
-
-    private TypeOfLicense typeOfLicense;
+    private int idTruck;
     private String truckModel;
 
 
-    public Truck(String model, TypeOfLicense typeLicense, double initialWeight, double maxWeight )
+    //private static int nextLicensePlate = 1;
+    //private TypeOfLicense typeOfLicense;
+
+
+    public Truck(int idTruck, double initialWeight, double maxWeight, String model )
     {
-        setTruckModel(model);
-        setTypeOfLicense( typeLicense);
+        setIdTruck(idTruck);
         setInitialWeight(initialWeight);
         setMaxWeight(maxWeight);
+        setTruckModel(model);
         setAddToCurrWeight(initialWeight);
-        this.licensePlate = nextLicensePlate ++;
-
-    }
-    public boolean setInitialWeight(double num)
-    {
-        if (num >= 0)
-        {
-            this.initialWeight = num;
-
-        }
-        return num >= 0 ;
-    }
-    public boolean setAddToCurrWeight(double num)
-    {
-        if (num >= 0) {
-            this.currWeight += num;
-        }
-        return num >= 0 ;
-    }
-    public boolean setSubFromCurrWeight(double num)
-    {
-        if (num >= 0) {
-            this.currWeight -= num;
-        }
-        return num >= 0 ;
+        //this.licensePlate = nextLicensePlate ++;
 
     }
 
-    public boolean setMaxWeight(double maxWeight) {
-        if (maxWeight >= 0)
-        {
-            this.maxWeight = maxWeight+initialWeight;
-        }
-        return maxWeight >= 0 ;
+    public void setIdTruck(int idTruck) {this.idTruck = idTruck;}
+    public void setInitialWeight(double num) {this.initialWeight = num; }
+    public void setAddToCurrWeight(double num) {this.currWeight += num;}
+    public void setSubFromCurrWeight(double num) { this.currWeight -= num;}
+    public void setMaxWeight(double maxWeight) {this.maxWeight = maxWeight+initialWeight;}
+    public void setTruckModel(String truckModel) {this.truckModel = truckModel;}
 
-    }
 
-    public void setTypeOfLicense(TypeOfLicense typeOfLicense) {
-        this.typeOfLicense = typeOfLicense;
-    }
-
-    public void setTruckModel(String truckModel) {
-
-        this.truckModel = truckModel;
-    }
-
-    public double getInitialWeight() {
-        return initialWeight;
-    }
-    public double getCurrWeight() {
-        return currWeight;
-    }
-    public double getMaxWeight() {
-        return maxWeight;
-    }
-
-    public int getLicensePlate() {return licensePlate;}
-
-    public TypeOfLicense getTypeOfLicense() {
-        return typeOfLicense;
-    }
-
-    public String getTruckModel() {
-        return truckModel;
-    }
+    public int getIdTruck() {return idTruck;}
+    public double getInitialWeight() {return initialWeight;}
+    public double getCurrWeight() {return currWeight;}
+    public double getMaxWeight() {return maxWeight;}
+    public String getTruckModel() {return truckModel;}
 
     @Override
     public boolean equals(Object obj)
@@ -94,12 +47,22 @@ public class Truck
             return false;
         }
         Truck truck = (Truck) obj;
-        return licensePlate == truck.licensePlate;
+        return idTruck == truck.idTruck;
     }
     @Override
     public int hashCode()
     {
-        return Integer.hashCode(licensePlate);
+        return Integer.hashCode(idTruck);
     }
+
+    public TypeOfLicense getTypeOfLicense()
+    {
+        return TypeOfLicense.WhichTypeOfLicense(maxWeight);
+    }
+    public String toString()
+    {
+        return "Truck ID: " + idTruck + ", Model: " + truckModel + ", Initial Weight: " + initialWeight +
+                ", Max Weight: " + maxWeight + ", License required: " + getTypeOfLicense();
+    }
+
 }
-//("Licence Number:\t  %s,\nModel: \t %s, \nWeight:\t%3.3f\nMax Carry Weight: \t%3.3f \n ",licenceNumber,model,weight,maxCarryWeight);

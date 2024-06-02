@@ -1,18 +1,28 @@
 package Domain;
 
-public class Driver
-{
+public class Driver {
     private String name;
     private int id;
-    private  TypeOfLicense typeOfLicense;
+    private TypeOfLicense typeOfLicense;
 
-    public Driver(String name, int id, TypeOfLicense typeOfLicense)
-    {
-        //בדיקות קלט?
-        this.name = name;
-        this.id = id;
-        this.typeOfLicense = typeOfLicense;
+    public Driver(String name, int id, TypeOfLicense typeOfLicense) {
+        setName(name);
+        setId(id);
+        setTypeOfLicense(typeOfLicense);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTypeOfLicense(TypeOfLicense type) {
+        this.typeOfLicense = type;
+    }
+
 
     public String getName() {
         return name;
@@ -26,18 +36,13 @@ public class Driver
         return typeOfLicense;
     }
 
-    public void setTypeOfLicense(TypeOfLicense type) {
-        this.typeOfLicense = type;
-    }
-    public int getMaxWeightByLicence()
-    {
-        return typeOfLicense.LimitWeight();
-    }
-
-//    public String toString() {
-//        return "Name: " + name + "ID: " + id + "Type of licence: " + typeOfLicense;
+//    public int getMaxWeightByLicence() {
+//        return typeOfLicense.LimitWeight();
 //    }
-    //("Name: %s\t ID: %s\tLicenceType: %s\t ",
-    //getName(),getId(),getTypeOfLicense().toString());
 
+    public String toString()
+    {
+        return "Name: " + name + ", ID: " + id + ", License type: " + typeOfLicense;
     }
+
+}

@@ -4,9 +4,9 @@ public enum TypeOfLicense
 {
     B,C,D;
 
-    public int LimitWeight()
+    public double LimitWeight()
     {
-        int noLimit = Integer.MAX_VALUE;
+        double noLimit = Double.MAX_VALUE;
         if(this == B)
         {
             return 2000;
