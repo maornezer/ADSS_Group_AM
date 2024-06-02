@@ -258,12 +258,12 @@ public class Shipping {
             }
             return true;
         }
-        for (Site site: deliveryManager.getShipmentRoute()){
-            if(getShippingDate()!=null&&site.getSiteType()== Site.SiteType.Branch){
-                status = status.setSiteError();
-                return true;
-            }
-        }
+//        for (Site site: deliveryManager.getShipmentRoute()){
+//            if(getShippingDate()!=null&&site.getSiteType()== Site.SiteType.Branch){
+//                status = status.setSiteError();
+//                return true;
+//            }
+//        }
         return false;
     }
     public boolean isShippingInProgress()
@@ -304,10 +304,10 @@ public class Shipping {
                 return ShippingZone.South;
             case "north":
                 return ShippingZone.North;
-            case "east":
-                return ShippingZone.East;
-            case "west":
-                return ShippingZone.West;
+//            case "east":
+//                return ShippingZone.East;
+//            case "west":
+//                return ShippingZone.West;
             case "center":
                 return ShippingZone.Center;
             default:
@@ -322,12 +322,12 @@ public class Shipping {
             case "N":
                 zone = ShippingZone.North;
                 break;
-            case "E":
-                zone = ShippingZone.East;
-                break;
-            case "W":
-                zone = ShippingZone.West;
-                break;
+//            case "E":
+//                zone = ShippingZone.East;
+//                break;
+//            case "W":
+//                zone = ShippingZone.West;
+//                break;
             case "C":
                 zone = ShippingZone.Center;
                 break;

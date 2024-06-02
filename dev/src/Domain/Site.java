@@ -7,16 +7,28 @@ public class Site
     private String address;
     private String phoneNumber;
     private String contactName;
+    private Shipping.ShippingZone siteZone;
 
 //    private SiteType siteType;
 //    private Location location;
-    public Site( String address, String contactName, String phoneNumber)
+    public Site( String address,Shipping.ShippingZone zone ,String contactName, String phoneNumber)
     {
-        setSiteAddress(address);
+        setAddress(address);
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
+        setSiteZone(zone);
+
 //      setLocation(x, y);
 //      this.siteType = siteType;
+    }
+    public boolean setAddress(String address)
+    {
+        if (address.isBlank() || !address.chars().allMatch(Character::isLetter))
+        {
+            return false;
+        }
+        this.address = address;
+        return true;
     }
     public boolean setPhoneNumber(String phoneNumber)
     {
@@ -27,6 +39,7 @@ public class Site
         this.phoneNumber = phoneNumber;
         return true;
     }
+
     public boolean setContactName(String contactName)
     {
         if (contactName.isBlank() || !contactName.chars().allMatch(Character::isLetter))
@@ -36,16 +49,11 @@ public class Site
         this.contactName = contactName;
         return true;
     }
-    public boolean setSiteAddress(String address)
-    {
-        if (address.isBlank() || !address.chars().allMatch(Character::isLetter))
-        {
-            return false;
-        }
-        this.address = address;
-        return true;
+
+    public void setSiteZone(Shipping.ShippingZone siteZone) {
+        this.siteZone = siteZone;
     }
-//    public void setLocation(int x, int y)
+    //    public void setLocation(int x, int y)
 //    {
 //        this.location = new Location(x,y);
 //
@@ -54,13 +62,12 @@ public class Site
 
     public String getAddress() {return address;}
 
+    public Shipping.ShippingZone getSiteZone() {return siteZone;}
+
     public String getPhoneNumber() {return phoneNumber;}
 
     public String getContactName() {return contactName;}
 
-//    public SiteType getSiteType() {return siteType;}
-
-//    public Location getLocation() {return location;}
 
       @Override
     public boolean equals(Object obj) {
@@ -84,12 +91,15 @@ public class Site
                phoneNumber == null || phoneNumber.trim().isEmpty());
     }
 
-    public String toString()
+    public String toString()//add site zone?
     {
         return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber;
 
     }
 
+//    public SiteType getSiteType() {return siteType;}
+
+//    public Location getLocation() {return location;}
 
 //    public enum SiteType
 //    {

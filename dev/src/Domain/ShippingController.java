@@ -159,14 +159,14 @@ public class ShippingController {
             S.setDriver(driver);
         }
     }
-    public void addShippingSource(int shippingId, String source)
-    {
-        Site s_s = SiteController.getInstance().getSite(source);
-        if (getShipmentByID(shippingId) != null)
-        {
-            getShipmentByID(shippingId);
-        }
-    }
+//    public void addShippingSource(int shippingId, String source)
+//    {
+//        Site s_s = SiteController.getInstance().getSite(source);
+//        if (getShipmentByID(shippingId) != null)
+//        {
+//            getShipmentByID(shippingId);
+//        }
+//    }
 
     public boolean addShippingDestination()
     {
