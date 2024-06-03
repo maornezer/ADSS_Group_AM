@@ -13,6 +13,7 @@ public class WorkerLimit{
         this.branchId = branchId;
         this.Limitations = new int[7][2];
         DefaultNextWeek();
+
     }
 
     public int getId() {
