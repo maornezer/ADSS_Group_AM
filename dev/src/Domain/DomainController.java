@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class DomainController {
-    public DomainController(){
-    }
 
     public boolean verification(Dictionary<String, String> info){
         if(Objects.equals(info.get("branchNum"), "0")) {
@@ -27,6 +25,8 @@ public class DomainController {
 
     public Worker getWorker(Dictionary<String, String> info){
         List<Worker> workers = Chain.getWorkers(Integer.parseInt(info.get("branchNum")));
+        if(workers == null)
+            return null;
         for (Worker worker: workers){
             if (Integer.toString(worker.getId()).equals(info.get("id")))
                 return worker;
@@ -90,7 +90,7 @@ public class DomainController {
     }
 
     public boolean removeRole(Dictionary<String, String> data){
-        String roleToRemove = data.get("roleToRemove");
+        String roleToRemove = data.get("RoleToRemove");
         return getWorker(data).removeRole(roleToRemove);
     }
 
@@ -159,14 +159,28 @@ public class DomainController {
         return branch.ChangingDeadline(data);
     }
 
-    public void ShiftsAssignment(){
+    public boolean ShiftsAssignment(){
         List<Branch> branches = Chain.getBranches();
+        boolean flag = true;
         for (Branch branch : branches)
-            branch.makeASchedule();
+            flag = flag & branch.checkBranchDeadLine();
+        if(flag) {
+            for (Branch branch : branches)
+                branch.makeASchedule();
+        }
+        return flag;
     }
 
-    public void makeTomorrow(){
+    public String PrintShiftsAssignment(Dictionary<String, String> data){
+        int branchNum = Integer.parseInt(data.get("branchNum"));
+        Branch branch = Chain.getBranch(branchNum);
+        String res = branch.getScheduleNextWeek().toString();
+        return res;
+    }
+
+    public String makeTomorrow(){
         Chain.tomorrow();
+        return Chain.getToday().toString();
     }
 
 }

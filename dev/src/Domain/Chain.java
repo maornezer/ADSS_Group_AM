@@ -30,6 +30,12 @@ public class Chain {
         }
     }
 
+    public Chain(Dictionary<String,String> data){
+        this(Integer.parseInt(data.get("id")), data.get("firstName"),data.get("lastName"),
+                Integer.parseInt(data.get("bankDetails")),LocalDate.of(Integer.parseInt(data.get("year")),Integer.parseInt(data.get("month")),
+                        Integer.parseInt(data.get("day"))));
+    }
+
     public static HRManager getHrManager(){
         return hrManager;
     }
@@ -96,8 +102,10 @@ public class Chain {
         String address = data.get("address");
         Branch nBranch = new Branch(branchId, address);
         String day = data.get("deadLine");
-        DayOfWeek dayOfWeek = DayOfWeek.valueOf(day);
-        nBranch.setDeadLine(dayOfWeek);
+        if(day != null) {
+            DayOfWeek dayOfWeek = DayOfWeek.valueOf(day);
+            nBranch.setDeadLine(dayOfWeek);
+        }
         branches.add(nBranch);
         branchesLimits.put(branchId, nBranch.getSystemLimitations());
     }

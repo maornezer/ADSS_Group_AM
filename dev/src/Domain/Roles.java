@@ -29,7 +29,13 @@ public class Roles {
     }
 
     public boolean removeRole(String role){
-        return this.roles.remove(role);
+        for(int i = 0; i<roles.size(); i++){
+            if(roles.get(i).compareTo(role) == 0) {
+                roles.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean checkRole(String role){

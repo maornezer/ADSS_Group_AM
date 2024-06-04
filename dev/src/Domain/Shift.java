@@ -40,7 +40,7 @@ public class Shift {
         notAssignedRoles = new Hashtable<>();
         String[] temp= {"Cashier", "Cashier", "Storekeeper"};
         this.roles.addAll(List.of(temp));
-        notAssignedRoles.put("Manager",1);
+        notAssignedRoles.put("Shift Manager",1);
         for (String role : roles){
             if(notAssignedRoles.get(role) == null)
                 notAssignedRoles.put(role, 1);
@@ -118,7 +118,7 @@ public class Shift {
     }
 
     public void assigningWorker(Worker worker, String role){
-        if(role.equals("Manager"))
+        if(role.equals("Shift Manager"))
             this.shiftManager = worker;
         else
             this.workersInShift.put(worker, role);
@@ -140,7 +140,7 @@ public class Shift {
     }
 
     public String toString(){
-        String res = "Shift date: " + this.date + "\nShift start time: " + this.startTime +
+        String res = "\nShift date: " + this.date + "\nShift start time: " + this.startTime +
                 "\nShift end time: " + this.endTime + "\nShift manager: " + this.shiftManager +
                 "\nWorkers in shift: \n" + workersInShiftToString();
         return res;

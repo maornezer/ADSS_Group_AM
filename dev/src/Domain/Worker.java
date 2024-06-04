@@ -175,7 +175,7 @@ public class Worker {
     }
 
     public String toString(){
-        String res =  "Worker name: " +this.firstName + " " + this.lastName;
+        String res = this.firstName + " " + this.lastName;
         return res;
     }
 

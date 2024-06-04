@@ -59,13 +59,6 @@ public class Scheduling {
                 assignShift(day, notAssigned, 1);
             }
         }
-
-        System.out.println("kuku Schedule for next week: " );
-        for(Shift[] day: this.schedule){
-            for(Shift shift : day){
-                System.out.println(shift);
-            }
-        }
     }
 
     private List<Worker> assignShift(Shift[] day, List<Worker> workersList, int k) {
@@ -104,7 +97,11 @@ public class Scheduling {
     public String toString(){
         StringBuilder res = new StringBuilder();
         for(Shift[] day : schedule){
-            res.append(day[0].toString() + day[1].toString());
+            if(day[0] != null){
+                res.append(day[0].toString());
+            }
+            if(day[1] != null)
+                res.append(day[1].toString());
         }
         return res.toString();
     }

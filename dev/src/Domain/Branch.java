@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Branch {
     private int branchId;
-
     private String address;
     private List<Worker> workers;
     private SystemLimitations systemLimitations;
@@ -21,6 +20,9 @@ public class Branch {
 
     private List<Scheduling> branchHistory;
 
+    public Scheduling getScheduleNextWeek() {
+        return scheduleNextWeek;
+    }
 
     public Branch(int branchId, String address) {
         this.branchId = branchId;
