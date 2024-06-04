@@ -14,6 +14,10 @@ public class Transport
         private Driver driver;
         private Truck truck;
         private ArrayList<Order> myOrders;
+        private boolean changeDestination;
+        private boolean unloadingItems;
+        private boolean changeTruck;
+
 
         public Transport(Truck truck, Driver driver)
         {
@@ -23,6 +27,9 @@ public class Transport
                 setTime();
                 myOrders = new ArrayList<>();
                 id++;
+                changeDestination = false;
+                unloadingItems = false;
+                changeTruck = false;
         }
 
         public void setId(int id)
@@ -60,6 +67,16 @@ public class Transport
                         this.truck = truck;
                 }
         }
+
+
+
+        public void setChangeTruck() {changeTruck = true;}
+
+
+        public void setUnloadingItems() {unloadingItems = true;}
+
+
+        public void setChangeDestination() {changeDestination = true; }
 
         public int getId() {
                 return id;
@@ -119,10 +136,17 @@ public class Transport
                 for (Order order : myOrders) {
                         sb.append("  - ").append(order.getDestination().getAddress()).append("\n");
                 }
+                if(changeDestination){
+                        sb.append("A change was made in the transport. The solution was to change the destination ").append("\n");
+                }
+                if(unloadingItems){
+                        sb.append("A change was made in the transport. The solution was to unloading items ").append("\n");
+                }
+                if(changeTruck){
+                        sb.append("A change was made in the transport. The solution was to change the truck ").append("\n");
+                }
                 return sb.toString();
         }
 
 }
-
-
 

@@ -14,6 +14,7 @@ public class Order
     private Site destination;
     private LocalDate date;
     private LocalTime time;
+    private double orderWeight;
 
     public Order(LocalTime time, LocalDate date, Site destination, Site source)
     {
@@ -24,6 +25,7 @@ public class Order
         setDestination(destination);
         items = new ArrayList<>();
         id++;
+        setOrderWeight(0.0);
     }
 
     public void setId(int id) {
@@ -49,6 +51,14 @@ public class Order
     public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
+    public void setOrderWeight(double orderWeight) {
+        this.orderWeight = orderWeight;
+    }
+    public double getOrderWeight() {
+        return orderWeight;
+    }
+
+
 
     public int getId() {
         return id;
@@ -92,11 +102,24 @@ public class Order
         }
         return false;
     }
+    public Item getItemByID(int itemID)
+    {
+        for (Item item :items)
+        {
+            if(item.getId() == itemID)
+                return item;
+        }
+        return null;
+    }
     public boolean changeAmount(int id, int amount)
     {
         if (existItemID(id))
         {
             Item item = items.get(id);
+            if (item.getAmount() <= amount)
+            {
+                return removeItem(id);
+            }
             return item.setAmount(amount);
         }
         return false;
