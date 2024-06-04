@@ -7,7 +7,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import static java.time.DayOfWeek.SUNDAY;
+import static java.time.DayOfWeek.*;
 import static java.time.temporal.TemporalAdjusters.next;
 
 public class Chain {
@@ -85,6 +85,9 @@ public class Chain {
 
     public static void tomorrow(){
         today = today.plusDays(1);
+        if(today.getDayOfWeek().equals(SUNDAY)){
+            creatNextWeek();
+        }
     }
 
     public static SystemLimitations getSystemLimit(int branchId){
@@ -122,4 +125,35 @@ public class Chain {
         return null;
     }
 
+    public static DayOfWeek getDayOfWeek(int day){
+        switch (day){
+            case 1:
+                return SUNDAY;
+            case 2:
+                return MONDAY;
+            case 3:
+                return TUESDAY;
+            case 4:
+                return WEDNESDAY;
+            case 5:
+                return THURSDAY;
+            case 6:
+                return FRIDAY;
+            case 7:
+                return SATURDAY;
+            default:
+                return null;
+        }
+    }
+
+
+    public static void creatScheduleForConfig(){
+        for (Branch branch:branches) {
+            branch.creatNextWeek();
+        }
+    }
+
+
+
 }
+

@@ -134,12 +134,7 @@ public class Branch {
     }
 
     public void ChangeAmountTypeOfWorkersShift(Dictionary<String,String> data){
-        int day = Integer.parseInt(data.get("day"));
-        if(day == 1)
-            day = 7;
-        else
-            day = day -1;
-        DayOfWeek dayOfWeek = DayOfWeek.of(day);
+        DayOfWeek dayOfWeek = Chain.getDayOfWeek(Integer.parseInt(data.get("day")));
         int shift = Integer.parseInt(data.get("shift"));
         Shift temp = getShiftNextWeek(dayOfWeek , shift);
         if(temp == null)
@@ -148,12 +143,7 @@ public class Branch {
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data){
-        int day = Integer.parseInt(data.get("day"));
-        if(day == 1)
-            day = 7;
-        else
-            day = day -1;
-        DayOfWeek dayOfWeek = DayOfWeek.of(day);
+        DayOfWeek dayOfWeek =Chain.getDayOfWeek(Integer.parseInt(data.get("day")));
         int shift = Integer.parseInt(data.get("shift"));
         int start = Integer.parseInt(data.get("start"));
         int end = Integer.parseInt(data.get("end"));
@@ -190,20 +180,23 @@ public class Branch {
 
     public boolean ChangingDeadline(Dictionary<String, String> data){
         int day = Integer.parseInt(data.get("day"));
-        int shiftType = Integer.parseInt(data.get("shift"));
         DayOfWeek dayOfWeek = Chain.getNextWeekDates()[day -1].getDayOfWeek();
         this.systemLimitations.setDeadLine(dayOfWeek);
         return true;
     }
 
+    public boolean checkDeadLine(){
+        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchId);
+    }
     public void makeASchedule(){
         this.scheduleNextWeek.makeASchedule();
     }
 
-    public boolean checkBranchDeadLine(){
-        return Chain.getDayValue(Chain.getToday().getDayOfWeek()) > Chain.getDayValue(getDeadLine());
-    }
+//    public void creatSchedule(){this.scheduleNextWeek.creatSchedule();}
 
+    public boolean checkBranchDeadLine(){
+        return Chain.getDayValue(Chain.getToday().getDayOfWeek()) <= Chain.getDayValue(getDeadLine());
+    }
 
 
     public String toString(){
@@ -214,5 +207,9 @@ public class Branch {
             res.append("\n");
         }
         return res.toString();
+    }
+
+    public boolean checkBranchDeadLinePassed() {
+        return !checkBranchDeadLine();
     }
 }

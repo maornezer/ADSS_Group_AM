@@ -45,7 +45,6 @@ public class Scheduling {
     }
 
     public void makeASchedule() {
-        creatSchedule(); // array of shifts with branch limitations
         for(Shift[] day : schedule){
             for(int j = 0; j<2; j++) {
                 if(day[j] == null)

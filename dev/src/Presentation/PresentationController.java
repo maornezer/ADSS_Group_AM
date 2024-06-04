@@ -1,5 +1,6 @@
 package Presentation;
 
+import Domain.Branch;
 import Domain.Chain;
 import Domain.DomainController;
 
@@ -37,11 +38,11 @@ public class PresentationController {
     }
 
 
-    public boolean checkDeadLine(Dictionary<String, String> data) {
-        return this.domainController.checkDeadLine(data);
+    public boolean checkBranchDeadLine(Dictionary<String, String> data) {
+        return this.domainController.checkBranchDeadLine(data);
     }
 
-    public boolean checkBranchDeadLine(Dictionary<String, String> data) {
+    public boolean checkBranchDeadLinePassed(Dictionary<String, String> data) {
         return this.domainController.checkBranchDeadLine(data);
     }
 
@@ -123,5 +124,9 @@ public class PresentationController {
 
     public String PrintShiftsAssignment(Dictionary<String, String> data) {
         return this.domainController.PrintShiftsAssignment(data);
+    }
+
+    public void creatScheduleForConfig(){
+        this.domainController.creatScheduleForConfig();
     }
 }

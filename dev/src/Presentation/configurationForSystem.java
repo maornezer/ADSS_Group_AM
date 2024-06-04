@@ -1,5 +1,6 @@
 package Presentation;
 
+import Domain.Branch;
 import Domain.Chain;
 
 import java.io.File;
@@ -60,6 +61,8 @@ public class configurationForSystem {
 
                 }
             }
+
+            this.presentationController.creatScheduleForConfig();
 
 
             if (line.startsWith("Workers")) {

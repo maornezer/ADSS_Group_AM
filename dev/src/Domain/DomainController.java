@@ -51,15 +51,18 @@ public class DomainController {
         return worker.setLimitations(workerLimits);
     }
 
-    public boolean checkDeadLine(Dictionary<String, String> data){
-        return getWorker(data).checkDeadLine();
-    }
-
     public boolean checkBranchDeadLine(Dictionary<String, String> data){
         Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
         if(branch == null)
             return false;
         return branch.checkBranchDeadLine();
+    }
+
+    public boolean checkBranchDeadLinePassed(Dictionary<String, String> data){
+        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
+        if(branch == null)
+            return false;
+        return !checkBranchDeadLine(data);
     }
 
     public void ChangeAmountTypeOfWorkersShift(Dictionary<String, String> data){
@@ -127,7 +130,10 @@ public class DomainController {
     }
 
     public LocalDate fireEmployee(Dictionary<String, String> data){
-        return Chain.getBranch(Integer.parseInt(data.get("branchNum"))).removeWorker(getWorker(data));
+        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
+        if(branch == null)
+            return null;
+        return branch.removeWorker(getWorker(data));
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data) {
@@ -163,7 +169,7 @@ public class DomainController {
         List<Branch> branches = Chain.getBranches();
         boolean flag = true;
         for (Branch branch : branches)
-            flag = flag & branch.checkBranchDeadLine();
+            flag = flag & branch.checkBranchDeadLinePassed();
         if(flag) {
             for (Branch branch : branches)
                 branch.makeASchedule();
@@ -180,7 +186,11 @@ public class DomainController {
 
     public String makeTomorrow(){
         Chain.tomorrow();
-        return Chain.getToday().toString();
+        return Chain.getToday().toString() + " " + Chain.getToday().getDayOfWeek().toString();
+    }
+
+    public void creatScheduleForConfig(){
+        Chain.creatScheduleForConfig();
     }
 
 }
