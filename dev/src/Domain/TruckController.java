@@ -1,6 +1,7 @@
 package Domain;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 
 
@@ -9,7 +10,7 @@ public class TruckController
     private List <Truck> trucks;
     private static TruckController instance;
 
-    private TruckController()
+    public TruckController()
     {
         trucks = new ArrayList<>();
         instance=this;
@@ -26,6 +27,17 @@ public class TruckController
         Truck t = new Truck( idT,  initialWeight,  maxWeight,  model);
         return addTruck(t);
     }
+
+    public boolean addTruck(Dictionary<String, String> data)
+    {
+        int idT = Integer.parseInt(data.get("idT"));
+        double initialWeight = Double.parseDouble(data.get("initialWeight"));
+        double maxWeight = Double.parseDouble(data.get("maxWeight"));
+        String model = data.get("model");
+        Truck t = new Truck( idT,  initialWeight,  maxWeight,  model);
+        return addTruck(t);
+    }
+
     public boolean addTruck(Truck t)
     {
         if (isTruckExists(t))

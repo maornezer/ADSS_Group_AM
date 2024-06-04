@@ -9,7 +9,7 @@ public class TruckCLI
 {
     TruckController tr = TruckController.getInstance();
     public void run() {
-        String choose = "";
+        int choose = -1;
         boolean bool = false;
         String[] validInput = {"0", "1", "2", "3","4"};
         while (!bool)
@@ -20,20 +20,21 @@ public class TruckCLI
                 System.out.println("Click 3 to remove truck");
                 System.out.println("Click 4 to view all current trucks.");
                 System.out.println("Click 0 to Exit");
+                //choose =
                 switch (choose)
                 {
-                    case "0":
+                    case 0:
                         bool = true;
                         break;
-                    case "1":
+                    case 1:
                         addTruckCli();
                         break;
-                    case "2":
+                    case 2:
                         searchTruckCli();
                         break;
-                    case "3":
+                    case 3:
                         removeTruckCli();
-                    case "4":
+                    case 4:
                         viewAllTrucksCli();
                         break;
                 }

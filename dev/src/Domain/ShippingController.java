@@ -13,10 +13,10 @@ public class ShippingController {
     private static ShippingController instance;
     private TruckController tm;
 
-    private ShippingController() {
+    public ShippingController() {
         newShipments = new ArrayList<>();
         errorShipments = new ArrayList<>();
-        activeShipments = new ArrayList<>();
+        activeShipments = new ArrayList<>();//
         completedShipments = new ArrayList<>();
         tm = TruckController.getInstance();
         instance = this;

@@ -7,11 +7,11 @@ public class Site
     private String address;
     private String phoneNumber;
     private String contactName;
-    private Transport.TransportZone zone;
+    private String zone;
+    private boolean unloadingSite;
+    private boolean loadingSite;
 
-//    private SiteType siteType;
-//    private Location location;
-    public Site( String address,Transport.TransportZone zone ,String contactName, String phoneNumber)
+    public Site(String address,String zone ,String contactName, String phoneNumber)
     {
         setAddress(address);
         setContactName(contactName);
@@ -30,7 +30,7 @@ public class Site
     }
     public boolean setPhoneNumber(String phoneNumber)
     {
-        if (phoneNumber.isBlank() || !phoneNumber.chars().allMatch(Character::isDigit) || phoneNumber.length()!=10)
+        if (phoneNumber.isBlank() || !phoneNumber.chars().allMatch(Character::isDigit))
         {
             return false;
         }
@@ -48,15 +48,14 @@ public class Site
         return true;
     }
 
-    public void setSiteZone(Transport.TransportZone zone) {
+    public void setSiteZone(String zone) {
         this.zone = zone;
     }
 
 
-
     public String getAddress() {return address;}
 
-    public Transport.TransportZone getSiteZone() {return zone;}
+    public String getSiteZone() {return zone;}
 
     public String getPhoneNumber() {return phoneNumber;}
 
@@ -82,49 +81,8 @@ public class Site
     public String toString()//add site zone?
     {
         return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber + "Located in the area: " + zone;
-
     }
-//    public boolean validSite()
-//    { return !(address == null || address.trim().isEmpty() ||
-//            contactName == null || contactName.trim().isEmpty() ||
-//            phoneNumber == null || phoneNumber.trim().isEmpty());
-//    }
 
-//    public SiteType getSiteType() {return siteType;}
-
-//    public Location getLocation() {return location;}
-
-//    public enum SiteType
-//    {
-//        Factory, Branch, Supplier;
-//        public boolean isSupplier(){
-//            return this == Supplier;
-//        }
-//        public boolean isBranch(){
-//            return this == Branch;
-//        }
-//        public boolean isFactory(){
-//            return this == Factory;
-//        }
-//    }
-//    public class Location
-//    {
-//        private int x;
-//        private int y;
-//        public Location(int x, int y)
-//        {
-//            setX(x);
-//            setY(y);
-//        }
-//        public void setX(int x) {this.x = x;}
-//
-//        public void setY(int y) {this.y = y;}
-//
-//        public int getX() {return x;}
-//
-//        public int getY() {return y;}
-//        public double distance(Location l) {return Math.sqrt(Math.pow(x- l.x, 2) + Math.pow(y- l.y, 2));}
-//    }
 }
 //123 Presentation.Main St,John Doe,1234567890
 //456 Elm St, Jane Smith,8987654321

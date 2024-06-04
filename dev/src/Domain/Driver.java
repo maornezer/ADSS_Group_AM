@@ -3,9 +3,9 @@ package Domain;
 public class Driver {
     private String name;
     private int id;
-    private TypeOfLicense typeOfLicense;
+    private String typeOfLicense;
 
-    public Driver(String name, int id, TypeOfLicense typeOfLicense) {
+    public Driver(String name, int id, String typeOfLicense) {
         setName(name);
         setId(id);
         setTypeOfLicense(typeOfLicense);
@@ -32,7 +32,7 @@ public class Driver {
         return true;
     }
 
-    public void setTypeOfLicense(TypeOfLicense type) {
+    public void setTypeOfLicense(String type) {
         this.typeOfLicense = type;
     }
 
@@ -45,13 +45,9 @@ public class Driver {
         return id;
     }
 
-    public TypeOfLicense getTypeOfLicense() {
+    public String getTypeOfLicense() {
         return typeOfLicense;
     }
-
-//    public int getMaxWeightByLicence() {
-//        return typeOfLicense.LimitWeight();
-//    }
 
     public String toString()
     {
