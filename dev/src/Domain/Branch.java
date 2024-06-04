@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Branch {
     private int branchId;
+
     private String address;
     private List<Worker> workers;
     private SystemLimitations systemLimitations;
