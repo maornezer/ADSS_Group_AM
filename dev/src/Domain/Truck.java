@@ -42,7 +42,11 @@ public class Truck
         this.currWeight += num;
         return true;
     }
-    public void setSubFromCurrWeight(double num) { this.currWeight -= num;}
+    public void setSubFromCurrWeight(double num)
+    {
+        this.currWeight -= num;
+    }
+
     public boolean setMaxWeight(double maxWeight) {
         if (maxWeight < 0)
         {
@@ -86,10 +90,24 @@ public class Truck
         return Integer.hashCode(id);
     }
 
-    public TypeOfLicense getTypeOfLicense()
+    public String getTypeOfLicense()
     {
-        return TypeOfLicense.WhichTypeOfLicense(maxWeight);
+        return WhichTypeOfLicense(maxWeight);
     }
+
+    public String WhichTypeOfLicense(double w)
+    {
+        if (w <= 2000.0 && w >= 0.0 )
+        {
+            return "B";
+        }
+        else if (w > 2000.0 && w < 8000.0)
+        {
+            return "C";
+        }
+        else return "D";
+    }
+
     public String toString()
     {
         return "Truck ID: " + id + ", Model: " + model + ", Initial Weight: " + initialWeight +

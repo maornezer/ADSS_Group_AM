@@ -6,7 +6,7 @@ public class Item
      private String name;
      private int amount;
 
-     public Item(int id, int amount, String name) {
+     public Item(int id, String name, int amount) {
           this.id = id;
           this.amount = amount;
           this.name = name;
@@ -24,8 +24,9 @@ public class Item
           return amount;
      }
 
-     public void setAmount(int amount) {
+     public boolean setAmount(int amount) {
           this.amount = amount;
+          return false;
      }
 
      public String getName() {

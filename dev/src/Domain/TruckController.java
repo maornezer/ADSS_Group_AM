@@ -52,49 +52,19 @@ public class TruckController
         return trucks.contains(truck);
     }
 
-    public boolean removeTruckByIDTruck(int id)
-    {
-        for (int i = 0; i<trucks.size(); i++)
-        {
-            if(trucks.get(i).getIdTruck() == id)
-            {
-                trucks.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-    public void editTruckModelByIDTruck(int id, String model)
-    {
-        getTruckByID(id).setTruckModel(model);
-    }
 
-    public void editTruckMaxWeightByIDTruck(int id, double w)
-    {
-        getTruckByID(id).setMaxWeight(w);
-    }
+//    public Truck getTruckByLicenceType(TypeOfLicense type )
+//    {
+//        for (Truck truck : trucks)
+//        {
+//            if (truck.getTypeOfLicense().equals(type)) {
+//                return truck;
+//            }
+//        }
+//        return null;
+//    }
 
-    public void editTruckInitialWeightByIDTruck(int id, double w)
-    {
-        getTruckByID(id).setInitialWeight(w);
-    }
-    public void editTruckIDtByIDTruck(int oldID, int newID)
-    {
-        getTruckByID(oldID).setIdTruck(newID);
-    }
-
-    public Truck getTruckByLicenceType(TypeOfLicense type )
-    {
-        for (Truck truck : trucks)
-        {
-            if (truck.getTypeOfLicense().equals(type)) {
-                return truck;
-            }
-        }
-        return null;
-    }
-
-    public Truck getTruckByID(int id )
+    public Truck getTruckByID(int id)
     {
         for (Truck truck : trucks) {
             if (truck.getIdTruck() == id) {
@@ -103,19 +73,8 @@ public class TruckController
         }
         return null;
     }
-    private List<Truck> getAllTrucksByLicence(TypeOfLicense licenceType)
-    {
-        List<Truck> trucksByLicence = new ArrayList<>();
-        for (Truck truck : trucks) {
-            if (truck.getTypeOfLicense().equals(licenceType)) {
-                trucksByLicence.add(truck);
-            }
-        }
-        return trucksByLicence;
-    }
-
-
     public int getAmountOfTrucks(){return trucks.size();}
+
 
     public String toString()
     {

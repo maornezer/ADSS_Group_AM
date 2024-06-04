@@ -44,7 +44,20 @@ public class SiteController {
         ArrayList<Site> IsIn = sites.get(site.getSiteZone());
         return IsIn.contains(site);
     }
-
+    public Site getSiteByAddress(String address) {
+        for (String zone : sites.keySet())
+        {
+            ArrayList<Site> sitesInZone = sites.get(zone);
+            if (sitesInZone != null) {
+                for (Site site : sitesInZone) {
+                    if (site.getAddress().equals(address)) {
+                        return site;
+                    }
+                }
+            }
+        }
+        return null; // אם האתר לא נמצא, נחזיר null
+    }
     public String toString()
     {
         StringBuilder result = new StringBuilder();

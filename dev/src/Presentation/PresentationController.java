@@ -1,8 +1,6 @@
 package Presentation;
 
-import Domain.ShippingController;
 import Domain.SiteController;
-import Domain.Truck;
 import Domain.TruckController;
 
 import java.util.Dictionary;
