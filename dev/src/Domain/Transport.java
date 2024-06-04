@@ -7,20 +7,21 @@ import java.util.ArrayList;
 
 public class Transport
 {
-        private static int id=1;
+        private static int id = 1;
         private LocalDate date;
         private LocalTime time;
         private String zone;
         private Driver driver;
         private Truck truck;
-        private ArrayList<Order> orders;
+        private ArrayList<Order> myOrders;
 
         public Transport(Truck truck, Driver driver)
         {
                 setId(id);
                 setTruck(truck);
                 setDriver(driver);
-                orders = new ArrayList<>();
+                setTime();
+                myOrders = new ArrayList<>();
                 id++;
         }
 
@@ -29,14 +30,9 @@ public class Transport
                 Transport.id = id;
         }
 
-        public boolean setDate(LocalDate date)
+        public void setDate(LocalDate date)
         {
-                if(!orders.isEmpty())
-                {
-                        this.date = orders.getFirst().getDate();
-                        return true;
-                }
-                return false;
+                this.date = date;
         }
 
         public void setTime()
@@ -44,14 +40,9 @@ public class Transport
                 this.time = LocalTime.of(8, 0);;
         }
 
-        public boolean setZone()
+        public void setZone(String zone)
         {
-                if(!orders.isEmpty())
-                {
-                        this.zone = orders.getFirst().getDestination().getSiteZone();
-                        return true;
-                }
-                return false;
+                this.zone = zone;
         }
 
         public void setDriver(Driver driver)
@@ -92,7 +83,34 @@ public class Transport
         public Truck getTruck() {
                 return truck;
         }
+        public boolean addOrderToMYTransport(Order order)
+        {
+                if(myOrders.isEmpty())
+                {
+                        setDate(order.getDate());
+                        setZone(order.getSource().getSiteZone());
+                }
+               return myOrders.add(order);
 
+        }
+        public Order getOrderByID(int orderID)
+        {
+                for (Order order : myOrders)
+                {
+                        if ( order.getId()== orderID)
+                                return order;
+                }
+                return null;
+        }
+
+        public ArrayList<Order> getMyOrders() {
+                return myOrders;
+        }
+
+        public String toString()
+        {
+                return "to do";
+        }
 
 }
 
