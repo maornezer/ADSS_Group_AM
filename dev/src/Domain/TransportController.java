@@ -8,7 +8,6 @@ public class TransportController
 {
     private ArrayList<Transport> transports;
     private static TransportController instance;
-    //private TruckController tr;
     private DomainController domain;
 
     private TransportController()
@@ -127,6 +126,13 @@ public class TransportController
             }
         }
         return true;
+    }
+    public String generateTransportReport() {
+        StringBuilder report = new StringBuilder();
+        for (Transport transport : transports) {
+            report.append(transport.toString()).append("\n");
+        }
+        return report.toString();
     }
 
 

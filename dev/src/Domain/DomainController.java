@@ -80,9 +80,23 @@ public class DomainController
 
     public String toStringDrivers()
     {
-        return "to do";
+        StringBuilder sb = new StringBuilder();
+        for (Driver driver : drivers) {
+            sb.append(driver.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    public String printDriversByLicenseType(String licenseType) {
+        StringBuilder sb = new StringBuilder();
+        for (Driver driver : drivers) {
+            if (driver.getTypeOfLicense().equalsIgnoreCase(licenseType)) {
+                sb.append(driver.toString()).append("\n");
+            }
+        }
+        return sb.toString();
     }
     ///// Order /////
+
     public boolean addOrder(LocalTime time, LocalDate date, Site destination, Site source)
     {
         Order order = new Order(time,date,destination,source);
@@ -114,6 +128,13 @@ public class DomainController
             return true;
         }
         return false;
+    }
+    public String generateOrderReport(int orderId) {
+        Order order = getOrderByID(orderId);
+        if (order != null) {
+            return order.toString();
+        }
+        return "Order with ID " + orderId + " not found.";
     }
 
     //// Site ////
@@ -268,5 +289,14 @@ public class DomainController
         }
 
         return "Truck with ID " + id + " not found.";
+    }
+    public String printDriversByLicenseType(Truck truck) {
+        StringBuilder sb = new StringBuilder();
+        for (Driver driver : drivers) {
+            if (driver.getTypeOfLicense().equalsIgnoreCase(truck.getTypeOfLicense())) {
+                sb.append(driver.toString()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

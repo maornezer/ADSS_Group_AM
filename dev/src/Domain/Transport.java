@@ -107,9 +107,19 @@ public class Transport
                 return myOrders;
         }
 
-        public String toString()
-        {
-                return "to do";
+        public String toString() {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Transport ID: ").append(id).append("\n");
+                sb.append("Date: ").append(date).append("\n");
+                sb.append("Departure Time: ").append(time).append("\n");
+                sb.append("Truck Number: ").append(truck.getIdTruck()).append("\n");
+                sb.append("Driver Name: ").append(driver.getName()).append("\n");
+                sb.append("Source: ").append(zone).append("\n");
+                sb.append("Destinations:").append("\n");
+                for (Order order : myOrders) {
+                        sb.append("  - ").append(order.getDestination().getAddress()).append("\n");
+                }
+                return sb.toString();
         }
 
 }
