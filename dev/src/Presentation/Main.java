@@ -77,6 +77,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private static void printData(List<String> sites, List<String> drivers, List<String> trucks, List<String> orders, List<String> items) {
@@ -97,10 +98,11 @@ public class Main {
             System.out.println(list.get(i));
         }
     }
-//    public void printMenu()
-//    {
-//        Menu menu = new Menu();
-//    }
+    public void printMenu()
+    {
+        Menu menu = new Menu();
+        menu.printMenu();
+    }
 
     public static void main(String[] args) {
         String csvFilePath = "C:\\Users\\USER\\Desktop\\Ben Gurion\\second year\\semester D\\analysis and planning\\PROJECT\\dev\\src\\data.csv";
@@ -114,7 +116,7 @@ public class Main {
         loadData(csvFilePath, sites, drivers, trucks, orders, items);
         printData(sites, drivers, trucks, orders, items);
 
-//        Main main = new Main();
-//        main.printMenu();
+        Main main = new Main();
+        main.printMenu();
     }
 }
