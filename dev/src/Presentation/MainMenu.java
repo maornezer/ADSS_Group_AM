@@ -105,7 +105,7 @@ public class MainMenu {
                         "3. Actions on a branch\n" +
                         "4. creat next week Shifts assignment\n" +
                         "5. Move on to tomorrow\n"+
-                        "6. Back to the main menu\n" +
+                        "6. Back to the main menu\n"+
                         "Enter your choice here:");
                 choice = this.scanner.nextInt();
             } while (choice > 6 || choice < 1);

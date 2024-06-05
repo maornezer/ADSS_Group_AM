@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 //      build chain from configuration file
         configurationForSystem temp = new configurationForSystem();
-        temp.readCSV();
         MainMenu mainMenu = new MainMenu();
         mainMenu.printMain();
 
