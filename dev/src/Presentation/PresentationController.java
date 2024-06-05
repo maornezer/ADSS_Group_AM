@@ -15,6 +15,18 @@ public class PresentationController {
         domainController = new DomainController();
     }
 
+    public void creatChain(Dictionary<String, String> data){
+        if(data == null)
+            MainMenu.creatChain();
+        else{
+            this.domainController.createChain( data);
+        }
+    }
+
+    public void addBranch(Dictionary<String, String> data){
+        this.domainController.addBranch(data);
+    }
+
     public boolean verification(Dictionary<String, String> data) {
         return domainController.verification(data);
     }

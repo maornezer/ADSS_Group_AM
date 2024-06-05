@@ -1,5 +1,9 @@
 package Presentation;
 
+import Domain.Chain;
+
+import java.io.FileNotFoundException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -7,29 +11,90 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private Scanner scanner;
-    private PresentationController presentationController;
+    private static Scanner scanner;
+    private static PresentationController presentationController;
+
+    public MainMenu() throws FileNotFoundException {
+        scanner = new Scanner(System.in);
+        presentationController = new PresentationController();
+        System.out.println("Please choose:\n" +
+                "1. Initialize system with information\n" +
+                "2. Start without information");
+        int choice = scanner.nextInt();
+        if(choice == 2)
+            creatChain();
+        else {
+            configurationForSystem temp = new configurationForSystem();
+            temp.readCSV();
+        }
+    }
+
+    public static void creatChain(){
+        Dictionary<String,String> data = new Hashtable<>();
+        System.out.println("Welcome to Super-Le!\n" +
+                "please enter HR Manager's info:\n" +
+                "ID:");
+        int id = scanner.nextInt();
+        data.put("id", Integer.toString(id));
+        System.out.println("First name:");
+        scanner.skip("\\R?");
+        String firstName = scanner.nextLine();
+        data.put("firstName", firstName);
+        System.out.println("Last name:");
+        scanner.skip("\\R?");
+        String lastName = scanner.nextLine();
+        data.put("lastName", firstName);
+        System.out.println("Bank account number:");
+        int bankDetails = scanner.nextInt();
+        data.put("bankDetails", Integer.toString(bankDetails));
+        data.put("year", Integer.toString(LocalDate.now().getYear()));
+        data.put("month",  Integer.toString(LocalDate.now().getMonth().getValue()));
+        data.put("day",  Integer.toString(LocalDate.now().getDayOfMonth()));
+        System.out.println("thank you! Super-Le will be with you shortly");
+        presentationController.creatChain(data);
+    }
+
+    public static void createNewBranch(){
+        Dictionary<String,String> data = new Hashtable<>();
+        System.out.println("please enter the branch number:");
+        int branchNum = scanner.nextInt();
+        data.put("branchNum", Integer.toString(branchNum));
+        System.out.println("address:");
+        scanner.skip("\\R?");
+        String address = scanner.nextLine();
+        data.put("firstName", address);
+        System.out.println("Enter day to make the DeadLine at:\n" +
+                "1. Sunday\n" +
+                "2. Monday\n" +
+                "3. Tuesday\n" +
+                "4. Wednesday\n" +
+                "5. Thursday\n" +
+                "6. Friday\n" +
+                "7. Saturday");
+        int day = scanner.nextInt();
+        data.put("deadLine", Chain.getDayOfWeekString(day));
+        presentationController.addBranch(data);
+    }
+
+
 
     public void makeTomorrow(){
-        String date = this.presentationController.makeTomorrow();
+        String date = presentationController.makeTomorrow();
         System.out.println("today's date is - " + date);
     }
 
-    public MainMenu() {
-        this.scanner = new Scanner(System.in);
-        this.presentationController = new PresentationController();
-    }
+
 
     public void printMain(){
         Dictionary<String, String> data = new Hashtable<>();
         do {
             System.out.println("Enter branch Number: ");
-            int branchNum = this.scanner.nextInt();
+            int branchNum = scanner.nextInt();
             System.out.println("Enter worker ID: ");
-            int id = this.scanner.nextInt();
+            int id = scanner.nextInt();
             data.put("branchNum", Integer.toString(branchNum));
             data.put("id", Integer.toString(id));
-        } while (!this.presentationController.verification(data));
+        } while (!presentationController.verification(data));
         if(data.get("branchNum").equals("0")){
             HRMenu();
         }
@@ -49,13 +114,13 @@ public class MainMenu {
                         3. Print Shifts assignment
                         4. Back to the main menu
                         Your choice is:""");
-                choice = this.scanner.nextInt();
+                choice = scanner.nextInt();
             } while (choice > 4 || choice < 1);
             if (choice == 1) {
                 WorkerLimitSubmissions(data);
             }
             if (choice == 2) {
-                LocalDate temp = this.presentationController.WorkerResignationNotice(data);
+                LocalDate temp = presentationController.WorkerResignationNotice(data);
                 System.out.println("Resignation notice successfully received," +
                         " job termination date set for " + temp.toString());
             }
@@ -67,22 +132,22 @@ public class MainMenu {
     }
 
     public void WorkerLimitSubmissions(Dictionary<String, String> data){
-        if (this.presentationController.checkBranchDeadLine(data)) {
-            int[][] workerLimit = this.presentationController.getBranchLimitation(Integer.parseInt(data.get("branchNum")));
-            LocalDate[] datesForNextWeek = this.presentationController.getDatesForNextWeek();
+        if (presentationController.checkBranchDeadLine(data)) {
+            int[][] workerLimit = presentationController.getBranchLimitation(Integer.parseInt(data.get("branchNum")));
+            LocalDate[] datesForNextWeek = presentationController.getDatesForNextWeek();
             for (int i = 0; i < 7; i++) {
                 if (workerLimit[i][0] == 1) {
                     System.out.println("can you work morning " + datesForNextWeek[i].toString() + "?\n" +
                             "Enter 1 for confirmation, otherwise 0:");
-                    workerLimit[i][0] = this.scanner.nextInt();
+                    workerLimit[i][0] = scanner.nextInt();
                 }
                 if (workerLimit[i][1] == 1) {
                     System.out.println("can you work evening " + datesForNextWeek[i].toString() + "?\n" +
                             "Enter 1 for confirmation, otherwise 0:");
-                    workerLimit[i][1] = this.scanner.nextInt();
+                    workerLimit[i][1] = scanner.nextInt();
                 }
             }
-            if (this.presentationController.submitWorkerLimits(data, workerLimit))
+            if (presentationController.submitWorkerLimits(data, workerLimit))
                 System.out.println("Submitted successfully");
         }
         else {
@@ -91,7 +156,7 @@ public class MainMenu {
     }
 
     public void PrintShiftsAssignmentWorker(Dictionary<String, String> data){
-        String res = this.presentationController.PrintShiftsAssignment(data);
+        String res = presentationController.PrintShiftsAssignment(data);
         System.out.println(res);
     }
 
@@ -104,11 +169,12 @@ public class MainMenu {
                         "2. Hiring/firing an employee\n" +
                         "3. Actions on a branch\n" +
                         "4. creat next week Shifts assignment\n" +
-                        "5. Move on to tomorrow\n"+
-                        "6. Back to the main menu\n"+
+                        "5. Move on to tomorrow\n" +
+                        "6. Create new Branch\n"+
+                        "7. Back to the main menu\n"+
                         "Enter your choice here:");
-                choice = this.scanner.nextInt();
-            } while (choice > 6 || choice < 1);
+                choice = scanner.nextInt();
+            } while (choice > 7 || choice < 1);
             switch (choice) {
                 case 1:
                     changeWorkerDetails();
@@ -125,10 +191,12 @@ public class MainMenu {
                 case 5:
                     makeTomorrow();
                     break;
+                case 6:
+                    createNewBranch();
                 default:
                     break;
             }
-        }while (choice != 6);
+        }while (choice != 7);
         printMain();
     }
 
@@ -136,12 +204,12 @@ public class MainMenu {
         Dictionary<String, String> data = new Hashtable<>();
         do {
             System.out.println("Enter branch Number of worker: ");
-            int branchNum = this.scanner.nextInt();
+            int branchNum = scanner.nextInt();
             System.out.println("Enter worker ID: ");
-            int id = this.scanner.nextInt();
+            int id = scanner.nextInt();
             data.put("branchNum", Integer.toString(branchNum));
             data.put("id", Integer.toString(id));
-        } while (!this.presentationController.verification(data));
+        } while (!presentationController.verification(data));
         System.out.println("What changes would you like to do:\n" +
                 "1. Change first name\n" +
                 "2. Change last name\n" +
@@ -155,7 +223,7 @@ public class MainMenu {
                 "10. Changing end of employment\n" +
                 "11. Back to the main menu\n"+
                 "Enter your choice here:");
-        int choice = this.scanner.nextInt();
+        int choice = scanner.nextInt();
         switch (choice){
             case 1:
                 changeFirstName(data);
@@ -198,7 +266,7 @@ public class MainMenu {
                 "2. fire an employee\n" +
                 "3. Back to the main menu\n" +
                 "Enter your choice here:");
-        int choice = this.scanner.nextInt();
+        int choice = scanner.nextInt();
         switch (choice) {
             case 1:
                 hireWorker();
@@ -221,7 +289,7 @@ public class MainMenu {
                 "6. Print shifts assignment for this week\n" +
                 "7. Back to the main menu\n" +
                 "Enter your choice here:");
-        int choice = this.scanner.nextInt();
+        int choice = scanner.nextInt();
         switch (choice) {
             case 1:
                 ViewShiftHistory();
@@ -248,7 +316,7 @@ public class MainMenu {
     }
 
     public void ShiftsAssignment(){
-        if(this.presentationController.ShiftsAssignment())
+        if(presentationController.ShiftsAssignment())
             System.out.println("Shifts assignment was made successfully");
         else{
             System.out.println("The deadline hasn't passed yet");
@@ -260,27 +328,27 @@ public class MainMenu {
 
     public void changeFirstName(Dictionary<String, String> data){
         System.out.println("Enter new first name:");
-        this.scanner.skip("\\R?");
-        String newName = this.scanner.nextLine();
+        scanner.skip("\\R?");
+        String newName = scanner.nextLine();
         data.put("newName", newName);
-        this.presentationController.changeFirstName(data);
+        presentationController.changeFirstName(data);
         System.out.println("First name changed successfully");
     }
 
     public void changeLastName(Dictionary<String, String> data){
         System.out.println("Enter new last name:");
-        this.scanner.skip("\\R?");
-        String newName = this.scanner.nextLine();
+        scanner.skip("\\R?");
+        String newName = scanner.nextLine();
         data.put("newName", newName);
-        this.presentationController.changeLastName(data);
+        presentationController.changeLastName(data);
         System.out.println("Last name changed successfully");
     }
 
     public void changeBankDetails(Dictionary<String, String> data){
-        System.out.println("Enter new bank details : ");
-        int newBank = this.scanner.nextInt();
+        System.out.println("Enter new bank account number:");
+        int newBank = scanner.nextInt();
         data.put("newBank", Integer.toString(newBank));
-        this.presentationController.changeBankDetails(data);
+        presentationController.changeBankDetails(data);
         System.out.println("Bank details changed successfully");
     }
 
@@ -291,10 +359,10 @@ public class MainMenu {
                 "2. Cashier\n" +
                 "3. Storekeeper\n" +
                 "4. Another role");
-        int choice = this.scanner.nextInt();
+        int choice = scanner.nextInt();
         if(choice == 4) {
-            this.scanner.skip("\\R?");
-            newRole = this.scanner.nextLine();
+            scanner.skip("\\R?");
+            newRole = scanner.nextLine();
         }
         else{
             if(choice == 1)
@@ -305,16 +373,16 @@ public class MainMenu {
                 newRole = "Storekeeper";
         }
         data.put("newRole", newRole);
-        this.presentationController.addRole(data);
+        presentationController.addRole(data);
         System.out.println("role added successfully");
     }
 
     public void removeRole(Dictionary<String, String> data){
         System.out.println("Enter role to remove : ");
-        this.scanner.skip("\\R?");
-        String RoleToRemove = this.scanner.nextLine();
+        scanner.skip("\\R?");
+        String RoleToRemove = scanner.nextLine();
         data.put("RoleToRemove", RoleToRemove);
-        boolean flag = this.presentationController.removeRole(data);
+        boolean flag = presentationController.removeRole(data);
         if(flag){
             System.out.println("role removed successfully");
         }
@@ -325,25 +393,25 @@ public class MainMenu {
 
     public void changeHourRate(Dictionary<String, String> data){
         System.out.println("Enter updated hourly wage : ");
-        int newSalary = this.scanner.nextInt();
+        int newSalary = scanner.nextInt();
         data.put("newSalary", Integer.toString(newSalary));
-        this.presentationController.changeHourRate(data);
+        presentationController.changeHourRate(data);
         System.out.println("Hourly wage changed successfully");
     }
 
     public void changeVacationDays(Dictionary<String, String> data){
         System.out.println("Enter new amount of vacation days: ");
-        int newAmount = this.scanner.nextInt();
+        int newAmount = scanner.nextInt();
         data.put("newAmount", Integer.toString(newAmount));
-        this.presentationController.changeVacationDays(data);
+        presentationController.changeVacationDays(data);
         System.out.println("Vacation days changed successfully");
     }
 
     public void reduceVacationDays(Dictionary<String, String> data) {
         System.out.println("Enter amount of used vacation days : ");
-        int newAmount = this.scanner.nextInt();
+        int newAmount = scanner.nextInt();
         data.put("newAmount", Integer.toString(newAmount));
-        this.presentationController.reduceVacationDays(data);
+        presentationController.reduceVacationDays(data);
         System.out.println("Vacation days changed successfully");
     }
 
@@ -353,24 +421,24 @@ public class MainMenu {
                 2 - Part Time Job\s
                 Enter wanted job type :
                 """);
-        int newType = this.scanner.nextInt();
+        int newType = scanner.nextInt();
         data.put("newType", Integer.toString(newType));
-        this.presentationController.changeJobType(data);
+        presentationController.changeJobType(data);
         System.out.println("Job type changed successfully");
     }
 
     public void changingEndOfEmployment(Dictionary<String, String> data) {
         System.out.println("Enter the new date for end of employment:\n" +
                 "Enter the year: ");
-        int year = this.scanner.nextInt();
+        int year = scanner.nextInt();
         System.out.println("Enter the month: ");
-        int month = this.scanner.nextInt();
+        int month = scanner.nextInt();
         System.out.println("Enter the day: ");
-        int day = this.scanner.nextInt();
+        int day = scanner.nextInt();
         data.put("year", Integer.toString(year));
         data.put("month", Integer.toString(month));
         data.put("day", Integer.toString(day));
-        LocalDate date = this.presentationController.changingEndOfEmployment(data);
+        LocalDate date = presentationController.changingEndOfEmployment(data);
         System.out.println("End of employment changed successfully to: " + date);
     }
 
@@ -379,12 +447,12 @@ public class MainMenu {
     public void fireEmployee(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number of worker to fire: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         System.out.println("Enter worker ID to fire: ");
-        int id = this.scanner.nextInt();
+        int id = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
         data.put("id", Integer.toString(id));
-        LocalDate date = this.presentationController.fireEmployee(data);
+        LocalDate date = presentationController.fireEmployee(data);
         if(date != null)
             System.out.println("The employee was successfully fired - end of employment is set to " + date);
         else{
@@ -395,35 +463,35 @@ public class MainMenu {
     public void hireWorker(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number of new worker: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         System.out.println("Enter worker ID: ");
-        int id = this.scanner.nextInt();
+        int id = scanner.nextInt();
         System.out.println("Enter worker first name:");
-        this.scanner.skip("\\R?");
-        String firstName = this.scanner.nextLine();
+        scanner.skip("\\R?");
+        String firstName = scanner.nextLine();
         System.out.println("Enter worker last name:");
-        this.scanner.skip("\\R?");
-        String lastName = this.scanner.nextLine();
-        System.out.println("Enter bank details: ");
-        int bankDetails = this.scanner.nextInt();
+        scanner.skip("\\R?");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter bank account number:");
+        int bankDetails = scanner.nextInt();
         System.out.println("Enter hour rate:");
-        int hourRate = this.scanner.nextInt();
+        int hourRate = scanner.nextInt();
         System.out.println("Enter job type:");
-        this.scanner.skip("\\R?");
-        String jobType = this.scanner.nextLine();
+        scanner.skip("\\R?");
+        String jobType = scanner.nextLine();
         System.out.println("Enter date for end of employment : \n" + "Enter the year:");
-        int year = this.scanner.nextInt();
+        int year = scanner.nextInt();
         System.out.println("Enter the month:");
-        int month = this.scanner.nextInt();
+        int month = scanner.nextInt();
         System.out.println("Enter the day:");
-        int day = this.scanner.nextInt();
+        int day = scanner.nextInt();
         System.out.println("Enter the amount of roles to add to this employee:");
-        int amount = this.scanner.nextInt();
+        int amount = scanner.nextInt();
         data.put("amount", Integer.toString(amount));
         for(int i =0; i<amount ; i++){
             System.out.println("Enter role to add:");
-            this.scanner.skip("\\R?");
-            String role = this.scanner.nextLine();
+            scanner.skip("\\R?");
+            String role = scanner.nextLine();
             data.put(Integer.toString(i),role);
         }
         data.put("branchNum",Integer.toString(branchNum));
@@ -436,7 +504,7 @@ public class MainMenu {
         data.put("year", Integer.toString(year));
         data.put("month", Integer.toString(month));
         data.put("day", Integer.toString(day));
-        this.presentationController.hireWorker(data);
+        presentationController.hireWorker(data);
         System.out.println("Worker added successfully");
     }
 
@@ -445,16 +513,16 @@ public class MainMenu {
     public void ViewShiftHistory(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
-        String branchHistory = this.presentationController.ViewShiftHistory(data);
+        String branchHistory = presentationController.ViewShiftHistory(data);
         System.out.println(branchHistory);
     }
 
     public void changeStartAndEndTime(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         System.out.println("Enter day to change shift time at\n" +
                 "1. Sunday\n" +
                 "2. Monday\n" +
@@ -463,21 +531,21 @@ public class MainMenu {
                 "5. Thursday\n" +
                 "6. Friday\n" +
                 "7. Saturday");
-        int day = this.scanner.nextInt();
+        int day = scanner.nextInt();
         System.out.println("Enter shift to change time at\n" +
                 "1. Morning\n" +
                 "2. Evening" );
-        int shift = this.scanner.nextInt();
+        int shift = scanner.nextInt();
         System.out.println("Enter start time for shift:");
-        int start = this.scanner.nextInt();
+        int start = scanner.nextInt();
         System.out.println("Enter end time for shift:");
-        int end = this.scanner.nextInt();
+        int end = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
         data.put("day", Integer.toString(day));
         data.put("shift",Integer.toString(shift));
         data.put("start",Integer.toString(start));
         data.put("end",Integer.toString(end));
-        if(this.presentationController.changeStartAndEndTime(data))
+        if(presentationController.changeStartAndEndTime(data))
             System.out.println("Start and end time changed successfully.");
         else
             System.out.println("change was not successful, try changing after branch DeadLine.");
@@ -486,9 +554,9 @@ public class MainMenu {
     public void AddOrRemoveDaysOffWork(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
-        if(this.presentationController.checkBranchDeadLine(data)) {
+        if(presentationController.checkBranchDeadLine(data)) {
             System.out.println("Enter the day to add or remove off shift at:\n" +
                     "1. Sunday\n" +
                     "2. Monday\n" +
@@ -497,17 +565,17 @@ public class MainMenu {
                     "5. Thursday\n" +
                     "6. Friday\n" +
                     "7. Saturday");
-            int day = this.scanner.nextInt();
+            int day = scanner.nextInt();
             System.out.println("Enter shift to change at\n" +
                     "1. Morning\n" +
                     "2. Evening");
-            int shift = this.scanner.nextInt();
+            int shift = scanner.nextInt();
             System.out.println("Enter the change you would like to do:\n1. cancel shift\n2. create shift");
-            int action = this.scanner.nextInt();
+            int action = scanner.nextInt();
             data.put("day", Integer.toString(day));
             data.put("shift", Integer.toString(shift));
             data.put("action", Integer.toString(action));
-            if (this.presentationController.AddOrRemoveDaysOffWork(data))
+            if (presentationController.AddOrRemoveDaysOffWork(data))
                 System.out.println("Change was made Successfully");
             else
                 System.out.println("Branch number does not exist");
@@ -519,9 +587,9 @@ public class MainMenu {
     public void ChangeAmountTypeOfWorkersShift(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
-        if(this.presentationController.checkBranchDeadLine(data)) {
+        if(presentationController.checkBranchDeadLine(data)) {
             System.out.println("Enter the day to change workers needed in shift:\n" +
                     "1. Sunday\n" +
                     "2. Monday\n" +
@@ -530,24 +598,24 @@ public class MainMenu {
                     "5. Thursday\n" +
                     "6. Friday\n" +
                     "7. Saturday");
-            int day = this.scanner.nextInt();
+            int day = scanner.nextInt();
             System.out.println("Enter shift to change at\n" +
                     "1. Morning\n" +
                     "2. Evening");
-            int shift = this.scanner.nextInt();
+            int shift = scanner.nextInt();
             data.put("branchNum", Integer.toString(branchNum));
             data.put("day", Integer.toString(day));
             data.put("shift", Integer.toString(shift));
             System.out.println("Enter the new amount of workers in shift (do not include shift manager): ");
-            int amount = this.scanner.nextInt();
+            int amount = scanner.nextInt();
             data.put("amount", Integer.toString(amount));
             for (int i = 0; i < amount; i++) {
                 System.out.println("Enter role: ");
-                this.scanner.skip("\\R?");
-                String role = this.scanner.nextLine();
+                scanner.skip("\\R?");
+                String role = scanner.nextLine();
                 data.put(Integer.toString(i), role);
             }
-            this.presentationController.ChangeAmountTypeOfWorkersShift(data);
+            presentationController.ChangeAmountTypeOfWorkersShift(data);
             System.out.println("Change was made Successfully");
         }
         else
@@ -557,9 +625,9 @@ public class MainMenu {
     public void ChangingDeadline() {
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
-        if (!this.presentationController.checkBranchDeadLine(data)) {
+        if (!presentationController.checkBranchDeadLine(data)) {
             System.out.println("Enter the new DeadLine:\n " +
                     "1. Sunday\n" +
                     "2. Monday\n" +
@@ -568,10 +636,10 @@ public class MainMenu {
                     "5. Thursday\n" +
                     "6. Friday\n" +
                     "7. Saturday");
-            int day = this.scanner.nextInt();
+            int day = scanner.nextInt();
             data.put("branchNum", Integer.toString(branchNum));
             data.put("day", Integer.toString(day));
-            if (this.presentationController.ChangingDeadline(data))
+            if (presentationController.ChangingDeadline(data))
                 System.out.println("Change was made Successfully");
             else
                 System.out.println("change was not Successful");
@@ -583,9 +651,9 @@ public class MainMenu {
     public void PrintShiftsAssignment(){
         Dictionary<String, String> data = new Hashtable<>();
         System.out.println("Enter branch Number: ");
-        int branchNum = this.scanner.nextInt();
+        int branchNum = scanner.nextInt();
         data.put("branchNum", Integer.toString(branchNum));
-        String res = this.presentationController.PrintShiftsAssignment(data);
+        String res = presentationController.PrintShiftsAssignment(data);
         System.out.println(res);
     }
 }

@@ -17,8 +17,8 @@ public class configurationForSystem {
     }
 
     public void readCSV() throws FileNotFoundException {
-//parsing a CSV file into Scanner class constructor
-        Scanner sc = new Scanner(new File("configuration.csv"));
+    //parsing a CSV file into Scanner class constructor
+        Scanner sc = new Scanner(new File( "configuration.csv"));
         sc.useDelimiter(",");   //sets the delimiter pattern
         Dictionary<String, String> HRDict = new Hashtable<>();
         while (sc.hasNext())  //returns a boolean value
@@ -41,7 +41,7 @@ public class configurationForSystem {
 
 
             }
-            Chain chain = new Chain(HRDict);
+            this.presentationController.creatChain(HRDict);
 
             if (line.startsWith("Branches")) {
                 while (sc.hasNextLine()) {
@@ -57,7 +57,7 @@ public class configurationForSystem {
                     BranchesDict.put("address", details[1]);
                     BranchesDict.put("deadLine", details[2]);
 
-                    chain.addBranch(BranchesDict);
+                    this.presentationController.addBranch(BranchesDict);
 
                 }
             }

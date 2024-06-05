@@ -9,6 +9,14 @@ import java.util.Objects;
 
 public class DomainController {
 
+    public void createChain(Dictionary<String, String> data){
+        Chain chain = new Chain(data);
+    }
+
+    public void addBranch(Dictionary<String, String> data) {
+        Chain.addBranch(data);
+    }
+
     public boolean verification(Dictionary<String, String> info){
         if(Objects.equals(info.get("branchNum"), "0")) {
             if (Integer.toString(Chain.getHrManager().getId()).equals(info.get("id")))
@@ -192,6 +200,7 @@ public class DomainController {
     public void creatScheduleForConfig(){
         Chain.creatScheduleForConfig();
     }
+
 
 }
 

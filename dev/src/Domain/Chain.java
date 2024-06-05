@@ -100,7 +100,7 @@ public class Chain {
 //        branchesLimits.put(branchId, nBranch.getSystemLimitations());
 //    }
 
-    public void addBranch(Dictionary<String,String> data){
+    public static void  addBranch(Dictionary<String,String> data){
         int branchId = Integer.parseInt(data.get("branchNum"));
         String address = data.get("address");
         Branch nBranch = new Branch(branchId, address);
@@ -141,6 +141,27 @@ public class Chain {
                 return FRIDAY;
             case 7:
                 return SATURDAY;
+            default:
+                return null;
+        }
+    }
+
+    public static String getDayOfWeekString(int day){
+        switch (day){
+            case 1:
+                return "SUNDAY";
+            case 2:
+                return "MONDAY";
+            case 3:
+                return "TUESDAY";
+            case 4:
+                return "WEDNESDAY";
+            case 5:
+                return "THURSDAY";
+            case 6:
+                return "FRIDAY";
+            case 7:
+                return "SATURDAY";
             default:
                 return null;
         }
