@@ -212,9 +212,8 @@ public class TransportController
         if (b)
         {
             getTransportByID(transportID).setChangeDestination();
+            return true;
         }
-
-        //JJ
+        return false;
     }
-
 }
