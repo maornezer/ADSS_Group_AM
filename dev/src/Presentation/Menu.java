@@ -12,12 +12,22 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Menu {
-    private Scanner scanner;
-    private PresentationController controller;
+    private static Scanner scanner;
+    private static PresentationController controller;
 
     public Menu() {
-        this.scanner = new Scanner(System.in);
-        this.controller = new PresentationController();
+        scanner = new Scanner(System.in);
+        controller = new PresentationController();
+        System.out.println("Please choose:");
+        System.out.println("1. Initialize system with information");
+        System.out.println("2. Initialize empty system");
+        int choice = scanner.nextInt();
+        if (choice == 1)
+        {
+            readDataFile data = new readDataFile();
+            data.loadData();
+        }
+
     }
 
     public void printMenu() {
