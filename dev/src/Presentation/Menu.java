@@ -24,8 +24,8 @@ public class Menu {
         int choice = scanner.nextInt();
         if (choice == 1)
         {
-            readDataFile data = new readDataFile();
-            data.loadData();
+//            readDataFile data = new readDataFile();
+//            data.loadData();
         }
 
     }
@@ -82,7 +82,7 @@ public class Menu {
         System.out.println("5. View all orders or all shipments");
         System.out.println("6. Delivery start update");
         System.out.println("7. Return to the main menu");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice) {
             case "1":
@@ -107,13 +107,17 @@ public class Menu {
             case "7":
                 printMenu();
                 break;
+            default:
+                System.out.println("There is no such option of choice, please choose valid number");
+                printMenu();
+                break;
         }
     }
 
     public void DriverMenu() {
         Dictionary<String, String> data = new Hashtable<String, String>();
 
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice) {
             case "1":
@@ -128,6 +132,10 @@ public class Menu {
             case "4":
                 printMenu();
                 break;
+            default:
+                System.out.println("There is no such option of choice, please choose valid number");
+                DriverMenu();
+                break;
         }
     }
 //    public void deleteBranchOrder(Dictionary<String, String> data)
@@ -137,55 +145,82 @@ public class Menu {
 //
 //    }
 
-    public void createBranchOrder(Dictionary<String, String> data)
-    {
-        System.out.println("Enter Departure Time: ");
-        int hour = scanner.nextInt();
-        int minute = scanner.nextInt();
-        //String time = scanner.nextLine();
-        data.put("hour", Integer.toString(hour));
-        data.put("minute", Integer.toString(minute));
+    public void createBranchOrder(Dictionary<String, String> data) {
+//        System.out.println("Enter Departure Time: ");
+        System.out.println("Enter Departure Time (hour:minute): ");
+        scanner.skip("\\R?");
+        String time = scanner.nextLine(); // קולט את השעה מהמחרוזת בפורמט hour:minute
+        String[] timeParts = time.split(":"); // מחלק את המחרוזת לשעתיים
 
-        System.out.println("Enter Shipping Date: ");
-        int year = scanner.nextInt();
-        int month = scanner.nextInt();
-        int day = scanner.nextInt();
-        //String date = scanner.nextLine();
-        data.put("year", Integer.toString(year));
-        data.put("month", Integer.toString(month));
-        data.put("day", Integer.toString(day));
+        if (timeParts.length == 2) {
+            String hour = timeParts[0];
+            String minute = timeParts[1];
 
-        System.out.println("Enter the Address of unloading destination of the transport: ");
-        this.scanner.skip("\\R?");
-        String destination = scanner.nextLine();
-        data.put("destination", destination);
-
-        System.out.println("Enter the Address of pickup destination: ");
-        this.scanner.skip("\\R?");
-        String source = scanner.nextLine();
-        data.put("source", source);
-
-        //list of items:
-        Dictionary<String,Dictionary<String,String>> dataItems = new Hashtable<String,Dictionary<String,String>>();
-        boolean flag = true;
-        int i = 0;
-        while (flag)
-        {
-            System.out.println("Enter 1 if you want to add Item to this Order: ");
-            String choice = scanner.nextLine();
-            if (choice.equals("1")) {
-                dataItems.put("item_" + i, createListOfItems(i));
-                i++;
+            data.put("hour", hour);
+            data.put("minute", minute);
             }
-            else
-            {
-                flag = false;
-            }
+        System.out.println("Enter Shipping Date (yy/mm/dd): ");
+        String date = scanner.nextLine(); // קולט את התאריך כמחרוזת
+        String[] dateParts = date.split("/"); // מחלק את המחרוזת לחלקים
+
+        if (dateParts.length == 3) {
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];
+
+            data.put("year", year);
+            data.put("month", month);
+            data.put("day", day);
+
         }
+            System.out.println("Enter the Address of unloading destination of the transport: ");
+            scanner.skip("\\R?");
+            String destination = scanner.nextLine();
+            data.put("destination", destination);
+
+            System.out.println("Enter the Address of pickup destination: ");
+            scanner.skip("\\R?");
+            String source = scanner.nextLine();
+            data.put("source", source);
+
+            //list of items:
+            Dictionary<String, Dictionary<String, String>> dataItems = new Hashtable<String, Dictionary<String, String>>();
+            boolean flag = true;
+            int i = 0;
+            while (flag)
+            {
+                System.out.println("Enter 1 if you want to add Item to this Order: ");
+                String choice = scanner.nextLine();
+                if (choice.equals("1"))
+                {
+                    dataItems.put("" + i, createListOfItems(i));
+                    i++;
+                }
+                else {
+                    flag = false;
+                }
+            }
 
 
-        this.controller.creatNewOrder(data, dataItems);
-    }
+            controller.creatNewOrder(data, dataItems);
+        }
+        //        int hour = scanner.nextInt();
+//        int minute = scanner.nextInt();
+//        //String time = scanner.nextLine();
+//        data.put("hour", Integer.toString(hour));
+//        data.put("minute", Integer.toString(minute));
+
+//        System.out.println("Enter Shipping Date: ");
+//        //String date = scanner.nextLine();
+//        System.out.println("year: ");
+//        int year = scanner.nextInt();
+//        System.out.println("month: ");
+//        int month = scanner.nextInt();
+//        System.out.println("day: ");
+//        int day = scanner.nextInt();
+//        data.put("year", Integer.toString(year));
+//        data.put("month", Integer.toString(month));
+//        data.put("day", Integer.toString(day));
     public Dictionary<String,String> createListOfItems(int i)
     {
         Dictionary<String,String> dataItems = new Hashtable<String, String>();
@@ -195,7 +230,7 @@ public class Menu {
         dataItems.put("id" + i, Integer.toString(id));
 
         System.out.println("Enter Item number" + i + " Name: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String name = scanner.nextLine();
         dataItems.put("name" + i, name);
 
@@ -216,7 +251,7 @@ public class Menu {
         int idD = scanner.nextInt();
         data.put("idD", Integer.toString(idD));
 
-        this.controller.addTransport(data);
+        controller.addTransport(data);
     }
 
     public void editOrderOrTransport()
@@ -225,7 +260,7 @@ public class Menu {
         System.out.println("1. Edit Order");
         System.out.println("2. Edit Transport");
         System.out.println("3. Return to Menu");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
@@ -251,7 +286,7 @@ public class Menu {
         System.out.println("Enter ID of the Order you want to change: ");
         int idOrder = scanner.nextInt();
         System.out.println("Choose if you want to change the Address of destination order: " + idOrder + ": [Yes or No]");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String ans = scanner.nextLine();
         if (ans.compareTo("Yes") == 0)
         {
@@ -270,10 +305,10 @@ public class Menu {
         int id = orderID;
         data.put("id", Integer.toString(id));
         System.out.println("Enter Site Address of new destination: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String destination = scanner.nextLine();
         data.put("destination", destination);
-        this.controller.changeDestination(data);
+        controller.changeDestination(data);
     }
     public void editTransport() {
         System.out.println("Enter ID of the Transport you want to change: ");
@@ -282,7 +317,7 @@ public class Menu {
         System.out.println("1. Change Truck");
         System.out.println("2. Change Driver");
         System.out.println("3. Return back");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice) {
             case "1":
@@ -309,7 +344,7 @@ public class Menu {
         int idTruck = scanner.nextInt();
         data.put("idTruck", Integer.toString(idTruck));
 
-        this.controller.changeTruck(data);
+        controller.changeTruck(data);
     }
 
     public void changeDriver(int id)
@@ -322,7 +357,7 @@ public class Menu {
         int idDriver = scanner.nextInt();
         data.put("idDriver", Integer.toString(idDriver));
 
-        this.controller.changeDriver(data);
+        controller.changeDriver(data);
 
     }
     public void editDatabase()
@@ -331,7 +366,7 @@ public class Menu {
         System.out.println("1. add new Site");
         System.out.println("2. add new Truck");
         System.out.println("3. add new Driver");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
@@ -354,27 +389,27 @@ public class Menu {
         Dictionary<String, String> data = new Hashtable<String, String>();
 
         System.out.println("Enter Site Address: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String address = scanner.nextLine();
         data.put("address", address);
 
 
         System.out.println("Choose Site Zone: [North, South, Center]");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String zone = scanner.nextLine();
         data.put("zone", zone);
 
         System.out.println("Enter Contact Name of Site: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String contactName = scanner.nextLine();
         data.put("contactName", contactName);
 
         System.out.println("Enter Contact Phone Number of Site: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String phoneNumber = scanner.nextLine();
         data.put("phoneNumber", phoneNumber);
 
-        this.controller.addSite(data);
+        controller.addSite(data);
 
     }
     public void addTruck()
@@ -394,17 +429,17 @@ public class Menu {
         data.put("maxWeight", Double.toString(maxWeight));
 
         System.out.println("Enter model: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String modelName = scanner.nextLine();
         data.put("model", modelName);
 
-        this.controller.addTruck(data);
+        controller.addTruck(data);
     }
         public void addDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Enter Driver Name: ");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String name = scanner.nextLine();
         data.put("name", name);
 
@@ -413,11 +448,11 @@ public class Menu {
         data.put("id", Integer.toString(id));
 
         System.out.println("Enter Driver Type of License: [B, C, D]");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String typeOfLicense = scanner.nextLine();
         data.put("typeOfLicense", typeOfLicense);
 
-        this.controller.addDriver(data);
+        controller.addDriver(data);
     }
     public void seeAllOrdersOrAllTransports()
     {
@@ -425,7 +460,7 @@ public class Menu {
         System.out.println("1. Orders");
         System.out.println("2. Transports");
         System.out.println("3. Return back");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
@@ -451,7 +486,7 @@ public class Menu {
         System.out.println("1. all orders by transport");
         System.out.println("2. all orders in system");
         System.out.println("3. Return to Menu");
-        this.scanner.skip("\\R?");
+        scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
@@ -459,10 +494,10 @@ public class Menu {
                 System.out.println("Pleas enter Transport ID: ");
                 int id = scanner.nextInt();
                 data.put("id", Integer.toString(id));
-                this.controller.printAllOrdersByTransport(data);
+                controller.printAllOrdersByTransport(data);
                 break;
             case "2":
-                this.controller.printAllOrders();
+                controller.printAllOrders();
                 break;
             case "3":
                 managerMenu();
