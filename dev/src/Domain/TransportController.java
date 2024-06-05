@@ -2,6 +2,7 @@ package Domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.HashMap;
 
 public class TransportController
@@ -14,6 +15,18 @@ public class TransportController
     {
         transports = new ArrayList<>();
         instance = this;
+    }
+
+    public boolean addTransport(Dictionary<String, String> data)
+    {
+        int idT = Integer.parseInt(data.get("idT"));
+        int idD = Integer.parseInt(data.get("idD"));
+
+        Truck truck = domain.getTruckByID(idT);
+        Driver driver = domain.getDriverByID(idD);
+
+        Transport newTransport = new Transport(truck, driver);
+        return transports.add(newTransport);
     }
     public static TransportController getInstance()
     {
@@ -216,4 +229,35 @@ public class TransportController
         }
         return false;
     }
+    public boolean changeTruck(Dictionary<String,String> data)
+    {
+        int idTransport = Integer.parseInt(data.get("idTransport"));
+        int idTruck = Integer.parseInt(data.get("idTruck"));
+
+//        Transport tempTransport = getTransportByID(idTransport)
+//        Truck tempTruck = domain.getTruckByID(idTruck);
+        return changeTruck(idTransport, idTruck);
+    }
+
+    public boolean changeDriver(Dictionary<String,String> data)
+    {
+        int idTransport = Integer.parseInt(data.get("idTransport"));
+        int idDriver = Integer.parseInt(data.get("idDriver"));
+
+//        Transport tempTransport = getTransportByID(idTransport)
+//        Truck tempTruck = domain.getTruckByID(idTruck);
+        return changeDriver(idTransport, idDriver);
+    }
+
+    public String printAllOrdersByTransportID(int transportID)
+    {
+        Transport tempTransport = getTransportByID(transportID);
+        return tempTransport.toString();
+    }
+    public void printAllOrdersByTransportID(Dictionary<String,String> data) {
+        int id = Integer.parseInt(data.get("id"));
+        printAllOrdersByTransportID(id);
+    }
+
+
 }

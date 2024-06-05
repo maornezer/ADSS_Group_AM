@@ -2,10 +2,7 @@ package Domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class DomainController
 {
@@ -38,15 +35,14 @@ public class DomainController
         return addDriver(d);
     }
 
-//    public boolean addDriver(Dictionary<String, String> data)
-//    {
-//        int idT = Integer.parseInt(data.get("idT"));
-//        double initialWeight = Double.parseDouble(data.get("initialWeight"));
-//        double maxWeight = Double.parseDouble(data.get("maxWeight"));
-//        String model = data.get("model");
-//        Truck t = new Truck( idT,  initialWeight,  maxWeight,  model);
-//        return addTruck(t);
-//    }
+    public boolean addDriver(Dictionary<String, String> data)
+    {
+        String name = data.get("name");
+        int id = Integer.parseInt(data.get("id"));
+        String typeOfLicense = data.get("typeOfLicense");
+        Driver newDriver = new Driver(name,id,typeOfLicense);
+        return addDriver(newDriver);
+    }
 
     public boolean addDriver(Driver d)
     {
@@ -127,7 +123,14 @@ public class DomainController
 
 
     }
-    public Order getOrderByID(int id)
+    public boolean changeDestination(Dictionary<String, String> data)
+    {
+        int id = Integer.parseInt(data.get("id"));
+        String newAddress = data.get("destination");
+        return changeDestination(id, newAddress);
+    }
+
+        public Order getOrderByID(int id)
     {
         for (Order order : allOrders)
         {
@@ -167,6 +170,17 @@ public class DomainController
         }
         Site newSite = new Site(address, zone, contactName, phoneNumber);
         return  addSite(newSite);
+    }
+    public boolean addSite(Dictionary<String, String> data)
+    {
+        String address = data.get("address");
+        String zone = data.get("zone");
+        String contactName = data.get("contactName");
+        String phoneNumber = data.get("phoneNumber");
+        Site newSite = new Site(address, zone, contactName, phoneNumber);
+        return addSite(newSite);
+
+
     }
     public boolean addSite(Site site) {
         if (isSiteAlreadyIn(site)) {
@@ -322,4 +336,14 @@ public class DomainController
         }
         return sb.toString();
     }
+    public String printAllOrders()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (Order order: allOrders)
+        {
+            sb.append(order.toStringReport());
+        }
+        return sb.toString();
+    }
+
 }
