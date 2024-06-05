@@ -403,7 +403,7 @@ public class Menu {
         public void addDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Enter Driver Neme: ");
+        System.out.println("Enter Driver Name: ");
         this.scanner.skip("\\R?");
         String name = scanner.nextLine();
         data.put("name", name);
