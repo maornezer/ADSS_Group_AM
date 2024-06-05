@@ -5,10 +5,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.InputStreamReader;
+
 
 public class Main {
     private static void loadData(String csvFilePath, List<String> sites, List<String> drivers, List<String> trucks, List<String> orders, List<String> items) {
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream(csvFilePath)))) {
             String line;
             String currentSection = "";
             int lineNumber = 0;
@@ -105,7 +107,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String csvFilePath = "C:\\Users\\USER\\Desktop\\Ben Gurion\\second year\\semester D\\analysis and planning\\PROJECT\\dev\\src\\data.csv";
+        //String csvFilePath = "C:\\Users\\USER\\Desktop\\Ben Gurion\\second year\\semester D\\analysis and planning\\PROJECT\\dev\\src\\data.csv"; //Path  working
+        String csvFilePath = "/data.csv"; // Path not working
 
         List<String> sites = new ArrayList<>();
         List<String> drivers = new ArrayList<>();
