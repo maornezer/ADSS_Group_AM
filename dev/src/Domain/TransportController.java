@@ -10,7 +10,7 @@ public class TransportController
     private static TransportController instance;
     private DomainController domain;
 
-    private TransportController()
+    public TransportController()
     {
         transports = new ArrayList<>();
         instance = this;

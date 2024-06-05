@@ -77,19 +77,19 @@ public class Menu {
                 break;
 
             case "2":
-                createNewTransport(data);
+                //createNewTransport(data);
                 break;
             case "3":
-                editOrderOrTransport(data);
+                //editOrderOrTransport(data);
                 break;
             case  "4":
-                editDatabase(data);
+                //editDatabase(data);
                 break;
             case "5":
-                seeAllOrdersOrAllTransports(data);
+                //seeAllOrdersOrAllTransports(data);
                 break;
             case "6":
-                deliveryStartUpdate(data);
+                //deliveryStartUpdate(data);
                 break;
             case "7":
                 printMenu();
@@ -107,7 +107,7 @@ public class Menu {
                 createBranchOrder(data);
                 break;
 
-            case 2:
+            case "2":
                 deleteBranchOrder(data);
         }
     }
