@@ -97,9 +97,32 @@ public class DomainController
     }
     ///// Order /////
 
-    public boolean addOrder(LocalTime time, LocalDate date, Site destination, Site source)
+    public boolean addOrder(Dictionary<String,String> data, Dictionary<String,Dictionary<String,String>> dataItems)
     {
-        Order order = new Order(time,date,destination,source);
+        LocalTime time = LocalTime.of(Integer.parseInt(data.get("hour")),Integer.parseInt(data.get("minute")));
+        LocalDate date = LocalDate.of(Integer.parseInt(data.get("year")),Integer.parseInt(data.get("month")),Integer.parseInt(data.get("day")));
+        String destination = data.get("destination");
+        String source = data.get("source");
+        Site destinationSite = getSiteByAddress(destination);
+        Site sourceSite = getSiteByAddress(source);
+
+        ArrayList<Item> orderItems = new ArrayList<>();
+        int size = dataItems.size();
+        for (int i = 0; i < size ; i++)
+        {
+
+            int id = Integer.parseInt((dataItems.get("item_"+ i)).get("id" + i));
+            String name = (dataItems.get("item_"+ i).get("name" + i));
+            int amount = Integer.parseInt((dataItems.get("item_"+ i)).get("amount" + i));
+            Item newItem = new Item(id, name, amount);
+            orderItems.add(newItem);
+
+        }
+        return addOrder(time,date,destinationSite,sourceSite,orderItems);
+    }
+    public boolean addOrder(LocalTime time, LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
+    {
+        Order order = new Order(time,date,destination,source, ordersItem);
         return allOrders.add(order);
 
 

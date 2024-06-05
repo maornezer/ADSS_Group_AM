@@ -1,22 +1,20 @@
 package Presentation;
 
-import Domain.SiteController;
-import Domain.TruckController;
+import Domain.DomainController;
+import Domain.TransportController;
 
 import java.util.Dictionary;
 
 public class PresentationController {
 
-    private SiteController siteController;
-    private TruckController truckController;
-    private ShippingController shippingController;
+    private DomainController domainController;
+    private TransportController transportController;
 
 
     public PresentationController()
     {
-        this.siteController = new SiteController();
-        this.shippingController = new ShippingController();
-        this.truckController = new TruckController();
+        this.domainController = new DomainController();
+        this.transportController = new TransportController();
     }
     //methods that use the controllers to make changes in the system.
     // this controller will be saved in the menu and be used from there/.
@@ -24,10 +22,10 @@ public class PresentationController {
 
 
 
-//    public void creatNewOrder(Dictionary<String, String> data){
-//        this.shippingController.creatNewOrder(data);
-//    }
+    public void creatNewOrder(Dictionary<String, String> data, Dictionary<String, Dictionary<String, String>> dataItems){
+        this.domainController.addOrder(data, dataItems);
+    }
     public void addTruck(Dictionary<String, String> data){
-        this.truckController.addTruck(data);
+        this.domainController.addTruck(data);
     }
 }

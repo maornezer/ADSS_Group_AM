@@ -16,7 +16,7 @@ public class Order
     private LocalTime time;
     private double orderWeight;
 
-    public Order(LocalTime time, LocalDate date, Site destination, Site source)
+    public Order(LocalTime time, LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
     {
         setId(id);
         setDate(date);
@@ -24,6 +24,10 @@ public class Order
         setSource(source);
         setDestination(destination);
         items = new ArrayList<>();
+        for (Item item : itemsList)
+        {
+            addItem(item.getId(), item.getName(), item.getAmount());
+        }
         id++;
         setOrderWeight(0.0);
     }
