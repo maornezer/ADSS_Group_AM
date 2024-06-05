@@ -1,84 +1,102 @@
 package Presentation;
 
-
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class Main
-{
-    //configuration
-    private static void loadData(String csvFilePath, Map<String, String> sites, Map<String, String> drivers, Map<String, String> trucks, Map<String, String> orders, Map<String, String> items)
-    {
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath)))
-        {
+public class Main {
+    private static void loadData(String csvFilePath, List<String> sites, List<String> drivers, List<String> trucks, List<String> orders, List<String> items) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
+            String currentSection = "";
             int lineNumber = 0;
+
             // Read each line from the CSV file
-            while ((line = br.readLine()) != null)
-            {
-                if (lineNumber == 0)
-                {
-                    // Skip the header line
-                    lineNumber++;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty())
+                    continue; // Skip empty lines
+
+                if (line.equalsIgnoreCase("driver,,,") ||
+                        line.equalsIgnoreCase("site,,,") ||
+                        line.equalsIgnoreCase("truck,,,") ||
+                        line.equalsIgnoreCase("item,,,") ||
+                        line.equalsIgnoreCase("order,,,")) {
+                    currentSection = line.split(",")[0].toLowerCase(); // set current section based on the line
+                    lineNumber = 0;
                     continue;
                 }
+
                 // Split the line by comma (assuming CSV format)
                 String[] parts = line.split(",");
-                // Assuming the CSV has the following columns:
-                // Site, Driver, Truck, Order, Item
-                String site = parts[0];
-                String driver = parts[1];
-                String truck = parts[2];
-                String order = parts[3];
-                String item = parts[4];
-                // Process the data into the appropriate maps
-                sites.put("Site" + lineNumber, site);
-                drivers.put("Driver" + lineNumber, driver);
-                trucks.put("Truck" + lineNumber, truck);
-                orders.put("Order" + lineNumber, order);
-                items.put("Item" + lineNumber, item);
+
+                switch (currentSection) {
+                    case "driver":
+                        if (parts.length < 3) break; // Ensure correct number of fields
+                        String driverName = parts[0];
+                        String driverLicence = parts[1];
+                        String driverID = parts[2];
+                        drivers.add("Name: " + driverName + ", Licence: " + driverLicence + ", ID: " + driverID);
+                        break;
+                    case "site":
+                        if (parts.length < 4) break; // Ensure correct number of fields
+                        String siteName = parts[0];
+                        String siteZone = parts[1];
+                        String siteAddress = parts[2];
+                        String sitePhoneNumber = parts[3];
+                        sites.add("Name: " + siteName + ", Zone: " + siteZone + ", Address: " + siteAddress + ", Phone Number: " + sitePhoneNumber);
+                        break;
+                    case "truck":
+                        if (parts.length < 4) break; // Ensure correct number of fields
+                        String truckInitialWeight = parts[0];
+                        String truckMaxWeight = parts[1];
+                        String truckModel = parts[2];
+                        String truckID = parts[3];
+                        trucks.add("Initial Weight: " + truckInitialWeight + ", Max Weight: " + truckMaxWeight + ", Model: " + truckModel + ", ID: " + truckID);
+                        break;
+                    case "item":
+                        if (parts.length < 3) break; // Ensure correct number of fields
+                        String itemName = parts[0];
+                        String itemID = parts[1];
+                        String itemAmount = parts[2];
+                        items.add("Name: " + itemName + ", ID: " + itemID + ", Amount: " + itemAmount);
+                        break;
+                    case "order":
+                        if (parts.length < 4) break; // Ensure correct number of fields
+                        String orderDate = parts[0];
+                        String orderTime = parts[1];
+                        String orderSource = parts[2];
+                        String orderDestination = parts[3];
+                        orders.add("Date: " + orderDate + ", Time: " + orderTime + ", Source: " + orderSource + ", Destination: " + orderDestination);
+                        break;
+                }
                 lineNumber++;
             }
-            // Print the maps to verify the data
-            System.out.println("Sites: " + sites);
-            System.out.println("Drivers: " + drivers);
-            System.out.println("Trucks: " + trucks);
-            System.out.println("Orders: " + orders);
-            System.out.println("Items: " + items);
-
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void printData(Map<String, String> sites, Map<String, String> drivers, Map<String, String> trucks, Map<String, String> orders, Map<String, String> items)
-    {
+    private static void printData(List<String> sites, List<String> drivers, List<String> trucks, List<String> orders, List<String> items) {
         System.out.println("Sites:");
-        printMap(sites);
+        printList(sites);
         System.out.println("\nDrivers:");
-        printMap(drivers);
+        printList(drivers);
         System.out.println("\nTrucks:");
-        printMap(trucks);
+        printList(trucks);
         System.out.println("\nOrders:");
-        printMap(orders);
+        printList(orders);
         System.out.println("\nItems:");
-        printMap(items);
+        printList(items);
     }
 
-    private static void printMap(Map<String, String> map)
-    {
-        for (Map.Entry<String, String> entry : map.entrySet())
-        {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+    private static void printList(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
         }
     }
-
 //    public void printMenu()
 //    {
 //        Menu menu = new Menu();
@@ -86,11 +104,12 @@ public class Main
 
     public static void main(String[] args) {
         String csvFilePath = "C:\\Users\\USER\\Desktop\\Ben Gurion\\second year\\semester D\\analysis and planning\\PROJECT\\dev\\src\\data.csv";
-        Map<String, String> sites = new HashMap<>();
-        Map<String, String> drivers = new HashMap<>();
-        Map<String, String> trucks = new HashMap<>();
-        Map<String, String> orders = new HashMap<>();
-        Map<String, String> items = new HashMap<>();
+
+        List<String> sites = new ArrayList<>();
+        List<String> drivers = new ArrayList<>();
+        List<String> trucks = new ArrayList<>();
+        List<String> orders = new ArrayList<>();
+        List<String> items = new ArrayList<>();
 
         loadData(csvFilePath, sites, drivers, trucks, orders, items);
         printData(sites, drivers, trucks, orders, items);
@@ -98,89 +117,4 @@ public class Main
 //        Main main = new Main();
 //        main.printMenu();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    private Scanner scanner;
-//    private TruckCLI truckCLI;
-//    private SiteCLI siteCLII;
-
-    //private ShippingUI shippingUI;
-
-
-//    public Main()
-//    {
-//        //configution
-//
-//        this.scanner = new Scanner(System.in);
-//        this.truckCLI = new TruckCLI();
-//        this.siteCLII = new SiteCLI();
-//        //this.shippingUI = new ShippingUI();
-//
-//    }
-//    public void run() {
-//        System.out.println("Welcome to Super-Li Shipping control module!");
-//        while (true) {
-//            boolean exit = mainMenu();
-//            if (exit) {
-//                break;
-//            }
-//        }
-//    }
-//
-//    private boolean mainMenu() {
-//        System.out.println("Please choose data to manage:");
-//        System.out.println("\t1. Manage Trucks");
-//        System.out.println("\t2. Manage Shipments");
-//        System.out.println("\t3. Manage Sites");
-//        System.out.println("\tX. Exit");
-//
-//        String choice = scanner.nextLine();
-//        switch (choice) {
-//            case "1":
-//                truckCLI.run();
-//                return false;
-//            case "2":
-//                //shippingUI.run();
-//                return false;
-//            case "3":
-//                //siteCLII.run();
-//                return false;
-//            case "X":
-//                return true;
-//            default:
-//                System.out.println("Invalid choice. Please try again.");
-//                return false;
-//        }
-//    }
-
-
 }
