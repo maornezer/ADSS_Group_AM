@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Transport
 {
-        private static int id = 1;
+        private static int id = 0;
         private LocalDate date;
         private LocalTime time;
         private String zone;
@@ -18,18 +18,22 @@ public class Transport
         private boolean unloadingItems;
         private boolean changeTruck;
 
-
-        public Transport(Truck truck, Driver driver)
+        public Transport()
         {
                 setId(id);
+                id++;
+        }
+
+        public Transport createTransport(int transportID, Truck truck, Driver driver)
+        {
                 setTruck(truck);
                 setDriver(driver);
                 setTime();
                 myOrders = new ArrayList<>();
-                id++;
                 changeDestination = false;
                 unloadingItems = false;
                 changeTruck = false;
+                return this;
         }
 
         public void setId(int id)
@@ -124,7 +128,7 @@ public class Transport
                 return myOrders;
         }
 
-        public String toString() {
+        public String toStringTransportReport() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("Transport ID: ").append(id).append("\n");
                 sb.append("Date: ").append(date).append("\n");

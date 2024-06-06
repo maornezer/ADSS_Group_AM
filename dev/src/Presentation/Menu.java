@@ -129,22 +129,22 @@ public class Menu {
         while (true)
         {
             System.out.println("Please choose what you would like to do:");
-            System.out.println("1. All my transports   ");
-            System.out.println("2. Producing a item report ");
-            System.out.println("3. Producing a transport report ");
-            System.out.println("4. Log out ");
+            System.out.println("1. See all my transports");
+            System.out.println("2. Producing a item report");
+            System.out.println("3. Producing a transport report");
+            System.out.println("4. Log out");
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
             {
                 case "1":
-                    //getAllDeliveries();
+                    getAllDeliveries();
                     break;
                 case "2":
-                    // getItemsReport();
+                    getItemsReport();
                     break;
                 case "3":
-                    // getTransportReport();
+                    getTransportReport();
                     break;
                 case "4":
                     printMenu();
@@ -303,7 +303,12 @@ public class Menu {
 
     public void  createNewTransport()
     {
+        Transport transport = controller.createNewTransport();
+        int transportID = transport.getId();
+
         Dictionary<String, String> data = new Hashtable<String, String>();
+        data.put("transportID",Integer.toString(transportID));
+        System.out.println("Your transport number is: " + transportID);
         System.out.println("Enter Truck ID: ");
         int idT = scanner.nextInt();
         data.put("idT", Integer.toString(idT));
@@ -574,6 +579,26 @@ public class Menu {
                 managerMenu();
                 break;
         }
+    }
+    public void getAllDeliveries()
+    {
+        System.out.println("Please enter your ID:");
+        int idDriver = scanner.nextInt();
+        controller.seeAllTransportByDriver(idDriver);
+
+    }
+
+    public void getItemsReport()
+    {
+        System.out.println("Please enter order ID:");
+        int idOrder = scanner.nextInt();
+        controller.getItemInOrder(idOrder);
+    }
+    public void getTransportReport()
+    {
+        System.out.println("Please enter transport ID:");
+        int transportId = scanner.nextInt();
+        controller.getTransportReport(transportId);
     }
 
 

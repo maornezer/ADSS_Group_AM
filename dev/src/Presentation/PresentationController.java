@@ -2,6 +2,7 @@ package Presentation;
 
 import Domain.DomainController;
 import Domain.Order;
+import Domain.Transport;
 import Domain.TransportController;
 
 import java.util.ArrayList;
@@ -26,14 +27,25 @@ public class PresentationController {
     {
 //        System.out.println("Presentation controller");
 //        System.out.println(this.domainController.printAllOrders());
-         this.domainController.printAllOrders();
+        System.out.print(domainController.toStringOrders());
+                //this.domainController.printAllOrders();
 
     }
+    public void getItemInOrder(int idOrder)
+    {
+        domainController.generateOrderReport(idOrder);
+    }
+
 
 
     /// driver ///
     public void addDriver(Dictionary<String, String> data){this.domainController.addDriver(data);}
     public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
+    public void seeAllTransportByDriver(int id)
+    {
+        transportController.getTransportByIdDriver(id);
+    }
+
 
     /// truck ///
     public void addTruck(Dictionary<String, String> data){this.domainController.addTruck(data);}
@@ -47,6 +59,14 @@ public class PresentationController {
     /// transport ///
     public int addTransport(Dictionary<String, String> data) {return this.transportController.addTransport(data);}
     public void printAllOrdersByTransport(Dictionary<String, String> data){this.transportController.printAllOrdersByTransportID(data);}
+    public void getTransportReport(int transportId)
+    {
+        System.out.println(transportController.generateTransportReport(transportId));
+    }
+    public Transport createNewTransport()
+    {
+        return this.transportController.createNewTransport();
+    }
 
 
 

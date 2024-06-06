@@ -154,7 +154,7 @@ public class DomainController
 
     public boolean addOrder(int orderId,LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
     {
-        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0 && source != destination)
+        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0)
         {
             System.out.println("Source zone and destination zone are not match");
             return false;
@@ -392,14 +392,22 @@ public class DomainController
         }
         return sb.toString();
     }
-    public void printAllOrders()
-    {
-        for (Order order: allOrders)
-        {
-            order.toStringReport();
+
+    public String toStringOrders() {
+        StringBuilder result = new StringBuilder();
+        for (Order order : allOrders) {
+            result.append(order.toStringReport()).append("\n");
         }
-//        System.out.println("domain controller");
-//        System.out.println(sb.toString());
+        return result.toString();
     }
+//    public void printAllOrders()
+//    {
+//        for (Order order: allOrders)
+//        {
+//            order.toStringReport();
+//        }
+////        System.out.println("domain controller");
+////        System.out.println(sb.toString());
+//    }
 
 }

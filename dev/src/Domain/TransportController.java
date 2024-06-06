@@ -17,9 +17,16 @@ public class TransportController
         transports = new ArrayList<>();
         instance = this;
     }
+    public Transport createNewTransport()
+    {
+        Transport transport = new Transport();
+        transports.add(transport);
+        return transport;
+    }
 
     public int addTransport(Dictionary<String, String> data)
     {
+        int transportID = Integer.parseInt(data.get("transportID"));
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
 
@@ -33,8 +40,13 @@ public class TransportController
         {
             return -2;
         }
-        Transport newTransport = new Transport(truck, driver);
-        transports.add(newTransport);
+        Transport transport = getTransportByID(transportID);
+        if (transport != null)
+        {
+            //allOrders.add(order);
+            transport.createTransport(transportID,truck,driver);
+            return 0;
+        }
         return 0;
     }
     public static TransportController getInstance()
@@ -68,11 +80,13 @@ public class TransportController
         }
         return false;
     }
-    public boolean addTransport(Truck truck,Driver driver)
+    public boolean addTransport(int id, Truck truck,Driver driver)
     {
         if (driver != null && truck!=null)
         {
-            Transport transport = new Transport(truck, driver);
+            Transport transport = getTransportByID(id);
+            if(transport != null)
+                transport.createTransport(id, truck,driver);
             return transports.add(transport);
         }
         return false;
@@ -148,6 +162,10 @@ public class TransportController
             }
         }
         return true;
+    }
+    public String generateTransportReport(int id) {
+        Transport transport = getTransportByID(id);
+        return transport.toStringTransportReport();
     }
     public String generateTransportReport() {
         StringBuilder report = new StringBuilder();
@@ -268,5 +286,15 @@ public class TransportController
         printAllOrdersByTransportID(id);
     }
 
+    public void getTransportByIdDriver(int id)
+    {
+           for (Transport transport : transports)
+           {
+               if (transport.getDriver().getId() == id)
+               {
+                   transport.toString();
+               }
+           }
+    }
 
 }
