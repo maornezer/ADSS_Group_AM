@@ -22,7 +22,11 @@ public class PresentationController {
     /// order + item ///
     public Order createNewOrder() {return this.domainController.createNewOrderDomain();}
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.domainController.addOrder(data1, data2);}
-    public void printAllOrders() {this.domainController.printAllOrders();}
+    public void printAllOrders()
+    {
+         this.domainController.printAllOrders();
+        //return allOrders;
+    }
 
 
     /// driver ///

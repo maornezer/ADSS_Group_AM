@@ -594,8 +594,8 @@ public class Menu {
                 controller.printAllOrdersByTransport(data);
                 break;
             case "2":
-                controller.printAllOrders();
-                break;
+                 controller.printAllOrders();
+                 break;
             case "3":
                 managerMenu();
                 break;

@@ -40,5 +40,7 @@ public class Item
      @Override
      public String toString() {
           return "Item ID: " + id + ", Name: " + name + ", Amount: " + amount ;
+//          System.out.println("Item ID: " + id + ", Name: " + name + ", Amount: " + amount);
+//          return null;
      }
 }

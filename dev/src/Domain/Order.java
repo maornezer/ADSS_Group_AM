@@ -1,10 +1,7 @@
 package Domain;
 
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Order
 {
@@ -145,6 +142,7 @@ public class Order
         report.append("Destination: ").append(destination.getAddress()).append("\n");
         report.append("Items:\n");
         for (Item item : items) {
+            //System.out.println(item.toString());
             report.append(item.toString()).append("\n");
         }
         return report.toString();

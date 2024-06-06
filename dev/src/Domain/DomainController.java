@@ -396,6 +396,7 @@ public class DomainController
         StringBuilder sb = new StringBuilder();
         for (Order order: allOrders)
         {
+            System.out.println(order.toStringReport());
             sb.append(order.toStringReport());
         }
         return sb.toString();
