@@ -10,36 +10,36 @@ import java.util.Dictionary;
 
 public class PresentationController {
 
-    private DomainController domainController;
+    //private DomainController domainController;
     private TransportController transportController;
 
 
     public PresentationController()
     {
-        this.domainController = new DomainController();
+        //this.domainController = new DomainController();
         this.transportController = new TransportController();
     }
 
     /// order + item ///
-    public Order createNewOrder() {return this.domainController.createNewOrderDomain();}
-    public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.domainController.addOrder(data1, data2);}
+    public Order createNewOrder() {return this.transportController.getDomain().createNewOrderDomain();}
+    public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getDomain().addOrder(data1, data2);}
     public void printAllOrders()
     {
 //        System.out.println("Presentation controller");
 //        System.out.println(this.domainController.printAllOrders());
-        System.out.print(domainController.toStringOrders());
+        System.out.print(transportController.getDomain().toStringOrders());
                 //this.domainController.printAllOrders();
 
     }
     public void getItemInOrder(int idOrder)
     {
-        domainController.generateOrderReport(idOrder);
+        this.transportController.getDomain().generateOrderReport(idOrder);
     }
 
 
 
     /// driver ///
-    public void addDriver(Dictionary<String, String> data){this.domainController.addDriver(data);}
+    public void addDriver(Dictionary<String, String> data){this.transportController.getDomain().addDriver(data);}
     public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
     public void seeAllTransportByDriver(int id)
     {
@@ -48,13 +48,13 @@ public class PresentationController {
 
 
     /// truck ///
-    public void addTruck(Dictionary<String, String> data){this.domainController.addTruck(data);}
+    public void addTruck(Dictionary<String, String> data){this.transportController.getDomain().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
 
     /// site ///
-    public void addSite(Dictionary<String, String> data){this.domainController.addSite(data);}
-    public void changeDestination(Dictionary<String, String> data){this.domainController.changeDestination(data);}
-    public boolean checkAddress(String source) {return this.domainController.isAddressSiteAlreadyIn(source);}
+    public void addSite(Dictionary<String, String> data){this.transportController.getDomain().addSite(data);}
+    public void changeDestination(Dictionary<String, String> data){this.transportController.getDomain().changeDestination(data);}
+    public boolean checkAddress(String source) {return this.transportController.getDomain().isAddressSiteAlreadyIn(source);}
 
     /// transport ///
     public int addTransport(Dictionary<String, String> data) {return this.transportController.addTransport(data);}

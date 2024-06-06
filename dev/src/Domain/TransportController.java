@@ -8,20 +8,26 @@ import java.util.HashMap;
 public class TransportController
 {
     private ArrayList<Transport> transports;
-    private static TransportController instance;
+    //private static TransportController instance;
     private DomainController domain;
 
     public TransportController()
     {
-        domain = new DomainController();
+        this.domain = new DomainController();
         transports = new ArrayList<>();
-        instance = this;
+
+        //instance = this;
+
     }
     public Transport createNewTransport()
     {
         Transport transport = new Transport();
         transports.add(transport);
         return transport;
+    }
+
+    public DomainController getDomain() {
+        return domain;
     }
 
     public int addTransport(Dictionary<String, String> data)
@@ -49,12 +55,12 @@ public class TransportController
         }
         return 0;
     }
-    public static TransportController getInstance()
-    {
-        if(instance == null)
-            instance = new TransportController();
-        return instance;
-    }
+//    public static TransportController getInstance()
+//    {
+//        if(instance == null)
+//            instance = new TransportController();
+//        return instance;
+//    }
     public boolean addOrderToTransport(int transportID, int orderID)
     {
         Transport tempTransport = getTransportByID(transportID);

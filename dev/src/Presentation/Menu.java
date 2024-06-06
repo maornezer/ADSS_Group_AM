@@ -9,10 +9,11 @@ import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Menu {
-    private static Scanner scanner;
-    private static PresentationController controller;
+    private Scanner scanner;
+    private PresentationController controller;
 
-    public void startMenu() {
+    public void startMenu()
+    {
         scanner = new Scanner(System.in);
         controller = new PresentationController();
         int choice = -1;
@@ -24,7 +25,7 @@ public class Menu {
             scanner.skip("\\R?");
             choice = scanner.nextInt();
             if (choice == 1) {
-                readDataFile data = new readDataFile();
+                readDataFile data = new readDataFile(controller);
                 data.loadData();
                 printMenu();
                 return;
@@ -176,8 +177,8 @@ public class Menu {
 
         System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
         scanner.skip("\\R?");
-        String date = scanner.nextLine();// קולט את התאריך כמחרוזת
-        String[] dateParts = date.split("/"); // מחלק את המחרוזת לחלקים
+        String date = scanner.nextLine();
+        String[] dateParts = date.split("/");
 
         if (dateParts.length == 3)
         {

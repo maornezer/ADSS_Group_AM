@@ -3,8 +3,8 @@ import Domain.*;
 
 public class orderTest
 {
-    private DomainController doCr = new DomainController();
-    private TransportController rt = new TransportController();
+//    private DomainController doCr = new DomainController();
+//    private TransportController rt = new TransportController();
 
     
     public void testCreateOrder()

@@ -11,7 +11,7 @@ public class DomainController
     private HashMap<String, ArrayList<Site>> sites;
     private List <Truck> trucks;
 
-    private static DomainController instance;
+    //private static DomainController instance;
 
     public DomainController()
     {
@@ -20,14 +20,14 @@ public class DomainController
         this.sites = new HashMap<>();
         this.trucks = new ArrayList<>();
 
-        instance = this;
+        //instance = this;
     }
-    public static DomainController getInstance()
-    {
-        if(instance == null)
-            instance = new DomainController();
-        return instance;
-    }
+//    public static DomainController getInstance()
+//    {
+//        if(instance == null)
+//            instance = new DomainController();
+//        return instance;
+//    }
 
     public boolean addDriver(String name, int id, String typeOfLicense)
     {
@@ -240,9 +240,9 @@ public class DomainController
         if (tempArraySites == null)
         {
             tempArraySites = new ArrayList<>();
+            tempArraySites.add(site);
             sites.put(site.getSiteZone(), tempArraySites);
         }
-        tempArraySites.add(site);
         return true;
     }
     public boolean isSiteAlreadyIn(Site site)

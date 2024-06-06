@@ -14,9 +14,9 @@ public class readDataFile
 {
     private PresentationController prController;
 
-    public readDataFile()
+    public readDataFile(PresentationController prController )
     {
-        prController = new PresentationController();
+        this.prController = prController;
     }
 
     public void loadData()
@@ -101,7 +101,7 @@ public class readDataFile
                 }
                 lineNumber++;
             }
-           // prController.printAllOrders();
+           //   prController.printAllOrders();
         }
         catch (IOException e)
         {
