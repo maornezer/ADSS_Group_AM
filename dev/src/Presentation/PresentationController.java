@@ -24,8 +24,10 @@ public class PresentationController {
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.domainController.addOrder(data1, data2);}
     public void printAllOrders()
     {
+//        System.out.println("Presentation controller");
+//        System.out.println(this.domainController.printAllOrders());
          this.domainController.printAllOrders();
-        //return allOrders;
+
     }
 
 

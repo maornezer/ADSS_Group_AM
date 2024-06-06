@@ -70,32 +70,6 @@ public class Menu {
             System.out.println("Username or password incorrect. Please enter again");
         }
 
-
-
-//        if (username.compareTo("admin") == 0 && password.compareTo("admin") == 0) {
-//            boolean flag = false;
-//            while (!flag) {
-//                System.out.println("Please choose data to manage:");
-//                System.out.println("1. Manage Shipments");
-//                System.out.println("2. Manage Branch order");
-//                System.out.println("3. Exit");
-//                this.scanner.skip("\\R?");
-//                String choice = scanner.nextLine();
-//                switch (choice) {
-//                    case "1":
-//                        managerMenu();
-//                        flag = true;
-//                    case "2":
-//                        branchManagerMenu();
-//                        flag = true;
-//                    case "3":
-//                        printMenu();
-//                        flag = true;
-//                    default:
-//                        System.out.println("Invalid choice. Please try again.");
-//                }
-//            }
-//        }
     }
 
     public void managerMenu()
@@ -594,7 +568,7 @@ public class Menu {
                 controller.printAllOrdersByTransport(data);
                 break;
             case "2":
-                 controller.printAllOrders();
+                controller.printAllOrders();
                  break;
             case "3":
                 managerMenu();

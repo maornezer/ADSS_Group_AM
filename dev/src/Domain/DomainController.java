@@ -48,6 +48,7 @@ public class DomainController
     {
         if (isDriverExists(d))
         {
+            System.out.println("RON");
             return false;
         }
         return drivers.add(d);
@@ -391,15 +392,14 @@ public class DomainController
         }
         return sb.toString();
     }
-    public String printAllOrders()
+    public void printAllOrders()
     {
-        StringBuilder sb = new StringBuilder();
         for (Order order: allOrders)
         {
-            System.out.println(order.toStringReport());
-            sb.append(order.toStringReport());
+            order.toStringReport();
         }
-        return sb.toString();
+//        System.out.println("domain controller");
+//        System.out.println(sb.toString());
     }
 
 }
