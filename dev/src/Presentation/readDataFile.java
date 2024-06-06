@@ -76,16 +76,6 @@ public class readDataFile
                         Dictionary<String,String> t = addTruckDict(truckID,truckInitialWeight,truckMaxWeight,truckModel);
                         prController.addTruck(t);
                         break;
-                    case "order":
-                        if (parts.length < 3) break; // Ensure correct number of fields
-                        String orderDate = parts[0];
-                        String orderSource = parts[1];
-                        String orderDestination = parts[2];
-
-                        Order order = prController.createNewOrder();
-                        int orderID = order.getId();
-                        data1 = addOrderDict(orderID,orderDate,orderSource,orderDestination) ;
-                        break;
                     case "item":
                         if (parts.length < 3) break; // Ensure correct number of fields
                         String itemName = parts[0];
@@ -97,6 +87,17 @@ public class readDataFile
                         prController.creatNewOrder(data1,data2);
 
                         break;
+                    case "order":
+                        if (parts.length < 3) break; // Ensure correct number of fields
+                        String orderDate = parts[0];
+                        String orderSource = parts[1];
+                        String orderDestination = parts[2];
+
+                        Order order = prController.createNewOrder();
+                        int orderID = order.getId();
+                        data1 = addOrderDict(orderID,orderDate,orderSource,orderDestination) ;
+                        break;
+
 
                 }
                 lineNumber++;
