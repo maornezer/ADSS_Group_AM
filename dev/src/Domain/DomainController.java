@@ -126,13 +126,13 @@ public class DomainController
         Site sourceSite = getSiteByAddress(source);
         if(destinationSite == null)
         {
-            System.out.println("Domain controller");
+            //System.out.println("Domain controller");
             System.out.println("The address of the destination is not registered in the system");
             return -2;
         }
         if(source == null)
         {
-            System.out.println("Domain controller");
+            //System.out.println("Domain controller");
             System.out.println("The address of the source is not registered in the system");
             return -1;
         }
@@ -153,9 +153,9 @@ public class DomainController
 
     public boolean addOrder(int orderId,LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
     {
-        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0)
+        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0 && source != destination)
         {
-            System.out.println("Source zone and destination zone are not match ");
+            System.out.println("Source zone and destination zone are not match");
             return false;
 
         }
@@ -352,7 +352,8 @@ public class DomainController
     public Truck getTruckByID(int id)
     {
         for (Truck truck : trucks) {
-            if (truck.getIdTruck() == id) {
+            if (truck.getIdTruck() == id)
+            {
                 return truck;
             }
         }

@@ -32,9 +32,9 @@ public class PresentationController {
         return this.domainController.addOrder(data1, data2);
 
     }
-    public void addTransport(Dictionary<String, String> data)
+    public int addTransport(Dictionary<String, String> data)
     {
-        this.transportController.addTransport(data);
+        return this.transportController.addTransport(data);
     }
 
     public void addSite(Dictionary<String, String> data){

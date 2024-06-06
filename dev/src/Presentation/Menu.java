@@ -21,6 +21,7 @@ public class Menu {
             System.out.println("Please choose:");
             System.out.println("1. Initialize system with information");
             System.out.println("2. Initialize empty system");
+            scanner.skip("\\R?");
             choice = scanner.nextInt();
             if (choice == 1) {
                 readDataFile data = new readDataFile();
@@ -45,14 +46,16 @@ public class Menu {
     public void printMenu()
     {
         System.out.println("Welcome to Super-Li Shipment module");
-        System.out.println("Please login to the system\n");
-
-        scanner.nextLine();
+        System.out.println("Please login to the system");
+//        scanner.skip("\\R?");
+//        scanner.nextLine();
         while (true)
         {
             System.out.println("Please enter your username:");
+            scanner.skip("\\R?");
             String username =  scanner.nextLine();
             System.out.println("Please enter your password:");
+            scanner.skip("\\R?");
             String password =  scanner.nextLine();
             if (username.compareTo("manager") == 0 && password.compareTo("1234") == 0)
             {
@@ -197,8 +200,9 @@ public class Menu {
         data1.put("orderID",Integer.toString(orderID));
         System.out.println("Your order number is: " + orderID);
 
-        System.out.println("Enter Shipping Date (yy/mm/dd): ");
-        String date = scanner.nextLine(); // קולט את התאריך כמחרוזת
+        System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
+        scanner.skip("\\R?");
+        String date = scanner.nextLine();// קולט את התאריך כמחרוזת
         String[] dateParts = date.split("/"); // מחלק את המחרוזת לחלקים
 
         if (dateParts.length == 3)
@@ -211,6 +215,7 @@ public class Menu {
             data1.put("month", month);
             data1.put("day", day);
         }
+
         String source = checkAddressSource();
         data1.put("source", source);
 
@@ -242,7 +247,6 @@ public class Menu {
             if (choose.compareTo("Y")==0)
             {
                 i++;
-                continue;
             }
             else if (choose.compareTo("N")==0)
             {
@@ -334,7 +338,15 @@ public class Menu {
         int idD = scanner.nextInt();
         data.put("idD", Integer.toString(idD));
 
-        controller.addTransport(data);
+        int ans = controller.addTransport(data);
+        if (ans == -1)
+        {
+            System.out.println("The Truck id is not registered in the system");
+        }
+        if (ans == -2)
+        {
+            System.out.println("The Driver id is not registered in the system");
+        }
     }
 
     public void editOrderOrTransport()

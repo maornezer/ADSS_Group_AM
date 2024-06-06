@@ -13,20 +13,29 @@ public class TransportController
 
     public TransportController()
     {
+        domain = new DomainController();
         transports = new ArrayList<>();
         instance = this;
     }
 
-    public boolean addTransport(Dictionary<String, String> data)
+    public int addTransport(Dictionary<String, String> data)
     {
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
 
         Truck truck = domain.getTruckByID(idT);
         Driver driver = domain.getDriverByID(idD);
-
+        if (truck == null)
+        {
+            return -1;
+        }
+        if(driver == null)
+        {
+            return -2;
+        }
         Transport newTransport = new Transport(truck, driver);
-        return transports.add(newTransport);
+        transports.add(newTransport);
+        return 0;
     }
     public static TransportController getInstance()
     {
