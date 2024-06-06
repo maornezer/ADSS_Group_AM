@@ -86,10 +86,9 @@ public class readDataFile
                     case "order":
                         if (parts.length < 4) break; // Ensure correct number of fields
                         String orderDate = parts[0];
-                        String orderTime = parts[1];
-                        String orderSource = parts[2];
-                        String orderDestination = parts[3];
-                        Dictionary<String,String> o = addOrderDict(orderDate,orderTime,orderSource,orderDestination) ;
+                        String orderSource = parts[1];
+                        String orderDestination = parts[2];
+                        Dictionary<String,String> o = addOrderDict(orderDate,orderSource,orderDestination) ;
                         //prController.creatNewOrder(o,items);
                         break;
                 }
@@ -145,19 +144,15 @@ public class readDataFile
         site.put("phoneNumber",phoneNumber);
         return site;
     }
-    public Dictionary<String, String> addOrderDict(String date, String time,String destination,String source )
+    public Dictionary<String, String> addOrderDict(String date,String destination,String source )
     {
         String [] datePart =date.split("/");
         String year = datePart[2];
         String month = datePart [1];
         String day = datePart [0];
-        String [] timePart = time.split(":");
-        String hour = timePart[0];
-        String minute = timePart [1];
+
 
         Dictionary<String,String> order = new Hashtable<String, String>();
-        order.put("hour", hour);
-        order.put("minute", minute);
         order.put("year", year);
         order.put("month", month);
         order.put("day", day);
