@@ -13,7 +13,7 @@ public class Driver {
 
     public boolean setName(String name)
     {
-        if (name.isBlank() || !name.chars().allMatch(Character::isLetter))
+        if (name.isBlank())
         {
             return false;
         }
