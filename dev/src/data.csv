@@ -20,26 +20,26 @@ Kevin Robinson,D,890123457,
 Brian Clark,B,901234568,
 Edward Rodriguez,C,12345679,
 Site,,,
-John Doe,North,Oak,050-1234567
-Jane Doe,North,Maple ,050-2345678
-Michael Smith,Center,Pine,050-3456789
-Emily Johnson,South,Birch ,050-4567890
-Daniel Brown,Center,Cedar ,050-5678901
-Sarah Davis,North,Elm ,050-6789012
-James Wilson,South,Ash ,050-7890123
-Mary Miller,Center,Willow,050-8901234
-Robert Moore,North,Cherry,050-9012345
-Patricia Taylor,South,Walnut,050-0123456
-John Anderson,Center,Poplar,050-2233445
-Linda Thomas,North,Spruce,050-3344556
-David Jackson,South,Fir,050-4455667
-Barbara White,Center,Sycamore ,050-5566778
-Richard Harris,North,Hickory,050-6677889
-Susan Martin,South,Redwood ,050-7788990
-Charles Thompson,Center,Chestnut ,050-8899001
-Karen Martinez,North,Juniper ,050-9900123
-Joseph Garcia,South,Alder ,050-1011123
-Lisa Robinson,Center,Beech,050-1121314
+John Doe,North,Oak,501234567
+Jane Doe,North,Maple,502345678
+Michael Smith,Center,Pine,503456789
+Emily Johnson,South,Birch,504567890
+Daniel Brown,Center,Cedar,505678901
+Sarah Davis,North,Elm,506789012
+James Wilson,South,Ash ,507890123
+Mary Miller,Center,Willow,508901234
+Robert Moore,North,Cherry,509012345
+Patricia Taylor,South,Walnut,500123456
+John Anderson,Center,Poplar,502233445
+Linda Thomas,North,Spruce,503344556
+David Jackson,South,Fir,504455667
+Barbara White,Center,Sycamore ,505566778
+Richard Harris,North,Hickory,506677889
+Susan Martin,South,Redwood ,507788990
+Charles Thompson,Center,Chestnut ,508899001
+Karen Martinez,North,Juniper ,509900123
+Joseph Garcia,South,Alder ,501011123
+Lisa Robinson,Center,Beech,501121314
 Truck,,,
 5000,15000,Mercedes,123456
 5200,15200,Volvo,234567

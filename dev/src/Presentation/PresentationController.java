@@ -1,8 +1,10 @@
 package Presentation;
 
 import Domain.DomainController;
+import Domain.Order;
 import Domain.TransportController;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 
 public class PresentationController {
@@ -19,11 +21,16 @@ public class PresentationController {
     //methods that use the controllers to make changes in the system.
     // this controller will be saved in the menu and be used from there/.
 
+    public Order createNewOrder()
+    {
+        return this.domainController.createNewOrderDomain();
+    }
 
 
+    public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2)
+    {
+        return this.domainController.addOrder(data1, data2);
 
-    public void creatNewOrder(Dictionary<String, String> data, Dictionary<String, Dictionary<String, String>> dataItems){
-        this.domainController.addOrder(data, dataItems);
     }
     public void addTransport(Dictionary<String, String> data)
     {
@@ -47,6 +54,10 @@ public class PresentationController {
     public void printAllOrders() {this.domainController.printAllOrders();}
    public void printAllOrdersByTransport(Dictionary<String, String> data){
         this.transportController.printAllOrdersByTransportID(data);
+   }
+   public boolean checkAddress(String source)
+   {
+           return this.domainController.isAddressSiteAlreadyIn(source);
    }
 
 

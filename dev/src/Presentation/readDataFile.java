@@ -53,7 +53,7 @@ public class readDataFile
                         String driverLicence = parts[1];
                         String driverID = parts[2];
 
-                        Dictionary<String,String> d = addDriverDict(driverName,driverID, driverLicence);
+                        Dictionary<String,String> d = addDriverDict(driverName,driverLicence,driverID);
                         prController.addDriver(d);
                         break;
                     case "site":
@@ -71,7 +71,7 @@ public class readDataFile
                         String truckMaxWeight = parts[1];
                         String truckModel = parts[2];
                         String truckID = parts[3];
-                        Dictionary<String,String> t =addTruckDict(truckID,truckInitialWeight,truckMaxWeight,truckModel) ;
+                        Dictionary<String,String> t = addTruckDict(truckID,truckInitialWeight,truckMaxWeight,truckModel);
                         prController.addTruck(t);
                         break;
                     case "item":
@@ -90,7 +90,7 @@ public class readDataFile
                         String orderSource = parts[2];
                         String orderDestination = parts[3];
                         Dictionary<String,String> o = addOrderDict(orderDate,orderTime,orderSource,orderDestination) ;
-                        prController.creatNewOrder(o,items);
+                        //prController.creatNewOrder(o,items);
                         break;
                 }
                 lineNumber++;

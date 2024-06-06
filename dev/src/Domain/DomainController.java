@@ -93,33 +93,82 @@ public class DomainController
     }
     ///// Order /////
 
-    public boolean addOrder(Dictionary<String,String> data, Dictionary<String,Dictionary<String,String>> dataItems)
+
+    public Order createNewOrderDomain()
     {
-        LocalTime time = LocalTime.of(Integer.parseInt(data.get("hour")),Integer.parseInt(data.get("minute")));
-        LocalDate date = LocalDate.of(Integer.parseInt(data.get("year")),Integer.parseInt(data.get("month")),Integer.parseInt(data.get("day")));
-        String destination = data.get("destination");
-        String source = data.get("source");
+        Order order = new Order();
+        allOrders.add(order);
+        return order;
+    }
+
+
+
+
+
+    public Item addItem(ArrayList<String> item)
+    {
+        int id = Integer.parseInt(item.get(0));
+        String name = item.get(1);
+        int amount = Integer.parseInt(item.get(2));
+        Item newItem = new Item(id, name, amount);
+        return newItem;
+    }
+
+
+
+    public int addOrder(Dictionary<String,String> data1,  Dictionary<Integer, ArrayList<String>> data2)
+    {
+        int orderID = Integer.parseInt(data1.get("orderID"));
+        LocalDate date = LocalDate.of(Integer.parseInt(data1.get("year")),Integer.parseInt(data1.get("month")),Integer.parseInt(data1.get("day")));
+        String destination = data1.get("destination");
+        String source = data1.get("source");
         Site destinationSite = getSiteByAddress(destination);
         Site sourceSite = getSiteByAddress(source);
-
-        ArrayList<Item> orderItems = new ArrayList<>();
-        int size = dataItems.size();
-        for (int i = 0; i < size ; i++)
+        if(destinationSite == null)
         {
+            System.out.println("Domain controller");
+            System.out.println("The address of the destination is not registered in the system");
+            return -2;
+        }
+        if(source == null)
+        {
+            System.out.println("Domain controller");
+            System.out.println("The address of the source is not registered in the system");
+            return -1;
+        }
+        ArrayList<Item> orderItems = new ArrayList<>() ;
+        ///
+        for (Map.Entry<Integer, ArrayList<String>> key : ((Hashtable<Integer, ArrayList<String>>) data2).entrySet())
+        {
+            ArrayList<String> itemData = key.getValue();
+            Item item = addItem(itemData);
+            orderItems.add(item);
+        }
+        if (!addOrder(orderID,date,destinationSite,sourceSite,orderItems))
+            return -3 ;
 
-            int id = Integer.parseInt((dataItems.get("item_"+ i)).get("id" + i));
-            String name = (dataItems.get("item_"+ i).get("name" + i));
-            int amount = Integer.parseInt((dataItems.get("item_"+ i)).get("amount" + i));
-            Item newItem = new Item(id, name, amount);
-            orderItems.add(newItem);
+        return 0;
+    }
+
+
+    public boolean addOrder(int orderId,LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
+    {
+        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0)
+        {
+            System.out.println("Source zone and destination zone are not match ");
+            return false;
 
         }
-        return addOrder(time,date,destinationSite,sourceSite,orderItems);
-    }
-    public boolean addOrder(LocalTime time, LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
-    {
-        Order order = new Order(time,date,destination,source, ordersItem);
-        return allOrders.add(order);
+        Order order = getOrderByID(orderId);
+        if (order != null)
+        {
+            //allOrders.add(order);
+            order.createOrder(date,destination,source, ordersItem);
+            return true;
+        }
+
+        System.out.println("This order " + orderId + "not in the system");
+        return false;
 
 
     }
@@ -130,7 +179,7 @@ public class DomainController
         return changeDestination(id, newAddress);
     }
 
-        public Order getOrderByID(int id)
+    public Order getOrderByID(int id)
     {
         for (Order order : allOrders)
         {
@@ -198,7 +247,11 @@ public class DomainController
     public boolean isSiteAlreadyIn(Site site)
     {
         ArrayList<Site> isIn = sites.get(site.getSiteZone());
-        return isIn.contains(site);
+
+        if (isIn == null)
+            return false;
+        else
+            return isIn.contains(site) ;
     }
 
 
@@ -215,7 +268,8 @@ public class DomainController
             ArrayList<Site> sitesInZone = sites.get(zone);
             if (sitesInZone != null) {
                 for (Site site : sitesInZone) {
-                    if (site.getAddress().equals(address)) {
+                    if (site.getAddress().trim().compareTo(address.trim())==0)
+                    {
                         return site;
                     }
                 }

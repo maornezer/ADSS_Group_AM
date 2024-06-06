@@ -40,7 +40,7 @@ public class Site
 
     public boolean setContactName(String contactName)
     {
-        if (contactName.isBlank() || !contactName.chars().allMatch(Character::isLetter))
+        if (contactName.isBlank())// || !contactName.trim().chars().allMatch(Character::isLetter))
         {
            return false;
         }
@@ -84,13 +84,3 @@ public class Site
     }
 
 }
-//123 Presentation.Main St,John Doe,1234567890
-//456 Elm St, Jane Smith,8987654321
-//789 Oak St, David Brown,2345678901
-//321 Maple St,Mary Johnson,3456789012
-//654 Pine St,Sarah Williams,4567890123
-//987 Cedar St,James Miller,5678901234
-//135 Walnut St,Anna Davis,6789012345
-//246 Birch St,Matthew Wilson,7890123456
-//357 Spruce St,Jessica Martinez,8901234567
-//468 Ash St,Daniel Taylor,9012345678

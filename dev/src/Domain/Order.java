@@ -8,36 +8,38 @@ import java.util.Set;
 
 public class Order
 {
-    private static int id = 1;
+    private static int id = 0;
     private ArrayList<Item> items;
     private Site source;
     private Site destination;
     private LocalDate date;
-    private LocalTime time;
     private double orderWeight;
 
-    public Order(LocalTime time, LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
+    public Order()
     {
         setId(id);
+        id++;
+    }
+    public boolean createOrder(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
+    {
         setDate(date);
-        setTime(time);
         setSource(source);
         setDestination(destination);
+        setOrderWeight(0.0);
         items = new ArrayList<>();
+        boolean ans = true;
         for (Item item : itemsList)
         {
-            addItem(item.getId(), item.getName(), item.getAmount());
+            ans = addItem(item.getId(), item.getName(), item.getAmount());
+            if (!ans)
+                return false;
         }
-        id++;
-        setOrderWeight(0.0);
+        return true;
+
     }
 
     public void setId(int id) {
         Order.id = id;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
     }
 
     public void setDate(LocalDate date) {
@@ -84,9 +86,6 @@ public class Order
         return date;
     }
 
-    public LocalTime getTime() {
-        return time;
-    }
     public boolean addItem(int id, String name, int amount)
     {
         if (amount < 0 && existItemID(id) )

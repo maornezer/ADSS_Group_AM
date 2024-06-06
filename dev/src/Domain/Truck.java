@@ -57,7 +57,7 @@ public class Truck
     }
     public boolean setTruckModel(String truckModel)
     {
-        if (model.isBlank() || !model.chars().allMatch(Character::isLetter))
+        if (truckModel.isBlank() || !truckModel.chars().allMatch(Character::isLetter))
         {
             return false;
         }
