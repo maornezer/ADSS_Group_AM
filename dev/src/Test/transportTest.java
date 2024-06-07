@@ -22,8 +22,8 @@ public class transportTest
     {
         tr = new TransportController();
         tr.getDomain().addTruck(new Truck(1, 10000, 20000, "D"));
-        tr.getDomain().addTruck(new Truck(2, 1000, 2000, "C"));
-        tr.getDomain().addTruck(new Truck(3, 100, 200, "B"));
+        tr.getDomain().addTruck(new Truck(2, 3000, 7000, "C"));
+        tr.getDomain().addTruck(new Truck(3, 1000, 1500, "B"));
 
         tr.getDomain().addDriver(new Driver("Maor", 1, "D"));
         tr.getDomain().addDriver(new Driver("Ron", 2, "D"));
@@ -38,17 +38,20 @@ public class transportTest
         tr.getDomain().addSiteToList(new Site("Tulip   ", "Center", "Marsel", "508068"));
         tr.getDomain().addSiteToList(new Site("Trumpeldor   ", "Center", "Trumpeldor", "1000"));
 
+        tr.addTransport(1,1);
     }
 
     @Test
-    public void testAddTransport() {
-        Dictionary<String, String> data = new Hashtable<>();
-        data.put("transportID", "1");
-        data.put("idT", "1");
-        data.put("idD", "1");
+    public void testAddTransport1() {
 
-        int result = tr.addTransport(data);
+        int result = tr.addTransport(1,1);
         assertEquals(0, result, "Expected addTransport to return 0 for successful addition.");
+    }
+    @Test
+    public void testAddTransport2() {
+
+        int result = tr.addTransport(1,2);
+        assertEquals(1, result, "Expected addTransport to return 0 for successful addition.");
     }
 
 

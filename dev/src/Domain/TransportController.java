@@ -29,9 +29,14 @@ public class TransportController
     {
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
+        return addTransport(idT, idD);
 
-        Truck truck = domain.getTruckByID(idT);
-        Driver driver = domain.getDriverByID(idD);
+    }
+    public int addTransport(int idTruck, int idDriver)
+    {
+
+        Truck truck = domain.getTruckByID(idTruck);
+        Driver driver = domain.getDriverByID(idDriver);
         if (truck == null)
         {
             return -1;
