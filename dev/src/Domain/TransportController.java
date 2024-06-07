@@ -74,7 +74,7 @@ public class TransportController
                 if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0)
                 {
 
-                    if(tempTransport.getDate() == tempOrder.getDate())
+                    if(tempTransport.getDate().isEqual(tempOrder.getDate()))
                     {
                         tempTransport.addOrderToMYTransport(tempOrder);
                         return true;

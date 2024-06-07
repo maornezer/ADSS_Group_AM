@@ -702,11 +702,11 @@ public void createOrder()
         boolean b = controller.addOrderToTransport(data);
         if (!b)
         {
-            System.out.println("The Order with number id " + orderID + "was not added to transport "+ transportID);
+            System.out.println("The Order with number id " + orderID + " was not added to transport "+ transportID);
         }
         else
         {
-            System.out.println("The Order with number id " + orderID + "was  added successfully to transport "+ transportID);
+            System.out.println("The Order with number id " + orderID + " was added successfully to transport "+ transportID);
         }
 
     }
