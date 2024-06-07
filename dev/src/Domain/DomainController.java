@@ -307,5 +307,11 @@ public class DomainController {
         return "Truck with ID " + id + " not found.";
     }
 
+    public ArrayList<Order> getAllOrders() {
+        return allOrders;
+    }
 
+    public ArrayList<Site> getSites() {
+        return sites;
+    }
 }
