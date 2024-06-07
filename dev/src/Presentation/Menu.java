@@ -765,7 +765,7 @@ public void createOrder()
         Dictionary<String, String> data = new Hashtable<String, String>();
 //        System.out.println("Please enter the order ID for which you would like to update the weight");
 //        int orderID = scanner.nextInt();
-        System.out.println("Please enter the order weight: ");
+        System.out.println("Please enter the order "+ orderID +" weight: ");
         int weight = scanner.nextInt();
         data.put("transportID", Integer.toString(transportID));
         data.put("orderID", Integer.toString(orderID));
@@ -820,7 +820,11 @@ public void createOrder()
         {
             System.out.println("The truck was successfully replaced");
             System.out.println("Weigh the truck again");
-            Orderweightupdate(transportID, orderID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            for (Order order: orderArrayList)
+            {
+                Orderweightupdate(transportID, order.getId());
+            }
         }
     }
 
@@ -846,7 +850,12 @@ public void createOrder()
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
             System.out.println("Weigh the truck again");
-            Orderweightupdate(transportID, orderID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            for (Order order: orderArrayList)
+            {
+                Orderweightupdate(transportID, orderID);
+            }
+
         }
     }
     private void changeDestinationSol(int transportID, int orderID)
@@ -868,7 +877,11 @@ public void createOrder()
         {
             System.out.println("The destination was successfully replaced");
             System.out.println("Weigh the truck again");
-            Orderweightupdate(transportID, orderID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            for (Order order: orderArrayList)
+            {
+                Orderweightupdate(transportID, orderID);
+            }
         }
     }
 }
