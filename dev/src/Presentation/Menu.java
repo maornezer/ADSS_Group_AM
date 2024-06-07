@@ -454,7 +454,7 @@ public void createOrder()
     }
     public void editTransport() {
         System.out.println("Choose transport that you want to edit: ");
-        printAllTransports();
+        controller.printAllTransports();
         System.out.println("Enter ID of the Transport you want to change: ");
         int id = scanner.nextInt();
         if (controller.getTransportController().getTransportByID(id) == null)
