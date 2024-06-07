@@ -174,6 +174,10 @@ public class TransportController
     public String generateTransportReport(int id) {
         Transport transport = getTransportByID(id);
         StringBuilder sb = new StringBuilder();
+        if (transport == null){
+            System.out.println("Transport with ID "+ id +  " not found");
+            return null;
+        }
         sb.append(transport.toStringTransportReport());
         return sb.toString();
     }
@@ -343,6 +347,10 @@ public class TransportController
                {
                    sb.append(transport.toStringTransportReport());
                }
+           }
+           if (!(domain.isDriverExists(domain.getDriverByID(id))))
+           {
+               System.out.println("Driver with ID "+ id+  " not found");
            }
            return sb.toString();
     }
