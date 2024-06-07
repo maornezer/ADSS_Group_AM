@@ -187,17 +187,14 @@ public class DomainController {
         String contactName = data.get("contactName");
         String phoneNumber = data.get("phoneNumber");
         Site newSite = new Site(address, zone, contactName, phoneNumber);
-        return addSiteToList(newSite,str);
-    }
-    public boolean addSiteToList(Site site,String str) {
-
         if (str.compareTo("csv") != 0) {
-            if (isSiteAlreadyIn(site)) {
+            if (isSiteAlreadyIn(newSite)) {
                 return false;
             }
         }
-        return sites.add(site);
+        return addSiteToList(newSite);
     }
+    public boolean addSiteToList(Site site) {return sites.add(site);}
 
     public boolean isSiteAlreadyIn(Site site) {
         for (Site s : sites)
