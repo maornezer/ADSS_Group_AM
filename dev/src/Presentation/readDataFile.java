@@ -103,7 +103,7 @@ public class readDataFile
                 }
                 lineNumber++;
             }
-            prController.printAllOrders();
+            //prController.printAllOrders();
 //            System.out.println(prController.getTransportController().getDomain().toStringDrivers());
 //            System.out.println(prController.getTransportController().getDomain().toStringTrucks());
 //           System.out.println(prController.getTransportController().getDomain().toStringSites());

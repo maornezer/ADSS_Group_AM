@@ -121,8 +121,8 @@ public class DomainController {
         Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
         if (newOrder != null)
             allOrders.add(newOrder);
-        System.out.println("Your order number is: "+ newOrder.getId());
-        return 0;
+        //System.out.println("Your order number is: "+ newOrder.getId());
+        return newOrder.getId();
     }
 
     public Order getOrderByID(int id) {
