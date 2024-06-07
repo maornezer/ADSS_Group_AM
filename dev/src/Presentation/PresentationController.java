@@ -43,9 +43,39 @@ public class PresentationController {
 
     /// transport ///
     public int addTransport(Dictionary<String, String> data) {return this.transportController.addTransport(data);}
-    public void printAllOrdersByTransport(Dictionary<String, String> data){this.transportController.printAllOrdersByTransportID(data);}
+    public void printAllOrdersByTransport(Dictionary<String, String> data){System.out.println(this.transportController.printAllOrdersByTransportID(data));}
     public void getTransportReport(int transportId) {System.out.println(transportController.generateTransportReport(transportId));}
     public void printAllTransports(){System.out.println(transportController.printAllTransport());}
     public void addOrderToTransport(Dictionary<String, String> data){transportController.addOrderToTransport(data);}
 
+    public void printAllTrucks() {
+        System.out.println(transportController.getDomain().toStringTrucks());
+    }
+
+    public String getTypeOfLicense(int idT) {
+        return transportController.getDomain().getTruckByID(idT).getTypeOfLicense();
+    }
+
+    public void printallDriversByLicense(String licenseType)
+    {
+        System.out.println(transportController.getDomain().printDriversByLicenseType(licenseType));
+    }
+
+    public boolean loadOrderToTruck(Dictionary<String, String> data) {
+        return transportController.loadOrderToTruck(data);
+    }
+
+    public boolean treatmentWeightProblemChangeTruck(Dictionary<String, String> data) {
+       return transportController.treatmentWeightProblemChangeTruck(data);
+    }
+
+    public void printOrder(Dictionary<String, String> data)
+    {
+        System.out.println(transportController.getDomain().printOrder(data));
+    }
+
+    public boolean UnloadingItems(Dictionary<String, String> data) {
+        return transportController.treatmentWeightProblemUnloadingItems(data);
+
+    }
 }

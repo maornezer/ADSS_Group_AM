@@ -112,7 +112,7 @@ public class Order
             {
                 return removeItem(id);
             }
-            return item.setAmount(amount);
+            return item.subAmount(amount);
         }
         return false;
     }

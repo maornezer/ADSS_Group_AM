@@ -26,8 +26,14 @@ public class Item
 
      public boolean setAmount(int amount) {
           this.amount = amount;
-          return false;
-     }
+          return true;
+     }ֿ
+     public boolean subAmount(int amount) {
+          this.amount -= amount;
+          return true;
+     }ֿ
+
+
 
      public String getName() {
           return name;

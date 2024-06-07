@@ -109,7 +109,7 @@ public class Menu {
                     seeAllOrdersOrAllTransports();
                     break;
                 case "6":
-                    //deliveryStartUpdate(data);
+                    deliveryStartUpdate();
                     break;
                 case "7":
                     printMenu();
@@ -179,11 +179,17 @@ public void createOrder()
         String year = dateParts[0];
         String month = dateParts[1];
         String day = dateParts[2];
-
+        if (year.length() != 4 || month.length() != 2 || day.length() != 2)
+        {
+            System.out.println("The date must be as in the format");
+            createOrder();
+        }
         data1.put("year", year);
         data1.put("month", month);
         data1.put("day", day);
     }
+
+
 
     String source = checkAddressSource();
     data1.put("source", source);
@@ -302,23 +308,28 @@ public void createOrder()
     {
 
         Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please choose truck ID from truck list: ");
+        printAllTrucks();
         System.out.println("Enter Truck ID: ");
         int idT = scanner.nextInt();
+        String licenseType = getTypeOfLicense(idT);
         data.put("idT", Integer.toString(idT));
-
+        System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
+        printallDriversByLicense(licenseType);
         System.out.println("Enter Driver ID: ");
         int idD = scanner.nextInt();
         data.put("idD", Integer.toString(idD));
-
         int ans = controller.addTransport(data);
 
         if (ans == -1)
         {
             System.out.println("The Truck id is not registered in the system");
+            System.out.println("Failed to create the shipment");
         }
         if (ans == -2)
         {
             System.out.println("The Driver id is not registered in the system");
+            System.out.println("Failed to create the shipment");
         }
         else
         {
@@ -327,39 +338,46 @@ public void createOrder()
         System.out.println("Enter if you want to add a order number to this transport [Y/N]");
         scanner.skip("\\R?");
         String s = scanner.nextLine();
-        //ArrayList<String> idOrderToAdd = new ArrayList<>();
         if (s.compareTo("Y") == 0)
         {
-            System.out.println("Please enter the ID number of the transport you received: ");
-            int transID = scanner.nextInt();
-            System.out.println("Please choose:");
-            System.out.println("1. Creat new order");
-            System.out.println("2. Add an existing order");
-            System.out.println("3. Continue");
 
-            scanner.skip("\\R?");
-            String choose = scanner.nextLine();
+            addOrderTonewTransport();
+//
 
-            switch (choose)
-            {
-                case "1":
-                    createOrder();
-                    break;
-                case "2":
-                    addOrderToTransport(transID);
-                    break;
-                case "3":
-                    break;
-                default:
-                    System.out.println("There is no such option of choice, please choose valid number\n");
-            }
+        }
+
+    }
+    public void addOrderTonewTransport() {
+        System.out.println("Please enter the ID number of the transport you received: ");
+        int transID = scanner.nextInt();
+        System.out.println("Please choose:");
+        System.out.println("1. Creat new order");
+        System.out.println("2. Add an existing order");
+        System.out.println("3. Exit");
+
+        scanner.skip("\\R?");
+        String choose = scanner.nextLine();
+
+        switch (choose) {
+            case "1":
+                createOrder();
+                anotherOrder();
+                break;
+            case "2":
+                addOrderToTransport(transID);
+                anotherOrder();
+                break;
+            case "3":
+                break;
+            default:
+                System.out.println("There is no such option of choice, please choose valid number\n");
         }
     }
 
     public void editOrderOrTransport()
     {
         System.out.println("Enter what do you like to edit: ");
-        System.out.println("1. Edit Order");
+        System.out.println("1. Edit the address of the order");
         System.out.println("2. Edit Transport");
         System.out.println("3. Return to Menu");
         scanner.skip("\\R?");
@@ -431,7 +449,7 @@ public void createOrder()
                 changeDriver(id);
                 break;
             case "3":
-                addOrderToTransport(id);
+                addOrderTonewTransport();
                 break;
             case "4":
                 editOrderOrTransport();
@@ -446,11 +464,11 @@ public void createOrder()
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
         data.put("idTransport", Integer.toString(idTransport));
-
+        //String licenseTruck = getTypeOfLicense();
         System.out.println("Enter new Truck ID: ");
         int idTruck = scanner.nextInt();
+        String licenseTruckNew = getTypeOfLicense(idTruck);
         data.put("idTruck", Integer.toString(idTruck));
-
         controller.changeTruck(data);
     }
 
@@ -473,6 +491,8 @@ public void createOrder()
         System.out.println("1. add new Site");
         System.out.println("2. add new Truck");
         System.out.println("3. add new Driver");
+        System.out.println("4. Return back");
+
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
@@ -486,7 +506,12 @@ public void createOrder()
             case "3":
                 addDriver();
                 break;
-
+            case "4":
+                managerMenu();
+                break;
+            default:
+                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 or 4 for return to back");
+                editDatabase();
         }
     }
 
@@ -611,6 +636,19 @@ public void createOrder()
                 break;
         }
     }
+    public void anotherOrder()
+    {
+        System.out.println("Do you want to add another order to this transport? [Y/N] ");
+        scanner.skip("\\R?");
+        String choice = scanner.nextLine();
+        if (choice.compareTo("Y") == 0)
+        {
+            addOrderTonewTransport();
+        }
+        else
+            managerMenu();
+
+    }
     public void getAllDeliveries()
     {
         System.out.println("Please enter your ID:");
@@ -662,8 +700,125 @@ public void createOrder()
         data.put("transportID",Integer.toString(transportID));
         data.put("orderID", orderID);
         controller.addOrderToTransport(data);
+
     }
 
+    public void printAllTrucks()
+    {
+        controller.printAllTrucks();
+    }
+
+    public String getTypeOfLicense(int idT)
+    {
+        return controller.getTypeOfLicense(idT);
+    }
+    public void printallDriversByLicense(String licenseType)
+    {
+        controller.printallDriversByLicense( licenseType);
+    }
+    public void deliveryStartUpdate()
+    {
+        System.out.println("Please enter Please enter the transport id you want to send ");
+        int transportID = scanner.nextInt();
+        System.out.println("Please enter the order ID for which you would like to update the weight");
+        int orderID = scanner.nextInt();
+        boolean b = Orderweightupdate(transportID,orderID);
+        if (!b)
+        {
+            System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
+            managerSulotion(transportID, orderID);
+        }
+        else
+        {
+            System.out.println("Weighing was done successfully! The truck can leave");
+
+        }
 
 
+    }
+    public boolean Orderweightupdate(int transportID, int orderID)
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+//        System.out.println("Please enter the order ID for which you would like to update the weight");
+//        int orderID = scanner.nextInt();
+        System.out.println("Please enter the order weight: ");
+        int weight = scanner.nextInt();
+        data.put("transportID", Integer.toString(transportID));
+        data.put("orderID", Integer.toString(orderID));
+        data.put("weight", Integer.toString(weight));
+        return controller.loadOrderToTruck(data);
+    }
+    public void managerSulotion(int transportID, int orderID)
+    {
+        //System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
+        System.out.println("1. Change Truck");
+        System.out.println("2. Unloading Item");
+        System.out.println("3. Change destination");
+        scanner.skip("\\R?");
+        String choice = scanner.nextLine();
+        switch (choice)
+        {
+            case "1":
+                changeTruckSol(transportID, orderID);
+                break;
+            case "2":
+                UnloadingItemSol(transportID, orderID);
+                break;
+            case "3":
+                break;
+            default:
+                System.out.println("You must choose a solution to the weight problem ");
+                managerSulotion(transportID, orderID);
+                break;
+        }
+//        public boolean treatmentWeightProblemChangeDestination(int orderID,String address,int transportID)
+
+    }
+    public void changeTruckSol(int transportID , int orderID)
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter new truck ID: ");
+        int truckId = scanner.nextInt();
+        data.put("transportID", Integer.toString(transportID));
+        data.put("truckId", Integer.toString(truckId));
+
+        boolean sol1 = controller.treatmentWeightProblemChangeTruck(data);
+        if (!sol1)
+        {
+            System.out.println("Changing the truck failed Please choose again a solution for the weight problem");
+            managerSulotion(transportID, orderID);
+        }
+        else
+        {
+            System.out.println("The truck was successfully replaced");
+            System.out.println("Weigh the truck again");
+            Orderweightupdate(transportID, orderID);
+        }
+    }
+
+    public void UnloadingItemSol(int transportID , int orderID)
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        data.put("transportID", Integer.toString(transportID));
+        data.put("orderID", Integer.toString(orderID));
+        controller.printOrder(data);
+        System.out.println("Please enter the ID of the item you want to change the quantity of ");
+        int itemID = scanner.nextInt();
+        System.out.println("What is the amount you would like to reduce from the item ");
+        int amount = scanner.nextInt();
+        data.put("itemID", Integer.toString(itemID));
+        data.put("amount", Integer.toString(amount));
+        boolean sol2 = controller.UnloadingItems(data);
+        if (!sol2)
+        {
+            System.out.println("Changing the quantity of item "+ itemID + " failed Please choose again a solution for the weight problem");
+            managerSulotion(transportID, orderID);
+        }
+        else
+        {
+            System.out.println("The quantity of item "+ itemID + " was successfully replaced");
+            System.out.println("Weigh the truck again");
+            Orderweightupdate(transportID, orderID);
+        }
+    }
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class TransportController
 {
@@ -183,6 +184,13 @@ public class TransportController
         }
         return report.toString();
     }
+    public boolean loadOrderToTruck(Dictionary<String,String> data)
+    {
+        int orderWeight = Integer.parseInt(data.get("weight"));
+        int orderID = Integer.parseInt(data.get("orderID"));
+        int transportID = Integer.parseInt(data.get("transportID"));
+        return loadOrderToTruck(orderWeight,orderID,transportID);
+    }
 
     public boolean loadOrderToTruck(double orderWeight,int orderID, int transportID)
     {
@@ -226,10 +234,15 @@ public class TransportController
         }
         return false;
     }
-
-    public boolean treatmentWeightProblemChangeTruck(int transportID,int newID)
+    public boolean treatmentWeightProblemChangeTruck(Dictionary<String,String> data)
     {
-        boolean b = changeTruck(transportID,newID);
+        int transportID = Integer.parseInt(data.get("transportID"));
+        int truckId = Integer.parseInt(data.get("truckId"));
+        return treatmentWeightProblemChangeTruck(transportID, truckId);
+    }
+    public boolean treatmentWeightProblemChangeTruck(int transportID,int truckId)
+    {
+        boolean b = changeTruck(transportID,truckId);
         if (b)
         {
             getTransportByID(transportID).setChangeTruck();
@@ -237,24 +250,33 @@ public class TransportController
         }
         return false;
     }
-    public boolean treatmentWeightProblemUnloadingItems(int orderID,int itemID,int amount, int transportID) {
-        Order orderTemp = domain.getOrderByID(orderID);
-        Item itemTemp = orderTemp.getItemByID(itemID);
-        if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
-        {
-            System.out.println("Error! The order " + orderID + " is not in contains " + itemTemp.getName());
-            return false;
-        }
-        else
-        {
-            boolean b = orderTemp.changeAmount(itemID,amount);
-            if (b)
-            {
-                getTransportByID(transportID).setUnloadingItems();
-            }
-            return true;
-        }
+    public boolean treatmentWeightProblemUnloadingItems(Dictionary<String,String> data)
+    {
+        int orderID = Integer.parseInt(data.get("orderID"));
+        int itemID = Integer.parseInt(data.get("itemID"));
+        int amount = Integer.parseInt(data.get("amount"));
+        int transportID = Integer.parseInt(data.get("transportID"));
+        return treatmentWeightProblemUnloadingItems(orderID,itemID, amount, transportID);
     }
+
+    public boolean treatmentWeightProblemUnloadingItems(int orderID,int itemID,int amount, int transportID) {
+    Order orderTemp = domain.getOrderByID(orderID);
+    Item itemTemp = orderTemp.getItemByID(itemID);
+    if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
+    {
+        System.out.println("Error! The order " + orderID + " is not in contains " + itemTemp.getName());
+        return false;
+    }
+    else
+    {
+        boolean b = orderTemp.changeAmount(itemID,amount);
+        if (b)
+        {
+            getTransportByID(transportID).setUnloadingItems();
+        }
+        return true;
+    }
+}
     public boolean treatmentWeightProblemChangeDestination(int orderID,String address,int transportID)
     {
         boolean b = domain.changeDestination(orderID,address);
@@ -289,12 +311,19 @@ public class TransportController
     {
         Transport tempTransport = getTransportByID(transportID);
         StringBuilder sb = new StringBuilder();
-        sb.append(tempTransport.toStringTransportReport());
+        for (Order order: tempTransport.getMyOrders())
+        {
+            sb.append(order.toStringReport());
+            //sb.append("\n");
+
+        }
         return sb.toString();
     }
-    public void printAllOrdersByTransportID(Dictionary<String,String> data) {
+    public String printAllOrdersByTransportID(Dictionary<String,String> data) {
         int id = Integer.parseInt(data.get("id"));
-        printAllOrdersByTransportID(id);
+        StringBuilder sb = new StringBuilder();
+        sb.append(printAllOrdersByTransportID(id));
+        return sb.toString();
     }
 
     public String getTransportByIdDriver(int id)
