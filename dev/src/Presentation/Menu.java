@@ -2,6 +2,7 @@ package Presentation;
 
 import Domain.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -84,7 +85,7 @@ public class Menu {
             System.out.println("1. Create Order");
             System.out.println("2. Create Transport");
             System.out.println("3. Edit existing order or existing transport");
-            System.out.println("4. Edit driver / truck / site details");
+            System.out.println("4. Add driver / truck / site");
             System.out.println("5. View all orders or all shipments");
             System.out.println("6. Starting transport");
             System.out.println("7. Log out");
@@ -173,7 +174,6 @@ public void createOrder()
     scanner.skip("\\R?");
     String date = scanner.nextLine();
     String[] dateParts = date.split("/");
-
     if (dateParts.length == 3)
     {
         String year = dateParts[0];
@@ -187,6 +187,11 @@ public void createOrder()
         data1.put("year", year);
         data1.put("month", month);
         data1.put("day", day);
+    }
+    else
+    {
+        System.out.println("The date must be as in the format");
+        createOrder();
     }
 
 
@@ -385,14 +390,22 @@ public void createOrder()
         switch (choice)
         {
             case "1":
-                editOrder();
+                if (controller.getTransportController().getDomain().getAllOrders().size() == 0)
+                {
+                    System.out.println("You do not have orders in the system");
+                }
+                else
+                {
+                    editOrder();
+                }
                 break;
             case "2":
-                if (controller.getTransportController().getTransports() == null)
+                if (controller.getTransportController().getTransports().size() == 0)
                 {
                     System.out.println("You do not have transports in the system");
                 }
-                else {
+                else
+                {
                     editTransport();
                 }
                 break;
@@ -515,7 +528,7 @@ public void createOrder()
     }
     public void editDatabase()
     {
-        System.out.println("Enter what do you want to add to your DataBase: ");
+        System.out.println("Enter what do you want to add to your system: ");
         System.out.println("1. add new Site");
         System.out.println("2. add new Truck");
         System.out.println("3. add new Driver");
