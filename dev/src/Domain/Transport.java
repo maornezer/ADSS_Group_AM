@@ -144,7 +144,7 @@ public class Transport
                 if(changeTruck){
                         sb.append("A change was made in the transport. The solution was to change the truck ").append("\n");
                 }
-                sb.append("\n");
+//                sb.append("\n");
                 return sb.toString();
         }
 
