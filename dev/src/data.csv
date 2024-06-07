@@ -41,35 +41,35 @@ Karen Martinez,North,Juniper,509900123,,
 Joseph Garcia,South,Alder,501011123,,
 Lisa Robinson,Center,Beech,501121314,,
 Truck,,,
-5000,15000,Mercedes,123456,,
-5200,15200,Volvo,234567,,
-5400,15400,Scania,345678,,
-5600,15600,MAN,456789,,
-5800,15800,Iveco,567890,,
-6000,16000,DAF,678901,,
-6200,16200,Renault,789012,,
-6400,16400,Kenworth,890123,,
-6600,16600,Peterbilt,901234,,
-6800,16800,Freightliner,12345,,
-7000,17000,International,123457,,
-7200,17200,Mack,234568,,
-7400,17400,Western Star,345679,,
-7600,17600,Hino,456790,,
-7800,17800,Isuzu,567801,,
-8000,18000,Mitsubishi,678912,,
-8200,18200,Fuso,789023,,
-8400,18400,Tata,890134,,
-8600,18600,Ashok Leyland,901245,,
+200,1500,Mercedes,123456,,
+400,3000,Volvo,234567,,
+500,9000,Scania,345678,,
+1500,15600,MAN,456789,,
+1000,500,Iveco,567890,,
+1000,5000,DAF,678901,,
+2000,2000,Renault,789012,,
+2000,200,Kenworth,890123,,
+200,16600,Peterbilt,901234,,
+680,1600,Freightliner,12345,,
+700,7000,International,123457,,
+720,1700,Mack,234568,,
+700,100,Western Star,345679,,
+760,1700,Hino,456790,,
+780,1780,Isuzu,567801,,
+5000,18000,Mitsubishi,678912,,
+110,1800,Fuso,789023,,
+840,1840,Tata,890134,,
+860,18600,Ashok Leyland,901245,,
 8800,18800,Hyundai,12356,,
 Order,,,
-01/06/2023,Oak,Juniper,Tomato,67890,15
+01/06/2024,Oak,Juniper,Tomato,67890,15
 01/11/2023,Sycamore,Chestnut,Beef,12346,20
 01/12/2023,Pine,Chestnut,Fish,23457,5
 01/06/2024,Redwood,Alder,Carrot,89013,15
 01/01/2024,Ash,Sycamore,Rice,34568,10
 01/02/2024,Cherry,Ash,Pasta,45679,10
 01/01/2023,Oak,Maple,Cucumber,12345,11
-01/02/2023,Maple,Elm,Milk,23456,15
+01/06/2024,Maple,Elm,Milk,23456,15
 01/03/2023,Spruce,Elm,Bread,34567,20
 01/04/2023,Hickory,Spruce,Butter,45678,5
 01/05/2023,Juniper,Hickory,Cheese,56789,10
