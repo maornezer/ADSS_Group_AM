@@ -78,4 +78,9 @@ public class PresentationController {
         return transportController.treatmentWeightProblemUnloadingItems(data);
 
     }
+
+    public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data)
+    {
+        return transportController.treatmentWeightProblemChangeDestination(data);
+    }
 }

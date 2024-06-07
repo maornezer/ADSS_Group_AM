@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Transport
 {
-        private static int next_id = 0;
+        private static int next_id = 1;
         private int id;
         private LocalDate date;
         private LocalTime time;

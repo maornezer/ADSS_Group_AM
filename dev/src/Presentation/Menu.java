@@ -718,7 +718,7 @@ public void createOrder()
     }
     public void deliveryStartUpdate()
     {
-        System.out.println("Please enter Please enter the transport id you want to send ");
+        System.out.println("Please enter the transport id you want to send ");
         int transportID = scanner.nextInt();
         System.out.println("Please enter the order ID for which you would like to update the weight");
         int orderID = scanner.nextInt();
@@ -765,6 +765,7 @@ public void createOrder()
                 UnloadingItemSol(transportID, orderID);
                 break;
             case "3":
+                changeDestinationSol(transportID,orderID);
                 break;
             default:
                 System.out.println("You must choose a solution to the weight problem ");
@@ -774,6 +775,9 @@ public void createOrder()
 //        public boolean treatmentWeightProblemChangeDestination(int orderID,String address,int transportID)
 
     }
+
+
+
     public void changeTruckSol(int transportID , int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
@@ -817,6 +821,28 @@ public void createOrder()
         else
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
+            System.out.println("Weigh the truck again");
+            Orderweightupdate(transportID, orderID);
+        }
+    }
+    private void changeDestinationSol(int transportID, int orderID)
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter new destination address: ");
+        scanner.skip("\\R?");
+        String address = scanner.nextLine();
+        data.put("orderID", Integer.toString(orderID));
+        data.put("transportID", Integer.toString(transportID));
+        data.put("address", address);
+        boolean sol3 = controller.treatmentWeightProblemChangeDestination(data);
+        if (!sol3)
+        {
+            System.out.println("Changing the destination failed Please choose again a solution for the weight problem");
+            managerSulotion(transportID, orderID);
+        }
+        else
+        {
+            System.out.println("The destination was successfully replaced");
             System.out.println("Weigh the truck again");
             Orderweightupdate(transportID, orderID);
         }

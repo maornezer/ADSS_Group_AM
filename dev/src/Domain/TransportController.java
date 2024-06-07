@@ -260,24 +260,32 @@ public class TransportController
     }
 
     public boolean treatmentWeightProblemUnloadingItems(int orderID,int itemID,int amount, int transportID) {
-    Order orderTemp = domain.getOrderByID(orderID);
-    Item itemTemp = orderTemp.getItemByID(itemID);
-    if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
-    {
-        System.out.println("Error! The order " + orderID + " is not in contains " + itemTemp.getName());
-        return false;
-    }
-    else
-    {
-        boolean b = orderTemp.changeAmount(itemID,amount);
-        if (b)
+        Order orderTemp = domain.getOrderByID(orderID);
+        Item itemTemp = orderTemp.getItemByID(itemID);
+        if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
         {
-            getTransportByID(transportID).setUnloadingItems();
+            System.out.println("Error! The order " + orderID + " is not in contains " + itemTemp.getName());
+            return false;
         }
+        else
+        {
+            boolean b = orderTemp.changeAmount(itemID,amount);
+            if (b)
+                {
+                    getTransportByID(transportID).setUnloadingItems();
+                }
         return true;
+        }
     }
-}
-    public boolean treatmentWeightProblemChangeDestination(int orderID,String address,int transportID)
+    public boolean treatmentWeightProblemChangeDestination(Dictionary<String,String> data)
+    {
+        int orderID = Integer.parseInt(data.get("orderID"));
+        String address = data.get("address");
+        int transportID = Integer.parseInt(data.get("transportID"));
+        return treatmentWeightProblemChangeDestination(orderID, address, transportID );
+    }
+
+    public boolean treatmentWeightProblemChangeDestination(int orderID, String address, int transportID)
     {
         boolean b = domain.changeDestination(orderID,address);
         if (b)

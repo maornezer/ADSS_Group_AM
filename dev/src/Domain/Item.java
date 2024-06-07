@@ -27,11 +27,11 @@ public class Item
      public boolean setAmount(int amount) {
           this.amount = amount;
           return true;
-     }ֿ
+     }
      public boolean subAmount(int amount) {
           this.amount -= amount;
           return true;
-     }ֿ
+     }
 
 
 
