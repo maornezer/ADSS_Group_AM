@@ -21,7 +21,6 @@ public class PresentationController {
     }
 
     /// order + item ///
-    public Order createNewOrder() {return this.transportController.getDomain().createNewOrderDomain();}
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getDomain().addOrder(data1, data2);}
     public void printAllOrders()
     {

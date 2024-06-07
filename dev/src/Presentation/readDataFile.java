@@ -23,6 +23,7 @@ public class readDataFile
     {
         String csvFilePath = "/data.csv";
         Dictionary<String,String> data1 = new Hashtable<String, String>();
+        Dictionary<Integer, ArrayList<String>> data2  = new Hashtable<Integer, ArrayList<String>>();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream(csvFilePath)))) {
             String line;
@@ -38,7 +39,6 @@ public class readDataFile
                 if (line.equalsIgnoreCase("driver,,,") ||
                         line.equalsIgnoreCase("site,,,") ||
                         line.equalsIgnoreCase("truck,,,") ||
-                        line.equalsIgnoreCase("item,,,") ||
                         line.equalsIgnoreCase("order,,,")) {
                     currentSection = line.split(",")[0].toLowerCase(); // set current section based on the line
                     lineNumber = 0;
@@ -76,26 +76,27 @@ public class readDataFile
                         Dictionary<String,String> t = addTruckDict(truckID,truckInitialWeight,truckMaxWeight,truckModel);
                         prController.addTruck(t);
                         break;
-                    case "item":
-                        if (parts.length < 3) break; // Ensure correct number of fields
-                        String itemName = parts[0];
-                        String itemID = parts[1];
-                        String itemAmount = parts[2];
 
-                        Dictionary<Integer, ArrayList<String>> data2 = addItemDict(itemNum,itemID,itemName,itemAmount) ;
-
-                        prController.creatNewOrder(data1,data2);
-
-                        break;
                     case "order":
-                        if (parts.length < 3) break; // Ensure correct number of fields
+                        if (parts.length < 6) break; // Ensure correct number of fields
                         String orderDate = parts[0];
                         String orderSource = parts[1];
                         String orderDestination = parts[2];
-
-                        Order order = prController.createNewOrder();
-                        int orderID = order.getId();
-                        data1 = addOrderDict(orderID,orderDate,orderSource,orderDestination) ;
+                        String [] datePart =orderDate.split("/");
+                        String year = datePart[2];
+                        String month = datePart [1];
+                        String day = datePart [0];
+                        data1.put("year", year);
+                        data1.put("month", month);
+                        data1.put("day", day);
+                        data1.put("destination",orderDestination);
+                        data1.put("source",orderSource);
+                        String itemName = parts[3];
+                        String itemID = parts[4];
+                        String itemAmount = parts[5];
+                        data2.put(itemNum, addItemDict(itemID,itemName,itemAmount));
+                        // data1 = addOrderDict(orderDate,orderSource,orderDestination) ;
+                        prController.creatNewOrder(data1,data2);
                         break;
 
 
@@ -143,35 +144,32 @@ public class readDataFile
         site.put("phoneNumber",phoneNumber);
         return site;
     }
-    public Dictionary<String, String> addOrderDict(int orderID,String date,String destination,String source )
-    {
-        Dictionary<String,String> data1 = new Hashtable<String, String>();
+//    public Dictionary<String, String> addOrderDict(String date,String destination,String source )
+//    {
+//        Dictionary<String,String> data1 = new Hashtable<String, String>();
+//        String [] datePart =date.split("/");
+//        String year = datePart[2];
+//        String month = datePart [1];
+//        String day = datePart [0];
+//        data1.put("year", year);
+//        data1.put("month", month);
+//        data1.put("day", day);
+//        data1.put("destination",destination);
+//        data1.put("source",source);
+//        return data1;
+//    }
 
-        String [] datePart =date.split("/");
-        String year = datePart[2];
-        String month = datePart [1];
-        String day = datePart [0];
-        data1.put("orderID",Integer.toString(orderID));
-        data1.put("year", year);
-        data1.put("month", month);
-        data1.put("day", day);
-        data1.put("destination",destination);
-        data1.put("source",source);
-        return data1;
-    }
-
-    public Dictionary<Integer, ArrayList<String>> addItemDict(int itemNum,String id, String name, String amount)
+    public ArrayList<String> addItemDict(String id, String name, String amount)
     {
-        Dictionary<Integer, ArrayList<String>> data2 = new Hashtable<Integer, ArrayList<String>>();
         ArrayList<String> itemi = new ArrayList<>();
 
         itemi.add(id);
         itemi.add(name);
         itemi.add(amount);
 
-        data2.put(itemNum,itemi);
 
-        return data2;
+
+        return itemi;
     }
 
 

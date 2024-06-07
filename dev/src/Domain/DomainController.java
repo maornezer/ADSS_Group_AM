@@ -94,18 +94,6 @@ public class DomainController
     }
     ///// Order /////
 
-
-    public Order createNewOrderDomain()
-    {
-        Order order = new Order();
-        allOrders.add(order);
-        return order;
-    }
-
-
-
-
-
     public Item addItem(ArrayList<String> item)
     {
         int id = Integer.parseInt(item.get(0));
@@ -119,7 +107,7 @@ public class DomainController
 
     public int addOrder(Dictionary<String,String> data1,  Dictionary<Integer, ArrayList<String>> data2)
     {
-        int orderID = Integer.parseInt(data1.get("orderID"));
+        //int orderID = Integer.parseInt(data1.get("orderID"));
         LocalDate date = LocalDate.of(Integer.parseInt(data1.get("year")),Integer.parseInt(data1.get("month")),Integer.parseInt(data1.get("day")));
         String destination = data1.get("destination");
         String source = data1.get("source");
@@ -145,34 +133,13 @@ public class DomainController
             Item item = addItem(itemData);
             orderItems.add(item);
         }
-        if (!addOrder(orderID,date,destinationSite,sourceSite,orderItems))
-            return -3 ;
-
+        Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
+        if (newOrder != null)
+            allOrders.add(newOrder);
         return 0;
     }
 
 
-    public boolean addOrder(int orderId,LocalDate date, Site destination, Site source, ArrayList<Item> ordersItem)
-    {
-        if(source.getSiteZone().compareTo(destination.getSiteZone())!=0)
-        {
-            System.out.println("Source zone and destination zone are not match");
-            return false;
-
-        }
-        Order order = getOrderByID(orderId);
-        if (order != null)
-        {
-            //allOrders.add(order);
-            order.createOrder(date,destination,source, ordersItem);
-            return true;
-        }
-
-        System.out.println("This order " + orderId + "not in the system");
-        return false;
-
-
-    }
     public boolean changeDestination(Dictionary<String, String> data)
     {
         int id = Integer.parseInt(data.get("id"));

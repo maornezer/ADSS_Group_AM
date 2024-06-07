@@ -12,27 +12,21 @@ public class Order
     private LocalDate date;
     private double orderWeight;
 
-    public Order()
-    {
-        setId(id);
-        id++;
-    }
-    public boolean createOrder(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
+//
+    public Order(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
     {
         setDate(date);
         setSource(source);
         setDestination(destination);
         setOrderWeight(0.0);
+        setId(id);
+        id++;
         items = new ArrayList<>();
         boolean ans = true;
         for (Item item : itemsList)
         {
             ans = addItem(item.getId(), item.getName(), item.getAmount());
-            if (!ans)
-                return false;
         }
-        return true;
-
     }
 
     public void setId(int id) {
@@ -48,7 +42,7 @@ public class Order
     }
 
     public void setSource(Site source) {
-        this.source = source;
+            this.source = source;
     }
 
     public void setItems(ArrayList<Item> items) {

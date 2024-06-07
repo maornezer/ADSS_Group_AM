@@ -165,82 +165,156 @@ public class Menu {
 //        String orderNumber = scanner.nextLine();
 //
 //    }
+public void createOrder()
+{
+    Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
+    Dictionary<String, String> data1= new Hashtable<String, String>();
+    //Order order = controller.createNewOrder();
+    //int orderID = order.getId();
+//    data1.put("orderID",Integer.toString(orderID));
+//    System.out.println("Your order number is: " + orderID);
 
-    public void createOrder()
+    System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
+    scanner.skip("\\R?");
+    String date = scanner.nextLine();
+    String[] dateParts = date.split("/");
+
+    if (dateParts.length == 3)
     {
-        Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
-        Dictionary<String, String> data1= new Hashtable<String, String>();
-        Order order = controller.createNewOrder();
-        int orderID = order.getId();
-        data1.put("orderID",Integer.toString(orderID));
-        System.out.println("Your order number is: " + orderID);
+        String year = dateParts[0];
+        String month = dateParts[1];
+        String day = dateParts[2];
 
-        System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
-        scanner.skip("\\R?");
-        String date = scanner.nextLine();
-        String[] dateParts = date.split("/");
-
-        if (dateParts.length == 3)
-        {
-            String year = dateParts[0];
-            String month = dateParts[1];
-            String day = dateParts[2];
-
-            data1.put("year", year);
-            data1.put("month", month);
-            data1.put("day", day);
-        }
-
-        String source = checkAddressSource();
-        data1.put("source", source);
-
-        String destination = checkAddressDestination();
-        data1.put("destination", destination);
-
-        int i = 1;
-        System.out.println("Enter the items of the order ");
-        boolean choice = true;
-        while (choice)
-        {
-            ArrayList<String> itemi = new ArrayList<>();
-            System.out.println("Item number: "+i);
-            System.out.println("Enter item ID");
-            int itemID = scanner.nextInt();
-            itemi.add(Integer.toString(itemID));
-            System.out.println("Enter item name");
-            scanner.skip("\\R?");
-            String itemName = scanner.nextLine();
-            itemi.add(itemName);
-            System.out.println("Enter item amount");
-            int amount = scanner.nextInt();
-            itemi.add(Integer.toString(amount));
-            System.out.println("Are there more items? [Y/N]");
-            scanner.skip("\\R?");
-            String choose = scanner.nextLine();
-            data2.put(i,itemi);
-
-            if (choose.compareTo("Y")==0)
-            {
-                i++;
-            }
-            else if (choose.compareTo("N")==0)
-            {
-                choice = false;
-            }
-            else
-                System.out.println("There is no such option of choice, please choose valid number\n");
-        }
-        int ans = controller.creatNewOrder(data1, data2);
-        if(ans == -2)
-        {
-            addressSolution(2)  ;
-        }
-        if(ans == -1)
-        {
-            addressSolution(1);
-        }
-
+        data1.put("year", year);
+        data1.put("month", month);
+        data1.put("day", day);
     }
+
+    String source = checkAddressSource();
+    data1.put("source", source);
+
+    String destination = checkAddressDestination();
+    data1.put("destination", destination);
+
+    int i = 1;
+    System.out.println("Enter the items of the order ");
+    boolean choice = true;
+    while (choice)
+    {
+        ArrayList<String> itemi = new ArrayList<>();
+        System.out.println("Item number: "+i);
+        System.out.println("Enter item ID");
+        int itemID = scanner.nextInt();
+        itemi.add(Integer.toString(itemID));
+        System.out.println("Enter item name");
+        scanner.skip("\\R?");
+        String itemName = scanner.nextLine();
+        itemi.add(itemName);
+        System.out.println("Enter item amount");
+        int amount = scanner.nextInt();
+        itemi.add(Integer.toString(amount));
+        System.out.println("Are there more items? [Y/N]");
+        scanner.skip("\\R?");
+        String choose = scanner.nextLine();
+        data2.put(i,itemi);
+
+        if (choose.compareTo("Y")==0)
+        {
+            i++;
+        }
+        else if (choose.compareTo("N")==0)
+        {
+            choice = false;
+        }
+        else
+            System.out.println("There is no such option of choice, please choose valid number\n");
+    }
+    int ans = controller.creatNewOrder(data1, data2);
+    if(ans == -2)
+    {
+        addressSolution(2)  ;
+    }
+    if(ans == -1)
+    {
+        addressSolution(1);
+    }
+
+}
+//    public void createOrder()
+//    {
+//        Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
+//        Dictionary<String, String> data1= new Hashtable<String, String>();
+//        Order order = controller.createNewOrder();
+//        int orderID = order.getId();
+//        data1.put("orderID",Integer.toString(orderID));
+//        System.out.println("Your order number is: " + orderID);
+//
+//        System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
+//        scanner.skip("\\R?");
+//        String date = scanner.nextLine();
+//        String[] dateParts = date.split("/");
+//
+//        if (dateParts.length == 3)
+//        {
+//            String year = dateParts[0];
+//            String month = dateParts[1];
+//            String day = dateParts[2];
+//
+//            data1.put("year", year);
+//            data1.put("month", month);
+//            data1.put("day", day);
+//        }
+//
+//        String source = checkAddressSource();
+//        data1.put("source", source);
+//
+//        String destination = checkAddressDestination();
+//        data1.put("destination", destination);
+//
+//        int i = 1;
+//        System.out.println("Enter the items of the order ");
+//        boolean choice = true;
+//        while (choice)
+//        {
+//            ArrayList<String> itemi = new ArrayList<>();
+//            System.out.println("Item number: "+i);
+//            System.out.println("Enter item ID");
+//            int itemID = scanner.nextInt();
+//            itemi.add(Integer.toString(itemID));
+//            System.out.println("Enter item name");
+//            scanner.skip("\\R?");
+//            String itemName = scanner.nextLine();
+//            itemi.add(itemName);
+//            System.out.println("Enter item amount");
+//            int amount = scanner.nextInt();
+//            itemi.add(Integer.toString(amount));
+//            System.out.println("Are there more items? [Y/N]");
+//            scanner.skip("\\R?");
+//            String choose = scanner.nextLine();
+//            data2.put(i,itemi);
+//
+//            if (choose.compareTo("Y")==0)
+//            {
+//                i++;
+//            }
+//            else if (choose.compareTo("N")==0)
+//            {
+//                choice = false;
+//            }
+//            else
+//                System.out.println("There is no such option of choice, please choose valid number\n");
+//        }
+//        int ans = controller.creatNewOrder(data1, data2);
+//        if(ans == -2)
+//        {
+//            addressSolution(2)  ;
+//        }
+//        if(ans == -1)
+//        {
+//            addressSolution(1);
+//        }
+//
+//    }
     public String checkAddressSource()
     {
         System.out.println("Enter the source address");
@@ -486,8 +560,6 @@ public class Menu {
 
         controller.addSite(data);
         System.out.println("The site has been registered in the system");
-
-
     }
     public void addTruck()
     {
