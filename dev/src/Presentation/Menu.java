@@ -699,7 +699,15 @@ public void createOrder()
         Dictionary<String, String> data = new Hashtable<String, String>();
         data.put("transportID",Integer.toString(transportID));
         data.put("orderID", orderID);
-        controller.addOrderToTransport(data);
+        boolean b = controller.addOrderToTransport(data);
+        if (!b)
+        {
+            System.out.println("The Order with number id " + orderID + "was not added to transport "+ transportID);
+        }
+        else
+        {
+            System.out.println("The Order with number id " + orderID + "was  added successfully to transport "+ transportID);
+        }
 
     }
 

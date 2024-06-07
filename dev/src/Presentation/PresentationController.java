@@ -46,7 +46,7 @@ public class PresentationController {
     public void printAllOrdersByTransport(Dictionary<String, String> data){System.out.println(this.transportController.printAllOrdersByTransportID(data));}
     public void getTransportReport(int transportId) {System.out.println(transportController.generateTransportReport(transportId));}
     public void printAllTransports(){System.out.println(transportController.printAllTransport());}
-    public void addOrderToTransport(Dictionary<String, String> data){transportController.addOrderToTransport(data);}
+    public boolean addOrderToTransport(Dictionary<String, String> data){return transportController.addOrderToTransport(data);}
 
     public void printAllTrucks() {
         System.out.println(transportController.getDomain().toStringTrucks());

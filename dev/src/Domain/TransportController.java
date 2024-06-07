@@ -57,10 +57,10 @@ public class TransportController
 //            instance = new TransportController();
 //        return instance;
 //    }
-    public void addOrderToTransport(Dictionary<String,String> data){
+    public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
-        addOrderToTransport(transportID,orderID);
+        return addOrderToTransport(transportID,orderID);
     }
 
     public boolean addOrderToTransport(int transportID, int orderID)
@@ -73,11 +73,21 @@ public class TransportController
             {
                 if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0)
                 {
+
                     if(tempTransport.getDate() == tempOrder.getDate())
                     {
                         tempTransport.addOrderToMYTransport(tempOrder);
                         return true;
                     }
+                    else
+                    {
+                        System.out.println("The order date you wanted to add does not match the shipping date");
+
+                    }
+                }
+                else
+                {
+                    System.out.println("The order zone you wanted to add does not match the shipping zone");
                 }
             }
             else
