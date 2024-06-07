@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class Order
 {
-    private static int id = 0;
+    private static int next_id = 1;
+    private int id;
     private ArrayList<Item> items;
     private Site source;
     private Site destination;
@@ -15,21 +16,20 @@ public class Order
 //
     public Order(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
     {
+        id = next_id++;
         setDate(date);
         setSource(source);
         setDestination(destination);
         setOrderWeight(0.0);
         items = new ArrayList<>();
-        boolean ans = true;
         for (Item item : itemsList)
         {
-            ans = addItem(item.getId(), item.getName(), item.getAmount());
+            addItem(item.getId(), item.getName(), item.getAmount());
         }
-        setId(id);
-        id++;
+
     }
 
-    public void setId(int newid) {id = newid;}
+    //public void setId(int newid) {id = newid;}
 
     public void setDate(LocalDate date) {
         this.date = date;

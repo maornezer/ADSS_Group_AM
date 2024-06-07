@@ -26,19 +26,19 @@ Michael Smith,Center,Pine,503456789,,
 Emily Johnson,South,Birch,504567890,,
 Daniel Brown,Center,Cedar,505678901,,
 Sarah Davis,North,Elm,506789012,,
-James Wilson,South,Ash ,507890123,,
+James Wilson,South,Ash,507890123,,
 Mary Miller,Center,Willow,508901234,,
 Robert Moore,North,Cherry,509012345,,
 Patricia Taylor,South,Walnut,500123456,,
 John Anderson,Center,Poplar,502233445,,
 Linda Thomas,North,Spruce,503344556,,
 David Jackson,South,Fir,504455667,,
-Barbara White,Center,Sycamore ,505566778,,
+Barbara White,Center,Sycamore,505566778,,
 Richard Harris,North,Hickory,506677889,,
-Susan Martin,South,Redwood ,507788990,,
-Charles Thompson,Center,Chestnut ,508899001,,
-Karen Martinez,North,Juniper ,509900123,,
-Joseph Garcia,South,Alder ,501011123,,
+Susan Martin,South,Redwood,507788990,,
+Charles Thompson,Center,Chestnut,508899001,,
+Karen Martinez,North,Juniper,509900123,,
+Joseph Garcia,South,Alder,501011123,,
 Lisa Robinson,Center,Beech,501121314,,
 Truck,,,
 5000,15000,Mercedes,123456,,
@@ -62,23 +62,23 @@ Truck,,,
 8600,18600,Ashok Leyland,901245,,
 8800,18800,Hyundai,12356,,
 Order,,,
+01/06/2023,Oak,Juniper,Tomato,67890,15
+01/11/2023,Sycamore,Chestnut,Beef,12346,20
+01/12/2023,Pine,Chestnut,Fish,23457,5
+01/06/2024,Redwood,Alder,Carrot,89013,15
+01/01/2024,Ash,Sycamore,Rice,34568,10
+01/02/2024,Cherry,Ash,Pasta,45679,10
 01/01/2023,Oak,Maple,Cucumber,12345,11
 01/02/2023,Maple,Elm,Milk,23456,15
 01/03/2023,Spruce,Elm,Bread,34567,20
 01/04/2023,Hickory,Spruce,Butter,45678,5
 01/05/2023,Juniper,Hickory,Cheese,56789,10
-01/06/2023,Oak,Juniper,Tomato,67890,15
 01/07/2023,Cedar,Pine,Apple,78901,20
 01/08/2023,Willow,Cedar,Banana,89012,5
 01/09/2023,Poplar,Willow,Orange,90123,10
 01/10/2023,Sycamore,Poplar,Chicken,1234,15
-01/11/2023,Sycamore,Chestnut,Beef,12346,20
-01/12/2023,Pine,Chestnut,Fish,23457,5
-01/01/2024,Ash,Sycamore,Rice,34568,10
-01/02/2024,Cherry,Ash,Pasta,45679,15
 01/03/2024,Cherry,Walnut,Potato,56780,20
 01/04/2024,Fir,Walnut,Onion,67891,5
 01/05/2024,Redwood,Fir,Garlic,78902,10
-01/06/2024,Redwood,Alder,Carrot,89013,15
 01/07/2024,Alder,Beech,Lettuce,90124,20
 01/08/2024,Cedar,Beech,Cabbage,1235,5
