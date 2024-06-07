@@ -83,4 +83,8 @@ public class PresentationController {
     {
         return transportController.treatmentWeightProblemChangeDestination(data);
     }
+
+    public ArrayList<Order> getAllOrdersByTransport(int transportID) {
+        return transportController.getTransportByID(transportID).getMyOrders();
+    }
 }

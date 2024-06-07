@@ -720,19 +720,35 @@ public void createOrder()
     {
         System.out.println("Please enter the transport id you want to send ");
         int transportID = scanner.nextInt();
-        System.out.println("Please enter the order ID for which you would like to update the weight");
-        int orderID = scanner.nextInt();
-        boolean b = Orderweightupdate(transportID,orderID);
-        if (!b)
+        ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+        boolean b ;
+        for (Order order: orderArrayList)
         {
-            System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
-            managerSulotion(transportID, orderID);
-        }
-        else
-        {
-            System.out.println("Weighing was done successfully! The truck can leave");
+            b = Orderweightupdate(transportID,order.getId());
+            if (!b)
+            {
+                System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + order.getId());
+                managerSulotion(transportID, order.getId());
+            }
+            else
+            {
+                System.out.println("Adding order number " + order.getId() + " to the truck has been successfully completed");
+            }
 
         }
+        System.out.println("Weighing was done successfully! The truck can leave");
+
+//        System.out.println("Please enter the order ID for which you would like to update the weight");
+//        int orderID = scanner.nextInt();
+//        boolean b = Orderweightupdate(transportID,orderID);
+//        if (!b)
+//        {
+//            System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
+//            managerSulotion(transportID, orderID);
+//        }
+
+
+
 
 
     }
