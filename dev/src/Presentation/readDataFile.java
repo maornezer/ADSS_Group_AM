@@ -65,7 +65,7 @@ public class readDataFile
                         String siteAddress = parts[2];
                         String sitePhoneNumber = parts[3];
                         Dictionary<String,String> s = addSiteDict(siteAddress,siteZone,siteName,sitePhoneNumber);
-                        prController.addSite(s);
+                        prController.addSite(s,"csv");
                         break;
                     case "truck":
                         if (parts.length < 4) break; // Ensure correct number of fields
@@ -103,7 +103,7 @@ public class readDataFile
                 }
                 lineNumber++;
             }
-           //   prController.printAllOrders();
+              prController.printAllOrders();
         }
         catch (IOException e)
         {

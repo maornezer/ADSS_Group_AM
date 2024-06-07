@@ -558,7 +558,7 @@ public void createOrder()
         String phoneNumber = scanner.nextLine();
         data.put("phoneNumber", phoneNumber);
 
-        controller.addSite(data);
+        controller.addSite(data,"menu");
         System.out.println("The site has been registered in the system");
     }
     public void addTruck()

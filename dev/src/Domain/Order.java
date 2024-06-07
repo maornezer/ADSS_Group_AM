@@ -19,19 +19,17 @@ public class Order
         setSource(source);
         setDestination(destination);
         setOrderWeight(0.0);
-        setId(id);
-        id++;
         items = new ArrayList<>();
         boolean ans = true;
         for (Item item : itemsList)
         {
             ans = addItem(item.getId(), item.getName(), item.getAmount());
         }
+        setId(id);
+        id++;
     }
 
-    public void setId(int id) {
-        Order.id = id;
-    }
+    public void setId(int newid) {id = newid;}
 
     public void setDate(LocalDate date) {
         this.date = date;
