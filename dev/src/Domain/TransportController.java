@@ -176,9 +176,10 @@ public class TransportController
         StringBuilder sb = new StringBuilder();
         if (transport == null){
             System.out.println("Transport with ID "+ id +  " not found");
-            return null;
         }
-        sb.append(transport.toStringTransportReport());
+        else {
+            sb.append(transport.toStringTransportReport());
+        }
         return sb.toString();
     }
     public String generateTransportReport() {
