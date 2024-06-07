@@ -388,7 +388,13 @@ public void createOrder()
                 editOrder();
                 break;
             case "2":
-                editTransport();
+                if (controller.getTransportController().getTransports() == null)
+                {
+                    System.out.println("You do not have transports in the system");
+                }
+                else {
+                    editTransport();
+                }
                 break;
             case "3":
                 managerMenu();
@@ -406,16 +412,23 @@ public void createOrder()
         System.out.println("Enter ID of the Order you want to change: ");
         int idOrder = scanner.nextInt();
 
-        System.out.println("Choose if you want to change the Address of destination order: " + idOrder + ": [Yes or No]");
+        System.out.println("Choose if you want to change the Address of destination order: " + idOrder + ": [Y/N]");
         scanner.skip("\\R?");
         String ans = scanner.nextLine();
-        if (ans.compareTo("Yes") == 0)
+        if (ans.compareTo("Y") == 0)
         {
             changeDestination(idOrder);
+
         }
-        else {
+        else if (ans.compareTo("N") == 0)
+        {
             System.out.println("You Choose that you dont want to change anything in order: " + idOrder );
             editOrderOrTransport();
+        }
+        else
+        {
+            System.out.println("You must choose Y/N please try again" );
+
         }
 
         ///complete
@@ -429,12 +442,27 @@ public void createOrder()
         scanner.skip("\\R?");
         String destination = scanner.nextLine();
         data.put("destination", destination);
-        controller.changeDestination(data);
+        boolean b = controller.changeDestination(data);
+        if (!b)
+        {
+            System.out.println("Change destination failed! The zone is different from the original destination zone");
+        }
+        else
+        {
+            System.out.println("Change destination successfully!");
+        }
     }
     public void editTransport() {
+        System.out.println("Choose transport that you want to edit: ");
+        printAllTransports();
         System.out.println("Enter ID of the Transport you want to change: ");
         int id = scanner.nextInt();
-        System.out.println("Choose what change you would like to make in the shipment with an ID number : " + id + ": ");
+        if (controller.getTransportController().getTransportByID(id) == null)
+        {
+            System.out.println("Enter valid ID from the list");
+            editTransport();
+        }
+        System.out.println("Choose what change you would like to make in the shipment with an ID number " + id + ": ");
         System.out.println("1. Change Truck");
         System.out.println("2. Change Driver");
         System.out.println("3. Add order to transport");

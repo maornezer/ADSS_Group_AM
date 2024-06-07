@@ -21,6 +21,9 @@ public class TransportController
 
     }
 
+    public ArrayList<Transport> getTransports() {
+        return transports;
+    }
 
     public DomainController getDomain() {
         return domain;

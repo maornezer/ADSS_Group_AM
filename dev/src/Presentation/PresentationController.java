@@ -22,6 +22,7 @@ public class PresentationController {
         return transportController;
     }
 
+
     /// order + item ///
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getDomain().addOrder(data1, data2);}
     public void printAllOrders() {System.out.print(transportController.getDomain().toStringOrders());}
@@ -38,7 +39,7 @@ public class PresentationController {
 
     /// site ///
     public void addSite(Dictionary<String, String> data,String str) {this.transportController.getDomain().addSite(data,str);}
-    public void changeDestination(Dictionary<String, String> data){this.transportController.getDomain().changeDestination(data);}
+    public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getDomain().changeDestination(data);}
     public boolean checkAddress(String source) {return this.transportController.getDomain().isAddressSiteAlreadyIn(source);}
 
     /// transport ///
