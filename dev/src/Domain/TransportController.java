@@ -180,6 +180,7 @@ public class TransportController
         else {
             sb.append(transport.toStringTransportReport());
         }
+
         return sb.toString();
     }
     public String generateTransportReport() {
@@ -336,24 +337,30 @@ public class TransportController
         int id = Integer.parseInt(data.get("id"));
         StringBuilder sb = new StringBuilder();
         sb.append(printAllOrdersByTransportID(id));
+
         return sb.toString();
     }
 
     public String getTransportByIdDriver(int id)
     {
         StringBuilder sb = new StringBuilder();
-           for (Transport transport : transports)
+        for (Transport transport : transports)
            {
                if (transport.getDriver().getId() == id)
                {
                    sb.append(transport.toStringTransportReport());
                }
            }
-           if (!(domain.isDriverExists(domain.getDriverByID(id))))
+        if (!(domain.isDriverExists(domain.getDriverByID(id))))
            {
                System.out.println("Driver with ID "+ id+  " not found");
            }
-           return sb.toString();
+        if (sb.length() == 0)
+        {
+            System.out.println("You do not have scheduled transports");
+        }
+
+        return sb.toString();
     }
     public String printAllTransport()
     {
