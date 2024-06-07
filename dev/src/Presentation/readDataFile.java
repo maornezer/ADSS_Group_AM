@@ -103,7 +103,8 @@ public class readDataFile
                 }
                 lineNumber++;
             }
-              prController.printAllOrders();
+              //prController.printAllOrders();
+            this.prController.t
         }
         catch (IOException e)
         {

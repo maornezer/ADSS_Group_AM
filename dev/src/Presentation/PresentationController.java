@@ -18,6 +18,10 @@ public class PresentationController {
         this.transportController = new TransportController();
     }
 
+    public TransportController getTransportController() {
+        return transportController;
+    }
+
     /// order + item ///
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getDomain().addOrder(data1, data2);}
     public void printAllOrders() {System.out.print(transportController.getDomain().toStringOrders());}
