@@ -104,7 +104,7 @@ public class DomainController {
         Site sourceSite = getSiteByAddress(source);
         if(destinationSite == null)
         {
-            System.out.println("The address of the destination is not registered in the system");
+            System.out.println("The address of the destination: "+ destination+" is not registered in the system");
             return -2;
         }
         if(source == null)
