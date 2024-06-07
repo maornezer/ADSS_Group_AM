@@ -80,7 +80,7 @@ public class Site
 
     public String toString()//add site zone?
     {
-        return "Address: " + address + ", Contact Name : " + contactName + ", Phone number of" + contactName +": " + phoneNumber + " Located in the area: " + zone;
+        return "Address: " + address + ", Contact Name: " + contactName + ", Phone number: " + phoneNumber + " Zone: " + zone;
     }
 
 }

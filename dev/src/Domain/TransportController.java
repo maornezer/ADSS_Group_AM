@@ -19,12 +19,7 @@ public class TransportController
         //instance = this;
 
     }
-    public Transport createNewTransport()
-    {
-        Transport transport = new Transport();
-        transports.add(transport);
-        return transport;
-    }
+
 
     public DomainController getDomain() {
         return domain;
@@ -32,7 +27,6 @@ public class TransportController
 
     public int addTransport(Dictionary<String, String> data)
     {
-        int transportID = Integer.parseInt(data.get("transportID"));
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
 
@@ -46,13 +40,9 @@ public class TransportController
         {
             return -2;
         }
-        Transport transport = getTransportByID(transportID);
-        if (transport != null)
-        {
-            //allOrders.add(order);
-            transport.createTransport(transportID,truck,driver);
-            return 0;
-        }
+        Transport transport = new Transport(truck, driver);
+        transports.add(transport);
+        System.out.println("Your shipping number is: "+ transport.getId());
         return 0;
     }
 //    public static TransportController getInstance()
@@ -61,6 +51,12 @@ public class TransportController
 //            instance = new TransportController();
 //        return instance;
 //    }
+    public void addOrderToTransport(Dictionary<String,String> data){
+        int transportID = Integer.parseInt(data.get("transportID"));
+        int orderID = Integer.parseInt(data.get("orderID"));
+        addOrderToTransport(transportID,orderID);
+    }
+
     public boolean addOrderToTransport(int transportID, int orderID)
     {
         Transport tempTransport = getTransportByID(transportID);
@@ -86,18 +82,18 @@ public class TransportController
         }
         return false;
     }
-    public boolean addTransport(int id, Truck truck,Driver driver)
-    {
-        if (driver != null && truck!=null)
-        {
-            Transport transport = getTransportByID(id);
-            if(transport != null)
-                transport.createTransport(id, truck,driver);
-            return transports.add(transport);
-        }
-        return false;
-
-    }
+//    public boolean addTransport(int id, Truck truck,Driver driver)
+//    {
+//        if (driver != null && truck!=null)
+//        {
+//            Transport transport = getTransportByID(id);
+//            if(transport != null)
+//                transport.createTransport(id, truck,driver);
+//            return transports.add(transport);
+//        }
+//        return false;
+//
+//    }
     public boolean changeTruck(int transportID, int newTruckID)
     {
         Transport tempTransport = getTransportByID(transportID);
@@ -171,7 +167,9 @@ public class TransportController
     }
     public String generateTransportReport(int id) {
         Transport transport = getTransportByID(id);
-        return transport.toStringTransportReport();
+        StringBuilder sb = new StringBuilder();
+        sb.append(transport.toStringTransportReport());
+        return sb.toString();
     }
     public String generateTransportReport() {
         StringBuilder report = new StringBuilder();
@@ -285,22 +283,35 @@ public class TransportController
     public String printAllOrdersByTransportID(int transportID)
     {
         Transport tempTransport = getTransportByID(transportID);
-        return tempTransport.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(tempTransport.toStringTransportReport());
+        return sb.toString();
     }
     public void printAllOrdersByTransportID(Dictionary<String,String> data) {
         int id = Integer.parseInt(data.get("id"));
         printAllOrdersByTransportID(id);
     }
 
-    public void getTransportByIdDriver(int id)
+    public String getTransportByIdDriver(int id)
     {
+        StringBuilder sb = new StringBuilder();
            for (Transport transport : transports)
            {
                if (transport.getDriver().getId() == id)
                {
-                   transport.toString();
+                   sb.append(transport.toStringTransportReport());
                }
            }
+           return sb.toString();
+    }
+    public String printAllTransport()
+    {
+        StringBuilder allTransports = new StringBuilder();
+        for (Transport transport: transports)
+        {
+            allTransports.append(printAllOrdersByTransportID(transport.getId()));
+        }
+        return allTransports.toString();
     }
 
 }

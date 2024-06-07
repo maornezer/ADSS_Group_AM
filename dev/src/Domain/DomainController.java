@@ -121,6 +121,7 @@ public class DomainController {
         Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
         if (newOrder != null)
             allOrders.add(newOrder);
+        System.out.println("Your order number is: "+ newOrder.getId());
         return 0;
     }
 
@@ -135,8 +136,10 @@ public class DomainController {
 
     public String generateOrderReport(int orderId) {
         Order order = getOrderByID(orderId);
+        StringBuilder sb = new StringBuilder();
         if (order != null) {
-            return order.toString();
+            sb.append(order.toStringReport());
+            return sb.toString();
         }
         return "Order with ID " + orderId + " not found.";
     }

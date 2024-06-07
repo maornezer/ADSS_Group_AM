@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class Transport
 {
-        private static int id = 0;
+        private static int next_id = 0;
+        private int id;
         private LocalDate date;
         private LocalTime time;
         private String zone;
@@ -18,27 +19,21 @@ public class Transport
         private boolean unloadingItems;
         private boolean changeTruck;
 
-        public Transport()
-        {
-                setId(id);
-                id++;
-        }
 
-        public Transport createTransport(int transportID, Truck truck, Driver driver)
+        public  Transport(Truck truck, Driver driver)
         {
                 setTruck(truck);
                 setDriver(driver);
                 setTime();
+                id = next_id++;
                 myOrders = new ArrayList<>();
                 changeDestination = false;
                 unloadingItems = false;
                 changeTruck = false;
-                return this;
         }
 
-        public void setId(int id)
-        {
-                Transport.id = id;
+        public void setId(int id) {
+                this.id = id;
         }
 
         public void setDate(LocalDate date)
@@ -66,7 +61,7 @@ public class Transport
 
         public void setTruck(Truck truck)
         {
-                if (driver != null)
+                if (truck != null)
                 {
                         this.truck = truck;
                 }
@@ -136,7 +131,7 @@ public class Transport
                 sb.append("Truck Number: ").append(truck.getIdTruck()).append("\n");
                 sb.append("Driver Name: ").append(driver.getName()).append("\n");
                 sb.append("Source: ").append(zone).append("\n");
-                sb.append("Destinations:").append("\n");
+                sb.append("Destinations: ").append("\n");
                 for (Order order : myOrders) {
                         sb.append("  - ").append(order.getDestination().getAddress()).append("\n");
                 }
@@ -149,6 +144,7 @@ public class Transport
                 if(changeTruck){
                         sb.append("A change was made in the transport. The solution was to change the truck ").append("\n");
                 }
+                sb.append("\n");
                 return sb.toString();
         }
 
