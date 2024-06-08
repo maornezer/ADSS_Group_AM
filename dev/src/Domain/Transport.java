@@ -106,6 +106,13 @@ public class Transport
                         setDate(order.getDate());
                         setZone(order.getSource().getSiteZone());
                 }
+                else
+                {
+                        if (order.getDestination().getSiteZone().compareTo(this.getMyOrders().get(0).getDestination().getSiteZone()) != 0 || order.getSource().getSiteZone().compareTo(this.getMyOrders().get(0).getSource().getSiteZone())!= 0)
+                        {
+                                return false;
+                        }
+                }
                return myOrders.add(order);
 
         }

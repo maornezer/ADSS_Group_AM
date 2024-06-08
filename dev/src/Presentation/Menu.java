@@ -882,7 +882,7 @@ public void createOrder()
         boolean check = controller.isTransportExist(transportID);
         if (!check)
         {
-            System.out.println("Such a delivery number does not exist in the system, please enter it again");
+            System.out.println("Transport with ID "+check+" does not exist in the system, please enter it again");
             System.out.println("Please choose if you want try again or return back");
             System.out.println("1. Try again");
             System.out.println("2. Return back");
