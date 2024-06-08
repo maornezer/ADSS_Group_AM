@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Menu {
     private Scanner scanner;
     private PresentationController controller;
+    boolean readFile = false;
 
     public void startMenu()
     {
@@ -30,6 +31,8 @@ public class Menu {
             if (choice == 1) {
                 readDataFile data = new readDataFile(controller);
                 data.loadData();
+                readFile = true;
+                System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
                 printMenu();
                 return;
             }
@@ -49,7 +52,7 @@ public class Menu {
 
     public void printMenu()
     {
-        System.out.println("Welcome to Super-Li Shipment module");
+        System.out.println("Welcome to Super-Li Shipment module\n");
         System.out.println("Please login to the system");
 
 
@@ -96,7 +99,8 @@ public class Menu {
             System.out.println("4. Add driver / truck / site");
             System.out.println("5. View all orders or all shipments");
             System.out.println("6. Starting transport");
-            System.out.println("7. Log out");
+            System.out.println("7. Load the system with information");
+            System.out.println("8. Log out");
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
@@ -120,6 +124,19 @@ public class Menu {
                     deliveryStartUpdate();
                     break;
                 case "7":
+                    if (!readFile)
+                    {
+                        readDataFile data1 = new readDataFile(controller);
+                        data1.loadData();
+                        System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
+                        readFile = true;
+                    }
+                    else {
+                        System.out.println("The data is already exists in the system");
+
+                    }
+                    break;
+                case "8":
                     printMenu();
                     break;
                 default:
