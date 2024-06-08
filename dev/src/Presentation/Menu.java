@@ -89,8 +89,8 @@ public class Menu {
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Hello Manager!");
-
-        while (true)
+        boolean exitMenu = true;
+        while (exitMenu)
         {
             System.out.println("Please choose what you would like to do:");
             System.out.println("1. Create Order");
@@ -138,6 +138,7 @@ public class Menu {
                     break;
                 case "8":
                    printMenu();
+                   exitMenu = false;
                     break;
                 default:
                     System.out.println("There is no such option of choice, please choose valid number\n");
