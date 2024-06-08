@@ -55,54 +55,24 @@ public class PresentationController {
         System.out.println(transportController.getDomain().toStringTrucks());
     }
 
-    public String getTypeOfLicense(int idT) {
-        return transportController.getDomain().getTruckByID(idT).getTypeOfLicense();
-    }
+    public String getTypeOfLicense(int idT) {return transportController.getDomain().getTruckByID(idT).getTypeOfLicense();}
 
-    public void printallDriversByLicense(String licenseType)
-    {
-        System.out.println(transportController.getDomain().printDriversByLicenseType(licenseType));
-    }
+    public void printallDriversByLicense(String licenseType) {System.out.println(transportController.getDomain().printDriversByLicenseType(licenseType));}
 
-    public boolean loadOrderToTruck(Dictionary<String, String> data) {
-        return transportController.loadOrderToTruck(data);
-    }
+    public boolean loadOrderToTruck(Dictionary<String, String> data) {return transportController.loadOrderToTruck(data);}
 
-    public boolean treatmentWeightProblemChangeTruck(Dictionary<String, String> data) {
-       return transportController.treatmentWeightProblemChangeTruck(data);
-    }
+    public boolean treatmentWeightProblemChangeTruck(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeTruck(data);}
 
-    public void printOrder(Dictionary<String, String> data)
-    {
-        System.out.println(transportController.getDomain().printOrder(data));
-    }
+    public void printOrder(Dictionary<String, String> data) {System.out.println(transportController.getDomain().printOrder(data));}
 
-    public boolean UnloadingItems(Dictionary<String, String> data) {
-        return transportController.treatmentWeightProblemUnloadingItems(data);
+    public boolean UnloadingItems(Dictionary<String, String> data) {return transportController.treatmentWeightProblemUnloadingItems(data);}
 
-    }
+    public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
 
-    public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data)
-    {
-        return transportController.treatmentWeightProblemChangeDestination(data);
-    }
+    public ArrayList<Order> getAllOrdersByTransport(int transportID) {return transportController.getTransportByID(transportID).getMyOrders();}
 
-    public ArrayList<Order> getAllOrdersByTransport(int transportID) {
-        return transportController.getTransportByID(transportID).getMyOrders();
-    }
+    public void printAllAddress() {System.out.println(transportController.getDomain().printAllAddress());}
+    public boolean validMatchZone(String source, String destination ) {return transportController.getDomain().validMatchZone( source, destination );}
 
-    public void printAllAddress()
-    {
-        System.out.println(transportController.getDomain().printAllAddress());
-
-    }
-    public boolean validMatchZone(String source, String destination )
-    {
-        return transportController.getDomain().validMatchZone( source, destination );
-
-    }
-
-
-    public boolean isTransportExist(int transID) {return transportController.isTransportExist(transID);
-    }
+    public boolean isTransportExist(int transID) {return transportController.isTransportExist(transID);}
 }

@@ -9,7 +9,6 @@ import java.util.Hashtable;
 public class TransportController
 {
     private ArrayList<Transport> transports;
-    //private static TransportController instance;
     private DomainController domain;
 
     public TransportController()
@@ -17,7 +16,6 @@ public class TransportController
         this.domain = new DomainController();
         transports = new ArrayList<>();
 
-        //instance = this;
 
     }
 
@@ -53,12 +51,7 @@ public class TransportController
         transports.add(transport);
         return transport.getId();
     }
-//    public static TransportController getInstance()
-//    {
-//        if(instance == null)
-//            instance = new TransportController();
-//        return instance;
-//    }
+
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));

@@ -144,20 +144,7 @@ public class Order
         }
         return report.toString();
     }
-//    public void toStringReport()
-//    {
-//        StringBuilder report = new StringBuilder();
-//        report.append("Order ID: ").append(id).append("\n");
-//        report.append("Destination: ").append(destination.getAddress()).append("\n");
-//        report.append("Items:\n");
-//        for (Item item : items) {
-//            item.toString();
-//            report.append(item.toString()).append("\n");
-//        }
-////        System.out.println("order");
-////        System.out.println(report.toString());
-//        report.toString();
-//    }
+
 
 
 }

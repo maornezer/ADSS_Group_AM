@@ -55,13 +55,3 @@ public class Driver {
     }
 
 }
-//    "John Smith",100,B
-//    "Alice Johnson",102,C
-//    "Michael Brown",103,B
-//    "Emily Davis", 104,D
-//    "William Wilson",105,C
-//    "Emma Martinez",106,B
-//    "James Taylor",107,D
-//    "Olivia Lopez",108,B
-//    "Noah Lee",109,C
-//    "Sophia Clark",110,B

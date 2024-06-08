@@ -14,6 +14,7 @@ public class transportTest
 {
     private TransportController tr = new TransportController();
 
+
     @Test
     public void addSite() //add 4 site, 1 false
     {
@@ -78,7 +79,7 @@ public class transportTest
         assertEquals(1,size);
     }
     @Test
-    public void testFailAddOrder()
+    public void testFailAddOrder() // address destination not on the system
     {
         Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
         Dictionary<String, String> data1= new Hashtable<String, String>();
@@ -297,9 +298,11 @@ public class transportTest
         ArrayList<Item> i_list = new ArrayList<>();
         i_list.add(i_2);
         i_list.add(i_1);
+
         LocalDate date_ = LocalDate.of(2026,4,5);
         Order _order = new Order(date_,site_1,site_2,i_list);
         tr.getDomain().getAllOrders().add(_order);
+
         Truck truck1 = new Truck(99,1000,4000,"RR");
         tr.getDomain().addTruck(truck1);
         Driver _driver_ = new Driver("Zorozoro",8,"C");
@@ -327,6 +330,105 @@ public class transportTest
         b_1 = tr.loadOrderToTruck(_d_);
         assertEquals(true,b_1); // second weight
     }
+    @Test
+    public void addAnotherOrderToTransport() //false by unmatched zone
+    {
+        //site
+        Site ashdod = new Site("Ashdod", "North","ron", "0504483564");
+        Site haifa = new Site("Haifa", "North","maor","32434");
+        tr.getDomain().addSiteToList(ashdod);
+        tr.getDomain().addSiteToList(haifa);
+        //item
+        Item popcorn = new Item(101,"popcorn",5);
+        Item pretzels = new Item(102,"pretzels",7);
+        ArrayList<Item> items_order = new ArrayList<>();
+        items_order.add(popcorn);
+        items_order.add(pretzels);
+        // order
+        LocalDate date_order = LocalDate.of(2027,1,28);
+        Order newOrder1 = new Order(date_order,ashdod,haifa,items_order);
+        tr.getDomain().getAllOrders().add(newOrder1);
+        //truck
+        Truck newTruck = new Truck(1009,100,400,"SS");
+        tr.getDomain().addTruck(newTruck);
+        //driver
+        Driver newDriver = new Driver("Tiltil",20,"B");
+        tr.getDomain().addDriver(newDriver);
+        int newTransport = tr.addTransport(newTruck.getIdTruck(),newDriver.getId());
+        boolean bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder1);
+        assertEquals(1,newTransport);
+        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+        assertEquals(true,bool);
 
+        //////////
+        //site
+        Site telAviv = new Site("telAviv", "Center","david", "1");
+        Site Jerusalem = new Site("Jerusalem", "Center","gadi","2");
+        tr.getDomain().addSiteToList(telAviv);
+        tr.getDomain().addSiteToList(Jerusalem);
+        //item
+        Item chocolate = new Item(101,"chocolate",5);
+        Item toffee = new Item(102,"toffee",7);
+        ArrayList<Item> items_order2 = new ArrayList<>();
+        items_order2.add(chocolate);
+        items_order2.add(toffee);
+        // order
+        LocalDate date_order2 = LocalDate.of(2027,1,28);
+        Order newOrder2 = new Order(date_order2,Jerusalem,telAviv,items_order2);
+        tr.getDomain().getAllOrders().add(newOrder2);
+        bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder2);
+        assertEquals(false,bool);
+        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+    }
+
+    @Test
+    public void addAnotherOrderToTransport2() //false by unmatched Date
+    {
+        //site
+        Site BeerSheva = new Site("BeerSheva", "South","roni", "826057");
+        Site Eilat = new Site("Eilat", "South","maori","123465");
+        tr.getDomain().addSiteToList(BeerSheva);
+        tr.getDomain().addSiteToList(Eilat);
+        //item
+        Item Sunscreen = new Item(1001,"Sunscreen",2);
+        Item Towel = new Item(1002,"Towel",7);
+        ArrayList<Item> items_order = new ArrayList<>();
+        items_order.add(Sunscreen);
+        items_order.add(Towel);
+        // order
+        LocalDate date_order = LocalDate.of(2025,9,24);
+        Order newOrder1 = new Order(date_order,BeerSheva,Eilat,items_order);
+        tr.getDomain().getAllOrders().add(newOrder1);
+        //truck
+        Truck newTruck = new Truck(1004,200,5000,"Bimba");
+        tr.getDomain().addTruck(newTruck);
+        //driver
+        Driver newDriver = new Driver("rami",20,"C");
+        tr.getDomain().addDriver(newDriver);
+        int newTransport = tr.addTransport(newTruck.getIdTruck(),newDriver.getId());
+        boolean bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder1);
+        assertEquals(1,newTransport);
+        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+        assertEquals(true,bool);
+
+        ///site
+        Site PetahTikva = new Site("PetahTikva", "South","marsel", "1");
+        Site NessZiona = new Site("NessZiona", "South","roee","2");
+        tr.getDomain().addSiteToList(NessZiona);
+        tr.getDomain().addSiteToList(PetahTikva);
+        //item
+        Item chocolate = new Item(109,"Umbrella",5);
+        Item toffee = new Item(109,"Bottle",7);
+        ArrayList<Item> items_order2 = new ArrayList<>();
+        items_order2.add(chocolate);
+        items_order2.add(toffee);
+        // order
+        LocalDate date_order2 = LocalDate.of(2025,1,28);
+        Order newOrder2 = new Order(date_order2,NessZiona,PetahTikva,items_order2);
+        tr.getDomain().getAllOrders().add(newOrder2);
+        bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder2);
+        assertEquals(false,bool);
+        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+    }
 
 }

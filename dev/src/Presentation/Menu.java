@@ -51,8 +51,7 @@ public class Menu {
     {
         System.out.println("Welcome to Super-Li Shipment module");
         System.out.println("Please login to the system");
-//        scanner.skip("\\R?");
-//        scanner.nextLine();
+
         while (true)
         {
             System.out.println("Please enter your username:");
@@ -159,12 +158,7 @@ public class Menu {
             }
          }
     }
-//    public void deleteBranchOrder(Dictionary<String, String> data)
-//    {
-//        System.out.println("Please enter the order number:");
-//        String orderNumber = scanner.nextLine();
-//
-//    }
+
 public void createOrder()
 {
     Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
@@ -255,73 +249,6 @@ public void createOrder()
 
 }
 
-//    public String checkAddressSource()
-//    {
-//        System.out.println("Enter the source address (Enter 0 to see all the addresses in the system)");
-//        scanner.skip("\\R?");
-//        String source = scanner.nextLine();
-//        if (source.compareTo("0") == 0)
-//        {
-//            if (controller.getTransportController().getDomain().getSites().isEmpty())
-//            {
-//                System.out.println("There are no registered sites in the system");
-//                checkAddressSource();
-//            }
-//            controller.printAllAddress();
-//            checkAddressSource();
-//        }
-//        else if (!controller.checkAddress(source))
-//        {
-//            addressSolution(1);
-//        }
-//        return source;
-//    }
-//
-//    public String checkAddressDestination()
-//    {
-//        System.out.println("Enter the destination address");
-//        scanner.skip("\\R?");
-//        String destination = scanner.nextLine();
-//        if (!controller.checkAddress(destination))
-//        {
-//            addressSolution(2);
-//        }
-//        return destination;
-//    }
-//
-//
-//    public void addressSolution(int x)
-//    {
-//        int s =-1;
-//        while (s != 1 || s != 2) {
-//            //System.out.println("The address was not found in the system");
-//            System.out.println("Please choose what you would like to do:");
-//            System.out.println("1. Enter this address into the system ");
-//            System.out.println("2. Enter address again ");
-//            scanner.skip("\\R?");
-//            s = scanner.nextInt();
-//            boolean first = false;
-//            if (s == 1) {
-//                addSite();
-//                if (x == 1 && !first) {
-//                    first = true;
-//                    checkAddressSource();
-//                }
-//                if (x == 2 && !first) {
-//                    //first = true;
-//                    checkAddressDestination();
-//                }
-//            } else if (s == 2) {
-//                if (x == 1) {
-//                    checkAddressSource();
-//                }
-//                if (x == 2) {
-//                    checkAddressDestination();
-//                }
-//            } else
-//                System.out.println("There is no such option of choice, please choose valid number\n");
-//        }
-//    }
     public String checkAddressSource() {
         while (true) {
             System.out.println("Enter the source address (Enter 0 to see all the addresses in the system)");
@@ -432,10 +359,7 @@ public void createOrder()
             String s = scanner.nextLine();
             if (s.compareTo("Y") == 0)
             {
-
                 addOrderTonewTransport(ans);
-//
-
             }
             managerMenu();
         }

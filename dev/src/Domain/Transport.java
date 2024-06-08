@@ -112,6 +112,10 @@ public class Transport
                         {
                                 return false;
                         }
+                        if(!order.getDate().isEqual(this.getMyOrders().get(0).getDate()))
+                        {
+                                return false;
+                        }
                 }
                return myOrders.add(order);
 

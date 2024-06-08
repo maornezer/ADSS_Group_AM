@@ -97,16 +97,6 @@ public class DomainController {
         return sb.toString();
     }
 
-    ///??? 7/6
-//    public String printDriversByLicenseType(Truck truck) {
-//        StringBuilder sb = new StringBuilder();
-//        for (Driver driver : drivers) {
-//            if (driver.getTypeOfLicense().equalsIgnoreCase(truck.getTypeOfLicense())) {
-//                sb.append(driver.toString()).append("\n");
-//            }
-//        }
-//        return sb.toString();
-//    }
 
 /// order + item ///
 
