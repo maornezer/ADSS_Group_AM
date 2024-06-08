@@ -85,14 +85,9 @@ public class Order
         return items.add(item);
     }
 
-    public boolean removeItem(int id)
+    public boolean removeItem(Item item)
     {
-        if(existItemID(id))
-        {
-            Item item = items.get(id);
-            return items.remove(item);
-        }
-        return false;
+        return items.remove(item);
     }
     public Item getItemByID(int itemID)
     {
@@ -105,14 +100,25 @@ public class Order
     }
     public boolean changeAmount(int id, int amount)
     {
+        Item item1 = null;
         if (existItemID(id))
         {
-            Item item = items.get(id);
-            if (item.getAmount() <= amount)
+            for(Item item: items)
             {
-                return removeItem(id);
+                if (item.getId() == id)
+                {
+                    item1 = item;
+                }
             }
-            return item.subAmount(amount);
+            if(item1 != null)
+            {
+
+                if (item1.getAmount() <= amount)
+                {
+                    return removeItem(item1);
+                }
+                return item1.subAmount(amount);
+            }
         }
         return false;
     }
