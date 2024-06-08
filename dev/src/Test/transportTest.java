@@ -1,6 +1,8 @@
 package Test;
 
 import Domain.Order;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,10 +12,26 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import Domain.*;
 
+
 public class transportTest
 {
-    private TransportController tr = new TransportController();
+    private  TransportController tr;// = new TransportController();
 
+
+    @Before
+    public  void setUp() {
+        tr = new TransportController();
+    }
+
+    @After
+    public void tearDown()
+    {
+        tr.getDomain().getTrucks().clear();
+        tr.getDomain().getSites().clear();
+        tr.getDomain().getAllOrders().clear();
+        tr.getDomain().getDrivers().clear();
+        tr.getTransports().clear();
+    }
 
     @Test
     public void addSite() //add 4 site, 1 false
@@ -46,6 +64,7 @@ public class transportTest
         tr.getDomain().addSite(dataSite,"test");
         size = tr.getDomain().getSites().size();
         assertEquals(size, 3);
+
     }
 
     @Test
@@ -77,6 +96,7 @@ public class transportTest
         assertEquals(1,ans);
         int size = tr.getDomain().getAllOrders().size();
         assertEquals(1,size);
+
     }
     @Test
     public void testFailAddOrder() // address destination not on the system
@@ -102,6 +122,7 @@ public class transportTest
         assertEquals(-2,ans);
         int size = tr.getDomain().getAllOrders().size();
         assertEquals(0,size);
+
     }
 
     @Test
@@ -170,6 +191,7 @@ public class transportTest
         idTruckOfTransport1 = tr.getTransportByID(ans).getTruck().getIdTruck();
         assertEquals(true,b);
         assertEquals(1004,idTruckOfTransport1);
+
     }
 
     @Test //scheduling Driver - false
@@ -197,7 +219,6 @@ public class transportTest
         dataTR1.put("idD", "1");
         int ans = tr.addTransport(dataTR1);
         assertEquals(-2,ans);
-
     }
 
     @Test
@@ -238,6 +259,7 @@ public class transportTest
         assertEquals(false,b);
         String str = tr.getDomain().getOrderByID(ans).getDestination().getAddress();
         assertEquals("Nora",str);
+
     }
 
     @Test
@@ -280,7 +302,6 @@ public class transportTest
         b1 = tr.loadOrderToTruck(d);
         assertEquals(true,b2); // truck changed
         assertEquals(true,b1); // load to the new truck
-
     }
 
     @Test
@@ -329,6 +350,7 @@ public class transportTest
         _d_.put("weight","2000");
         b_1 = tr.loadOrderToTruck(_d_);
         assertEquals(true,b_1); // second weight
+
     }
     @Test
     public void addAnotherOrderToTransport() //false by unmatched zone
@@ -359,8 +381,6 @@ public class transportTest
         assertEquals(1,newTransport);
         assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
         assertEquals(true,bool);
-
-        //////////
         //site
         Site telAviv = new Site("telAviv", "Center","david", "1");
         Site Jerusalem = new Site("Jerusalem", "Center","gadi","2");
@@ -379,6 +399,7 @@ public class transportTest
         bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder2);
         assertEquals(false,bool);
         assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+
     }
 
     @Test
@@ -410,7 +431,6 @@ public class transportTest
         assertEquals(1,newTransport);
         assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
         assertEquals(true,bool);
-
         ///site
         Site PetahTikva = new Site("PetahTikva", "South","marsel", "1");
         Site NessZiona = new Site("NessZiona", "South","roee","2");
@@ -429,6 +449,7 @@ public class transportTest
         bool = tr.getTransportByID(newTransport).addOrderToMYTransport(newOrder2);
         assertEquals(false,bool);
         assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
+
     }
 
 }
