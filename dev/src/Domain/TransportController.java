@@ -284,7 +284,7 @@ public class TransportController
         Item itemTemp = orderTemp.getItemByID(itemID);
         if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
         {
-            System.out.println("Error! The order " + orderID + " is not in contains " + itemTemp.getName());
+            System.out.println("Error! The order " + orderID + " is not in contains this id item" );
             return false;
         }
         else
@@ -389,5 +389,38 @@ public class TransportController
     public boolean isTransportExist(int transID) {
         Transport transport = getTransportByID(transID);
         return transports.contains(transport);
+    }
+
+    public boolean listSizeIsEmpty() {
+        return domain.getSites().isEmpty();
+
+    }
+
+    public int getSizeOfListTrucks() {
+        return domain.getTrucks().size();
+
+    }
+
+    public int getSizeOfListDrivers() {
+        return domain.getDrivers().size();
+
+    }
+
+    public int getSizeOfListOrders() {
+        return domain.getAllOrders().size();
+
+    }
+
+    public int getSizeOfListTransports() {
+        return getTransports().size();
+
+    }
+
+    public boolean existTransport(int id) {
+        return transports.contains(getTransportByID(id));
+    }
+
+    public boolean orderExist(int parseInt, int transportID) {
+        return getTransportByID(transportID).getMyOrders().contains(domain.getOrderByID(parseInt));
     }
 }

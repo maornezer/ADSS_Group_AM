@@ -69,10 +69,33 @@ public class PresentationController {
 
     public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
 
-    public ArrayList<Order> getAllOrdersByTransport(int transportID) {return transportController.getTransportByID(transportID).getMyOrders();}
+    public ArrayList<Order> getAllOrdersByTransport(int transportID) {
+        return transportController.getTransportByID(transportID).getMyOrders();}
 
     public void printAllAddress() {System.out.println(transportController.getDomain().printAllAddress());}
     public boolean validMatchZone(String source, String destination ) {return transportController.getDomain().validMatchZone( source, destination );}
 
     public boolean isTransportExist(int transID) {return transportController.isTransportExist(transID);}
+    public boolean listSizeIsEmpty() {
+        return transportController.listSizeIsEmpty();
+    }
+    public int getSizeOfListTrucks() {
+        return transportController.getSizeOfListTrucks();
+    }
+    public int getSizeOfListDrivers() {
+        return transportController.getSizeOfListDrivers();
+    }
+    public int getSizeOfListOrders() {
+        return transportController.getSizeOfListOrders();
+    }
+    public int getSizeOfListTransports() {
+        return transportController.getSizeOfListTransports();
+    }
+    public boolean existTransport(int id) {
+        return transportController.existTransport(id);
+    }
+
+    public boolean orderExist(int parseInt, int transportID) {
+        return transportController.orderExist(parseInt, transportID);
+    }
 }
