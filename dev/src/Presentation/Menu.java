@@ -52,17 +52,22 @@ public class Menu {
         System.out.println("Welcome to Super-Li Shipment module");
         System.out.println("Please login to the system");
 
+
         while (true)
         {
             System.out.println("Please enter your username:");
+            System.out.println("If you want to logout please enter exit");
             scanner.skip("\\R?");
             String username =  scanner.nextLine();
+            if(username.compareTo("exit") == 0){
+                return;
+            }
             System.out.println("Please enter your password:");
             scanner.skip("\\R?");
             String password =  scanner.nextLine();
+
             if (username.compareTo("manager") == 0 && password.compareTo("1234") == 0)
             {
-                controller.remove();
                 managerMenu();
 
                 return;
