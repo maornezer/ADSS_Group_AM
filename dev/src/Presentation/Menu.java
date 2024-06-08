@@ -98,7 +98,6 @@ public class Menu {
                 case "1":
                     createOrder();
                     break;
-
                 case "2":
                     createNewTransport();
                     break;
@@ -880,6 +879,22 @@ public void createOrder()
     {
         System.out.println("Please enter the transport id you want to send ");
         int transportID = scanner.nextInt();
+        boolean check = controller.isTransportExist(transportID);
+        if (!check)
+        {
+            System.out.println("Such a delivery number does not exist in the system, please enter it again");
+            System.out.println("Please choose if you want try again or return back");
+            System.out.println("1. Try again");
+            System.out.println("2. Return back");
+            int choose = scanner.nextInt();
+            if (choose == 2)
+            {
+                managerMenu();
+            }
+            else {
+                deliveryStartUpdate();
+            }
+        }
         ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
         boolean b ;
         for (Order order: orderArrayList)

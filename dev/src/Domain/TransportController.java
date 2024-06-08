@@ -45,7 +45,7 @@ public class TransportController
         {
             return -1;
         }
-        if(driver == null || driver.getTypeOfLicense() != truck.getTypeOfLicense())
+        if(driver == null || driver.getTypeOfLicense().compareTo(truck.getTypeOfLicense()) != 0 )
         {
             return -2;
         }
@@ -126,11 +126,11 @@ public class TransportController
             Truck tempTruck = domain.getTruckByID(newTruckID);
             if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0)
             {
-                if(truckAvailability(tempTransport.getDate(),tempTruck))
-                {
-                    tempTransport.setTruck(tempTruck);
-                    return true;
-                }
+//                if(truckAvailability(tempTransport.getDate(),tempTruck))
+//                {
+                tempTransport.setTruck(tempTruck);
+                return true;
+//                }
             }
         }
         return false;
