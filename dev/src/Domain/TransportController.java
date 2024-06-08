@@ -51,8 +51,7 @@ public class TransportController
         }
         Transport transport = new Transport(truck, driver);
         transports.add(transport);
-        System.out.println("Your shipping number is: "+ transport.getId());
-        return 0;
+        return transport.getId();
     }
 //    public static TransportController getInstance()
 //    {
@@ -63,6 +62,12 @@ public class TransportController
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
+        Order order = domain.getOrderByID(orderID);
+        if(order == null)
+        {
+            System.out.println("There is no order with id "+ orderID + " in the system");
+            return false;
+        }
         return addOrderToTransport(transportID,orderID);
     }
 
@@ -380,9 +385,13 @@ public class TransportController
         StringBuilder allTransports = new StringBuilder();
         for (Transport transport: transports)
         {
-            allTransports.append(printAllOrdersByTransportID(transport.getId()));
+            allTransports.append(transport.toStringTransportReport());
         }
         return allTransports.toString();
     }
 
+    public boolean isTransportExist(int transID) {
+        Transport transport = getTransportByID(transID);
+        return transports.contains(transport);
+    }
 }

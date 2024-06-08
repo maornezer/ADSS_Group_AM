@@ -103,4 +103,6 @@ public class PresentationController {
     }
 
 
+    public boolean isTransportExist(int transID) {return transportController.isTransportExist(transID);
+    }
 }

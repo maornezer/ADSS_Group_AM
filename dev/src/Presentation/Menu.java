@@ -415,54 +415,65 @@ public void createOrder()
         {
             System.out.println("The Truck id is not registered in the system");
             System.out.println("Failed to create the shipment");
+            createNewTransport();
         }
         if (ans == -2)
         {
             System.out.println("The Driver id is not registered in the system");
-            System.out.println("Failed to create the shipment");
+            System.out.println("Failed to create the transport");
+            createNewTransport();
+
         }
         else
         {
-            System.out.println("The shipment has been successfully added to the system");
-        }
-        System.out.println("Enter if you want to add a order number to this transport [Y/N]");
-        scanner.skip("\\R?");
-        String s = scanner.nextLine();
-        if (s.compareTo("Y") == 0)
-        {
+            System.out.println("The transport has been successfully added to the system");
+            System.out.println("Your transport number is: " + ans);
+            System.out.println("Enter if you want to add a order number to this transport [Y/N]");
+            scanner.skip("\\R?");
+            String s = scanner.nextLine();
+            if (s.compareTo("Y") == 0)
+            {
 
-            addOrderTonewTransport();
+                addOrderTonewTransport(ans);
 //
 
+            }
+            managerMenu();
         }
 
     }
-    public void addOrderTonewTransport() {
-        System.out.println("Please enter the ID number of the transport you received: ");
-        int transID = scanner.nextInt();
+    public void addOrderTonewTransport(int transportID) {
+//        System.out.println("Please enter the ID number of the transport you received: ");
+//        int transID = scanner.nextInt();
+//        boolean tranIDExist = controller.isTransportExist(transID);
+//        if (!tranIDExist)
+//        {
+//            System.out.println("There is no such a transport ID in the system");
+//            JEKDFHRaddOrderTonewTransport();
+//        }
         System.out.println("Please choose:");
-        System.out.println("1. Creat new order");
-        System.out.println("2. Add an existing order");
-        System.out.println("3. Exit");
+        //System.out.println("1. Creat new order");
+        System.out.println("1. Add an existing order");
+        System.out.println("2. Exit");
 
         scanner.skip("\\R?");
         String choose = scanner.nextLine();
 
         switch (choose) {
+//            case "1":
+//                createOrder();
+//                anotherOrder(transportID);
+//                break;
             case "1":
-                createOrder();
-                anotherOrder();
-                break;
-            case "2":
                 if (controller.getTransportController().getDomain().getAllOrders().size()==0)
                 {
                     System.out.println("There is no orders system");
                     break;
                 }
-                addOrderToTransport(transID);
-                anotherOrder();
+                addOrderToTransport(transportID);
+                anotherOrder(transportID);
                 break;
-            case "3":
+            case "2":
                 break;
             default:
                 System.out.println("There is no such option of choice, please choose valid number\n");
@@ -580,7 +591,7 @@ public void createOrder()
                 changeDriver(id);
                 break;
             case "3":
-                addOrderTonewTransport();
+                addOrderTonewTransport(id);
                 break;
             case "4":
                 editOrderOrTransport();
@@ -776,14 +787,14 @@ public void createOrder()
                 break;
         }
     }
-    public void anotherOrder()
+    public void anotherOrder(int transportID)
     {
-        System.out.println("Do you want to add another order to this transport? [Y/N] ");
+        System.out.println("Do you want to add order to this transport? [Y/N] ");
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
         if (choice.compareTo("Y") == 0)
         {
-            addOrderTonewTransport();
+            addOrderTonewTransport(transportID);
         }
         else
             managerMenu();
@@ -836,6 +847,7 @@ public void createOrder()
         System.out.println("Please enter order ID would you like to add to transport "+ transportID + ": ");
         scanner.skip("\\R?");
         String orderID = scanner.nextLine();
+        //boolean orderExist = controller.orderExist(String orderID);
         Dictionary<String, String> data = new Hashtable<String, String>();
         data.put("transportID",Integer.toString(transportID));
         data.put("orderID", orderID);
