@@ -1,21 +1,14 @@
 package Test;
 
 import Domain.Order;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.*;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import Domain.*;
-import org.junit.jupiter.api.Assertions;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.Map;
-
+import Domain.*;
 
 public class transportTest
 {
@@ -206,52 +199,131 @@ public class transportTest
 
     }
 
+    @Test
+    public void editOrder()
+    {
+        Dictionary<Integer, ArrayList<String>> itemListOrder = new Hashtable< Integer,ArrayList<String>>();
+        Dictionary<String, String> orderdict= new Hashtable<String, String>();
+        Site s1 = new Site("Rag", "Center", "Bibi", "552");
+        Site s2 = new Site("Nora", "Center", "Sara", "0954321");
+        Site s3 = new Site("Loi", "North", "Siri", "452");
+        tr.getDomain().addSiteToList(s1);
+        tr.getDomain().addSiteToList(s2);
+        tr.getDomain().addSiteToList(s3);
+        ArrayList<String> item_1 = new ArrayList<>();
+        item_1.add("1");
+        item_1.add("Sugar");
+        item_1.add("3");
+        itemListOrder.put(1,item_1);
+        ArrayList<String> item_2 = new ArrayList<>();
+        item_2.add("2");
+        item_2.add("Bread");
+        item_2.add("55");
+        itemListOrder.put(2,item_2);
+
+        orderdict.put("year", "2025");
+        orderdict.put("month", "02");
+        orderdict.put("day", "02");
+        orderdict.put("source", "Rag");
+        orderdict.put("destination", "Nora");
+        int ans = tr.getDomain().addOrder(orderdict,itemListOrder);
+        assertEquals(1,ans);
+        int size = tr.getDomain().getAllOrders().size();
+        assertEquals(1,size);
+        Dictionary<String, String> data= new Hashtable<String, String>();
+        data.put("id",Integer.toString(ans));
+        data.put("destination","Loi");
+        boolean b = tr.getDomain().changeDestination(data);
+        assertEquals(false,b);
+        String str = tr.getDomain().getOrderByID(ans).getDestination().getAddress();
+        assertEquals("Nora",str);
+    }
+
+    @Test
+    public void Overweight_changeTruckSol ()
+    {
+        Dictionary<String, String> d = new Hashtable<String, String>();
+
+        Site site1 = new Site("Owl", "South","Jone", "050864");
+        Site site2 = new Site("Bear", "South","Jenifer","7785");
+        tr.getDomain().addSiteToList(site1);
+        tr.getDomain().addSiteToList(site2);
+        ArrayList<Item> list_i = new ArrayList<>();
+        list_i.add(new Item(1,"honey",23));
+        list_i.add(new Item(2,"spoons",14));
+        LocalDate date_ = LocalDate.of(2025,8,25);
+        Order o1 = new Order(date_,site1,site2,list_i);
+        tr.getDomain().getAllOrders().add(o1);
+        Truck truck_1 = new Truck(9,110.0,900,"RR");
+        Truck truck_2 = new Truck(10,20.0,1950.0,"RZR");
+        tr.getDomain().addTruck(truck_1);
+        tr.getDomain().addTruck(truck_2);
+
+        Driver driver_ = new Driver("Zoro",9,"B");
+        tr.getDomain().addDriver(driver_);
+        int id_trans = tr.addTransport(truck_1.getIdTruck(),driver_.getId());
+        assertEquals(1,id_trans);
+        Transport t = tr.getTransportByID(id_trans);
+        t.addOrderToMYTransport(o1);
+        d.put("transportID",Integer.toString(id_trans));
+        d.put("orderID",Integer.toString(o1.getId()));
+        d.put("weight","1000");
+        boolean b1 = tr.loadOrderToTruck(d);
+        assertEquals(false,b1);
+
+        Dictionary<String, String> d2 = new Hashtable<String, String>();
+        d2.put("transportID",Integer.toString(id_trans));
+        d2.put("orderID",Integer.toString(o1.getId()));
+        d2.put("truckId","10");
+        boolean b2 = tr.treatmentWeightProblemChangeTruck(d2);
+        b1 = tr.loadOrderToTruck(d);
+        assertEquals(true,b2); // truck changed
+        assertEquals(true,b1); // load to the new truck
+
+    }
+
+    @Test
+    public void Overweight_changeItemsSol ()
+    {
+        Dictionary<String, String> _d = new Hashtable<String, String>();
+
+        Site site_1 = new Site("Gilat", "North","Joo", "05083564");
+        Site site_2 = new Site("Avisror", "South","Jeni","74234234");
+        tr.getDomain().addSiteToList(site_1);
+        tr.getDomain().addSiteToList(site_2);
+        ArrayList<Item> i_list = new ArrayList<>();
+        i_list.add(new Item(11,"olives",23));
+        i_list.add(new Item(12,"watermelons",500));
+        LocalDate date_ = LocalDate.of(2026,4,5);
+        Order or1 = new Order(date_,site_1,site_2,i_list);
+        tr.getDomain().getAllOrders().add(o1);
+        Truck truck_1 = new Truck(9,110.0,900,"RR");
+        Truck truck_2 = new Truck(10,20.0,1950.0,"RZR");
+        tr.getDomain().addTruck(truck_1);
+        tr.getDomain().addTruck(truck_2);
+
+        Driver driver_ = new Driver("Zoro",9,"B");
+        tr.getDomain().addDriver(driver_);
+        int id_trans = tr.addTransport(truck_1.getIdTruck(),driver_.getId());
+        assertEquals(1,id_trans);
+        Transport t = tr.getTransportByID(id_trans);
+        t.addOrderToMYTransport(o1);
+        d.put("transportID",Integer.toString(id_trans));
+        d.put("orderID",Integer.toString(o1.getId()));
+        d.put("weight","1000");
+        boolean b1 = tr.loadOrderToTruck(d);
+        assertEquals(false,b1);
+
+        Dictionary<String, String> d2 = new Hashtable<String, String>();
+        d2.put("transportID",Integer.toString(id_trans));
+        d2.put("orderID",Integer.toString(o1.getId()));
+        d2.put("truckId","10");
+        boolean b2 = tr.treatmentWeightProblemChangeTruck(d2);
+        b1 = tr.loadOrderToTruck(d);
+        assertEquals(true,b2); // truck changed
+        assertEquals(true,b1); // load to the new truck
+
+    }
 
 
-
-
-
-//    @Test
-//    public void addTransport()
-//    {
-//
-//        Dictionary<String, String> data = new Hashtable<String, String>();
-//        data.put("idT", "100");
-//        data.put("idD", "1001");
-//
-//        int ans = controller.addTransport(data);
-//
-//    }
-//
-//    public void localData()
-//    {
-//        //tr = new TransportController();
-//
-//        Truck t1 = new Truck(1, 10000, 20000, "D");
-//        Truck t2 = new Truck(2, 3000, 7000, "C");
-//        Truck t3 = new Truck(3, 1000, 1500, "B");
-//        tr.getDomain().addTruck(t1);
-//        tr.getDomain().addTruck(t2);
-//        tr.getDomain().addTruck(t3);
-//
-//        Driver d1 = new Driver("Maor", 1, "D");
-//        Driver d2 = new Driver("Ron", 2, "D");
-//        Driver d3 = new Driver("Sahar", 3, "A");
-//        Driver d4 = new Driver("Noa", 4, "A");
-//        Driver d5 = new Driver("Lee", 5, "B");
-//        tr.getDomain().addDriver(d1);
-//        tr.getDomain().addDriver(d2);
-//        tr.getDomain().addDriver(d3);
-//        tr.getDomain().addDriver(d4);
-//        tr.getDomain().addDriver(d5);
-//
-//        tr.getDomain().addSiteToList(new Site("Narcissus ", "North", "Alice", "1234567890"));
-//        tr.getDomain().addSiteToList(new Site("Rose", "North", "Bob", "0987654321"));
-//        tr.getDomain().addSiteToList(new Site("Daisy", "South", "Barbara", "09261"));
-//        tr.getDomain().addSiteToList(new Site("Tulip", "Center", "Marsel", "508068"));
-//        tr.getDomain().addSiteToList(new Site("Trumpeldor   ", "Center", "Trumpeldor", "1000"));
-//
-//
-//
-//    }
 }
