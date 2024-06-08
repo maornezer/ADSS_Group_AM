@@ -8,8 +8,8 @@ public class Site
     private String phoneNumber;
     private String contactName;
     private String zone;
-    private boolean unloadingSite;
-    private boolean loadingSite;
+//    private boolean unloadingSite;
+//    private boolean loadingSite;
 
     public Site(String address,String zone ,String contactName, String phoneNumber)
     {

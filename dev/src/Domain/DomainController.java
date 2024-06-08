@@ -250,7 +250,7 @@ public class DomainController {
     public String printAllAddress() {
         StringBuilder result = new StringBuilder();
         for (Site site : sites) {
-            result.append(site.getAddress()).append(" - " + site.getSiteZone()).append("\n");
+            result.append(site.getAddress()).append("\n");
         }
         return result.toString();
     }
