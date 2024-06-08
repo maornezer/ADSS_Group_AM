@@ -54,16 +54,18 @@ public class Menu {
         System.out.println("Welcome to Super-Li Shipment module\n");
         System.out.println("Please login to the system");
 
-        boolean exit = false;
-        while (!exit)
+        //..boolean exit = false;
+        while (true)
         {
             System.out.println("Please enter your username:");
             System.out.println("If you want to logout please enter exit");
             scanner.skip("\\R?");
             String username =  scanner.nextLine();
             if(username.compareTo("exit") == 0){
-                exit = true;
-                return;
+                System.out.println("Exiting the program. Goodbye!");
+                scanner.close();
+                System.exit(0);
+
             }
             System.out.println("Please enter your password:");
             scanner.skip("\\R?");
@@ -87,10 +89,10 @@ public class Menu {
 
     public void managerMenu()
     {
-        Dictionary<String, String> data = new Hashtable<String, String>();
+        //Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Hello Manager!");
-        boolean exitMenu = true;
-        while (exitMenu)
+        //boolean exitMenu = true;
+        while (true)
         {
             System.out.println("Please choose what you would like to do:");
             System.out.println("1. Create Order");
@@ -101,6 +103,8 @@ public class Menu {
             System.out.println("6. Starting transport");
             System.out.println("7. Load the system with information");
             System.out.println("8. Log out");
+            System.out.println("9. Exit");
+
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
@@ -137,8 +141,13 @@ public class Menu {
                     }
                     break;
                 case "8":
-                   printMenu();
-                   exitMenu = false;
+                    System.out.println("Logging out. Returning to the main menu...");
+                    printMenu();
+                    break;
+                case "9":
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("There is no such option of choice, please choose valid number\n");
@@ -160,6 +169,8 @@ public class Menu {
             System.out.println("2. Producing a item report");
             System.out.println("3. Producing a transport report");
             System.out.println("4. Log out");
+            System.out.println("5. Exit");
+
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
@@ -174,7 +185,13 @@ public class Menu {
                     getTransportReport();
                     break;
                 case "4":
+                    System.out.println("Logging out. Returning to the main menu...");
                     printMenu();
+                    break;
+                case "5":
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("There is no such option of choice, please choose valid number\n");
