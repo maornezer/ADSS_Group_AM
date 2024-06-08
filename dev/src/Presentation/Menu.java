@@ -3,7 +3,6 @@ package Presentation;
 import Domain.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -49,22 +48,22 @@ public class Menu {
 
 
     }
-    public int exit() {return 0;}
 
     public void printMenu()
     {
         System.out.println("Welcome to Super-Li Shipment module\n");
         System.out.println("Please login to the system");
 
-
-        while (true)
+        boolean exit = false;
+        while (!exit)
         {
             System.out.println("Please enter your username:");
             System.out.println("If you want to logout please enter exit");
             scanner.skip("\\R?");
             String username =  scanner.nextLine();
             if(username.compareTo("exit") == 0){
-                exit();
+                exit = true;
+                return;
             }
             System.out.println("Please enter your password:");
             scanner.skip("\\R?");
@@ -138,7 +137,7 @@ public class Menu {
                     }
                     break;
                 case "8":
-                    printMenu();
+                   printMenu();
                     break;
                 default:
                     System.out.println("There is no such option of choice, please choose valid number\n");
