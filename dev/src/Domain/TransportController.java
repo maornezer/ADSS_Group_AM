@@ -45,7 +45,7 @@ public class TransportController
         {
             return -1;
         }
-        if(driver == null)
+        if(driver == null || driver.getTypeOfLicense() != truck.getTypeOfLicense())
         {
             return -2;
         }
@@ -139,9 +139,12 @@ public class TransportController
     {
         for (Transport tempTransport : transports)
         {
-            if (tempTransport.getTruck() == truck && tempTransport.getDate()== date)
+            if (tempTransport.getTruck() == truck)
             {
-                return false;
+               if(tempTransport.getDate()== date)
+                   return false;
+               if(tempTransport.getDate() == null && date == null)
+                   return false;
             }
         }
         return true;

@@ -53,8 +53,6 @@ public class transportTest
         size = tr.getDomain().getSites().size();
         assertEquals(size, 3);
     }
-    //Site s3 = new Site("Daisy  ", "South", "Barbara", "09261"));
-    //tr.getDomain().addSiteToList(s3);
 
     @Test
     public void testAddOrder()
@@ -112,30 +110,108 @@ public class transportTest
         assertEquals(0,size);
     }
 
+    @Test
+    public void changeTruck()
+    {
+        Dictionary<String, String> dataT1 = new Hashtable<String, String>();
+        dataT1.put("idT","1001");
+        dataT1.put("initialWeight","500");
+        dataT1.put("maxWeight", "300");
+        dataT1.put("model", "Tesla");
+        boolean b = tr.getDomain().addTruck(dataT1);
+        assertEquals(true,b);
+        Dictionary<String, String> dataT2 = new Hashtable<String, String>();
+        dataT2.put("idT","1001");
+        dataT2.put("initialWeight","3500");
+        dataT2.put("maxWeight", "4000");
+        dataT2.put("model", "Mromoro");
+        b = tr.getDomain().addTruck(dataT2);
+        int size = tr.getDomain().getTrucks().size();
+        assertEquals(1,size);
+        assertEquals(false,b);
+        Dictionary<String, String> dataT3 = new Hashtable<String, String>();
+        dataT3.put("idT","1003");
+        dataT3.put("initialWeight","3500");
+        dataT3.put("maxWeight", "400");
+        dataT3.put("model", "Mromoro");
+        b = tr.getDomain().addTruck(dataT3);
+        size = tr.getDomain().getTrucks().size();
+        assertEquals(2,size);
+        assertEquals(true,b);
+
+        Dictionary<String, String> dataT4 = new Hashtable<String, String>();
+        dataT4.put("idT","1004");
+        dataT4.put("initialWeight","200");
+        dataT4.put("maxWeight", "1000");
+        dataT4.put("model", "Mro");
+        tr.getDomain().addTruck(dataT4);
+        // driver
+        Dictionary<String, String> dataD1 = new Hashtable<String, String>();
+        dataD1.put("name", "Ron");
+        dataD1.put("id", "34");
+        dataD1.put("typeOfLicense", "B");
+        b = tr.getDomain().addDriver(dataD1);
+        assertEquals(true,b);
+        size = tr.getDomain().getDrivers().size();
+        assertEquals(1,size);
+        //transport
+        Dictionary<String, String> dataTR1 = new Hashtable<String, String>();
+        dataTR1.put("idT", "1001");
+        dataTR1.put("idD", "34");
+        int ans = tr.addTransport(dataTR1);
+        assertEquals(1,ans);
+        //change Truck - false
+        Dictionary<String, String> data1 = new Hashtable<String, String>();
+        data1.put("idTransport", "1");
+        data1.put("idTruck", "1003");
+        b = tr.changeTruck(data1);
+        assertEquals(false,b);
+        int idTruckOfTransport1 = tr.getTransportByID(ans).getTruck().getIdTruck();
+        assertEquals(1001,idTruckOfTransport1);
+        //change Truck - true
+        Dictionary<String, String> data2 = new Hashtable<String, String>();
+        data2.put("idTransport", "1");
+        data2.put("idTruck", "1004");
+        b = tr.changeTruck(data2);
+        idTruckOfTransport1 = tr.getTransportByID(ans).getTruck().getIdTruck();
+        assertEquals(true,b);
+        assertEquals(1004,idTruckOfTransport1);
+    }
+
+    @Test //scheduling Driver - false
+    public void schedulingDriver()
+    {
+        Dictionary<String, String> dataT1 = new Hashtable<String, String>();
+        dataT1.put("idT","101");
+        dataT1.put("initialWeight","600");
+        dataT1.put("maxWeight", "100");
+        dataT1.put("model", "Tesla");
+        boolean b = tr.getDomain().addTruck(dataT1);
+        assertEquals(true,b);
+        // driver
+        Dictionary<String, String> dataD1 = new Hashtable<String, String>();
+        dataD1.put("name", "Maor");
+        dataD1.put("id", "1");
+        dataD1.put("typeOfLicense", "C");
+        b = tr.getDomain().addDriver(dataD1);
+        assertEquals(true,b);
+        int size = tr.getDomain().getDrivers().size();
+        assertEquals(1,size);
+        //transport
+        Dictionary<String, String> dataTR1 = new Hashtable<String, String>();
+        dataTR1.put("idT", "101");
+        dataTR1.put("idD", "1");
+        int ans = tr.addTransport(dataTR1);
+        assertEquals(-2,ans);
+
+    }
+
+
+
+
+
+
 //    @Test
-//    public void AddAndChangeTruckS()
-//    {
-//        Dictionary<String, String> data1 = new Hashtable<String, String>();
-//        data1.put("idT","1001");
-//        data1.put("initialWeight","2500");
-//        data1.put("maxWeight", "3000");
-//        data1.put("model", "Tesla");
-//        boolean b = tr.getDomain().addTruck(data1);
-//        assertEquals(true,b);
-//        Dictionary<String, String> data2 = new Hashtable<String, String>();
-//        data1.put("idT","1001");
-//        data1.put("initialWeight","3500");
-//        data1.put("maxWeight", "4000");
-//        data1.put("model", "Mromoro");
-//        b = tr.getDomain().addTruck(data1);
-//        int size = tr.getDomain().getTrucks().size();
-//        assertEquals(1,size);
-//        assertEquals(false,b);
-//        tr.changeTruck(1001,1002);
-//        size = tr.getDomain().getTrucks().size();
-//        assertEquals(2,size);
-//    }
-  //  @Test
 //    public void addTransport()
 //    {
 //
@@ -146,7 +222,7 @@ public class transportTest
 //        int ans = controller.addTransport(data);
 //
 //    }
-
+//
 //    public void localData()
 //    {
 //        //tr = new TransportController();
