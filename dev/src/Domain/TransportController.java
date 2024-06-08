@@ -232,7 +232,7 @@ public class TransportController
                 Truck truckTemp = domain.getTruckByID(truckIDTemp);
                 if (truckTemp.getCurrWeight() + orderWeight > truckTemp.getMaxWeight())
                 {
-                    System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
+//                    System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
                     return false;
                 }
                 truckTemp.setAddToCurrWeight(orderWeight);

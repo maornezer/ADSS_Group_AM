@@ -902,6 +902,7 @@ public void createOrder()
             b = Orderweightupdate(transportID,order.getId());
             if (!b)
             {
+                System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
                 System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + order.getId());
                 managerSulotion(transportID, order.getId());
             }
