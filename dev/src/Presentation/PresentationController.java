@@ -12,7 +12,9 @@ public class PresentationController {
 
     private TransportController transportController;
 
-
+    public void remove(){
+        System.out.printf("NOA");
+    }
     public PresentationController()
     {
         this.transportController = new TransportController();

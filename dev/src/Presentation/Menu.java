@@ -62,7 +62,9 @@ public class Menu {
             String password =  scanner.nextLine();
             if (username.compareTo("manager") == 0 && password.compareTo("1234") == 0)
             {
+                controller.remove();
                 managerMenu();
+
                 return;
             }
             if (username.compareTo("driver") == 0 && password.compareTo("1111") == 0)
@@ -509,6 +511,7 @@ public void createOrder()
         switch (choice) {
             case "1":
                 changeTruck(id);
+
                 break;
             case "2":
                 changeDriver(id);
