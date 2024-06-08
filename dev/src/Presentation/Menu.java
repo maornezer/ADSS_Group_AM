@@ -4,6 +4,8 @@ import Domain.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -170,36 +172,42 @@ public void createOrder()
     Dictionary<String, String> data1= new Hashtable<String, String>();
 
 
-    System.out.println("Enter Shipping Date (yyyy/mm/dd): ");
+    System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
     scanner.skip("\\R?");
     String date = scanner.nextLine();
+    LocalDate check = validateAndParseDate(date);
+    if (check == null) {
+        System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
+        createOrder();
+    }
+
+
     String[] dateParts = date.split("/");
     if (dateParts.length == 3)
     {
         String year = dateParts[0];
         String month = dateParts[1];
         String day = dateParts[2];
-        if (year.length() != 4 || month.length() != 2 || day.length() != 2)
-        {
-            System.out.println("The date must be as in the format");
-            createOrder();
-        }
         data1.put("year", year);
         data1.put("month", month);
         data1.put("day", day);
     }
-    else
-    {
-        System.out.println("The date must be as in the format");
-        createOrder();
-    }
+
 
 
 
     String source = checkAddressSource();
-    data1.put("source", source);
-
     String destination = checkAddressDestination();
+    boolean b = controller.validMatchZone(source,destination );
+    while (!b)
+    {
+        System.out.println("Source zone and destination zone are not the same");
+        source = checkAddressSource();
+        destination = checkAddressDestination();
+        b = controller.validMatchZone(source,destination );
+    }
+
+    data1.put("source", source);
     data1.put("destination", destination);
 
     int i = 1;
@@ -238,7 +246,7 @@ public void createOrder()
     int ans = controller.creatNewOrder(data1, data2);
     if(ans == -2)
     {
-        addressSolution(2)  ;
+        addressSolution(2) ;
     }
     if(ans == -1)
     {
@@ -248,64 +256,123 @@ public void createOrder()
 
 }
 
-    public String checkAddressSource()
-    {
-        System.out.println("Enter the source address");
-        scanner.skip("\\R?");
-        String source = scanner.nextLine();
-        if (!controller.checkAddress(source))
-        {
-            addressSolution(1);
+//    public String checkAddressSource()
+//    {
+//        System.out.println("Enter the source address (Enter 0 to see all the addresses in the system)");
+//        scanner.skip("\\R?");
+//        String source = scanner.nextLine();
+//        if (source.compareTo("0") == 0)
+//        {
+//            if (controller.getTransportController().getDomain().getSites().isEmpty())
+//            {
+//                System.out.println("There are no registered sites in the system");
+//                checkAddressSource();
+//            }
+//            controller.printAllAddress();
+//            checkAddressSource();
+//        }
+//        else if (!controller.checkAddress(source))
+//        {
+//            addressSolution(1);
+//        }
+//        return source;
+//    }
+//
+//    public String checkAddressDestination()
+//    {
+//        System.out.println("Enter the destination address");
+//        scanner.skip("\\R?");
+//        String destination = scanner.nextLine();
+//        if (!controller.checkAddress(destination))
+//        {
+//            addressSolution(2);
+//        }
+//        return destination;
+//    }
+//
+//
+//    public void addressSolution(int x)
+//    {
+//        int s =-1;
+//        while (s != 1 || s != 2) {
+//            //System.out.println("The address was not found in the system");
+//            System.out.println("Please choose what you would like to do:");
+//            System.out.println("1. Enter this address into the system ");
+//            System.out.println("2. Enter address again ");
+//            scanner.skip("\\R?");
+//            s = scanner.nextInt();
+//            boolean first = false;
+//            if (s == 1) {
+//                addSite();
+//                if (x == 1 && !first) {
+//                    first = true;
+//                    checkAddressSource();
+//                }
+//                if (x == 2 && !first) {
+//                    //first = true;
+//                    checkAddressDestination();
+//                }
+//            } else if (s == 2) {
+//                if (x == 1) {
+//                    checkAddressSource();
+//                }
+//                if (x == 2) {
+//                    checkAddressDestination();
+//                }
+//            } else
+//                System.out.println("There is no such option of choice, please choose valid number\n");
+//        }
+//    }
+    public String checkAddressSource() {
+        while (true) {
+            System.out.println("Enter the source address (Enter 0 to see all the addresses in the system)");
+            scanner.skip("\\R?");
+            String source = scanner.nextLine();
+            if (source.compareTo("0") == 0) {
+                if (controller.getTransportController().getDomain().getSites().isEmpty()) {
+                    System.out.println("There are no registered sites in the system");
+                    continue;
+                }
+                controller.printAllAddress();
+                continue;
+            }
+            if (controller.checkAddress(source)) {
+                return source;
+            } else {
+                addressSolution(1);
+            }
         }
-        return source;
     }
 
-    public String checkAddressDestination()
-    {
-        System.out.println("Enter the destination address");
-        scanner.skip("\\R?");
-        String destination = scanner.nextLine();
-        if (!controller.checkAddress(destination))
-        {
-            addressSolution(2);
+    public String checkAddressDestination() {
+        while (true) {
+            System.out.println("Enter the destination address");
+            scanner.skip("\\R?");
+            String destination = scanner.nextLine();
+            if (controller.checkAddress(destination)) {
+                return destination;
+            } else {
+                addressSolution(2);
+            }
         }
-        return destination;
     }
-
-
-    public void addressSolution(int x)
-    {
-        System.out.println("The address was not found in the system");
-        System.out.println("Please choose what you would like to do:");
-        System.out.println("1. Enter this address into the system ");
-        System.out.println("2. Enter address again ");
-        scanner.skip("\\R?");
-        String s = scanner.nextLine();
-        if (s.compareTo("1") == 0)
-        {
-            addSite();
-            if(x == 1)
-            {
-                checkAddressSource();
-            }
-            if(x == 2)
-            {
-                checkAddressDestination();
+    public void addressSolution(int x) {
+        while (true) {
+            System.out.println("Please choose what you would like to do:");
+            System.out.println("1. Enter this address into the system ");
+            System.out.println("2. Enter address again ");
+            scanner.skip("\\R?");
+            int s = scanner.nextInt();
+            scanner.nextLine(); // Clear the newline
+            if (s == 1) {
+                addSite();
+                return; // Exit the function after adding the site
+            } else if (s == 2) {
+                return; // Exit the function to re-enter the address
+            } else {
+                System.out.println("There is no such option of choice, please choose a valid number\n");
             }
         }
-        else if( s.compareTo("2") == 0)
-        {
-            if (x == 1){
-                checkAddressSource();
-            }
-            if (x == 2)
-            {
-                checkAddressDestination();
-            }
-        }
-        else
-            System.out.println("There is no such option of choice, please choose valid number\n");
-
     }
 
 
@@ -313,12 +380,30 @@ public void createOrder()
     {
 
         Dictionary<String, String> data = new Hashtable<String, String>();
+        if (controller.getTransportController().getDomain().getTrucks().size() == 0)
+        {
+            System.out.println("You do not have trucks in the system");
+            //managerMenu();
+            return;
+        }
+        if (controller.getTransportController().getDomain().getDrivers().size() == 0)
+        {
+            System.out.println("You do not have drivers in the system");
+            //managerMenu();
+            return;
+        }
         System.out.println("Please choose truck ID from truck list: ");
         printAllTrucks();
         System.out.println("Enter Truck ID: ");
         int idT = scanner.nextInt();
         String licenseType = getTypeOfLicense(idT);
         data.put("idT", Integer.toString(idT));
+        if (!controller.isDriverExists(licenseType))
+        {
+            System.out.println("You do not have drivers with license type: " + licenseType+" in the system");
+            return;
+        }
+
         System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
         printallDriversByLicense(licenseType);
         System.out.println("Enter Driver ID: ");
@@ -369,6 +454,11 @@ public void createOrder()
                 anotherOrder();
                 break;
             case "2":
+                if (controller.getTransportController().getDomain().getAllOrders().size()==0)
+                {
+                    System.out.println("There is no orders system");
+                    break;
+                }
                 addOrderToTransport(transID);
                 anotherOrder();
                 break;
@@ -570,6 +660,15 @@ public void createOrder()
         System.out.println("Choose Site Zone: [North, South, Center]");
         scanner.skip("\\R?");
         String zone = scanner.nextLine();
+
+        while (zone.compareTo("North") !=0 && zone.compareTo("South")!=0 && zone.compareTo("Center")!=0)
+        {
+            System.out.println("There is no such option of choice");
+            System.out.println("Choose Site Zone: [North, South, Center]");
+            scanner.skip("\\R?");
+            zone = scanner.nextLine();
+        }
+
         data.put("zone", zone);
 
         System.out.println("Enter Contact Name of Site: ");
@@ -923,6 +1022,16 @@ public void createOrder()
             {
                 Orderweightupdate(transportID, orderID);
             }
+        }
+    }
+    public static LocalDate validateAndParseDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+        try {
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            return null;
         }
     }
 }

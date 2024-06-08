@@ -46,6 +46,22 @@ public class DomainController {
         return drivers.contains(d);
     }
 
+    public boolean isDriverExists(String type)
+    {
+        if (drivers !=null)
+        {
+            for (Driver d : drivers)
+            {
+                if (d.getTypeOfLicense().compareTo(type)==0)
+                {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
     public Driver getDriverByID(int id) {
         for (Driver d : drivers) {
             if (d.getId() == id) {
@@ -74,8 +90,13 @@ public class DomainController {
                 sb.append(driver.toString()).append("\n");
             }
         }
+        if (sb.length() == 0)
+        {
+            System.out.println("There are no drivers with a license type in the system " + licenseType);
+        }
         return sb.toString();
     }
+
     ///??? 7/6
 //    public String printDriversByLicenseType(Truck truck) {
 //        StringBuilder sb = new StringBuilder();
@@ -88,6 +109,17 @@ public class DomainController {
 //    }
 
 /// order + item ///
+
+    public boolean validMatchZone(String source, String destination )
+    {
+        Site s1 = getSiteByAddress(source);
+        Site s2 = getSiteByAddress(destination);
+        if (s1!=null && s2!=null)
+        {
+            return s1.getSiteZone().compareTo(s2.getSiteZone())==0;
+        }
+        return false;
+    }
     public Item addItem(ArrayList<String> item) {
         int id = Integer.parseInt(item.get(0));
         String name = item.get(1);
@@ -225,10 +257,10 @@ public class DomainController {
         }
         return null;
     }
-    public String toStringSites() {
+    public String printAllAddress() {
         StringBuilder result = new StringBuilder();
         for (Site site : sites) {
-            result.append(site.toString()).append("\n");
+            result.append(site.getAddress()).append("\n");
         }
         return result.toString();
     }

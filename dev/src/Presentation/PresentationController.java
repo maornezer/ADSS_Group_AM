@@ -32,6 +32,8 @@ public class PresentationController {
     public void addDriver(Dictionary<String, String> data){this.transportController.getDomain().addDriver(data);}
     public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
     public void seeAllTransportByDriver(int id) {System.out.println(transportController.getTransportByIdDriver(id));}
+    public boolean isDriverExists(String type){return transportController.getDomain().isDriverExists(type);
+    }
 
     /// truck ///
     public void addTruck(Dictionary<String, String> data){this.transportController.getDomain().addTruck(data);}
@@ -88,4 +90,17 @@ public class PresentationController {
     public ArrayList<Order> getAllOrdersByTransport(int transportID) {
         return transportController.getTransportByID(transportID).getMyOrders();
     }
+
+    public void printAllAddress()
+    {
+        System.out.println(transportController.getDomain().printAllAddress());
+
+    }
+    public boolean validMatchZone(String source, String destination )
+    {
+        return transportController.getDomain().validMatchZone( source, destination );
+
+    }
+
+
 }
