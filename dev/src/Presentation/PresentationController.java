@@ -34,7 +34,8 @@ public class PresentationController {
     public void seeAllTransportByDriver(int id) {System.out.println(transportController.getTransportByIdDriver(id));}
     public boolean isDriverExists(String type){return transportController.getDomain().isDriverExists(type);
     }
-
+    public boolean isDriverExists(int id){return transportController.getDomain().isDriverExists(id);
+    }
     /// truck ///
     public void addTruck(Dictionary<String, String> data){this.transportController.getDomain().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
@@ -97,5 +98,9 @@ public class PresentationController {
 
     public boolean orderExist(int parseInt, int transportID) {
         return transportController.orderExist(parseInt, transportID);
+    }
+
+    public boolean existTruck(int idTruck) {
+        return transportController.getDomain().isTruckExists(idTruck);
     }
 }
