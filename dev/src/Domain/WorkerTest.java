@@ -37,10 +37,10 @@ class WorkerTest {
         data.put("year", Integer.toString(2025));
         data.put("month", Integer.toString(12));
         data.put("day", Integer.toString(30));
-        data.put("amount","3");
+        data.put("amount","2");
         data.put("1","Manager");
         data.put("0", "Cashier");
-        data.put("2","Storekeeper" );
+
 
         worker1 = new Worker(data);
         Branch branch = Chain.getBranch(1);
@@ -51,6 +51,8 @@ class WorkerTest {
         data.put("lastName", "Chemo");
         data.put("bankDetails", Integer.toString(101));
         data.put("hourRate", Integer.toString(30));
+        data.put("amount","3");
+        data.put("2","Storekeeper" );
 
         worker2 = new Worker(data);
         branch.addWorker(worker2);
@@ -109,5 +111,23 @@ class WorkerTest {
     void testToString() {
         assertEquals("Noa Shvets", worker1.toString());
         assertEquals("Lee Chemo", worker2.toString());
+    }
+
+    @Test
+    void testResignationNotice(){
+        worker1.resignationNotice();
+        assertEquals(worker1.getEmploymentEnd().isBefore(Chain.getToday().plusDays(31)), true);
+        worker2.resignationNotice();
+        assertEquals(worker2.getEmploymentEnd().isBefore(Chain.getToday().plusDays(31)), true);
+    }
+
+    @Test
+    void testCheckRole(){
+        assertEquals(worker1.checkRole("Manager"), true);
+        assertEquals(worker1.checkRole("Cashier"), true);
+        assertEquals(worker1.checkRole("Storekeeper"), false);
+        assertEquals(worker2.checkRole("Manager"), true);
+        assertEquals(worker2.checkRole("Cashier"), true);
+        assertEquals(worker2.checkRole("Storekeeper"), true);
     }
 }

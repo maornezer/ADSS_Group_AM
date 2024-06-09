@@ -11,9 +11,9 @@ import static java.time.DayOfWeek.*;
 import static java.time.temporal.TemporalAdjusters.next;
 
 public class Chain {
-    private static Dictionary<Integer, SystemLimitations> branchesLimits;
-    private static LocalDate today;
-    private static List<Branch> branches;
+    protected static Dictionary<Integer, SystemLimitations> branchesLimits;
+    protected static LocalDate today;
+    protected static List<Branch> branches;
 
     protected static LocalDate[] nextWeekDates;
 

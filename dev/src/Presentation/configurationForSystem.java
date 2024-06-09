@@ -5,6 +5,7 @@ import Domain.Chain;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Scanner;
@@ -17,8 +18,9 @@ public class configurationForSystem {
     }
 
     public void readCSV() throws FileNotFoundException {
-    //parsing a CSV file into Scanner class constructor
-        Scanner sc = new Scanner(new File( "configuration.csv"));
+        //parsing a CSV file into Scanner class constructor
+        String filePath = getPath();
+        Scanner sc = new Scanner(new File(filePath));
         sc.useDelimiter(",");   //sets the delimiter pattern
         Dictionary<String, String> HRDict = new Hashtable<>();
         while (sc.hasNext())  //returns a boolean value
@@ -93,4 +95,11 @@ public class configurationForSystem {
         sc.close();  //closes the scanner
     }
 
+    public String getPath(){
+        String dir = System.getProperty("user.dir");
+        if(dir.endsWith("dev"))
+            return "configuration.csv";
+        File dirFile = new File(dir);
+        return Paths.get(dirFile.getParent(), "dev", "configuration.csv").toString();
+    }
 }
