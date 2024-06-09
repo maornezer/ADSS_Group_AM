@@ -367,7 +367,16 @@ public void createOrder()
         printAllTrucks();
         System.out.println("Enter Truck ID: ");
         int idT = scanner.nextInt();
+        boolean existTruck = controller.existTruck(idT);
+        while (!existTruck)
+        {
+            System.out.println("Please choose truck ID from truck list");
+            System.out.println("Enter Truck ID: ");
+            idT = scanner.nextInt();
+            existTruck = controller.existTruck(idT);
+        }
         String licenseType = getTypeOfLicense(idT);
+
         data.put("idT", Integer.toString(idT));
         if (!controller.isDriverExists(licenseType))
         {
@@ -379,6 +388,15 @@ public void createOrder()
         printallDriversByLicense(licenseType);
         System.out.println("Enter Driver ID: ");
         int idD = scanner.nextInt();
+        boolean driverExist = controller.isDriverExists(idD);
+        while (!driverExist)
+        {
+            System.out.println("Please choose driver ID from driver list ");
+            System.out.println("Enter Driver ID: ");
+            idD = scanner.nextInt();
+            driverExist = controller.isDriverExists(idD);
+        }
+
         data.put("idD", Integer.toString(idD));
         int ans = controller.addTransport(data);
 
@@ -582,6 +600,12 @@ public void createOrder()
         //String licenseTruck = getTypeOfLicense();
         System.out.println("Enter new Truck ID: ");
         int idTruck = scanner.nextInt();
+        boolean truckExist = controller.existTruck(idTruck);
+        while (!truckExist)
+        {
+            System.out.println("Please enter truck ID that exist in the system");
+            changeTruck(id);
+        }
         String licenseTruckNew = getTypeOfLicense(idTruck);
         data.put("idTruck", Integer.toString(idTruck));
         controller.changeTruck(data);
@@ -595,6 +619,12 @@ public void createOrder()
 
         System.out.println("Enter new Driver ID: ");
         int idDriver = scanner.nextInt();
+        boolean existDriver = controller.isDriverExists(Integer.toString(idDriver));
+        while (!existDriver)
+        {
+            System.out.println("The id of driver that not exist");
+            changeDriver(id);
+        }
         data.put("idDriver", Integer.toString(idDriver));
 
         controller.changeDriver(data);

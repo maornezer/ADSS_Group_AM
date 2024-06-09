@@ -45,10 +45,24 @@ public class DomainController {
     {
         return drivers.contains(d);
     }
+    public boolean isDriverExists(int id)
+    {
+        if (drivers != null)
+        {
+            for (Driver d : drivers)
+            {
+                if (d.getId()== id)
+                {
+                    return true;
+                }
 
+            }
+        }
+        return false;
+    }
     public boolean isDriverExists(String type)
     {
-        if (drivers !=null)
+        if (drivers != null)
         {
             for (Driver d : drivers)
             {
@@ -285,7 +299,16 @@ public class DomainController {
         }
         return trucks.add(t);
     }
-
+    public boolean isTruckExists(int id) {
+        for (Truck truck : trucks)
+        {
+            if (truck.getIdTruck() == id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isTruckExists(Truck truck) {
         return trucks.contains(truck);
     }
