@@ -18,7 +18,9 @@ public class Branch {
 
     private Scheduling scheduleNextWeek;
 
-    private List<Scheduling> branchHistory;
+    private String scheduleThisWeek;
+
+    private List<String> branchHistory;
 
     public Scheduling getScheduleNextWeek() {
         return scheduleNextWeek;
@@ -31,6 +33,7 @@ public class Branch {
         this.firedWorkers = new ArrayList<Worker>();
         this.systemLimitations = new SystemLimitations(branchId);
         this.scheduleNextWeek = new Scheduling(branchId, this.systemLimitations);
+        this.scheduleThisWeek = "No shifts yet";
         this.branchHistory = new ArrayList<>();
     }
 
@@ -106,16 +109,23 @@ public class Branch {
     }
 
     public void creatNextWeek(){
-        this.branchHistory.add(this.scheduleNextWeek);
+        this.branchHistory.add(this.scheduleNextWeek.toString());
         this.scheduleNextWeek = new Scheduling(this.branchId);
-        scheduleNextWeek.creatSchedule();
+        this.scheduleNextWeek.creatSchedule();
+        for(Worker worker : this.workers){
+            worker.DefaultNextWeek();
+        }
     }
+
+    public String getScheduleThisWeek() {
+        return scheduleThisWeek;
+    }
+
 
     public void addShiftOffTemp(genShift shift) {
         this.systemLimitations.addShiftOffTemp(shift);
         Shift[][] shifts = this.scheduleNextWeek.getSchedule();
-        LocalDate date = Chain.getNextWeekDates()[Chain.getDayValue(shift.getDay()) - 1];
-        shifts[Chain.getDayValue(shift.getDay()) - 1][shift.getShiftType() - 1] = new Shift(date, shift.getShiftType());
+        shifts[Chain.getDayValue(shift.getDay()) - 1][shift.getShiftType() - 1] = null;
     }
 
     public void removeShiftOffTemp(genShift shift){
@@ -157,7 +167,7 @@ public class Branch {
 
     public String getShiftHistory(){
         StringBuilder res = new StringBuilder("Branch number: " + this.branchId + "\n");
-        for (Scheduling schedule: this.branchHistory){
+        for (String schedule: this.branchHistory){
             res.append(schedule.toString());
         }
         return res.toString();
@@ -190,6 +200,7 @@ public class Branch {
     }
     public void makeASchedule(){
         this.scheduleNextWeek.makeASchedule();
+        this.scheduleThisWeek = this.scheduleNextWeek.toString();
     }
 
 //    public void creatSchedule(){this.scheduleNextWeek.creatSchedule();}

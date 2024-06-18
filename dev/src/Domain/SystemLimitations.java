@@ -22,6 +22,7 @@ public class SystemLimitations {
         nextWeekLimits = new int[7][2];
         this.shiftsOffConst.add(new genShift(SATURDAY,1));
         this.shiftsOffConst.add(new genShift(SATURDAY, 2));
+        creatNextWeek();
     }
 
     public DayOfWeek getDeadLine() {
@@ -105,6 +106,5 @@ public class SystemLimitations {
             nextWeekLimits[temp[0]-1][temp[1]-1] = -1;
         }
     }
-
 
 }

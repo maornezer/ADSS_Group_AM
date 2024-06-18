@@ -47,7 +47,7 @@ public class DomainController {
     }
 
     public int[][] getBranchLimitation(int branchNum){
-        return Chain.getSystemLimit(branchNum).getNextWeekLimits();
+        return (Chain.getSystemLimit(branchNum).getNextWeekLimits()).clone();
     }
 
     public LocalDate[] getDatesForNextWeek(){
@@ -139,8 +139,9 @@ public class DomainController {
 
     public LocalDate fireEmployee(Dictionary<String, String> data){
         Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
-        if(branch == null)
+        if(branch == null || branch.checkBranchDeadLinePassed())
             return null;
+
         return branch.removeWorker(getWorker(data));
     }
 
@@ -178,6 +179,7 @@ public class DomainController {
         boolean flag = true;
         for (Branch branch : branches)
             flag = flag & branch.checkBranchDeadLinePassed();
+        branches = Chain.getBranches();
         if(flag) {
             for (Branch branch : branches)
                 branch.makeASchedule();
@@ -188,7 +190,9 @@ public class DomainController {
     public String PrintShiftsAssignment(Dictionary<String, String> data){
         int branchNum = Integer.parseInt(data.get("branchNum"));
         Branch branch = Chain.getBranch(branchNum);
-        String res = branch.getScheduleNextWeek().toString();
+        if(branch == null)
+            return "Branch doesnt exist";
+        String res = branch.getScheduleThisWeek();
         return res;
     }
 

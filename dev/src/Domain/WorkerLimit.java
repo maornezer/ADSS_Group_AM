@@ -25,12 +25,12 @@ public class WorkerLimit{
 
     public void setLimitations(int[][] limitations) { // limitations contains default values from next week
         if(Chain.getTodayValue() <= Chain.getDeadLineValue(branchId)){
-            this.Limitations = limitations;
+            this.Limitations = limitations.clone();
         }
     }
 
     public void DefaultNextWeek(){
-        this.Limitations = Chain.getSystemLimit(branchId).getNextWeekLimits();
+        this.Limitations = Chain.getSystemLimit(branchId).getNextWeekLimits().clone();
     }
 
     public boolean ifCanWork(DayOfWeek day, int shiftType){

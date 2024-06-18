@@ -133,18 +133,25 @@ public class MainMenu {
 
     public void WorkerLimitSubmissions(Dictionary<String, String> data){
         if (presentationController.checkBranchDeadLine(data)) {
-            int[][] workerLimit = presentationController.getBranchLimitation(Integer.parseInt(data.get("branchNum")));
+            int[][] workerLimit = new int[7][2];
+            int[][] branchLimit = (presentationController.getBranchLimitation(Integer.parseInt(data.get("branchNum")))).clone();
             LocalDate[] datesForNextWeek = presentationController.getDatesForNextWeek();
             for (int i = 0; i < 7; i++) {
-                if (workerLimit[i][0] == 1) {
+                if (branchLimit[i][0] == 1) {
                     System.out.println("can you work morning " + datesForNextWeek[i].toString() + "?\n" +
                             "Enter 1 for confirmation, otherwise 0:");
                     workerLimit[i][0] = scanner.nextInt();
                 }
-                if (workerLimit[i][1] == 1) {
+                else{
+                    workerLimit[i][0] = branchLimit[i][0];
+                }
+                if (branchLimit[i][1] == 1) {
                     System.out.println("can you work evening " + datesForNextWeek[i].toString() + "?\n" +
                             "Enter 1 for confirmation, otherwise 0:");
                     workerLimit[i][1] = scanner.nextInt();
+                }
+                else{
+                    workerLimit[i][1] = branchLimit[i][1];
                 }
             }
             if (presentationController.submitWorkerLimits(data, workerLimit))
@@ -456,7 +463,7 @@ public class MainMenu {
         if(date != null)
             System.out.println("The employee was successfully fired - end of employment is set to " + date);
         else{
-            System.out.println("The employee does not exist");
+            System.out.println("theres a problem. try again next week.");
         }
     }
 

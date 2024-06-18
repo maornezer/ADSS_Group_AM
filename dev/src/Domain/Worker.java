@@ -174,6 +174,10 @@ public class Worker {
         return this.roles.checkRole(role);
     }
 
+    public void DefaultNextWeek(){
+        this.limitations.DefaultNextWeek();
+    }
+
     public String toString(){
         String res = this.firstName + " " + this.lastName;
         return res;
