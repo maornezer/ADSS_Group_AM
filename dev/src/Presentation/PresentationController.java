@@ -99,7 +99,9 @@ public class PresentationController {
     public boolean orderExist(int parseInt, int transportID) {
         return transportController.orderExist(parseInt, transportID);
     }
-
+    public boolean orderExist(int orderID) {
+        return transportController.getDomain().isOrderExist(orderID);
+    }
     public boolean existTruck(int idTruck) {
         return transportController.getDomain().isTruckExists(idTruck);
     }

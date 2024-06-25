@@ -35,7 +35,7 @@ public class DomainController {
 
     public boolean addDriver(Driver d) {
         if (isDriverExists(d)) {
-            System.out.println("RON");
+
             return false;
         }
         return drivers.add(d);
@@ -264,7 +264,7 @@ public class DomainController {
     public String printAllAddress() {
         StringBuilder result = new StringBuilder();
         for (Site site : sites) {
-            result.append(site.getAddress()).append("\n");
+            result.append(site.getAddress()).append(" - " + site.getSiteZone() + "\n");
         }
         return result.toString();
     }
@@ -368,5 +368,10 @@ public class DomainController {
         sb.append(getOrder.toStringReport());
         return sb.toString();
 
+    }
+
+    public boolean isOrderExist(int orderID)
+    {
+        return allOrders.contains(getOrderByID(orderID));
     }
 }

@@ -347,6 +347,14 @@ public void createOrder()
 
     public void  createNewTransport()
     {
+        System.out.println("Enter order number you would like to add to this transport:");
+        int idOrder = scanner.nextInt();
+        boolean orderExist = controller.orderExist(idOrder);
+        if (!orderExist)
+        {
+            System.out.println("You dont have order with this id in the system");
+            return;
+        }
         int conditionTrucks = controller.getSizeOfListTrucks();
         int conditionDrivers = controller.getSizeOfListDrivers();
         Dictionary<String, String> data = new Hashtable<String, String>();
@@ -403,26 +411,30 @@ public void createOrder()
         {
             System.out.println("The Truck id is not registered in the system");
             System.out.println("Failed to create the shipment");
-            createNewTransport();
+            return;
         }
         if (ans == -2)
         {
             System.out.println("The Driver id is not registered in the system");
             System.out.println("Failed to create the transport");
-            createNewTransport();
+            return;
 
         }
         else
         {
             System.out.println("The transport has been successfully added to the system");
             System.out.println("Your transport number is: " + ans);
-            System.out.println("Enter if you want to add a order number to this transport [Y/N]");
+            Dictionary<String, String> d = new Hashtable<String, String>();
+            data.put("transportID",Integer.toString(ans));
+            data.put("orderID", Integer.toString(idOrder));
+            System.out.println("Enter if you want to add another order to this transport [Y/N]");
             scanner.skip("\\R?");
             String s = scanner.nextLine();
             if (s.compareTo("Y") == 0)
             {
                 addOrderTonewTransport(ans);
             }
+
             managerMenu();
         }
 

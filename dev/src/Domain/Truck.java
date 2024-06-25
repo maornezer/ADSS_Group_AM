@@ -1,4 +1,8 @@
 package Domain;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class Truck
 {
     private double initialWeight;
@@ -6,6 +10,7 @@ public class Truck
     private double maxWeight;
     private int id;
     private String model;
+    private ArrayList<LocalDate> placements;
 
 
     public Truck(int id, double initialWeight, double maxWeight, String model )
@@ -15,6 +20,7 @@ public class Truck
         setMaxWeight(maxWeight);
         setTruckModel(model);
         setAddToCurrWeight(initialWeight);
+        placements = new ArrayList<>();
 
     }
 
@@ -72,6 +78,38 @@ public class Truck
     public double getMaxWeight() {return maxWeight;}
     public String getTruckModel() {return model;}
 
+    public ArrayList<LocalDate> getPlacements() {
+        return placements;
+    }
+
+    public void setPlacements(ArrayList<LocalDate> placements) {
+        this.placements = placements;
+    }
+    public boolean addDateToPlacements(LocalDate date)
+    {
+        for (LocalDate d : placements)
+        {
+            if (d == date)
+            {
+                return false;
+            }
+        }
+        placements.add(date);
+        return true;
+    }
+    public boolean removeDateFromPlacements(LocalDate date)
+    {
+        for (LocalDate d : placements)
+        {
+            if (d == date)
+            {
+                placements.remove(date);
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object obj)
     {
@@ -84,6 +122,7 @@ public class Truck
         Truck truck = (Truck) obj;
         return id == truck.id;
     }
+
     @Override
     public int hashCode()
     {
