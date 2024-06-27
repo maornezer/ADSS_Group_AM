@@ -47,6 +47,7 @@ public class Chain {
         }
         return null;
     }
+
     public static void creatNextWeek(){
         for(int i = 0; i< nextWeekDates.length; i++){
             nextWeekDates[i] = nextWeekDates[i].plusDays(7);
@@ -100,7 +101,7 @@ public class Chain {
 //        branchesLimits.put(branchId, nBranch.getSystemLimitations());
 //    }
 
-    public static void  addBranch(Dictionary<String,String> data){
+    public static void addBranch(Dictionary<String,String> data){
         int branchId = Integer.parseInt(data.get("branchNum"));
         String address = data.get("address");
         Branch nBranch = new Branch(branchId, address);
