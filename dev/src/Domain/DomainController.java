@@ -361,7 +361,7 @@ public class DomainController {
 //    public ArrayList<Site> getSites() {
 //        return sites;
 //    }
-
+//////
 //    public String printOrder(Dictionary<String, String> data)
 //    {
 //        int orderId = Integer.parseInt(data.get("orderID"));
