@@ -386,17 +386,19 @@ public void createOrder()
         System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
         printallDriversByLicense(licenseType);
         System.out.println("Enter Driver ID: ");
-        int idD = scanner.nextInt();
-        boolean driverExist = controller.isDriverExists(idD);
+        scanner.skip("\\R?");
+        String idD = scanner.nextLine();
+        boolean driverExist = controller.isIdDriverExists(idD);
         while (!driverExist)
         {
             System.out.println("Please choose driver ID from driver list ");
             System.out.println("Enter Driver ID: ");
-            idD = scanner.nextInt();
-            driverExist = controller.isDriverExists(idD);
+            scanner.skip("\\R?");
+            idD = scanner.nextLine();
+            driverExist = controller.isIdDriverExists(idD);
         }
 
-        data.put("idD", Integer.toString(idD));
+        data.put("idD", idD);
         int ans = controller.addTransport(data);
 
         if (ans == -1)
@@ -558,8 +560,9 @@ public void createOrder()
         System.out.println("Choose transport that you want to edit: ");
         controller.printAllTransports();
         System.out.println("Enter ID of the Transport you want to change: ");
-        int id = scanner.nextInt();
-        boolean existTransport = controller.existTransport(id);
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        boolean existTransport = controller.isTransportExist(id);
         if (!existTransport)
         {
             System.out.println("Enter valid ID from the list");
@@ -574,14 +577,14 @@ public void createOrder()
         String choice = scanner.nextLine();
         switch (choice) {
             case "1":
-                changeTruck(id);
+                changeTruck(Integer.parseInt(id));
 
                 break;
             case "2":
-                changeDriver(id);
+                changeDriver(Integer.parseInt(id));
                 break;
             case "3":
-                addOrderTonewTransport(id);
+                addOrderTonewTransport(Integer.parseInt(id));
                 break;
             case "4":
                 editOrderOrTransport();
@@ -617,14 +620,15 @@ public void createOrder()
         data.put("idTransport", Integer.toString(idTransport));
 
         System.out.println("Enter new Driver ID: ");
-        int idDriver = scanner.nextInt();
-        boolean existDriver = controller.isDriverExists(Integer.toString(idDriver));
+        scanner.skip("\\R?");
+        String idDriver = scanner.nextLine();
+        boolean existDriver = controller.isDriverExists(idDriver);
         while (!existDriver)
         {
             System.out.println("The id of driver that not exist");
             changeDriver(id);
         }
-        data.put("idDriver", Integer.toString(idDriver));
+        data.put("idDriver",idDriver);
 
         controller.changeDriver(data);
 
@@ -805,7 +809,8 @@ public void createOrder()
     public void getAllDeliveries()
     {
         System.out.println("Please enter your ID:");
-        int idDriver = scanner.nextInt();
+        scanner.skip("\\R?");
+        String idDriver = scanner.nextLine();
         controller.seeAllTransportByDriver(idDriver);
 
     }
@@ -813,13 +818,15 @@ public void createOrder()
     public void getItemsReport()
     {
         System.out.println("Please enter order ID:");
-        int idOrder = scanner.nextInt();
+        scanner.skip("\\R?");
+        String idOrder = scanner.nextLine();
         controller.getItemInOrder(idOrder);
     }
     public void getTransportReport()
     {
         System.out.println("Please enter transport ID:");
-        int transportId = scanner.nextInt();
+        scanner.skip("\\R?");
+        String transportId = scanner.nextLine();
         controller.getTransportReport(transportId);
     }
     public void printAllTransports()
@@ -849,7 +856,7 @@ public void createOrder()
         System.out.println("Please enter order ID would you like to add to transport "+ transportID + ": ");
         scanner.skip("\\R?");
         String orderID = scanner.nextLine();
-        boolean orderExist = controller.orderExist(Integer.parseInt(orderID) , transportID);
+        boolean orderExist = controller.orderExist(orderID , Integer.toString(transportID));
         if (orderExist)
         {
             System.out.println("The order with ID "+orderID+ " already exit in this transport");
@@ -887,7 +894,8 @@ public void createOrder()
     public void deliveryStartUpdate()
     {
         System.out.println("Please enter the transport id you want to send ");
-        int transportID = scanner.nextInt();
+        scanner.skip("\\R?");
+        String transportID = scanner.nextLine();
         boolean check = controller.isTransportExist(transportID);
         if (!check)
         {
@@ -914,12 +922,12 @@ public void createOrder()
                 {
                     break;
                 }
-                b = Orderweightupdate(transportID,order.getId());
+                b = Orderweightupdate(Integer.parseInt(transportID),order.getId());
                 if (!b)
                 {
                     System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
                     System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + order.getId());
-                    managerSulotion(transportID, order.getId());
+                    managerSulotion(Integer.parseInt(transportID), order.getId());
                 }
                 else
                 {
@@ -988,9 +996,10 @@ public void createOrder()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter new truck ID: ");
-        int truckId = scanner.nextInt();
+        scanner.skip("\\R?");
+        String truckId = scanner.nextLine();
         data.put("transportID", Integer.toString(transportID));
-        data.put("truckId", Integer.toString(truckId));
+        data.put("truckId", truckId);
 
         boolean sol1 = controller.treatmentWeightProblemChangeTruck(data);
         if (!sol1)
@@ -1002,7 +1011,7 @@ public void createOrder()
         {
             System.out.println("The truck was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, order.getId());
@@ -1032,7 +1041,7 @@ public void createOrder()
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, orderID);
@@ -1059,7 +1068,7 @@ public void createOrder()
         {
             System.out.println("The destination was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, orderID);
