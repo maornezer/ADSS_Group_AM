@@ -16,6 +16,7 @@ public class DomainController {
         this.allOrders = new ArrayList<>();
         this.sites = new ArrayList<>();
         this.trucks = new ArrayList<>();
+        new TruckRepository().insert();
     }
 
 
