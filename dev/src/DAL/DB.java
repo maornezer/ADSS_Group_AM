@@ -15,9 +15,13 @@ public class DB {
 
 
 
-
-    //private static final String URL = "jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/dev/src/AMTransport.db";
-//    private static final String URL = "jdbc:sqlite:C:\\Users\\USER\\Desktop\\Ben Gurion\\second year\\semester D\\analysis and planning\\PROJECT\\dev\\src\\AMtransports.db";
+//package DAL;
+//
+//import java.sql.*;
+//
+//public class DB {
+//
+//        private static final String URL = "jdbc:sqlite:identifier.sqlite";
 //    private Connection connection;
 //
 //    public DB()
@@ -35,5 +39,5 @@ public class DB {
 //    }
 //
 //    public Connection getDB(){return this.connection;}
-
-
+//
+//}

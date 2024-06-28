@@ -1,8 +1,6 @@
 package DAL;
 
-import java.util.ArrayList;
-
-public interface IDTO
+public interface IDAO
 {
     public void insert(Object object);
     public void remove(int id);

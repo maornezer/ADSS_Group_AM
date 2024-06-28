@@ -1,10 +1,8 @@
 package DAL;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class TruckDAO implements IDTO {
+public class TruckDAO implements IDAO {
     private DB db;
 
     public TruckDAO() {
@@ -33,6 +31,7 @@ public class TruckDAO implements IDTO {
     @Override
     // Delete a truck
     public void remove(int id) {
+        //Connection connection = db.getDB();
         try {
             Connection connection = DB.connect();
             String sql = "DELETE FROM Truck WHERE id = ?";
@@ -46,7 +45,24 @@ public class TruckDAO implements IDTO {
 
     @Override
     public Object get(int id) {
-        return null;
+        TruckDTO truck = null;
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT * FROM Truck WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int initialWeight = rs.getInt("initialWeight");
+                int maxWeight = rs.getInt("maxWeight");
+                String model = rs.getString("model");
+                int truckId = rs.getInt("id");
+                truck = new TruckDTO(initialWeight, maxWeight, model, truckId);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return truck;
     }
 }
 
