@@ -2,24 +2,24 @@ package DAL;
 
 import java.sql.*;
 
-public class TransportDAO implements IDAO {
+public class ItemDAO implements IDAO {
     private DB db;
 
-    public TransportDAO() {
+    public ItemDAO() {
         this.db = new DB();
     }
 
-    // Insert a new transport
+    // Insert a new item
     @Override
     public void insert(Object object) {
-        TransportDTO transport = (TransportDTO) object;
+        ItemDTO item = (ItemDTO) object;
         try {
             Connection connection = DB.connect();
-            String sql = "INSERT INTO Transport(idT, idD, idO) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO Item(name, amount, id0) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, transport.idT);
-            ps.setInt(2, transport.idD);
-            ps.setInt(3, transport.idO);
+            ps.setString(1, item.name);
+            ps.setInt(2, item.amount);
+            ps.setInt(3, item.id0);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -27,11 +27,11 @@ public class TransportDAO implements IDAO {
     }
 
     @Override
-    // Delete a transport
+    // Delete an item
     public void remove(int id) {
         try {
             Connection connection = DB.connect();
-            String sql = "DELETE FROM Transport WHERE id = ?";
+            String sql = "DELETE FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -42,22 +42,22 @@ public class TransportDAO implements IDAO {
 
     @Override
     public Object get(int id) {
-        TransportDTO transport = null;
+        ItemDTO item = null;
         try {
             Connection connection = DB.connect();
-            String sql = "SELECT * FROM Transport WHERE id = ?";
+            String sql = "SELECT * FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int idT = rs.getInt("idT");
-                int idD = rs.getInt("idD");
-                int idO = rs.getInt("idO");
-                transport = new TransportDTO(id, idT, idD, idO);
+                String name = rs.getString("name");
+                int amount = rs.getInt("amount");
+                int id0 = rs.getInt("id0");
+                item = new ItemDTO(id, name, amount, id0);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return transport;
+        return item;
     }
 }

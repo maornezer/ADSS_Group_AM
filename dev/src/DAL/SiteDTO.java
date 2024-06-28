@@ -1,4 +1,16 @@
 package DAL;
+    public class SiteDTO {
+        public String address;
+        public String zone;
+        public String contactName;
+        public int phoneNumber;
+        public int id;
 
-public class SiteDTO {
-}
+        public SiteDTO(String address, String zone, String contactName, int phoneNumber, int id) {
+            this.address = address;
+            this.zone = zone;
+            this.contactName = contactName;
+            this.phoneNumber = phoneNumber;
+            this.id = id;
+        }
+    }
