@@ -377,7 +377,7 @@ public void createOrder()
         String licenseType = getTypeOfLicense(idT);
 
         data.put("idT", Integer.toString(idT));
-        if (!controller.isDriverExists(licenseType))
+        if (!controller.checkIfDriverExistsByLicence(licenseType))
         {
             System.out.println("You do not have drivers with license type: " + licenseType+" in the system");
             return;
@@ -622,7 +622,7 @@ public void createOrder()
         System.out.println("Enter new Driver ID: ");
         scanner.skip("\\R?");
         String idDriver = scanner.nextLine();
-        boolean existDriver = controller.isDriverExists(idDriver);
+        boolean existDriver = controller.isIdDriverExists(idDriver);
         while (!existDriver)
         {
             System.out.println("The id of driver that not exist");

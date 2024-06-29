@@ -60,4 +60,24 @@ public class DriverDAO implements IDAO {
         }
         return driver;
     }
+    // Check if a driver with a specific type of licence exists
+    public boolean checkIfDriverExistsByLicence(String type) {
+        boolean exists = false;
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT COUNT(*) AS count FROM Driver WHERE typeOflicence = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, type);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                if (count > 0) {
+                    exists = true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return exists;
+    }
 }

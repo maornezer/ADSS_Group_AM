@@ -13,13 +13,12 @@ public class TruckDAO implements IDAO {
     @Override
     public void insert(Object object) {
         TruckDTO truck = (TruckDTO) object;
-        //Connection connection = db.getDB();
         try {
             Connection connection = DB.connect();
             String sql = "INSERT INTO Truck(initialWeight, maxWeight, model, id) VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, truck.initialWeight);
-            ps.setInt(2, truck.maxWeight);
+            ps.setDouble(1, truck.initialWeight);
+            ps.setDouble(2, truck.maxWeight);
             ps.setString(3, truck.model);
             ps.setInt(4, truck.id);
             ps.executeUpdate();
@@ -53,8 +52,8 @@ public class TruckDAO implements IDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int initialWeight = rs.getInt("initialWeight");
-                int maxWeight = rs.getInt("maxWeight");
+                double initialWeight = rs.getInt("initialWeight");
+                double maxWeight = rs.getInt("maxWeight");
                 String model = rs.getString("model");
                 int truckId = rs.getInt("id");
                 truck = new TruckDTO(initialWeight, maxWeight, model, truckId);
@@ -63,6 +62,22 @@ public class TruckDAO implements IDAO {
             System.out.println(e.getMessage());
         }
         return truck;
+    }
+    // Count all trucks
+    public int countRecords() {
+        int count = 0;
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT COUNT(*) AS count FROM Truck";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
     }
 }
 

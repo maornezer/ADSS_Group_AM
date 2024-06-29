@@ -3,12 +3,12 @@ package DAL;
 
 public class TruckDTO
 {
-     int initialWeight;
-     int maxWeight;
-     String model;
-     int id;
+     public double initialWeight;
+     public double maxWeight;
+     public String model;
+     public int id;
 
-     public TruckDTO(int initialWeight, int maxWeight, String model,int id) {
+     public TruckDTO(double initialWeight, double maxWeight, String model,int id) {
           this.id = id;
           this.model = model;
           this.maxWeight = maxWeight;

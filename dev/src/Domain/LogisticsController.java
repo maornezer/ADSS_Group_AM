@@ -20,73 +20,65 @@ public class LogisticsController {
         return driverRepo;
     }
 
-    //**********************TRUCK:**********************//
-    public boolean addTruck(int idT,double initialWeight, double maxWeight, String model) {
-        Truck t = new Truck( idT,  initialWeight,  maxWeight,  model);
-        return truckRepo.addTruck(t);
-    }
-    public int getSizeTrucks() {
-        return truckRepo.getSizeTrucks();
-    }
+    //***************************************** TRUCK **************************************************************//
+
 
     public boolean addTruck(Dictionary<String, String> data) {
         int idT = Integer.parseInt(data.get("idT"));
         double initialWeight = Double.parseDouble(data.get("initialWeight"));
         double maxWeight = Double.parseDouble(data.get("maxWeight"));
         String model = data.get("model");
-        return addTruck(idT,initialWeight,maxWeight,model);
+        Truck t = new Truck(idT,initialWeight,maxWeight,model);
+        return truckRepo.addTruck(t);
     }
+
+    public boolean remove(int id) {return truckRepo.remove(id);}
+
     public boolean isTruckExists(int idTruck)
     {
         return truckRepo.isTruckExists(idTruck);
     }
 
-    public Truck getTruckByID(int idTruck) {
-        return truckRepo.getTruckByID(idTruck);
-    }
+    public Truck getTruckByID(int idTruck) {return truckRepo.getTruckByID(idTruck);}
 
-    //**********************DRIVER:**********************//
+    public int getSizeTrucks() {return truckRepo.getSizeTrucks();}
 
-    public boolean addDriver(String name, int id, String typeOfLicense) {
-        Driver d = new Driver(name, id, typeOfLicense);
-        return driverRepo.addDriver(d);
-    }
+    //***************************************** DRIVER **************************************************************//
 
     public boolean addDriver(Dictionary<String, String> data) {
         String name = data.get("name");
         int id = Integer.parseInt(data.get("id"));
         String typeOfLicense = data.get("typeOfLicense");
-        return addDriver(name,id,typeOfLicense);
-    }
-    public boolean isDriverExists(String type)
-    {
-        return driverRepo.isDriverExists(type);
+        Driver d = new Driver(name, id, typeOfLicense);
+        return driverRepo.addDriver(d);
     }
 
+    public boolean removeDriver(int id) {return driverRepo.remove(id);}
+
+    public boolean checkIfDriverExistsByLicence(String type) {return driverRepo.checkIfDriverExistsByLicence(type);}
+    //??????
     public boolean isIdDriverExists(String id)
     {
         int idDriver = Integer.parseInt(id);
         return isTruckExists(idDriver);
     }
 
-    public Driver getDriverByID(int idDriver) {
-        return getDriverByID(idDriver);
+    public Driver getDriverByID(int idD) {
+        return getDriverByID(idD);
     }
-
-
 
     public int getSizeDrivers() {
         return driverRepo.getSizeDrivers();
     }
 
 
-///truck list:
-        public String toStringTrucks() {
-        StringBuilder allTrucksInfo = new StringBuilder();
-        for (Truck truck : truckRepo.getTrucks()) {
-            allTrucksInfo.append(truck.toString()).append("\n");
-        }
-        return allTrucksInfo.toString();
+    ///truck list:
+    public String toStringTrucks() {
+    StringBuilder allTrucksInfo = new StringBuilder();
+    for (Truck truck : truckRepo.getTrucks()) {
+        allTrucksInfo.append(truck.toString()).append("\n");
+    }
+    return allTrucksInfo.toString();
     }
     public String printTruckByID(int id) {
         Truck truck = getTruckByID(id);
@@ -94,30 +86,19 @@ public class LogisticsController {
             return truck.toString();
         }
 
-        return "Truck with ID " + id + " not found.";
+        return "Truck with ID " + id + " not found."; ///delete print in the domain
     }
-//    public Truck getTruckByID(int id) {
-//        for (Truck truck : truckRepo.getTrucks()) {
-//            if (truck.getIdTruck() == id) {
-//                return truck;
-//            }
-//        }
-//        return null;
-//    }
-//    public int getAmountOfTrucks(){return trucks.size();}
 
-//    public List<Truck> getTrucks() {return trucks;}
 
-/////////////////////////////////////////////////////////////
-
-///driver list:
-public String toStringDrivers() {
-    StringBuilder sb = new StringBuilder();
-    for (Driver driver : driverRepo.getDrivers()) {
-        sb.append(driver.toString()).append("\n");
+    ///driver list:
+    public String toStringDrivers() {
+        StringBuilder sb = new StringBuilder();
+        for (Driver driver : driverRepo.getDrivers()) {
+            sb.append(driver.toString()).append("\n");
+        }
+        return sb.toString();
     }
-    return sb.toString();
-}
+
     public String printDriversByLicenseType(String licenseType) {
         StringBuilder sb = new StringBuilder();
         for (Driver driver : driverRepo.getDrivers()) {

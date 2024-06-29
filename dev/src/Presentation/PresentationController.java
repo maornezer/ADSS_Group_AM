@@ -1,8 +1,6 @@
 package Presentation;
 
-import Domain.DomainController;
 import Domain.Order;
-import Domain.Transport;
 import Domain.TransportController;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class PresentationController {
     public void addDriver(Dictionary<String, String> data){this.transportController.getLogistics().addDriver(data);}
     public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
     public void seeAllTransportByDriver(String id) {System.out.println(transportController.getTransportByIdDriver(id));}
-    public boolean isDriverExists(String type){return transportController.getLogistics().isDriverExists(type);
+    public boolean checkIfDriverExistsByLicence(String type){return transportController.getLogistics().checkIfDriverExistsByLicence(type);
     }
     public void printallDriversByLicense(String licenseType) {System.out.println(transportController.getLogistics().printDriversByLicenseType(licenseType));}
 

@@ -1,4 +1,7 @@
 package Domain;
+
+import DAL.TruckDTO;
+
 public class Truck
 {
     private double initialWeight;
@@ -16,6 +19,14 @@ public class Truck
         setTruckModel(model);
         setAddToCurrWeight(initialWeight);
 
+    }
+
+    public Truck(TruckDTO truckDTO) {
+        setIdTruck(truckDTO.id);
+        setInitialWeight(truckDTO.initialWeight);
+        setMaxWeight(truckDTO.maxWeight);
+        setTruckModel(truckDTO.model);
+        setAddToCurrWeight(truckDTO.initialWeight);
     }
 
     public boolean setIdTruck(int id) {

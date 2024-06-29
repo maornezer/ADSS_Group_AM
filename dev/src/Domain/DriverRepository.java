@@ -1,67 +1,79 @@
 package Domain;
+import DAL.DriverDAO;
+import DAL.DriverDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DriverRepository {
     private ArrayList<Driver> drivers;
+    private DriverDAO driverDAO;
 
-    public DriverRepository() {
+
+    public DriverRepository()
+    {
         drivers = new ArrayList<>();
+        driverDAO = new DriverDAO();
     }
 
     public boolean addDriver(Driver d) {
-        if (isDriverExists(d)) {
-            System.out.println("RON");
+        if (isDriverExists(d.getId())) {
             return false;
         }
-        return drivers.add(d);
+        driverDAO.insert(d);
+        drivers.add(d);
+        return true;
     }
 
-    public boolean isDriverExists(Driver d)
-    {
-        return drivers.contains(d);
-    }
-    public boolean isDriverExists(int id)
-    {
-        if (drivers != null)
-        {
-            for (Driver d : drivers)
-            {
-                if (d.getId()== id)
-                {
-                    return true;
-                }
-
+    public boolean isDriverExists(int id) {
+        for (Driver driver: drivers){
+            if (driver.getId() == id){
+                return true;
             }
         }
-        return false;
-    }
-    public boolean isDriverExists(String type)
-    {
-        if (drivers != null)
-        {
-            for (Driver d : drivers)
-            {
-                if (d.getTypeOfLicense().compareTo(type)==0)
-                {
-                    return true;
-                }
-
-            }
-        }
-        return false;
+        DriverDTO temp = (DriverDTO) driverDAO.get(id);
+        return temp != null;
     }
 
     public Driver getDriverByID(int id) {
-        for (Driver d : drivers) {
-            if (d.getId() == id) {
-                return d;
+        if (!isDriverExists(id))
+            return null;
+        for (Driver driver : drivers) {
+            if (driver.getId() == id) {
+                return driver;
             }
         }
-        return null;
+        Driver driver = new Driver((DriverDTO) driverDAO.get(id));
+        drivers.add(driver);
+        return driver;
     }
-    public int getAmountOfDrivers(){return drivers.size();}
+
+
+    public boolean remove(int id) {
+        if (!isDriverExists(id))
+            return false;
+        for (Driver driver : drivers) {
+            if (driver.getId() == id) {
+                drivers.remove(driver);
+            }
+        }
+        drivers.remove(id);
+        return true;
+    }
+
+
+    public boolean checkIfDriverExistsByLicence(String type)
+    {
+        if (drivers != null){
+            for (Driver d : drivers){
+                if (d.getTypeOfLicense().compareTo(type)==0){
+                    return true;
+                }
+            }
+        }
+        return driverDAO.checkIfDriverExistsByLicence(type);
+    }
+
 
     public List<Driver> getDrivers() {
         return drivers;

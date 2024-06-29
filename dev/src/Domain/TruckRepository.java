@@ -16,48 +16,58 @@ public class TruckRepository
     {
         trucks = new ArrayList<>();
         truckDAO = new TruckDAO();
-//        this.insert();
-    }
-    public boolean isTruckExists(int id) {
-        for (Truck truck : trucks)
-        {
-            if (truck.getIdTruck() == id)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean isTruckExists(Truck truck) {
-        return trucks.contains(truck);
     }
 
-    public boolean addTruck(Truck t) {
-        if (isTruckExists(t))
+    public boolean addTruck(Truck truck) {
+        if (isTruckExists(truck.getIdTruck()))
         {
             return false;
         }
-        return trucks.add(t);
+        truckDAO.insert(truck);
+        trucks.add(truck);
+        return true;
     }
+
+    public boolean isTruckExists(int id) {
+        for (Truck truck : trucks){
+            if (truck.getIdTruck() == id){
+                return true;
+            }
+        }
+        TruckDTO temp = (TruckDTO) truckDAO.get(id);
+        return temp != null;
+    }
+
+
     public Truck getTruckByID(int id) {
+        if (!isTruckExists(id))
+            return null;
         for (Truck truck : trucks) {
             if (truck.getIdTruck() == id) {
                 return truck;
             }
         }
-        return null;
+        Truck truck = new Truck((TruckDTO) truckDAO.get(id));
+        trucks.add(truck);
+        return truck;
     }
+
+    public boolean remove(int id) {
+        if (!isTruckExists(id))
+            return false;
+        for (Truck truck : trucks) {
+            if (truck.getIdTruck() == id) {
+                trucks.remove(truck);
+            }
+        }
+        trucks.remove(id);
+        return true;
+    }
+
+
+
     public List<Truck> getTrucks() {return trucks;}
-
-    public int getAmountOfTrucks(){return trucks.size();}
-
-    public void insert()
-    {
-        truckDAO.insert(new TruckDTO(200,200,"sss",200));
-    }
+    public int getSizeTrucks() {return truckDAO.countRecords();}
 
 
-    public int getSizeTrucks() {
-        return trucks.size();
-    }
 }

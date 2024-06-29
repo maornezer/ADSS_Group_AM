@@ -1,5 +1,7 @@
 package Domain;
 
+import DAL.DriverDTO;
+
 public class Driver {
     private String name;
     private int id;
@@ -9,6 +11,14 @@ public class Driver {
         setName(name);
         setId(id);
         setTypeOfLicense(typeOfLicense);
+    }
+
+    public Driver(DriverDTO driverDTO)
+    {
+        setName(driverDTO.name);
+        setId(driverDTO.id);
+        setTypeOfLicense(driverDTO.typeOflicence);
+
     }
 
     public boolean setName(String name)
