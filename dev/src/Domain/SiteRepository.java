@@ -1,15 +1,26 @@
 package Domain;
 
+import DAL.SiteDAO;
+
 import java.util.ArrayList;
 
 public class SiteRepository
 {
     private ArrayList<Site> sites;
+    private SiteDAO siteDAO;
 
     public SiteRepository()
     {
         sites = new ArrayList<>();
+        siteDAO = new SiteDAO();
     }
+
+
+    public boolean addSiteToList(Site site)
+    {return sites.add(site);}
+
+
+
     public boolean isAddressSiteAlreadyIn(String address) {
         Site site = getSiteByAddress(address);
         return site != null;
@@ -24,7 +35,6 @@ public class SiteRepository
         }
         return null;
     }
-    public boolean addSiteToList(Site site) {return sites.add(site);}
 
     public boolean isSiteAlreadyIn(Site site) {
         for (Site s : sites)

@@ -3,7 +3,6 @@ package Domain;
 
 import DAL.TruckDAO;
 import DAL.TruckDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +17,21 @@ public class TruckRepository
         truckDAO = new TruckDAO();
     }
 
-    public boolean addTruck(Truck truck) {
-        if (isTruckExists(truck.getIdTruck()))
-        {
-            return false;
-        }
+    public boolean insert(Truck truck) {
         truckDAO.insert(truck);
         trucks.add(truck);
         return true;
     }
-
-    public boolean isTruckExists(int id) {
+    public boolean remove(int id) {
+        for (Truck truck : trucks) {
+            if (truck.getIdTruck() == id) {
+                trucks.remove(truck);
+            }
+        }
+        truckDAO.remove(id);
+        return true;
+    }
+    public boolean search(int id) {
         for (Truck truck : trucks){
             if (truck.getIdTruck() == id){
                 return true;
@@ -39,9 +42,7 @@ public class TruckRepository
     }
 
 
-    public Truck getTruckByID(int id) {
-        if (!isTruckExists(id))
-            return null;
+    public Truck get(int id) {
         for (Truck truck : trucks) {
             if (truck.getIdTruck() == id) {
                 return truck;
@@ -52,22 +53,12 @@ public class TruckRepository
         return truck;
     }
 
-    public boolean remove(int id) {
-        if (!isTruckExists(id))
-            return false;
-        for (Truck truck : trucks) {
-            if (truck.getIdTruck() == id) {
-                trucks.remove(truck);
-            }
-        }
-        trucks.remove(id);
-        return true;
-    }
+    public int countRecords() {return truckDAO.countRecords();}
 
 
 
-    public List<Truck> getTrucks() {return trucks;}
-    public int getSizeTrucks() {return truckDAO.countRecords();}
+
+    public List<Truck> getTrucks() {return trucks;}//for tostring
 
 
 }

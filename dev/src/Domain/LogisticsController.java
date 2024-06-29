@@ -25,51 +25,70 @@ public class LogisticsController {
 
     public boolean addTruck(Dictionary<String, String> data) {
         int idT = Integer.parseInt(data.get("idT"));
+        if (searchTruck(idT)) {
+            return false;
+        }
         double initialWeight = Double.parseDouble(data.get("initialWeight"));
         double maxWeight = Double.parseDouble(data.get("maxWeight"));
         String model = data.get("model");
         Truck t = new Truck(idT,initialWeight,maxWeight,model);
-        return truckRepo.addTruck(t);
+        return truckRepo.insert(t);
     }
 
-    public boolean remove(int id) {return truckRepo.remove(id);}
+    public boolean remove(int id) {
+        if (!searchTruck(id))
+            return false;
+        return truckRepo.remove(id);
+    }
 
-    public boolean isTruckExists(int idTruck)
+    public boolean searchTruck(int idTruck)
     {
-        return truckRepo.isTruckExists(idTruck);
+        return truckRepo.search(idTruck);
     }
 
-    public Truck getTruckByID(int idTruck) {return truckRepo.getTruckByID(idTruck);}
+    public Truck getTruck(int idTruck) {
+        if (!searchTruck(idTruck))
+            return null;
+        return truckRepo.get(idTruck);}
 
-    public int getSizeTrucks() {return truckRepo.getSizeTrucks();}
+    public int getSizeTrucks() {return truckRepo.countRecords();}
 
     //***************************************** DRIVER **************************************************************//
 
     public boolean addDriver(Dictionary<String, String> data) {
-        String name = data.get("name");
         int id = Integer.parseInt(data.get("id"));
+        if (searchDriver(id)) {
+            return false;
+        }
+        String name = data.get("name");
         String typeOfLicense = data.get("typeOfLicense");
         Driver d = new Driver(name, id, typeOfLicense);
-        return driverRepo.addDriver(d);
+        return driverRepo.insert(d);
     }
 
-    public boolean removeDriver(int id) {return driverRepo.remove(id);}
+    public boolean removeDriver(int id) {
+        if (!searchDriver(id))
+            return false;
+        return driverRepo.remove(id);}
+
+    public boolean searchDriver(int id)
+    {
+        return driverRepo.search(id);
+    }
+
+    public Driver getDriver(int id) {
+        if (!driverRepo.search(id))
+            return null;
+        return driverRepo.get(id);
+    }
+    public int getSizeDrivers() {
+        return driverRepo.countRecords();
+    }
 
     public boolean checkIfDriverExistsByLicence(String type) {return driverRepo.checkIfDriverExistsByLicence(type);}
-    //??????
-    public boolean isIdDriverExists(String id)
-    {
-        int idDriver = Integer.parseInt(id);
-        return isTruckExists(idDriver);
-    }
 
-    public Driver getDriverByID(int idD) {
-        return getDriverByID(idD);
-    }
 
-    public int getSizeDrivers() {
-        return driverRepo.getSizeDrivers();
-    }
+
 
 
     ///truck list:
@@ -81,7 +100,7 @@ public class LogisticsController {
     return allTrucksInfo.toString();
     }
     public String printTruckByID(int id) {
-        Truck truck = getTruckByID(id);
+        Truck truck = getTruck(id);
         if (truck != null) {
             return truck.toString();
         }

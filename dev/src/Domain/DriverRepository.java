@@ -1,7 +1,6 @@
 package Domain;
 import DAL.DriverDAO;
 import DAL.DriverDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +15,22 @@ public class DriverRepository {
         driverDAO = new DriverDAO();
     }
 
-    public boolean addDriver(Driver d) {
-        if (isDriverExists(d.getId())) {
-            return false;
-        }
+    public boolean insert(Driver d) {
         driverDAO.insert(d);
         drivers.add(d);
         return true;
     }
 
-    public boolean isDriverExists(int id) {
+    public boolean remove(int id) {
+        for (Driver driver : drivers) {
+            if (driver.getId() == id) {
+                drivers.remove(driver);
+            }
+        }
+        drivers.remove(id);
+        return true;
+    }
+    public boolean search (int id) {
         for (Driver driver: drivers){
             if (driver.getId() == id){
                 return true;
@@ -35,9 +40,7 @@ public class DriverRepository {
         return temp != null;
     }
 
-    public Driver getDriverByID(int id) {
-        if (!isDriverExists(id))
-            return null;
+    public Driver get(int id) {
         for (Driver driver : drivers) {
             if (driver.getId() == id) {
                 return driver;
@@ -48,18 +51,9 @@ public class DriverRepository {
         return driver;
     }
 
+    public int countRecords() {return driverDAO.countRecords();}
 
-    public boolean remove(int id) {
-        if (!isDriverExists(id))
-            return false;
-        for (Driver driver : drivers) {
-            if (driver.getId() == id) {
-                drivers.remove(driver);
-            }
-        }
-        drivers.remove(id);
-        return true;
-    }
+
 
 
     public boolean checkIfDriverExistsByLicence(String type)
@@ -79,7 +73,4 @@ public class DriverRepository {
         return drivers;
     }
 
-    public int getSizeDrivers() {
-        return drivers.size();
-    }
 }

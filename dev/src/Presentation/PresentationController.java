@@ -36,7 +36,7 @@ public class PresentationController {
     public void addTruck(Dictionary<String, String> data){this.transportController.getLogistics().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
     public void printAllTrucks() {System.out.println(transportController.getLogistics().toStringTrucks());}
-    public String getTypeOfLicense(int idT) {return transportController.getLogistics().getTruckByID(idT).getTypeOfLicense();}
+    public String getTypeOfLicense(int idT) {return transportController.getLogistics().getTruck(idT).getTypeOfLicense();}
     public boolean existTruck(int idTruck) {
         return transportController.getLogistics().isTruckExists(idTruck);
     }

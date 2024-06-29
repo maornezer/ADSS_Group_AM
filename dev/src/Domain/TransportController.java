@@ -40,8 +40,8 @@ public class TransportController
     public int addTransport(int idTruck, int idDriver)
     {
 
-        Truck truck = logistics.getTruckByID(idTruck);
-        Driver driver = logistics.getDriverByID(idDriver);
+        Truck truck = logistics.getTruck(idTruck);
+        Driver driver = logistics.getDriver(idDriver);
         if (truck == null)
         {
             return -1;
@@ -119,7 +119,7 @@ public class TransportController
         Transport tempTransport = getTransportByID(transportID);
         if(tempTransport !=null)
         {
-            Truck tempTruck = logistics.getTruckByID(newTruckID);
+            Truck tempTruck = logistics.getTruck(newTruckID);
             if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0)
             {
 //                if(truckAvailability(tempTransport.getDate(),tempTruck))
@@ -164,7 +164,7 @@ public class TransportController
         Transport tempTransport = getTransportByID(Integer.toString(transportID));
         if(tempTransport !=null)
         {
-            Driver tempDriver = logistics.getDriverByID(newDriverID);
+            Driver tempDriver = logistics.getDriver(newDriverID);
             if (tempTransport.getTruck().getTypeOfLicense().compareTo(tempDriver.getTypeOfLicense())==0)
             {
                 if(driverAvailability(tempTransport.getDate(),tempDriver))
@@ -226,7 +226,7 @@ public class TransportController
             {
                 orderTemp.setOrderWeight(orderWeight);
                 int truckIDTemp = transportTemp.getTruck().getIdTruck();
-                Truck truckTemp = logistics.getTruckByID(truckIDTemp);
+                Truck truckTemp = logistics.getTruck(truckIDTemp);
                 if (truckTemp.getCurrWeight() + orderWeight > truckTemp.getMaxWeight())
                 {
 //                    System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
@@ -249,7 +249,7 @@ public class TransportController
             {
                 orderTemp.setOrderWeight(orderWeight);
                 int truckIDTemp = transportTemp.getTruck().getIdTruck();
-                Truck truckTemp = logistics.getTruckByID(truckIDTemp);
+                Truck truckTemp = logistics.getTruck(truckIDTemp);
 
                 truckTemp.setSubFromCurrWeight(orderWeight);
                 return true;
@@ -363,7 +363,8 @@ public class TransportController
                    sb.append(transport.toStringTransportReport());
                }
            }
-        if (!(logistics.isIdDriverExists(id)))
+        int idDriver = Integer.parseInt(id);
+        if (!(logistics.searchDriver(idDriver)))
            {
                System.out.println("Driver with ID "+ id+  " not found");
            }

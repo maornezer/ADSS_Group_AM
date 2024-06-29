@@ -79,48 +79,9 @@ public class TruckDAO implements IDAO {
         }
         return count;
     }
+
 }
 
-//
-//    // Get all trucks
-//    public List<DTOTruck> getAllTrucks() {
-//        List<DTOTruck> trucks = new ArrayList<>();
-//        String sql = "SELECT initialWeight, maxWeight, model, id FROM Truck";
-//
-//        try (Connection conn = DriverManager.getConnection(URL);
-//             Statement stmt = conn.createStatement();
-//             ResultSet rs = stmt.executeQuery(sql)) {
-//
-//            while (rs.next()) {
-//                DTOTruck truck = new DTOTruck(
-//                        rs.getInt("initialWeight"),
-//                        rs.getInt("maxWeight"),
-//                        rs.getString("model"),
-//                        rs.getInt("id")
-//                );
-//                trucks.add(truck);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return trucks;
-//    }
-//
-//    // Update a truck
-//    public void updateTruck(DTOTruck truck) {
-//        String sql = "UPDATE Truck SET initialWeight = ?, maxWeight = ?, model = ? WHERE id = ?";
-//
-//        try (Connection conn = DriverManager.getConnection(URL);
-//             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-//            pstmt.setInt(1, truck.getInitialWeight());
-//            pstmt.setInt(2, truck.getMaxWeight());
-//            pstmt.setString(3, truck.getModel());
-//            pstmt.setInt(4, truck.getId());
-//            pstmt.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
+
 
 

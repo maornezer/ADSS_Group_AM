@@ -80,4 +80,20 @@ public class DriverDAO implements IDAO {
         }
         return exists;
     }
+    // Count all drivers
+    public int countRecords() {
+        int count = 0;
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT COUNT(*) AS count FROM Driver";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
 }
