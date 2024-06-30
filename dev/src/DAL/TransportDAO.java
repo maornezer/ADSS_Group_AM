@@ -15,11 +15,10 @@ public class TransportDAO implements IDAO {
         TransportDTO transport = (TransportDTO) object;
         try {
             Connection connection = DB.connect();
-            String sql = "INSERT INTO Transport(idT, idD, idO) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO Transport(idT, idD) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, transport.idT);
             ps.setInt(2, transport.idD);
-            ps.setInt(3, transport.idO);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,12 +51,28 @@ public class TransportDAO implements IDAO {
             if (rs.next()) {
                 int idT = rs.getInt("idT");
                 int idD = rs.getInt("idD");
-                int idO = rs.getInt("idO");
-                transport = new TransportDTO(id, idT, idD, idO);
+                transport = new TransportDTO(id, idT, idD);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return transport;
+    }
+
+    // Count all transports
+    public int countRecords() {
+        int count = 0;
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT COUNT(*) AS count FROM Transport";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("count");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
     }
 }

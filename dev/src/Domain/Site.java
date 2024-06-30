@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class Site
 {
+    private static int next_id = 1;
+    private int id;
     private String address;
     private String phoneNumber;
     private String contactName;
@@ -17,6 +19,7 @@ public class Site
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
         setSiteZone(zone);
+        id = next_id++;
 
     }
     public boolean setAddress(String address)
@@ -56,6 +59,15 @@ public class Site
     public String getAddress() {return address;}
 
     public String getSiteZone() {return zone;}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public String getPhoneNumber() {return phoneNumber;}
 

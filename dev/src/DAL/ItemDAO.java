@@ -1,6 +1,7 @@
 package DAL;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ItemDAO implements IDAO {
     private DB db;
@@ -59,5 +60,23 @@ public class ItemDAO implements IDAO {
             System.out.println(e.getMessage());
         }
         return item;
+    }
+
+    // Get list of item IDs by order ID
+    public ArrayList<Integer> getItemIdsByOrderId(int idOrder) {
+        ArrayList<Integer> itemIds = new ArrayList<>();
+        try {
+            Connection connection = DB.connect();
+            String sql = "SELECT id FROM Item WHERE id0 = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idOrder);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                itemIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return itemIds;
     }
 }

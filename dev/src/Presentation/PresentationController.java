@@ -82,12 +82,9 @@ public class PresentationController {
 
     public boolean UnloadingItems(Dictionary<String, String> data) {return transportController.treatmentWeightProblemUnloadingItems(data);}
 
-    public ArrayList<Order> getAllOrdersByTransport(String transportID) {
-        return transportController.getTransportByID(transportID).getMyOrders();}
+    public ArrayList<Order> getAllOrdersByTransport(String transportID) {return transportController.getTransportByID(transportID).getMyOrders();}
 
-    public int getSizeOfListTrucks() {
-        return transportController.getSizeOfListTrucks();
-    }
+    public int getSizeOfListTrucks() {return transportController.getSizeOfListTrucks();}
     public int getSizeOfListDrivers() {
         return transportController.getSizeOfListDrivers();
     }
@@ -99,10 +96,8 @@ public class PresentationController {
     }
 
 
-    public boolean orderExist(String parseInt, String transportID) {
-        return transportController.orderExist(parseInt, transportID);
-    }
-    public boolean isTransportExist(String transID) {return transportController.isTransportExist(transID);}
+    public boolean orderExist(String parseInt, String transportID) {return transportController.orderExist(parseInt, transportID);}
+    public boolean isTransportExist(String transID) {return transportController.searchTransport(transID);}
     public boolean listSizeIsEmpty() {
         return transportController.listSizeIsEmpty();
     }

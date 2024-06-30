@@ -16,10 +16,21 @@ public class SiteRepository
     }
 
 
-    public boolean addSiteToList(Site site)
-    {return sites.add(site);}
+    public boolean insert (Site site) {
+        siteDAO.insert(site);
+        sites.add(site);
+        return true;
+    }
 
-
+    public boolean remove(int id) {
+        for (Site s : sites) {
+            if (s.getId() == id) {
+                sites.remove(s);
+            }
+        }
+        siteDAO.remove(id);
+        return true;
+    }
 
     public boolean isAddressSiteAlreadyIn(String address) {
         Site site = getSiteByAddress(address);

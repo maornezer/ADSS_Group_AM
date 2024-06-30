@@ -1,7 +1,11 @@
 package Domain;
 
+import DAL.OrderDTO;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order
 {
@@ -13,7 +17,7 @@ public class Order
     private LocalDate date;
     private double orderWeight;
 
-//
+
     public Order(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
     {
         id = next_id++;
@@ -29,8 +33,45 @@ public class Order
 
     }
 
+    public Order(OrderDTO orderDTO) {
+        setId(orderDTO.id);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date_ = LocalDate.parse(orderDTO.date, formatter);
+        setDate(date_);
+        setOrderWeight(0.0);
 
-    //public void setId(int newid) {id = newid;}
+        // Initialize items list
+        items = new ArrayList<>();
+        ArrayList<Integer> itemIds =();
+
+        for (int itemId : orderDTO.) {
+            // Assuming there's a method to retrieve Item details by itemId from DB or elsewhere
+            Item item = getItemByIdFromDatabase(itemId);
+            if (item != null) {
+                items.add(item);
+            } else {
+                // Handle case where item with itemId is not found
+                System.out.println("Item with id " + itemId + " not found in database.");
+            }
+        }
+
+
+
+
+
+
+//        items = new ArrayList<>();
+//        for (Item item : itemsList)
+//        {
+//            addItem(item.getId(), item.getName(), item.getAmount());
+//        }
+
+        setSource(orderDTO.source);
+        setDestination(orderDTO.destination)
+    }
+
+
+    public void setId(int id) {this.id = id;}
 
     public void setDate(LocalDate date) {
         this.date = date;
@@ -47,9 +88,11 @@ public class Order
     public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
+
     public void setOrderWeight(double orderWeight) {
         this.orderWeight = orderWeight;
     }
+
     public double getOrderWeight() {
         return orderWeight;
     }
@@ -90,6 +133,7 @@ public class Order
     {
         return items.remove(item);
     }
+
     public Item getItemByID(int itemID)
     {
         for (Item item :items)
@@ -146,7 +190,9 @@ public class Order
         return report.toString();
     }
 
-
+    public List<Integer> getItemIdsForOrder(int orderId, ItemRepository itemRepository) {
+        return itemRepository.getItemsByOrderId(orderId);
+    }
 }
 
 

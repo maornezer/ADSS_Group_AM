@@ -1,10 +1,10 @@
 package Domain;
 
+import DAL.TransportDTO;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Hashtable;
 
 public class TransportController
 {
@@ -19,48 +19,68 @@ public class TransportController
         transportRepo = new TransportRepository();
     }
 
-    public ArrayList<Transport> getTransports() {
-        return transportRepo.getTransports();
-    }
+    public ArrayList<Transport> getTransports() {return transportRepo.getTransports();}
 
     public OperationsController getOperations() {
         return operations;
     }
 
-    public LogisticsController getLogistics() {
-        return logistics;
-    }
+    public LogisticsController getLogistics() {return logistics;}
 
-    public int addTransport(Dictionary<String, String> data)///new transport
-    {
+    public int addTransport(Dictionary<String, String> data) {
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
         return addTransport(idT, idD);
     }
-    public int addTransport(int idTruck, int idDriver)
-    {
-
+    public int addTransport(int idTruck, int idDriver) {
         Truck truck = logistics.getTruck(idTruck);
         Driver driver = logistics.getDriver(idDriver);
-        if (truck == null)
-        {
+        if (truck == null) {
             return -1;
         }
-        if(driver == null || driver.getTypeOfLicense().compareTo(truck.getTypeOfLicense()) != 0 )
-        {
+        if(driver == null || driver.getTypeOfLicense().compareTo(truck.getTypeOfLicense()) != 0 ) {
             return -2;
         }
         Transport transport = new Transport(truck, driver);
-        transportRepo.addTransport(transport);
+        transportRepo.insert(transport);
         return transport.getId();
     }
+
+    public boolean remove(int id) {
+        if (!searchTransport(id))
+            return false;
+        return transportRepo.remove(id);
+    }
+    //int idT = Integer.parseInt(transportID);
+
+    public boolean searchTransport(int id) {return transportRepo.search(id);}
+
+    public Transport getTransport(int id){
+        if (!searchTransport(id))
+            return null;
+        if(transportRepo.get(id) == null)
+        {
+            TransportDTO tDTO = transportRepo.helpGetFunc(id);
+            Truck truck = logistics.getTruck(tDTO.idT);
+            Driver driver = logistics.getDriver(tDTO.idD);
+            //Order order = operations.getOrderByID(tDTO.idO);
+            Transport t = new Transport(truck,driver,tDTO.id);//order
+            transportRepo.getTransports().add(t);
+            return t;
+        }
+        return transportRepo.get(id);
+    }
+
+    public int getSizeOfListTransports() {return transportRepo.countRecords();}
+
+    ////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
 
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
         Order order = operations.getOrderByID(orderID);
-        if(order == null)
-        {
+        if(order == null) {
             System.out.println("There is no order with id "+ orderID + " in the system");
             return false;
         }
@@ -69,99 +89,87 @@ public class TransportController
 
     public boolean addOrderToTransport(int transportID, int orderID)
     {
-        Transport tempTransport = getTransportByID(transportID);
+        Transport tempTransport = getTransport(transportID);
         Order tempOrder = operations.getOrderByID(orderID);
-        if(tempTransport != null)
-        {
-            if(!tempTransport.getMyOrders().isEmpty())
-            {
-                if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0)
-                {
-
-                    if(tempTransport.getDate().isEqual(tempOrder.getDate()))
-                    {
+        if(tempTransport != null) {
+            if(!tempTransport.getMyOrders().isEmpty()) {
+                if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0) {
+                    if(tempTransport.getDate().isEqual(tempOrder.getDate())) {
                         tempTransport.addOrderToMYTransport(tempOrder);
                         return true;
                     }
-                    else
-                    {
+                    else {
                         System.out.println("The order date you wanted to add does not match the shipping date");
-
                     }
                 }
-                else
-                {
+                else {
                     System.out.println("The order zone you wanted to add does not match the shipping zone");
                 }
             }
-            else
-            {
+            else {
                 tempTransport.addOrderToMYTransport(tempOrder);
                 return true;
             }
         }
         return false;
     }
-//    public boolean addTransport(int id, Truck truck,Driver driver)
-//    {
-//        if (driver != null && truck!=null)
-//        {
-//            Transport transport = getTransportByID(id);
-//            if(transport != null)
-//                transport.createTransport(id, truck,driver);
-//            return transports.add(transport);
-//        }
-//        return false;
-//
-//    }
-    public boolean changeTruck(int transportID, int newTruckID)
-    {
-        Transport tempTransport = getTransportByID(transportID);
-        if(tempTransport !=null)
-        {
+
+
+
+    public boolean listSizeIsEmpty() {return operations.sizeOfSites() == 0;}
+
+    public int getSizeOfListTrucks() {
+        return logistics.getSizeTrucks();
+    }
+
+    public int getSizeOfListDrivers() {return logistics.getSizeDrivers();}
+
+    public int getSizeOfListOrders() {return operations.getSizeOrders();}
+
+
+   // public boolean orderExist(String parseInt, String transportID) {return transportRepo.orderExist(parseInt, transportID);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean changeTruck(int transportID, int newTruckID) {
+        Transport tempTransport = getTransport(transportID);
+        if(tempTransport !=null) {
             Truck tempTruck = logistics.getTruck(newTruckID);
-            if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0)
-            {
-//                if(truckAvailability(tempTransport.getDate(),tempTruck))
-//                {
+            if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0) {
                 tempTransport.setTruck(tempTruck);
                 return true;
-//                }
+
             }
         }
         return false;
     }
-//    public boolean truckAvailability (LocalDate date,Truck truck)
-//    {
-//        for (Transport tempTransport : transports)
-//        {
-//            if (tempTransport.getTruck() == truck)
-//            {
-//               if(tempTransport.getDate()== date)
-//                   return false;
-//               if(tempTransport.getDate() == null && date == null)
-//                   return false;
-//            }
-//        }
-//        return true;
-//    }
-
-    public Transport getTransportByID(String transportID)
-    {
-        int idT = Integer.parseInt(transportID);
-        return transportRepo.getTransportByID(idT);
-    }
-
-    public Transport getTransportByID(int transportID)
-    {
-        return transportRepo.getTransportByID(transportID);
-    }
-
 
     /// driver///
     public boolean changeDriver(int transportID, int newDriverID)
     {
-        Transport tempTransport = getTransportByID(Integer.toString(transportID));
+        Transport tempTransport = getTransport(transportID);
         if(tempTransport !=null)
         {
             Driver tempDriver = logistics.getDriver(newDriverID);
@@ -190,7 +198,7 @@ public class TransportController
     }
     public String generateTransportReport(String id) {
         int idT = Integer.parseInt(id);
-        Transport transport = getTransportByID(idT);
+        Transport transport = getTransport(idT);
         StringBuilder sb = new StringBuilder();
         if (transport == null){
             System.out.println("Transport with ID "+ id +  " not found");
@@ -218,7 +226,7 @@ public class TransportController
 
     public boolean loadOrderToTruck(double orderWeight,int orderID, int transportID)
     {
-        Transport transportTemp = getTransportByID(transportID);
+        Transport transportTemp = getTransport(transportID);
         Order orderTemp = operations.getOrderByID(orderID);
         if (transportTemp != null && orderTemp != null)
         {
@@ -241,7 +249,7 @@ public class TransportController
     }
     public boolean unloadOrderFromTruck(double orderWeight,int orderID, int transportID)
     {
-        Transport transportTemp = getTransportByID(transportID);
+        Transport transportTemp = getTransport(transportID);
         Order orderTemp = operations.getOrderByID(orderID);
         if (transportTemp != null && orderTemp != null)
         {
@@ -269,7 +277,7 @@ public class TransportController
         boolean b = changeTruck(transportID,truckId);
         if (b)
         {
-            getTransportByID(transportID).setChangeTruck();
+            getTransport(transportID).setChangeTruck();
             return true;
         }
         return false;
@@ -296,7 +304,7 @@ public class TransportController
             boolean b = orderTemp.changeAmount(itemID,amount);
             if (b)
                 {
-                    getTransportByID(transportID).setUnloadingItems();
+                    getTransport(transportID).setUnloadingItems();
                 }
         return true;
         }
@@ -314,7 +322,7 @@ public class TransportController
         boolean b = operations.changeDestination(orderID,address);
         if (b)
         {
-            getTransportByID(transportID).setChangeDestination();
+            getTransport(transportID).setChangeDestination();
             return true;
         }
         return false;
@@ -333,9 +341,61 @@ public class TransportController
         return changeDriver(idTransport, idDriver);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public String printAllTransport()
+    {
+        StringBuilder allTransports = new StringBuilder();
+        for (Transport transport: transportRepo.getTransports())
+        {
+            allTransports.append(transport.toStringTransportReport());
+        }
+        return allTransports.toString();
+    }
+
+    public String getTransportByIdDriver(String id)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (Transport transport : transportRepo.getTransports())
+        {
+            if (transport.getDriver().getId() == Integer.parseInt(id))
+            {
+                sb.append(transport.toStringTransportReport());
+            }
+        }
+        int idDriver = Integer.parseInt(id);
+        if (!(logistics.searchDriver(idDriver)))
+        {
+            System.out.println("Driver with ID "+ id+  " not found");
+        }
+        if (sb.length() == 0)
+        {
+            System.out.println("You do not have scheduled transports");
+        }
+
+        return sb.toString();
+    }
     public String printAllOrdersByTransportID(int transportID)
     {
-        Transport tempTransport = getTransportByID(transportID);
+        Transport tempTransport = getTransport(transportID);
         StringBuilder sb = new StringBuilder();
         for (Order order: tempTransport.getMyOrders())
         {
@@ -353,67 +413,4 @@ public class TransportController
         return sb.toString();
     }
 
-    public String getTransportByIdDriver(String id)
-    {
-        StringBuilder sb = new StringBuilder();
-        for (Transport transport : transportRepo.getTransports())
-           {
-               if (transport.getDriver().getId() == Integer.parseInt(id))
-               {
-                   sb.append(transport.toStringTransportReport());
-               }
-           }
-        int idDriver = Integer.parseInt(id);
-        if (!(logistics.searchDriver(idDriver)))
-           {
-               System.out.println("Driver with ID "+ id+  " not found");
-           }
-        if (sb.length() == 0)
-        {
-            System.out.println("You do not have scheduled transports");
-        }
-
-        return sb.toString();
-    }
-    public String printAllTransport()
-    {
-        StringBuilder allTransports = new StringBuilder();
-        for (Transport transport: transportRepo.getTransports())
-        {
-            allTransports.append(transport.toStringTransportReport());
-        }
-        return allTransports.toString();
-    }
-
-    public boolean isTransportExist(String transID) {
-        int idT = Integer.parseInt(transID);
-        return transportRepo.isTransportExist(idT);
-    }
-
-    public boolean listSizeIsEmpty() {
-        return operations.sizeOfSites() == 0;
-
-    }
-
-    public int getSizeOfListTrucks() {
-        return logistics.getSizeTrucks();
-    }
-
-    public int getSizeOfListDrivers() {
-        return logistics.getSizeDrivers();
-
-    }
-
-    public int getSizeOfListOrders() {
-        return operations.getSizeOrders();
-
-    }
-
-    public int getSizeOfListTransports() {
-        return getTransports().size();
-
-    }
-    public boolean orderExist(String parseInt, String transportID) {
-        return transportRepo.orderExist(parseInt, transportID);
-    }
 }
