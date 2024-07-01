@@ -1,6 +1,8 @@
 package Domain;
 
 import DAL.SiteDAO;
+import DAL.SiteDTO;
+import DAL.TruckDTO;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,28 @@ public class SiteRepository
         siteDAO.remove(id);
         return true;
     }
+    public boolean search(int idSite)
+    {
+        for (Site site : sites){
+            if (site.getId() == idSite){
+                return true;
+            }
+        }
+        SiteDTO temp = (SiteDTO) siteDAO.get(idSite);
+        return temp != null;
+    }
+    public Site get(int id)
+    {
+        for (Site site : sites) {
+            if (site.getId() == id) {
+                return site;
+            }
+        }
+        Site site = new Site((SiteDTO) siteDAO.get(id));
+        sites.add(site);
+        return site;
+    }
+
 
     public boolean isAddressSiteAlreadyIn(String address) {
         Site site = getSiteByAddress(address);
@@ -47,18 +71,6 @@ public class SiteRepository
         return null;
     }
 
-    public boolean isSiteAlreadyIn(Site site) {
-        for (Site s : sites)
-        {
-            if (s.getAddress().equals(site.getAddress()))
-            {
-                return true;
-            }
-        }
-        //siteDAO.get(site.id)
-        return false;
-    }
-
     public boolean validMatchZone(String source, String destination )
     {
         Site s1 = getSiteByAddress(source);
@@ -73,4 +85,9 @@ public class SiteRepository
         return sites;
     }
     public int getSizeSites(){return sites.size();}
+
+
+
+    //public int countRecords() {return siteDAO.countRecords();}
+
 }

@@ -15,6 +15,8 @@ public class Order
     private ArrayList<Item> items;
     private Site source;
     private Site destination;
+    private int sourceID;
+    private int destinationID;
     private LocalDate date;
     private double orderWeight;
 
@@ -34,25 +36,18 @@ public class Order
 
     }
 
-    public Order(OrderDTO orderDTO, ItemDTO itemDTO) {
+    public Order(OrderDTO orderDTO) {
         setId(orderDTO.id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date_ = LocalDate.parse(orderDTO.date, formatter);
         setDate(date_);
         setOrderWeight(0.0);
-
-        //setSource(orderDTO.source);
-        //setDestination(orderDTO.destination);
-
+        setSource(null);//set in operation controller
+        setDestination(null);//set in operation controller
+        setSourceID(orderDTO.sourceID);//add
+        setDestinationID(orderDTO.destinationID);//add
         // Load items from the OrderDTO
-        this.items = new ArrayList<>();
-        List<Integer> itemIds = orderDTO.items.get(orderDTO.id);
-        if (itemIds != null) {
-            for (Integer itemId : itemIds) {
-                Item item = new Item(itemDTO);
-                this.items.add(item);
-            }
-        }
+        this.items = new ArrayList<>();//set in operation controller
     }
 
 
@@ -66,6 +61,16 @@ public class Order
 
     public void setDestination(Site destination) {
         this.destination = destination;
+    }
+    public void setDestinationID(int id){this.destinationID = id;}
+    public void setSourceID(int id){this.sourceID = id;}
+
+    public int getSourceID() {
+        return sourceID;
+    }
+
+    public int getDestinationID() {
+        return destinationID;
     }
 
     public void setSource(Site source) {

@@ -9,7 +9,7 @@ public class OrderDTO {
     public String source;
     public String destination;
     public int transportId;
-    public HashMap<Integer, List<Integer>> items;
+    public HashMap<Integer, List<Integer>> items;//לא נכון
 
     public OrderDTO(int id, String date, String source, String destination, int transportId,HashMap<Integer, List<Integer>> items) {
         this.id = id;
@@ -17,7 +17,7 @@ public class OrderDTO {
         this.source = source;
         this.destination = destination;
         this.transportId = transportId;
-        this.items = items;
+        this.items = items;//להוריד
 
     }
 }

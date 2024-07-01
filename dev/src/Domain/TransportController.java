@@ -79,7 +79,7 @@ public class TransportController
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
-        Order order = operations.getOrderByID(orderID);
+        Order order = operations.getOrder(orderID);
         if(order == null) {
             System.out.println("There is no order with id "+ orderID + " in the system");
             return false;
@@ -90,7 +90,7 @@ public class TransportController
     public boolean addOrderToTransport(int transportID, int orderID)
     {
         Transport tempTransport = getTransport(transportID);
-        Order tempOrder = operations.getOrderByID(orderID);
+        Order tempOrder = operations.getOrder(orderID);
         if(tempTransport != null) {
             if(!tempTransport.getMyOrders().isEmpty()) {
                 if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0) {
@@ -227,7 +227,7 @@ public class TransportController
     public boolean loadOrderToTruck(double orderWeight,int orderID, int transportID)
     {
         Transport transportTemp = getTransport(transportID);
-        Order orderTemp = operations.getOrderByID(orderID);
+        Order orderTemp = operations.getOrder(orderID);
         if (transportTemp != null && orderTemp != null)
         {
             if (transportTemp.getMyOrders().contains(orderTemp))
@@ -250,7 +250,7 @@ public class TransportController
     public boolean unloadOrderFromTruck(double orderWeight,int orderID, int transportID)
     {
         Transport transportTemp = getTransport(transportID);
-        Order orderTemp = operations.getOrderByID(orderID);
+        Order orderTemp = operations.getOrder(orderID);
         if (transportTemp != null && orderTemp != null)
         {
             if (transportTemp.getMyOrders().contains(orderTemp))
@@ -292,7 +292,7 @@ public class TransportController
     }
 
     public boolean treatmentWeightProblemUnloadingItems(int orderID,int itemID,int amount, int transportID) {
-        Order orderTemp = operations.getOrderByID(orderID);
+        Order orderTemp = operations.getOrder(orderID);
         Item itemTemp = orderTemp.getItemByID(itemID);
         if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
         {

@@ -6,6 +6,7 @@ import java.util.*;
 public class OperationsController {
     private SiteRepository siteRepo;
     private OrderRepository orderRepo;
+    private ItemRepository itemRepo;
 
     public OperationsController()
     {
@@ -14,45 +15,37 @@ public class OperationsController {
     }
 
     //**********************SITE:**********************//
-    public boolean changeDestination(Dictionary<String, String> data) {
-        int id = Integer.parseInt(data.get("id"));
-        String newAddress = data.get("destination");
-        return changeDestination(id, newAddress);
-    }
-    public boolean changeDestination(int orderID,String address ) {
-        if(isAddressSiteAlreadyIn(address)) {
-            Order orderTemp = getOrderByID(orderID);
-            if(getSiteByAddress(address).getSiteZone().compareTo(orderTemp.getDestination().getSiteZone()) != 0 ) {
-                return false;
-            }
-            orderTemp.setDestination(getSiteByAddress(address));
-            return true;
-        }
-        return false;
-    }
     public boolean addSite(Dictionary<String, String> data,String str) {
+        int siteID = Integer.parseInt(data.get("siteID"));//להוסיף את המפתח הזה ב-menu
         String address = data.get("address");
         String zone = data.get("zone");
         String contactName = data.get("contactName");
         String phoneNumber = data.get("phoneNumber");
         Site newSite = new Site(address, zone, contactName, phoneNumber);
         if (str.compareTo("csv") != 0) {
-            if (isSiteAlreadyIn(newSite)) {
+            if (searchSite(siteID)) {
                 return false;
             }
+            Site site = siteRepo.get(siteID);
         }
-        return siteRepo.addSiteToList(newSite);
+        return siteRepo.insert(newSite);
+    }
+    public boolean removeSite(int id) {
+        if (!searchSite(id))
+            return false;
+        return siteRepo.remove(id);
+    }
+    public boolean searchSite(int idSite){return siteRepo.search(idSite);}
+
+    public Site getSite(int id){
+        if (!searchSite(id)){
+            return null;
+        }
+        return siteRepo.get(id);
     }
     public int sizeOfSites(){return siteRepo.getSizeSites();}
 
-    public boolean isSiteAlreadyIn(Site site) {
-        return siteRepo.isSiteAlreadyIn(site);
-    }
-
-
-    public boolean isAddressSiteAlreadyIn(String address) {
-        return siteRepo.isAddressSiteAlreadyIn(address);
-    }
+    public boolean isAddressSiteAlreadyIn(String address) {return siteRepo.isAddressSiteAlreadyIn(address);}//לשנות את הפונקציות שמשתמשות בזה
 
     public Site getSiteByAddress(String address)
     {
@@ -102,18 +95,61 @@ public class OperationsController {
             orderItems.add(item);
         }
         Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
+        orderRepo.insert(newOrder);
         //if (newOrder != null)
             //allOrders.add(newOrder);
         return newOrder.getId();
     }
-
-    public Order getOrderByID(int id) {
-        return orderRepo.getOrderByID(id);
+    public boolean remove(int id) {
+        if (!searchOrder(id))
+            return false;
+        return orderRepo.remove(id);
+    }
+    public boolean searchOrder(int id) {return orderRepo.search(id);}
+    public Order getOrder(int id) {
+        if(!searchOrder(id))
+        {
+            return null;
+        }
+        Order order = orderRepo.get(id);
+        Site source = siteRepo.get(order.getSourceID());
+        Site destination = siteRepo.get(order.getDestinationID());
+        order.setSource(source);
+        order.setDestination(destination);
+        List<Integer> items = itemRepo.getItemsByOrderId(id);
+        ArrayList<Item> itemsOfOrder = new ArrayList<>();
+        if(items != null)
+        {
+            for (Integer itemID: items)
+            {
+                Item item = itemRepo.get(itemID);
+                itemsOfOrder.add(item);
+            }
+        }
+        order.setItems(itemsOfOrder);
+        orderRepo.insert(order);
+        return order;
+    }
+    public boolean changeDestination(Dictionary<String, String> data) {
+        int id = Integer.parseInt(data.get("id"));
+        String newAddress = data.get("destination");
+        return changeDestination(id, newAddress);
+    }
+    public boolean changeDestination(int orderID,String address ) {
+        if(isAddressSiteAlreadyIn(address)) {
+            Order orderTemp = getOrder(orderID);
+            if(getSiteByAddress(address).getSiteZone().compareTo(orderTemp.getDestination().getSiteZone()) != 0 ) {
+                return false;
+            }
+            orderTemp.setDestination(getSiteByAddress(address));
+            return true;
+        }
+        return false;
     }
     ////to String for order
     public String generateOrderReport(String orderId) {
 
-        Order order = getOrderByID(Integer.parseInt(orderId));
+        Order order = getOrder(Integer.parseInt(orderId));
         StringBuilder sb = new StringBuilder();
         if (order != null) {
             sb.append(order.toStringReport());
@@ -131,14 +167,17 @@ public class OperationsController {
     public String printOrder(Dictionary<String, String> data)
     {
         int orderId = Integer.parseInt(data.get("orderID"));
-        Order getOrder = getOrderByID(orderId);
+        Order getOrder = getOrder(orderId);
         StringBuilder sb = new StringBuilder();
         sb.append(getOrder.toStringReport());
         return sb.toString();
 
     }
 
-
+    //public int getSizeOrders() {return orderRepo.countRecords();}
+    public int getSizeOrders() {
+        return orderRepo.getSizeOrders();
+    }
     //**********************ITEM:**********************//
     public Item addItem(ArrayList<String> item) {
         int id = Integer.parseInt(item.get(0));
@@ -149,7 +188,7 @@ public class OperationsController {
     }
 
 
-    public int getSizeOrders() {
-        return orderRepo.getSizeOrders();
-    }
+
+
+
 }

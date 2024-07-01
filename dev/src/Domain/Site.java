@@ -1,5 +1,7 @@
 package Domain;
 
+import DAL.SiteDTO;
+
 import java.util.Objects;
 
 public class Site
@@ -19,8 +21,16 @@ public class Site
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
         setSiteZone(zone);
-        id = next_id++;
+        id = next_id++;//???
 
+    }
+    public Site(SiteDTO siteDTO)
+    {
+        setAddress(siteDTO.address);
+        setContactName(siteDTO.contactName);
+        setPhoneNumber(siteDTO.phoneNumber);////לשנות
+        setSiteZone(siteDTO.zone);
+        id = siteDTO.id;
     }
     public boolean setAddress(String address)
     {

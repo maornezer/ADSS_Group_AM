@@ -11,7 +11,7 @@ import java.util.Map;
 public class ItemRepository {
     private ArrayList<Item> items;
     private ItemDAO itemDAO;
-    private Map<Integer, List<Integer>> orderItemsMap;
+    private Map<Integer, List<Integer>> orderItemsMap;//(orderID,list of items id)
 
     public ItemRepository()
     {

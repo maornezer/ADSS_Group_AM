@@ -50,7 +50,7 @@ public class OrderRepository {
             }
         }
         Order order = new Order((OrderDTO) orderDAO.get(id));
-        allOrders.add(order);
+        //allOrders.add(order);///? לא פה
         return order;
     }
     public OrderDTO helpGetFunc(int id) {return (OrderDTO) orderDAO.get(id);}
