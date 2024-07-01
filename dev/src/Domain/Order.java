@@ -1,5 +1,6 @@
 package Domain;
 
+import DAL.ItemDTO;
 import DAL.OrderDTO;
 
 import java.time.LocalDate;
@@ -33,42 +34,28 @@ public class Order
 
     }
 
-    public Order(OrderDTO orderDTO) {
+    public Order(OrderDTO orderDTO, ItemDTO itemDTO) {
         setId(orderDTO.id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date_ = LocalDate.parse(orderDTO.date, formatter);
         setDate(date_);
         setOrderWeight(0.0);
 
-        // Initialize items list
-        items = new ArrayList<>();
-        ArrayList<Integer> itemIds =();
+        //setSource(orderDTO.source);
+        //setDestination(orderDTO.destination);
 
-        for (int itemId : orderDTO.) {
-            // Assuming there's a method to retrieve Item details by itemId from DB or elsewhere
-            Item item = getItemByIdFromDatabase(itemId);
-            if (item != null) {
-                items.add(item);
-            } else {
-                // Handle case where item with itemId is not found
-                System.out.println("Item with id " + itemId + " not found in database.");
+        // Load items from the OrderDTO
+        this.items = new ArrayList<>();
+        List<Integer> itemIds = orderDTO.items.get(orderDTO.id);
+        if (itemIds != null) {
+            for (Integer itemId : itemIds) {
+                Item item = new Item(itemDTO);
+                this.items.add(item);
             }
         }
-
-
-
-
-
-
-//        items = new ArrayList<>();
-//        for (Item item : itemsList)
-//        {
-//            addItem(item.getId(), item.getName(), item.getAmount());
-//        }
-
-        setSource(orderDTO.source);
-        setDestination(orderDTO.destination)
     }
+
+
 
 
     public void setId(int id) {this.id = id;}
