@@ -30,18 +30,31 @@ public class TransportController
     public int addTransport(Dictionary<String, String> data) {
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
-        return addTransport(idT, idD);
+        int idO = Integer.parseInt(data.get("idO"));
+        return addTransport(idT, idD,idO);
     }
-    public int addTransport(int idTruck, int idDriver) {
+    public int addTransport(int idTruck, int idDriver, int idOrder) {
         Truck truck = logistics.getTruck(idTruck);
         Driver driver = logistics.getDriver(idDriver);
+        Order order = operations.getOrder(idOrder);
         if (truck == null) {
             return -1;
         }
         if(driver == null || driver.getTypeOfLicense().compareTo(truck.getTypeOfLicense()) != 0 ) {
             return -2;
         }
-        Transport transport = new Transport(truck, driver);
+        if (order == null)
+        {
+            return -3;
+        }
+        if (driver.checkShiftDate(order.getDate()) || truck.checkShiftDate(order.getDate()))
+        {
+            return -4;
+        }
+        Transport transport = new Transport(truck, driver, order);
+        order.setHaveTransport();
+        driver.addDate(order.getDate());
+        truck.addDate(order.getDate());
         transportRepo.insert(transport);
         return transport.getId();
     }

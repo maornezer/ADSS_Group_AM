@@ -23,16 +23,19 @@ public class Transport
     private boolean changeTruck;
 
 
-    public  Transport(Truck truck, Driver driver)
+    public  Transport(Truck truck, Driver driver, Order order)
     {
-            setTruck(truck);
-            setDriver(driver);
-            setTime();
-            id = next_id++;
-            myOrders = new ArrayList<>();
-            changeDestination = false;
-            unloadingItems = false;
-            changeTruck = false;
+        setTruck(truck);
+        setDriver(driver);
+        setTime();
+        setDate(order.getDate());
+        setZone(order.getDestination().getSiteZone());
+        id = next_id++;
+        myOrders = new ArrayList<>();
+        myOrders.add(order);
+        changeDestination = false;
+        unloadingItems = false;
+        changeTruck = false;
     }
 
     public  Transport(Truck truck, Driver driver,int id)

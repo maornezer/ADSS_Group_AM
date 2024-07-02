@@ -4,10 +4,7 @@ import Domain.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
     private Scanner scanner;
@@ -88,9 +85,7 @@ public class Menu {
 
     public void managerMenu()
     {
-        //Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Hello Manager!");
-        //boolean exitMenu = true;
         while (true)
         {
             System.out.println("Please choose what you would like to do:");
@@ -204,8 +199,6 @@ public void createOrder()
 {
     Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
     Dictionary<String, String> data1= new Hashtable<String, String>();
-
-
     System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
     scanner.skip("\\R?");
     String date = scanner.nextLine();
@@ -226,10 +219,6 @@ public void createOrder()
         data1.put("month", month);
         data1.put("day", day);
     }
-
-
-
-
     String source = checkAddressSource();
     String destination = checkAddressDestination();
     boolean b = controller.validMatchZone(source,destination );
@@ -240,10 +229,8 @@ public void createOrder()
         destination = checkAddressDestination();
         b = controller.validMatchZone(source,destination );
     }
-
     data1.put("source", source);
     data1.put("destination", destination);
-
     int i = 1;
     System.out.println("Enter the items of the order ");
     boolean choice = true;
@@ -252,20 +239,21 @@ public void createOrder()
         ArrayList<String> itemi = new ArrayList<>();
         System.out.println("Item number: "+i);
         System.out.println("Enter item ID");
-        int itemID = scanner.nextInt();
-        itemi.add(Integer.toString(itemID));
+        scanner.skip("\\R?");
+        String itemID = scanner.nextLine();
+        itemi.add(itemID);
         System.out.println("Enter item name");
         scanner.skip("\\R?");
         String itemName = scanner.nextLine();
         itemi.add(itemName);
         System.out.println("Enter item amount");
-        int amount = scanner.nextInt();
-        itemi.add(Integer.toString(amount));
+        scanner.skip("\\R?");
+        String amount = scanner.nextLine();
+        itemi.add(amount);
         System.out.println("Are there more items? [Y/N]");
         scanner.skip("\\R?");
         String choose = scanner.nextLine();
         data2.put(i,itemi);
-
         if (choose.compareTo("Y")==0)
         {
             i++;
@@ -331,12 +319,12 @@ public void createOrder()
             System.out.println("1. Enter this address into the system ");
             System.out.println("2. Enter address again ");
             scanner.skip("\\R?");
-            int s = scanner.nextInt();
+            String s = scanner.nextLine();
             scanner.nextLine(); // Clear the newline
-            if (s == 1) {
+            if (s.compareTo("1") == 0) {
                 addSite();
                 return; // Exit the function after adding the site
-            } else if (s == 2) {
+            } else if (s.compareTo("2") == 0) {
                 return; // Exit the function to re-enter the address
             } else {
                 System.out.println("There is no such option of choice, please choose a valid number\n");
@@ -349,6 +337,15 @@ public void createOrder()
     {
         int conditionTrucks = controller.getSizeOfListTrucks();
         int conditionDrivers = controller.getSizeOfListDrivers();
+        System.out.println("Please enter id order that you would like to add to transport:");
+        scanner.skip("\\R?");
+        String idOrder = scanner.nextLine();
+        boolean checkOrder = controller.checkOrder(idOrder);
+        if (!checkOrder)
+        {
+            System.out.println("Order "+ idOrder +" was not exist, please try again");
+            return;
+        }
         Dictionary<String, String> data = new Hashtable<String, String>();
         if (conditionTrucks == 0)
         {
@@ -365,18 +362,19 @@ public void createOrder()
         System.out.println("Please choose truck ID from truck list: ");
         printAllTrucks();
         System.out.println("Enter Truck ID: ");
-        int idT = scanner.nextInt();
-        boolean existTruck = controller.searchTruck(idT);
+        scanner.skip("\\R?");
+        String idT = scanner.nextLine();
+        boolean existTruck = controller.searchTruck(Integer.parseInt(idT));
         while (!existTruck)
         {
             System.out.println("Please choose truck ID from truck list");
             System.out.println("Enter Truck ID: ");
-            idT = scanner.nextInt();
-            existTruck = controller.searchTruck(idT);
+            idT = scanner.nextLine();
+            existTruck = controller.searchTruck(Integer.parseInt(idT));
         }
-        String licenseType = getTypeOfLicense(idT);
-
-        data.put("idT", Integer.toString(idT));
+        String licenseType = getTypeOfLicense(Integer.parseInt(idT));
+        data.put("idO", idOrder);
+        data.put("idT", idT);
         if (!controller.checkIfDriverExistsByLicence(licenseType))
         {
             System.out.println("You do not have drivers with license type: " + licenseType+" in the system");
@@ -412,6 +410,19 @@ public void createOrder()
             System.out.println("The Driver id is not registered in the system");
             System.out.println("Failed to create the transport");
             createNewTransport();
+
+        }
+        if (ans == -3)
+        {
+            System.out.println("The order has already been associated with another transport");
+            return;
+        }
+
+        if (ans == -4)
+        {
+            System.out.println("The truck and driver cannot be entered on the transport date");
+            createNewTransport();
+
 
         }
         else
@@ -514,14 +525,15 @@ public void createOrder()
     {
 
         System.out.println("Enter ID of the Order you want to change: ");
-        int idOrder = scanner.nextInt();
+        scanner.skip("\\R?");
+        String idOrder = scanner.nextLine();
 
         System.out.println("Choose if you want to change the Address of destination order: " + idOrder + ": [Y/N]");
         scanner.skip("\\R?");
         String ans = scanner.nextLine();
         if (ans.compareTo("Y") == 0)
         {
-            changeDestination(idOrder);
+            changeDestination(Integer.parseInt(idOrder));
 
         }
         else if (ans.compareTo("N") == 0)
@@ -601,15 +613,16 @@ public void createOrder()
         data.put("idTransport", Integer.toString(idTransport));
         //String licenseTruck = getTypeOfLicense();
         System.out.println("Enter new Truck ID: ");
-        int idTruck = scanner.nextInt();
-        boolean truckExist = controller.searchTruck(idTruck);
+        scanner.skip("\\R?");
+        String idTruck = scanner.nextLine();
+        boolean truckExist = controller.searchTruck(Integer.parseInt(idTruck));
         while (!truckExist)
         {
             System.out.println("Please enter truck ID that exist in the system");
             changeTruck(id);
         }
-        String licenseTruckNew = getTypeOfLicense(idTruck);
-        data.put("idTruck", Integer.toString(idTruck));
+        String licenseTruckNew = getTypeOfLicense(Integer.parseInt(idTruck));
+        data.put("idTruck", idTruck);
         controller.changeTruck(data);
     }
 
@@ -706,8 +719,9 @@ public void createOrder()
         Dictionary<String, String> data = new Hashtable<String, String>();
 
         System.out.println("Enter Truck ID: ");
-        int id = scanner.nextInt();
-        data.put("idT", Integer.toString(id));
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("idT", id);
 
         System.out.println("Enter initial weight: ");
         double initialWeight = scanner.nextDouble();
@@ -733,8 +747,9 @@ public void createOrder()
         data.put("name", name);
 
         System.out.println("Enter Driver ID: ");
-        int id = scanner.nextInt();
-        data.put("id", Integer.toString(id));
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id",id);
 
         System.out.println("Enter Driver Type of License: [B, C, D]");
         scanner.skip("\\R?");
@@ -781,8 +796,9 @@ public void createOrder()
         {
             case "1":
                 System.out.println("Pleas enter Transport ID: ");
-                int id = scanner.nextInt();
-                data.put("id", Integer.toString(id));
+                scanner.skip("\\R?");
+                String id = scanner.nextLine();
+                data.put("id", id);
                 controller.printAllOrdersByTransport(data);
                 break;
             case "2":
@@ -904,8 +920,9 @@ public void createOrder()
             System.out.println("Please choose if you want try again or return back");
             System.out.println("1. Try again");
             System.out.println("2. Return back");
-            int choose = scanner.nextInt();
-            if (choose == 2)
+            scanner.skip("\\R?");
+            String choose = scanner.nextLine();
+            if (choose.compareTo("2") == 0)
             {
                 managerMenu();
             }
@@ -957,10 +974,11 @@ public void createOrder()
 //        System.out.println("Please enter the order ID for which you would like to update the weight");
 //        int orderID = scanner.nextInt();
         System.out.println("Please enter the order "+ orderID +" weight: ");
-        int weight = scanner.nextInt();
+        scanner.skip("\\R?");
+        String weight = scanner.nextLine();
         data.put("transportID", Integer.toString(transportID));
         data.put("orderID", Integer.toString(orderID));
-        data.put("weight", Integer.toString(weight));
+        data.put("weight", weight);
         return controller.loadOrderToTruck(data);
     }
     public void managerSulotion(int transportID, int orderID)
@@ -1027,11 +1045,13 @@ public void createOrder()
         data.put("orderID", Integer.toString(orderID));
         controller.printOrder(data);
         System.out.println("Please enter the ID of the item you want to change the quantity of ");
-        int itemID = scanner.nextInt();
+        scanner.skip("\\R?");
+        String itemID = scanner.nextLine();
         System.out.println("What is the amount you would like to reduce from the item ");
-        int amount = scanner.nextInt();
-        data.put("itemID", Integer.toString(itemID));
-        data.put("amount", Integer.toString(amount));
+        scanner.skip("\\R?");
+        String amount = scanner.nextLine();
+        data.put("itemID", itemID);
+        data.put("amount", amount);
         boolean sol2 = controller.UnloadingItems(data);
         if (!sol2)
         {

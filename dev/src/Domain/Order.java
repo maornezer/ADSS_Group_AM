@@ -19,6 +19,7 @@ public class Order
     private int destinationID;
     private LocalDate date;
     private double orderWeight;
+    private boolean haveTransport;
 
 
     public Order(LocalDate date, Site destination, Site source, ArrayList<Item> itemsList)
@@ -33,6 +34,7 @@ public class Order
         {
             addItem(item.getId(), item.getName(), item.getAmount());
         }
+        haveTransport = false;
 
     }
 
@@ -64,6 +66,14 @@ public class Order
     }
     public void setDestinationID(int id){this.destinationID = id;}
     public void setSourceID(int id){this.sourceID = id;}
+
+    public boolean isHaveTransport() {
+        return haveTransport;
+    }
+
+    public void setHaveTransport() {
+        this.haveTransport = true;
+    }
 
     public int getSourceID() {
         return sourceID;

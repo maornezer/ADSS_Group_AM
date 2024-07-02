@@ -98,4 +98,9 @@ public class PresentationController {
         return transportController.listSizeIsEmpty();
     }
     public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
+
+    public boolean checkOrder(String idOrder)
+    {
+        return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));
+    }
 }
