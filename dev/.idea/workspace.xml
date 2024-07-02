@@ -9,32 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="bugs fixed">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/untitled_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Personnel.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+    <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="maven">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/DB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/BranchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/DomainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/HRManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/HRManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Roles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Scheduling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Shift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Shift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/SystemLimitations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/SystemLimitations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Worker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/WorkerLimit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkerLimit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/WorkerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Domain/genShift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/genShift.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/PresentationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/PresentationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/configurationForSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/configurationForSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Personnel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Personnel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configuration.csv" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -62,36 +49,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "C:/Users/noash/Desktop/testMaven",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noash/Desktop/testMaven&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -154,19 +140,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Personnel" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Personnel" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -206,7 +179,10 @@
       <workItem from="1719319303494" duration="8614000" />
       <workItem from="1719411536113" duration="14489000" />
       <workItem from="1719477971021" duration="5660000" />
-      <workItem from="1719516315769" duration="2140000" />
+      <workItem from="1719516315769" duration="6080000" />
+      <workItem from="1719754283334" duration="22000" />
+      <workItem from="1719930356145" duration="5500000" />
+      <workItem from="1719937220464" duration="1328000" />
     </task>
     <task id="LOCAL‎-00001" summary="bla">
       <created>1717521888018</created>
@@ -285,7 +261,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1719516365378</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL‎-00012" summary="maven">
+      <created>1719520753984</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL‎-00012" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1719520753984</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +305,8 @@
     <MESSAGE value="configuration file" />
     <MESSAGE value="updated project" />
     <MESSAGE value="bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugs fixed" />
+    <MESSAGE value="maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="maven" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

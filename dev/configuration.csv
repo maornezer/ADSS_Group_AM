@@ -1,6 +1,7 @@
-HR Manager,,,,,,,,,,,,
+HR Manager,,,,todays date,,,,,,,,
 1,Max,Levy,1,2024,1,4,,,,,,
 Branches,,,,,,,,,,,,
+id,address,deadline,,,,,,,,,,
 1,Tel Aviv,THURSDAY,,,,,,,,,,
 2,Rishon Lezion,THURSDAY,,,,,,,,,,
 3,Haifa,THURSDAY,,,,,,,,,,
@@ -12,6 +13,7 @@ Branches,,,,,,,,,,,,
 9,Eilat,THURSDAY,,,,,,,,,,
 10,Netanya,THURSDAY,,,,,,,,,,
 Workers,,,,,,,,,,,,
+Branches,id,first name,last name,bank info,pay,job type,end - year,month,day,amount ,1,2
 9,2,Latashia,Quartley,2,31,Part time,2027,7,1,2,Cashier,Shift Manager
 3,3,Duke,Clears,3,48,Part time,2030,8,24,2,Storekeeper,Cashier
 6,4,Gerta,Pears,4,52,Part time,2024,7,18,2,Cashier,Shift Manager

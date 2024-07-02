@@ -15,9 +15,9 @@ public class DomainController {
 
     public void addBranch(Dictionary<String, String> data) {
         Chain.addBranch(data);
-    }
+    } // change this!! kuku
 
-    public boolean verification(Dictionary<String, String> info){
+    public boolean verification(Dictionary<String, String> info){ // change this!! kuku
         if(Objects.equals(info.get("branchNum"), "0")) {
             if (Integer.toString(Chain.getHrManager().getId()).equals(info.get("id")))
                 return true;
@@ -31,7 +31,7 @@ public class DomainController {
 
     }
 
-    public Worker getWorker(Dictionary<String, String> info){
+    public Worker getWorker(Dictionary<String, String> info){ // change this!! kuku
         List<Worker> workers = Chain.getWorkers(Integer.parseInt(info.get("branchNum")));
         if(workers == null)
             return null;

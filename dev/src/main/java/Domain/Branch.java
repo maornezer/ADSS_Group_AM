@@ -39,7 +39,7 @@ public class Branch {
 
     public List<Worker> getWorkers() {
         return workers;
-    }
+    } // change this!! kuku
 
     public int getBranchId() {
         return branchId;
@@ -49,25 +49,21 @@ public class Branch {
         return address;
     }
 
-    public void setWorkers(List<Worker> workers) {
-        this.workers = workers;
-    }
-
     public void addWorker(Worker worker){
         this.workers.add(worker);
-    }
+    } // change this!! kuku
 
-    public void addWorker(int id, String firstName, String lastName, int bankInfo) {
-        Worker temp = new Worker(id, firstName,lastName, bankInfo, this.branchId);
-        this.workers.add(temp);
-    }
+//    public void addWorker(int id, String firstName, String lastName, int bankInfo) {
+//        Worker temp = new Worker(id, firstName,lastName, bankInfo, this.branchId);
+//        this.workers.add(temp);
+//    }
 
-    public void addWorker(Dictionary<String, String> data){
+    public void addWorker(Dictionary<String, String> data){ // change this!! kuku
         Worker newWorker = new Worker(data);
         this.workers.add(newWorker);
     }
 
-    public LocalDate removeWorker(Worker worker){
+    public LocalDate removeWorker(Worker worker){ // change this!! kuku
         LocalDate date = null;
         if(this.workers.contains(worker)) {
             this.firedWorkers.add(worker);
@@ -82,9 +78,9 @@ public class Branch {
         return systemLimitations;
     }
 
-    public void setSystemLimitations(SystemLimitations systemLimitations) {
-        this.systemLimitations = systemLimitations;
-    }
+//    public void setSystemLimitations(SystemLimitations systemLimitations) {
+//        this.systemLimitations = systemLimitations;
+//    }
 
     public DayOfWeek getDeadLine() {
         return this.systemLimitations.getDeadLine();

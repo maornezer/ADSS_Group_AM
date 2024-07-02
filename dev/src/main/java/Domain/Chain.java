@@ -40,7 +40,7 @@ public class Chain {
         return hrManager;
     }
 
-    public static List<Worker> getWorkers(int branchId){
+    public static List<Worker> getWorkers(int branchId){// change this!! kuku
         for (Branch b : branches){
             if(b.getBranchId() == branchId)
                 return b.getWorkers();
@@ -93,7 +93,7 @@ public class Chain {
 
     public static SystemLimitations getSystemLimit(int branchId){
         return branchesLimits.get(branchId);
-    }
+    } // change this!! kuku
 
 //    public void addBranch(int branchId, String address){
 //        Branch nBranch = new Branch(branchId, address);
@@ -101,7 +101,7 @@ public class Chain {
 //        branchesLimits.put(branchId, nBranch.getSystemLimitations());
 //    }
 
-    public static void addBranch(Dictionary<String,String> data){
+    public static void addBranch(Dictionary<String,String> data){ // change this!! kuku
         int branchId = Integer.parseInt(data.get("branchNum"));
         String address = data.get("address");
         Branch nBranch = new Branch(branchId, address);
@@ -114,11 +114,11 @@ public class Chain {
         branchesLimits.put(branchId, nBranch.getSystemLimitations());
     }
 
-    public static List<Branch> getBranches() {
+    public static List<Branch> getBranches() { // change this!! kuku
         return branches;
     }
 
-    public static Branch getBranch(int branchId){
+    public static Branch getBranch(int branchId){ // change this!! kuku
         for (Branch branch : branches ){
             if(branch.getBranchId() == branchId)
                 return branch;
@@ -169,7 +169,7 @@ public class Chain {
     }
 
 
-    public static void creatScheduleForConfig(){
+    public static void creatScheduleForConfig(){ // change this!! kuku
         for (Branch branch:branches) {
             branch.creatNextWeek();
         }

@@ -8,22 +8,22 @@ public class Main {
 //        MainMenu mainMenu = new MainMenu();
 //        mainMenu.printMain();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
-            System.out.println("kuku");
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM new_table");
-
-//            while(resultSet.next()){
-//                System.out.println(resultSet.getString("userName"));
-//                System.out.println(resultSet.getString("password"));
-//            }
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-            System.out.println("kuku1");
-
-        }
+//        try {
+//            Connection connection = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+//            System.out.println("kuku");
+////            Statement statement = connection.createStatement();
+////            ResultSet resultSet = statement.executeQuery("SELECT * FROM new_table");
+//
+////            while(resultSet.next()){
+////                System.out.println(resultSet.getString("userName"));
+////                System.out.println(resultSet.getString("password"));
+////            }
+//        }
+//        catch (Exception e){
+//            System.out.println(e.getMessage());
+//            System.out.println("kuku1");
+//
+//        }
     }
 
 }
