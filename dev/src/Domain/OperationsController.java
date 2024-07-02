@@ -93,6 +93,7 @@ public class OperationsController {
             ArrayList<String> itemData = key.getValue();
             Item item = addItem(itemData);
             orderItems.add(item);
+            //צריך להוסיף את הidorder לטבלת ה-items////////////////
         }
         Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
         orderRepo.insert(newOrder);
@@ -125,10 +126,11 @@ public class OperationsController {
                 Item item = itemRepo.get(itemID);
                 itemsOfOrder.add(item);
             }
+            order.setItems(itemsOfOrder);
+            orderRepo.insert(order);
+            return order;
         }
-        order.setItems(itemsOfOrder);
-        orderRepo.insert(order);
-        return order;
+        return null;
     }
     public boolean changeDestination(Dictionary<String, String> data) {
         int id = Integer.parseInt(data.get("id"));

@@ -366,13 +366,13 @@ public void createOrder()
         printAllTrucks();
         System.out.println("Enter Truck ID: ");
         int idT = scanner.nextInt();
-        boolean existTruck = controller.existTruck(idT);
+        boolean existTruck = controller.searchTruck(idT);
         while (!existTruck)
         {
             System.out.println("Please choose truck ID from truck list");
             System.out.println("Enter Truck ID: ");
             idT = scanner.nextInt();
-            existTruck = controller.existTruck(idT);
+            existTruck = controller.searchTruck(idT);
         }
         String licenseType = getTypeOfLicense(idT);
 
@@ -388,14 +388,14 @@ public void createOrder()
         System.out.println("Enter Driver ID: ");
         scanner.skip("\\R?");
         String idD = scanner.nextLine();
-        boolean driverExist = controller.isIdDriverExists(idD);
+        boolean driverExist = controller.searchDriver(Integer.parseInt(idD));
         while (!driverExist)
         {
             System.out.println("Please choose driver ID from driver list ");
             System.out.println("Enter Driver ID: ");
             scanner.skip("\\R?");
             idD = scanner.nextLine();
-            driverExist = controller.isIdDriverExists(idD);
+            driverExist = controller.searchDriver(Integer.parseInt(idD));
         }
 
         data.put("idD", idD);
@@ -562,7 +562,7 @@ public void createOrder()
         System.out.println("Enter ID of the Transport you want to change: ");
         scanner.skip("\\R?");
         String id = scanner.nextLine();
-        boolean existTransport = controller.isTransportExist(id);
+        boolean existTransport = controller.isTransportExist(Integer.parseInt(id));
         if (!existTransport)
         {
             System.out.println("Enter valid ID from the list");
@@ -602,7 +602,7 @@ public void createOrder()
         //String licenseTruck = getTypeOfLicense();
         System.out.println("Enter new Truck ID: ");
         int idTruck = scanner.nextInt();
-        boolean truckExist = controller.existTruck(idTruck);
+        boolean truckExist = controller.searchTruck(idTruck);
         while (!truckExist)
         {
             System.out.println("Please enter truck ID that exist in the system");
@@ -622,7 +622,7 @@ public void createOrder()
         System.out.println("Enter new Driver ID: ");
         scanner.skip("\\R?");
         String idDriver = scanner.nextLine();
-        boolean existDriver = controller.isIdDriverExists(idDriver);
+        boolean existDriver = controller.searchDriver(Integer.parseInt(idDriver));
         while (!existDriver)
         {
             System.out.println("The id of driver that not exist");
@@ -856,7 +856,7 @@ public void createOrder()
         System.out.println("Please enter order ID would you like to add to transport "+ transportID + ": ");
         scanner.skip("\\R?");
         String orderID = scanner.nextLine();
-        boolean orderExist = controller.orderExist(orderID , Integer.toString(transportID));
+        boolean orderExist = controller.searchOrder(Integer.toString(transportID),orderID);
         if (orderExist)
         {
             System.out.println("The order with ID "+orderID+ " already exit in this transport");
@@ -873,6 +873,7 @@ public void createOrder()
         }
         else
         {
+
             System.out.println("The Order with number id " + orderID + " was added successfully to transport "+ transportID);
         }
 
@@ -896,7 +897,7 @@ public void createOrder()
         System.out.println("Please enter the transport id you want to send ");
         scanner.skip("\\R?");
         String transportID = scanner.nextLine();
-        boolean check = controller.isTransportExist(transportID);
+        boolean check = controller.isTransportExist(Integer.parseInt(transportID));
         if (!check)
         {
             System.out.println("Transport with ID "+transportID+" does not exist in the system, please enter it again");
@@ -912,7 +913,7 @@ public void createOrder()
                 deliveryStartUpdate();
             }
         }
-        ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
+        ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.parseInt(transportID));
         boolean b ;
         if(!orderArrayList.isEmpty())
         {
@@ -1011,7 +1012,7 @@ public void createOrder()
         {
             System.out.println("The truck was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, order.getId());
@@ -1041,7 +1042,7 @@ public void createOrder()
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, orderID);
@@ -1068,7 +1069,7 @@ public void createOrder()
         {
             System.out.println("The destination was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.toString(transportID));
+            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
             for (Order order: orderArrayList)
             {
                 Orderweightupdate(transportID, orderID);

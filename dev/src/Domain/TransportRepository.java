@@ -2,6 +2,7 @@ package Domain;
 
 import DAL.TransportDAO;
 import DAL.TransportDTO;
+import DAL.TruckDTO;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class TransportRepository
         transportDAO = new TransportDAO();
     }
 
-    public boolean insert (Transport transport)
+    public boolean insert(Transport transport)
     {
         transports.add(transport);
         transportDAO.insert(transport);
@@ -50,6 +51,8 @@ public class TransportRepository
                 return transport;
             }
         }
+        //Transport transport = new Transport((TransportDTO) transportDAO.get(id));
+        //transports.add(transport);
         return null;
     }
 
@@ -58,7 +61,18 @@ public class TransportRepository
     public int countRecords() {return transportDAO.countRecords();}
 
     public ArrayList<Transport> getTransports() {return transports;}
-
+    public boolean searchOrder(int id, int idOrder)
+    {
+        Transport transport = get(id);
+        ArrayList<Order> myOrders = transport.getMyOrders();
+        for (Order order: myOrders){
+            if (order.getId() == idOrder)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 //???

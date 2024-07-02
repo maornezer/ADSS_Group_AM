@@ -10,6 +10,8 @@ public class OrderDTO {
     public String destination;
     public int transportId;
     public HashMap<Integer, List<Integer>> items;//לא נכון
+    public int sourceID;
+    public int destinationID;
 
     public OrderDTO(int id, String date, String source, String destination, int transportId,HashMap<Integer, List<Integer>> items) {
         this.id = id;

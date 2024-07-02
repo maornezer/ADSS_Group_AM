@@ -1,14 +1,12 @@
 package Domain;
-
 import DAL.ItemDAO;
 import DAL.ItemDTO;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemRepository {
+public class ItemRepository{
     private ArrayList<Item> items;
     private ItemDAO itemDAO;
     private Map<Integer, List<Integer>> orderItemsMap;//(orderID,list of items id)
@@ -21,12 +19,14 @@ public class ItemRepository {
 
     }
 
+
     public boolean insert(Item item) {
         itemDAO.insert(item);
         items.add(item);
         addToOrderItemsMap(item.getIdO(), item.getId());
         return true;
     }
+
     public boolean remove(int id) {
         for (Item item : items) {
             if (item.getId() == id) {
@@ -79,10 +79,6 @@ public class ItemRepository {
         }
         orderItemsMap.get(orderId).add(itemId);
     }
-
-
-
-
     // Remove item from order-items map
         private void removeFromOrderItemsMap(int idOrder, int idItem) {
         List<Integer> items = orderItemsMap.get(idOrder);

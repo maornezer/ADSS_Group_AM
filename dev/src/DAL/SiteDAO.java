@@ -20,7 +20,7 @@ public class SiteDAO implements IDAO {
             ps.setString(1, site.address);
             ps.setString(2, site.zone);
             ps.setString(3, site.contactName);
-            ps.setInt(4, site.phoneNumber);
+            ps.setString(4, site.phoneNumber);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -54,7 +54,7 @@ public class SiteDAO implements IDAO {
                 String address = rs.getString("address");
                 String zone = rs.getString("zone");
                 String contactName = rs.getString("contactName");
-                int phoneNumber = rs.getInt("phoneNumber");
+                String phoneNumber = rs.getString("phoneNumber");
                 site = new SiteDTO(address, zone, contactName, phoneNumber, id);
             }
         } catch (SQLException e) {

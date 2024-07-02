@@ -70,6 +70,7 @@ public class TransportController
         }
         return transportRepo.get(id);
     }
+    public boolean searchOrder(String transportID, String idOrder) {return transportRepo.searchOrder(Integer.parseInt(transportID), Integer.parseInt(idOrder));}
 
     public int getSizeOfListTransports() {return transportRepo.countRecords();}
 
@@ -79,26 +80,25 @@ public class TransportController
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
-        Order order = operations.getOrder(orderID);
-        if(order == null) {
-            System.out.println("There is no order with id "+ orderID + " in the system");
+        Transport transport = getTransport(transportID);
+        Order order = operations.getOrder(orderID);///
+        if(order == null || transport == null) {
             return false;
         }
-        return addOrderToTransport(transportID,orderID);
+        return addOrderToTransport(transport,order);
     }
 
-    public boolean addOrderToTransport(int transportID, int orderID)
+    public boolean addOrderToTransport(Transport transport, Order order)
     {
-        Transport tempTransport = getTransport(transportID);
-        Order tempOrder = operations.getOrder(orderID);
-        if(tempTransport != null) {
-            if(!tempTransport.getMyOrders().isEmpty()) {
-                if(tempOrder.getSource().getSiteZone().compareTo(tempTransport.getZone()) == 0) {
-                    if(tempTransport.getDate().isEqual(tempOrder.getDate())) {
-                        tempTransport.addOrderToMYTransport(tempOrder);
+        if(transport != null) {
+            if(!transport.getMyOrders().isEmpty()) {
+                if(order.getSource().getSiteZone().compareTo(transport.getZone()) == 0) {
+                    if(transport.getDate().isEqual(order.getDate())) {
+                        transport.addOrderToMYTransport(order);
                         return true;
                     }
-                    else {
+                    else
+                    {
                         System.out.println("The order date you wanted to add does not match the shipping date");
                     }
                 }
@@ -107,8 +107,7 @@ public class TransportController
                 }
             }
             else {
-                tempTransport.addOrderToMYTransport(tempOrder);
-                return true;
+                return transport.addOrderToMYTransport(order);
             }
         }
         return false;

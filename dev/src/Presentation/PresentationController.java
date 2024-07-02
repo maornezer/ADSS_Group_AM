@@ -28,7 +28,7 @@ public class PresentationController {
     }
     public void printallDriversByLicense(String licenseType) {System.out.println(transportController.getLogistics().printDriversByLicenseType(licenseType));}
 
-    public boolean isIdDriverExists(String id){return transportController.getLogistics().isIdDriverExists(id);
+    public boolean searchDriver(int id){return transportController.getLogistics().searchDriver(id);
     }
 
 
@@ -37,8 +37,8 @@ public class PresentationController {
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
     public void printAllTrucks() {System.out.println(transportController.getLogistics().toStringTrucks());}
     public String getTypeOfLicense(int idT) {return transportController.getLogistics().getTruck(idT).getTypeOfLicense();}
-    public boolean existTruck(int idTruck) {
-        return transportController.getLogistics().isTruckExists(idTruck);
+    public boolean searchTruck(int idTruck) {
+        return transportController.getLogistics().searchTruck(idTruck);
     }
 
 
@@ -82,8 +82,7 @@ public class PresentationController {
 
     public boolean UnloadingItems(Dictionary<String, String> data) {return transportController.treatmentWeightProblemUnloadingItems(data);}
 
-    public ArrayList<Order> getAllOrdersByTransport(String transportID) {return transportController.getTransportByID(transportID).getMyOrders();}
-
+    public ArrayList<Order> getAllOrdersByTransport(int transportID) {return transportController.getTransport(transportID).getMyOrders();}
     public int getSizeOfListTrucks() {return transportController.getSizeOfListTrucks();}
     public int getSizeOfListDrivers() {
         return transportController.getSizeOfListDrivers();
@@ -96,8 +95,8 @@ public class PresentationController {
     }
 
 
-    public boolean orderExist(String parseInt, String transportID) {return transportController.orderExist(parseInt, transportID);}
-    public boolean isTransportExist(String transID) {return transportController.searchTransport(transID);}
+    public boolean searchOrder(String transportID, String idOrder) {return transportController.searchOrder(transportID, idOrder);}
+    public boolean isTransportExist(int transID) {return transportController.searchTransport(transID);}
     public boolean listSizeIsEmpty() {
         return transportController.listSizeIsEmpty();
     }

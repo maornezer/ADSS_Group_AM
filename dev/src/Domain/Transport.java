@@ -47,6 +47,18 @@ public class Transport
         changeTruck = false;
     }
 
+//    public Transport(TransportDTO transportDTO)
+//    {
+//        setTruck(null);
+//        setDriver(null);
+//        setTime();
+//        setId(transportDTO.id);
+//        //myOrders = new ArrayList<>();
+//        changeDestination = false;
+//        unloadingItems = false;
+//        changeTruck = false;
+//    }
+
 
     public int getId() {
         return id;
@@ -123,16 +135,17 @@ public class Transport
                 return false;
             }
         }
-       return myOrders.add(order);
+        myOrders.add(order);
+       return true;
     }
 
-    public Order getOrderByID(int orderID) {
-        for (Order order : myOrders) {
-            if ( order.getId()== orderID)
-                return order;
-        }
-        return null;
-    }
+//    public Order getOrderByID(int orderID) {
+//        for (Order order : myOrders) {
+//            if ( order.getId()== orderID)
+//                return order;
+//        }
+//        return null;
+//    }
 
     public String toStringTransportReport() {
         StringBuilder sb = new StringBuilder();

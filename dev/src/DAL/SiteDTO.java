@@ -3,10 +3,10 @@ package DAL;
         public String address;
         public String zone;
         public String contactName;
-        public int phoneNumber;
+        public String phoneNumber;
         public int id;
 
-        public SiteDTO(String address, String zone, String contactName, int phoneNumber, int id) {
+        public SiteDTO(String address, String zone, String contactName, String phoneNumber, int id) {
             this.address = address;
             this.zone = zone;
             this.contactName = contactName;
