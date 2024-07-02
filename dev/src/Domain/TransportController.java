@@ -63,8 +63,10 @@ public class TransportController
             TransportDTO tDTO = transportRepo.helpGetFunc(id);
             Truck truck = logistics.getTruck(tDTO.idT);
             Driver driver = logistics.getDriver(tDTO.idD);
-            //Order order = operations.getOrderByID(tDTO.idO);
+            //Order order = operations.getOrder(tDTO.idO);
             Transport t = new Transport(truck,driver,tDTO.id);//order
+            //driver.addDate(order.getDate());
+            //truck.addDate(order.getDate());
             transportRepo.getTransports().add(t);
             return t;
         }
@@ -400,7 +402,6 @@ public class TransportController
         {
             sb.append(order.toStringReport());
             //sb.append("\n");
-
         }
         return sb.toString();
     }
@@ -408,7 +409,6 @@ public class TransportController
         int id = Integer.parseInt(data.get("id"));
         StringBuilder sb = new StringBuilder();
         sb.append(printAllOrdersByTransportID(id));
-
         return sb.toString();
     }
 

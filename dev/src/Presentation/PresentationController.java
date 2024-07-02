@@ -31,7 +31,6 @@ public class PresentationController {
     public boolean searchDriver(int id){return transportController.getLogistics().searchDriver(id);
     }
 
-
     /// truck ///
     public void addTruck(Dictionary<String, String> data){this.transportController.getLogistics().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
@@ -41,14 +40,12 @@ public class PresentationController {
         return transportController.getLogistics().searchTruck(idTruck);
     }
 
-
     /// site ///
     public void addSite(Dictionary<String, String> data,String str) {this.transportController.getOperations().addSite(data,str);}
     public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getOperations().changeDestination(data);}
     public boolean checkAddress(String source) {return this.transportController.getOperations().isAddressSiteAlreadyIn(source);}
     public void printAllAddress() {System.out.println(transportController.getOperations().printAllAddress());}
     public boolean validMatchZone(String source, String destination ) {return transportController.getOperations().validMatchZone( source, destination );}
-
 
     /// order + item ///
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getOperations().addOrder(data1, data2);}
