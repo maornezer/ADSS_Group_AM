@@ -12,6 +12,7 @@ public class OperationsController {
     {
         siteRepo = new SiteRepository();
         orderRepo = new OrderRepository();
+        itemRepo = new ItemRepository();
     }
 
     //**********************SITE:**********************//
@@ -83,28 +84,25 @@ public class OperationsController {
 
     public int addOrder(Dictionary<String,String> data1,  Dictionary<Integer, ArrayList<String>> data2) {
         LocalDate date = LocalDate.of(Integer.parseInt(data1.get("year")),Integer.parseInt(data1.get("month")),Integer.parseInt(data1.get("day")));
-        String destination = data1.get("destination");
-        String source = data1.get("source");
-        Site destinationSite = getSiteByAddress(destination);
-        Site sourceSite = getSiteByAddress(source);
-        if(destinationSite == null)
-        {
-            System.out.println("The address of the destination: "+ destination+" is not registered in the system");
-            return -2;
-        }
-        if(source == null)
-        {
-            System.out.println("The address of the source is not registered in the system");
-            return -1;
-        }
+        int destID = Integer.parseInt(data1.get("destination"));
+        int sourceID = Integer.parseInt(data1.get("source"));
+        Site destinationSite = getSite(destID);
+        Site sourceSite = getSite(sourceID);
+
         ArrayList<Item> orderItems = new ArrayList<>() ;
-        for (Map.Entry<Integer, ArrayList<String>> key : ((Hashtable<Integer, ArrayList<String>>) data2).entrySet()) {
+        for (Map.Entry<Integer, ArrayList<String>> key : ((Hashtable<Integer, ArrayList<String>>) data2).entrySet())
+        {
             ArrayList<String> itemData = key.getValue();
             Item item = addItem(itemData);
             orderItems.add(item);
             //צריך להוסיף את הidorder לטבלת ה-items////////////////
         }
-        Order newOrder = new Order(date,destinationSite,sourceSite,orderItems);
+        Order newOrder = new Order(date,destID,destinationSite,sourceID,sourceSite,orderItems);
+        for (Item item: orderItems)
+        {
+            item.setIdO(newOrder.getId());
+            itemRepo.insert(item);
+        }
         orderRepo.insert(newOrder);
         //if (newOrder != null)
             //allOrders.add(newOrder);

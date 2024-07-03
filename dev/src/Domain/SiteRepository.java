@@ -84,8 +84,8 @@ public class SiteRepository
 
     public boolean validMatchZone(String source, String destination )
     {
-        Site s1 = getSiteByAddress(source);
-        Site s2 = getSiteByAddress(destination);
+        Site s1 = get(Integer.parseInt(source));
+        Site s2 =  get(Integer.parseInt(destination));
         if (s1!=null && s2!=null)
         {
             return s1.getSiteZone().compareTo(s2.getSiteZone())==0;

@@ -108,12 +108,13 @@ public class OrderDAO implements IDAO {
         try {
             //Connection connection = DB.connect();
             Connection connection = db.getDB();
-            String sql = "INSERT INTO `Order`(date, source, destination, idT) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO `Order`(date,idSource ,source, idDestination,destination) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, order.date);
-            ps.setString(2, order.source);
-            ps.setString(3, order.destination);
-            ps.setInt(4, order.transportId);
+            ps.setInt(2, order.sourceID);
+            ps.setString(3, order.source);
+            ps.setInt(4, order.destinationID);
+            ps.setString(5, order.destination);
             ps.executeUpdate();
 
             ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -122,7 +123,7 @@ public class OrderDAO implements IDAO {
             }
 
             // Insert items
-            insertOrderItems(order.id, order.items);
+            //insertOrderItems(order.id, order.items);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -189,7 +190,9 @@ public class OrderDAO implements IDAO {
                 String destination = rs.getString("destination");
                 int transportId = rs.getInt("idT");
                 HashMap<Integer, List<Integer>> items = getOrderItems(id);
-                order = new OrderDTO(id, date, source, destination, transportId, items);
+                //order = new OrderDTO(id, date, source, destination, transportId, items);
+                //order = new OrderDTO(id, date, source, destination, transportId);
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

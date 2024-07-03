@@ -11,21 +11,20 @@ public class OrderDTO {
     public int transportId;
     public int sourceID;
     public int destinationID;
-    public HashMap<Integer, List<Integer>> items;
+    //public HashMap<Integer, List<Integer>> items;
 
-    public OrderDTO(int id, String date, String source, String destination, int transportId, int sourceID, int destinationID) {
+    public OrderDTO(int id, String date, String source, String destination, int sourceID, int destinationID) {
         this.id = id;
         this.date = date;
         this.source = source;
         this.destination = destination;
-        this.transportId = transportId;
         this.sourceID = sourceID;
         this.destinationID = destinationID;
-        this.items = new HashMap<>();
+        //this.items = new HashMap<>();
     }
 
-    public OrderDTO(int id, String date, String source, String destination, int transportId, HashMap<Integer, List<Integer>> items) {
-        this(id, date, source, destination, transportId, 0, 0);
-        this.items = items;
-    }
+//    public OrderDTO(int id, String date, String source, String destination, int transportId, HashMap<Integer, List<Integer>> items) {
+//        this(id, date, source, destination, transportId, 0, 0);
+//        this.items = items;
+//    }
 }

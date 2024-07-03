@@ -19,9 +19,10 @@ public class OrderRepository {
         orderDAO = new OrderDAO();
     }
 
-    public boolean insert(Order order) {
-        orderDAO.insert(order);
-        allOrders.add(order);
+    public boolean insert(Order o) {
+        OrderDTO orderDTO  = new OrderDTO(o.getId(),o.getDate().toString(), o.getSource().getAddress(), o.getDestination().getAddress(), o.getSourceID(),o.getDestinationID());
+        orderDAO.insert(orderDTO);
+        allOrders.add(o);
         return true;
     }
 

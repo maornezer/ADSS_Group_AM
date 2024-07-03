@@ -194,7 +194,6 @@ public class Menu {
 
 public void createOrder()
 {
-    Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
     Dictionary<String, String> data1= new Hashtable<String, String>();
     System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
     scanner.skip("\\R?");
@@ -216,64 +215,78 @@ public void createOrder()
         data1.put("month", month);
         data1.put("day", day);
     }
-    String source = checkAddressSource();
-    String destination = checkAddressDestination();
-    boolean b = controller.validMatchZone(source,destination );
-    while (!b)
-    {
-        System.out.println("Source zone and destination zone are not the same");
-        source = checkAddressSource();
-        destination = checkAddressDestination();
-        b = controller.validMatchZone(source,destination );
+    System.out.println("Enter source site id:");
+    scanner.skip("\\R?");
+    String sourceID = scanner.nextLine();
+    boolean checkId = controller.searchSite(sourceID);
+    if (!checkId) {
+        System.out.println("Site id is not registered in the system, order canceled");
+        return;
     }
-    data1.put("source", source);
-    data1.put("destination", destination);
-    int i = 1;
-    System.out.println("Enter the items of the order ");
-    boolean choice = true;
-    while (choice)
-    {
-        ArrayList<String> itemi = new ArrayList<>();
-        System.out.println("Item number: "+i);
-        System.out.println("Enter item ID");
-        scanner.skip("\\R?");
-        String itemID = scanner.nextLine();
-        itemi.add(itemID);
-        System.out.println("Enter item name");
-        scanner.skip("\\R?");
-        String itemName = scanner.nextLine();
-        itemi.add(itemName);
-        System.out.println("Enter item amount");
-        scanner.skip("\\R?");
-        String amount = scanner.nextLine();
-        itemi.add(amount);
-        System.out.println("Are there more items? [Y/N]");
-        scanner.skip("\\R?");
-        String choose = scanner.nextLine();
-        data2.put(i,itemi);
-        if (choose.compareTo("Y")==0)
-        {
-            i++;
-        }
-        else if (choose.compareTo("N")==0)
-        {
-            choice = false;
-        }
-        else
-            System.out.println("There is no such option of choice, please choose valid number\n");
+    System.out.println("Enter destination site id:");
+    scanner.skip("\\R?");
+    String destID = scanner.nextLine();
+    boolean checkDestID = controller.searchSite(destID);
+    if (!checkDestID) {
+        System.out.println("Site id is not registered in the system, order canceled");
+        return;
     }
+    boolean machZone = controller.validMatchZone(sourceID, destID);
+    if (!machZone)
+    {
+        System.out.println("Source site and destination site are not in the same zone, order canceled");
+        return;
+    }
+
+    data1.put("source", sourceID);
+    data1.put("destination", destID);
+
+    Dictionary<Integer, ArrayList<String>> data2 = addItems();
+
     int ans = controller.creatNewOrder(data1, data2);
-    if(ans == -2)
-    {
-        addressSolution(2) ;
-    }
-    if(ans == -1)
-    {
-        addressSolution(1);
-    }
     System.out.println("Your order id is: " + ans );
 
 }
+    public Dictionary<Integer, ArrayList<String>> addItems(){
+        Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
+
+        System.out.println("Enter the items of the order ");
+        int i = 1;
+        boolean choice = true;
+        while (choice)
+        {
+            ArrayList<String> itemi = new ArrayList<>();
+            System.out.println("Item number: "+ i);
+            System.out.println("Enter item ID");
+            scanner.skip("\\R?");
+            String itemID = scanner.nextLine();
+            itemi.add(itemID);
+            System.out.println("Enter item name");
+            scanner.skip("\\R?");
+            String itemName = scanner.nextLine();
+            itemi.add(itemName);
+            System.out.println("Enter item amount");
+            scanner.skip("\\R?");
+            String amount = scanner.nextLine();
+            itemi.add(amount);
+            System.out.println("Would you like to add more items to the order? [Y/N]");
+            scanner.skip("\\R?");
+            String choose = scanner.nextLine();
+            data2.put(i,itemi);
+            if (choose.compareTo("Y")==0)
+            {
+                i++;
+            }
+            else if (choose.compareTo("N")==0)
+            {
+                choice = false;
+            }
+            else
+                System.out.println("There is no such option of choice, please choose valid number\n");
+        }
+        return data2;
+    }
+
 
     public String checkAddressSource() {
 
@@ -512,7 +525,7 @@ public void createOrder()
                 managerMenu();
                 break;
             default:
-                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 for return to back");
+                System.out.println("There is no such option of choice");
                 editOrderOrTransport();
                 break;
 

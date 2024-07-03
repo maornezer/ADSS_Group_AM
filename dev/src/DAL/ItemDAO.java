@@ -23,6 +23,7 @@ public class ItemDAO implements IDAO {
             ps.setInt(2, item.amount);
             ps.setInt(3, item.id0);
             ps.executeUpdate();
+            connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

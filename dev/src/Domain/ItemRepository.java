@@ -21,7 +21,8 @@ public class ItemRepository{
 
 
     public boolean insert(Item item) {
-        itemDAO.insert(item);
+        ItemDTO itemDTO = new ItemDTO(item.getId(),item.getName(),item.getAmount(), item.getIdO());
+        itemDAO.insert(itemDTO);
         items.add(item);
         addToOrderItemsMap(item.getIdO(), item.getId());
         return true;

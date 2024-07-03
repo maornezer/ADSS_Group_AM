@@ -31,7 +31,7 @@ public class DriverRepository {
                 break;
             }
         }
-        drivers.remove(id);
+        driverDAO.remove(id);
         return true;
     }
     public boolean search (int id) {
