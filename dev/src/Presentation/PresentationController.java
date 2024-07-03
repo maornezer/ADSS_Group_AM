@@ -1,7 +1,9 @@
 package Presentation;
 
 import Domain.Order;
+import Domain.Site;
 import Domain.TransportController;
+import Domain.Truck;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -39,13 +41,17 @@ public class PresentationController {
     public boolean searchTruck(int idTruck) {
         return transportController.getLogistics().searchTruck(idTruck);
     }
-
+    public boolean removeTruck(Dictionary<String, String> data) {return transportController.getLogistics().remove(data);}
+    public Truck getTruck(Dictionary<String, String> data) {return transportController.getLogistics().getTruck(data);}
     /// site ///
     public boolean addSite(Dictionary<String, String> data,String str) {return this.transportController.getOperations().addSite(data,str);}
     public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getOperations().changeDestination(data);}
     public boolean checkAddress(String source) {return this.transportController.getOperations().isAddressSiteAlreadyIn(source);}
     public void printAllAddress() {System.out.println(transportController.getOperations().printAllAddress());}
     public boolean validMatchZone(String source, String destination ) {return transportController.getOperations().validMatchZone( source, destination );}
+    public boolean removeSite(Dictionary<String, String> data) {return transportController.getOperations().removeSite(data);
+    }
+    public Site getSite(Dictionary<String, String> data) { return transportController.getOperations().getSite(data);}
 
     /// order + item ///
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getOperations().addOrder(data1, data2);}
@@ -103,4 +109,7 @@ public class PresentationController {
     {
         return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));
     }
+
+
+
 }

@@ -24,15 +24,27 @@ public class OperationsController {
         String zone = data.get("zone");
         String contactName = data.get("contactName");
         String phoneNumber = data.get("phoneNumber");
-        Site newSite = new Site(address, zone, contactName, phoneNumber);
+        Site newSite = new Site(address, zone, contactName, phoneNumber, siteID);
         return siteRepo.insert(newSite);
     }
-    public boolean removeSite(int id) {
+    public boolean removeSite(Dictionary<String,String> data )
+    {
+        int idSite = Integer.parseInt(data.get("id"));
+        Site s = getSite(idSite);
+        return removeSite(idSite);
+    }
+
+        public boolean removeSite(int id) {
         if (!searchSite(id))
             return false;
         return siteRepo.remove(id);
     }
     public boolean searchSite(int idSite){return siteRepo.search(idSite);}
+    public Site getSite(Dictionary<String, String> data)
+    {
+        int siteID = Integer.parseInt(data.get("id"));
+        return getSite(siteID);
+    }
 
     public Site getSite(int id){
         if (!searchSite(id)){

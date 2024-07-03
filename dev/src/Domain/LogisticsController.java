@@ -34,7 +34,11 @@ public class LogisticsController {
         Truck t = new Truck(idT,initialWeight,maxWeight,model);
         return truckRepo.insert(t);
     }
-
+    public boolean remove(Dictionary<String, String> data)
+    {
+        int idT = Integer.parseInt(data.get("id"));
+        return remove(idT);
+    }
     public boolean remove(int id) {
         if (!searchTruck(id))
             return false;
@@ -46,6 +50,11 @@ public class LogisticsController {
         return truckRepo.search(idTruck);
     }
 
+    public Truck getTruck(Dictionary<String, String> data)
+    {
+        int idT = Integer.parseInt(data.get("id"));
+        return getTruck(idT);
+    }
     public Truck getTruck(int idTruck) {
         if (!searchTruck(idTruck))
             return null;

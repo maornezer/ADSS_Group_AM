@@ -92,7 +92,7 @@ public class Menu {
             System.out.println("1. Create Order");
             System.out.println("2. Create Transport");
             System.out.println("3. Edit existing order or existing transport");
-            System.out.println("4. Add driver / truck / site");
+            System.out.println("4. Edit object");
             System.out.println("5. View all orders or all shipments");
             System.out.println("6. Starting transport");
             System.out.println("7. Load the system with information");
@@ -648,12 +648,42 @@ public void createOrder()
     }
     public void editDatabase()
     {
-        System.out.println("Enter what do you want to add to your system: ");
-        System.out.println("1. add new Site");
-        System.out.println("2. add new Truck");
-        System.out.println("3. add new Driver");
+
+        System.out.println("Enter what do you want to edit:");
+        System.out.println("1. Site");
+        System.out.println("2. Truck");
+        System.out.println("3. Driver");
         System.out.println("4. Return back");
 
+        scanner.skip("\\R?");
+        String choice = scanner.nextLine();
+        switch (choice)
+        {
+            case "1":
+                siteMenu();
+                break;
+            case "2":
+                truckMenu();
+                break;
+            case "3":
+                driverMenu();
+                addDriver();
+                break;
+            case "4":
+                managerMenu();
+                break;
+            default:
+                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 or 4 for return to back");
+                editDatabase();
+        }
+    }
+    public void siteMenu()
+    {
+        System.out.println("Enter what do you want to do:");
+        System.out.println("1. Add new Site");
+        System.out.println("2. Remove site");
+        System.out.println("3. Get Site information");
+        System.out.println("4. Return back");
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
@@ -662,16 +692,16 @@ public void createOrder()
                 addSite();
                 break;
             case "2":
-                addTruck();
+                removeSite();
                 break;
             case "3":
-                addDriver();
+                getSite();
                 break;
             case "4":
                 managerMenu();
                 break;
             default:
-                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 or 4 for return to back");
+                System.out.println("There is no such option of choice please try again");
                 editDatabase();
         }
     }
@@ -723,6 +753,64 @@ public void createOrder()
         else
             System.out.println("Adding the site complete");
     }
+    public void removeSite()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter site id you want to remove: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id", id);
+        boolean b = controller.removeSite(data);
+        if (!b) {
+            System.out.println("Removing the site failed");
+
+        }
+        else
+            System.out.println("Removing the site complete");
+    }
+
+    public void getSite()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter site id you want to get his information: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id", id);
+        Site s = controller.getSite(data);
+        if (s == null) {
+            System.out.println("There is no site with id " + id + " in the system");
+        }
+        else
+            System.out.println("Address: " + s.getAddress() + ", Contact Name: " + s.getContactName() + ", Phone number: " + s.getPhoneNumber() + " Zone: " + s.getSiteZone());
+    }
+    public void truckMenu()
+    {
+        System.out.println("Enter what do you want to do:");
+        System.out.println("1. Add new truck");
+        System.out.println("2. Remove truck");
+        System.out.println("3. Get truck information");
+        System.out.println("4. Return back");
+        scanner.skip("\\R?");
+        String choice = scanner.nextLine();
+        switch (choice)
+        {
+            case "1":
+                addTruck();
+                break;
+            case "2":
+                removeTruck();
+                break;
+            case "3":
+                getTruck();
+                break;
+            case "4":
+                managerMenu();
+                break;
+            default:
+                System.out.println("There is no such option of choice please try again");
+                editDatabase();
+        }
+    }
     public void addTruck()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
@@ -754,7 +842,64 @@ public void createOrder()
             System.out.println("Adding the truck complete");
 
     }
-        public void addDriver()
+    public void removeTruck()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter truck id you want to remove: ");
+        scanner.skip("\\R?");
+        String idT = scanner.nextLine();
+        data.put("id", idT);
+        boolean b = controller.removeTruck(data);
+        if (!b)
+            System.out.println("Removing the truck failed");
+        else
+            System.out.println("Removing the truck complete");
+    }
+
+    public void getTruck()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter truck id you want to get his information: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id", id);
+        Truck t = controller.getTruck(data);
+        if (t == null) {
+            System.out.println("There is no truck with id " + id + " in the system");
+        }
+        else
+            System.out.println("Truck ID: " + id + ", Model: " + t.getTruckModel() + ", Initial Weight: " + t.getInitialWeight() + ", Max Weight: " + t.getMaxWeight() + ", License required: " + t.getTypeOfLicense());
+    }
+    public void driverMenu()
+    {
+        System.out.println("Enter what do you want to do:");
+        System.out.println("1. Add new driver");
+        System.out.println("2. Remove driver");
+        System.out.println("3. Get driver information");
+        System.out.println("4. Return back");
+        scanner.skip("\\R?");
+        String choice = scanner.nextLine();
+        switch (choice)
+        {
+            case "1":
+                addDriver();
+                break;
+            case "2":
+                removeTruck();
+                break;
+            case "3":
+                getTruck();
+                break;
+            case "4":
+                managerMenu();
+                break;
+            default:
+                System.out.println("There is no such option of choice please try again");
+                editDatabase();
+        }
+    }
+
+    public void addDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Enter Driver Name: ");
