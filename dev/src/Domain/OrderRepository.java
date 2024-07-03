@@ -12,7 +12,6 @@ import java.util.Map;
 public class OrderRepository {
     private ArrayList<Order> allOrders;
     private OrderDAO orderDAO;
-    private Map<Integer, List<Integer>> transportOrdersMap;//(transportID,list of order id)
 
 
     public OrderRepository() {

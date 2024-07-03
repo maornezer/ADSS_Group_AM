@@ -18,9 +18,11 @@ public class SiteRepository
     }
 
 
-    public boolean insert (Site site) {
-        siteDAO.insert(site);
-        sites.add(site);
+    public boolean insert (Site s)
+    {
+        SiteDTO siteDTO = new SiteDTO(s.getAddress(),s.getSiteZone(),s.getContactName(),s.getPhoneNumber(),s.getId());
+        siteDAO.insert(siteDTO);
+        sites.add(s);
         return true;
     }
 

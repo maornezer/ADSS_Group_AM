@@ -35,4 +35,9 @@
 
     </dependencies>
 
+    <build>
+        <outputDirectory>${project.basedir}/out/production</outputDirectory>
+        <testOutputDirectory>${project.basedir}/out/test</testOutputDirectory>
+    </build>
+
 </project>

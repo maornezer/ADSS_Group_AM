@@ -18,7 +18,8 @@ public class TruckRepository
     }
 
     public boolean insert(Truck truck) {
-        truckDAO.insert(truck);
+        TruckDTO truckDTO = new TruckDTO(truck.getInitialWeight(),truck.getMaxWeight(),truck.getTruckModel(),truck.getIdTruck());
+        truckDAO.insert(truckDTO);
         trucks.add(truck);
         return true;
     }

@@ -681,11 +681,15 @@ public void createOrder()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
 
+        System.out.println("Enter Site id: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id", id);
+
         System.out.println("Enter Site Address: ");
         scanner.skip("\\R?");
         String address = scanner.nextLine();
         data.put("address", address);
-
 
         System.out.println("Choose Site Zone: [North, South, Center]");
         scanner.skip("\\R?");
@@ -711,8 +715,13 @@ public void createOrder()
         String phoneNumber = scanner.nextLine();
         data.put("phoneNumber", phoneNumber);
 
-        controller.addSite(data,"menu");
-        System.out.println("The site has been registered in the system");
+        boolean b = controller.addSite(data,"menu");
+        if (!b) {
+            System.out.println("Adding the site failed");
+
+        }
+        else
+            System.out.println("Adding the site complete");
     }
     public void addTruck()
     {
@@ -736,7 +745,14 @@ public void createOrder()
         String modelName = scanner.nextLine();
         data.put("model", modelName);
 
-        controller.addTruck(data);
+        boolean b = controller.addTruck(data);
+        if (!b) {
+            System.out.println("Adding the truck failed");
+
+        }
+        else
+            System.out.println("Adding the truck complete");
+
     }
         public void addDriver()
     {
@@ -754,9 +770,19 @@ public void createOrder()
         System.out.println("Enter Driver Type of License: [B, C, D]");
         scanner.skip("\\R?");
         String typeOfLicense = scanner.nextLine();
+        while (typeOfLicense.compareTo("B")!=0 && typeOfLicense.compareTo("C")!=0 && typeOfLicense.compareTo("D")!=0)
+        {
+            System.out.println("Please choose valid option: [B, C, D]");
+            scanner.skip("\\R?");
+            typeOfLicense = scanner.nextLine();
+        }
         data.put("typeOfLicense", typeOfLicense);
 
-        controller.addDriver(data);
+        boolean b = controller.addDriver(data);
+        if (!b)
+            System.out.println("Adding the driver failed");
+        else
+            System.out.println("Adding the driver complete");
     }
     public void seeAllOrdersOrAllTransports()
     {

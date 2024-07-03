@@ -16,18 +16,15 @@ public class OperationsController {
 
     //**********************SITE:**********************//
     public boolean addSite(Dictionary<String, String> data,String str) {
-        int siteID = Integer.parseInt(data.get("siteID"));//להוסיף את המפתח הזה ב-menu
+        int siteID = Integer.parseInt(data.get("id"));
+        if (searchSite(siteID)) {
+            return false;
+        }
         String address = data.get("address");
         String zone = data.get("zone");
         String contactName = data.get("contactName");
         String phoneNumber = data.get("phoneNumber");
         Site newSite = new Site(address, zone, contactName, phoneNumber);
-        if (str.compareTo("csv") != 0) {
-            if (searchSite(siteID)) {
-                return false;
-            }
-            Site site = siteRepo.get(siteID);
-        }
         return siteRepo.insert(newSite);
     }
     public boolean removeSite(int id) {

@@ -1,6 +1,8 @@
 package Domain;
 import DAL.DriverDAO;
 import DAL.DriverDTO;
+import DAL.TruckDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,8 @@ public class DriverRepository {
     }
 
     public boolean insert(Driver d) {
-        driverDAO.insert(d);
+        DriverDTO driverDTO = new DriverDTO(d.getName(),d.getTypeOfLicense(),d.getId());
+        driverDAO.insert(driverDTO);
         drivers.add(d);
         return true;
     }

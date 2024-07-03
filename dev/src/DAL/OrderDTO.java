@@ -9,17 +9,23 @@ public class OrderDTO {
     public String source;
     public String destination;
     public int transportId;
-    public HashMap<Integer, List<Integer>> items;//לא נכון
     public int sourceID;
     public int destinationID;
+    public HashMap<Integer, List<Integer>> items;
 
-    public OrderDTO(int id, String date, String source, String destination, int transportId,HashMap<Integer, List<Integer>> items) {
+    public OrderDTO(int id, String date, String source, String destination, int transportId, int sourceID, int destinationID) {
         this.id = id;
         this.date = date;
         this.source = source;
         this.destination = destination;
         this.transportId = transportId;
-        this.items = items;//להוריד
+        this.sourceID = sourceID;
+        this.destinationID = destinationID;
+        this.items = new HashMap<>();
+    }
 
+    public OrderDTO(int id, String date, String source, String destination, int transportId, HashMap<Integer, List<Integer>> items) {
+        this(id, date, source, destination, transportId, 0, 0);
+        this.items = items;
     }
 }

@@ -21,7 +21,7 @@ public class PresentationController {
     }
 
     /// driver ///
-    public void addDriver(Dictionary<String, String> data){this.transportController.getLogistics().addDriver(data);}
+    public boolean addDriver(Dictionary<String, String> data){return this.transportController.getLogistics().addDriver(data);}
     public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
     public void seeAllTransportByDriver(String id) {System.out.println(transportController.getTransportByIdDriver(id));}
     public boolean checkIfDriverExistsByLicence(String type){return transportController.getLogistics().checkIfDriverExistsByLicence(type);
@@ -32,7 +32,7 @@ public class PresentationController {
     }
 
     /// truck ///
-    public void addTruck(Dictionary<String, String> data){this.transportController.getLogistics().addTruck(data);}
+    public boolean addTruck(Dictionary<String, String> data){ return this.transportController.getLogistics().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
     public void printAllTrucks() {System.out.println(transportController.getLogistics().toStringTrucks());}
     public String getTypeOfLicense(int idT) {return transportController.getLogistics().getTruck(idT).getTypeOfLicense();}
@@ -41,7 +41,7 @@ public class PresentationController {
     }
 
     /// site ///
-    public void addSite(Dictionary<String, String> data,String str) {this.transportController.getOperations().addSite(data,str);}
+    public boolean addSite(Dictionary<String, String> data,String str) {return this.transportController.getOperations().addSite(data,str);}
     public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getOperations().changeDestination(data);}
     public boolean checkAddress(String source) {return this.transportController.getOperations().isAddressSiteAlreadyIn(source);}
     public void printAllAddress() {System.out.println(transportController.getOperations().printAllAddress());}
