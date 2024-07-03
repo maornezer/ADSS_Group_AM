@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Site
 {
-    private static int next_id = 1;
+    //private static int next_id = 1;
     private int id;
     private String address;
     private String phoneNumber;
@@ -15,20 +15,20 @@ public class Site
 //    private boolean unloadingSite;
 //    private boolean loadingSite;
 
-    public Site(String address,String zone ,String contactName, String phoneNumber)
+    public Site(String address,String zone ,String contactName, String phoneNumber,int idSite)
     {
         setAddress(address);
         setContactName(contactName);
         setPhoneNumber(phoneNumber);
         setSiteZone(zone);
-        id = next_id++;//???
+        setId(idSite);
 
     }
     public Site(SiteDTO siteDTO)
     {
         setAddress(siteDTO.address);
         setContactName(siteDTO.contactName);
-        setPhoneNumber(siteDTO.phoneNumber);////לשנות
+        setPhoneNumber(siteDTO.phoneNumber);
         setSiteZone(siteDTO.zone);
         id = siteDTO.id;
     }

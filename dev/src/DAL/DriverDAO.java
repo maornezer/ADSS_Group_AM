@@ -15,10 +15,11 @@ public class DriverDAO implements IDAO {
         DriverDTO driver = (DriverDTO) object;
         try {
             Connection connection = DB.connect();
-            String sql = "INSERT INTO Driver(name, typeOflicence) VALUES(?, ?)";
+            String sql = "INSERT INTO Driver(name, typeOflicence,id) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, driver.name);
             ps.setString(2, driver.typeOflicence);
+            ps.setInt(3, driver.id);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());

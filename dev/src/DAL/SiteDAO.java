@@ -15,12 +15,14 @@ public class SiteDAO implements IDAO {
         SiteDTO site = (SiteDTO) object;
         try {
             Connection connection = DB.connect();
-            String sql = "INSERT INTO Site(address, zone, contactName, phoneNumber) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO Site(address, zone, contactName, phoneNumber,id) VALUES(?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, site.address);
             ps.setString(2, site.zone);
             ps.setString(3, site.contactName);
             ps.setString(4, site.phoneNumber);
+            ps.setInt(5, site.id);
+
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());

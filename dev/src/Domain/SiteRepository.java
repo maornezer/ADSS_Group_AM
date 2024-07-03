@@ -5,6 +5,7 @@ import DAL.SiteDTO;
 import DAL.TruckDTO;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SiteRepository
 {
@@ -27,9 +28,17 @@ public class SiteRepository
     }
 
     public boolean remove(int id) {
-        for (Site s : sites) {
+//        for (Site s : sites) {
+//            if (s.getId() == id) {
+//                sites.remove(s);
+//                break;
+//            }
+//        }
+        Iterator<Site> iterator = sites.iterator();
+        while (iterator.hasNext()) {
+            Site s = iterator.next();
             if (s.getId() == id) {
-                sites.remove(s);
+                iterator.remove();
             }
         }
         siteDAO.remove(id);
