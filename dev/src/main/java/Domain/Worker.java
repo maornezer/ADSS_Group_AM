@@ -28,7 +28,7 @@ public class Worker {
     public Worker(Dictionary<String, String> data){
         this(Integer.parseInt(data.get("id")), data.get("firstName"),data.get("lastName"),
                 Integer.parseInt(data.get("bankDetails")), Integer.parseInt(data.get("branchNum")));
-        this.setHourRate(Integer.parseInt(data.get("hourRate")));
+        this.contract.setHourRate(Integer.parseInt(data.get("hourRate")));
         this.setJobType(data.get("jobType"));
         LocalDate date = LocalDate.of(Integer.parseInt(data.get("year")),Integer.parseInt(data.get("month")),
                 Integer.parseInt(data.get("day")));
@@ -47,17 +47,17 @@ public class Worker {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
 
     public int getBankInfo() {
         return bankInfo;
@@ -101,9 +101,9 @@ public class Worker {
         return this.contract.getEmploymentEnd();
     }
 
-    public void setHourRate(int hourRate) {
-        this.contract.setHourRate(hourRate);
-    }
+//    public void setHourRate(int hourRate) {
+//        this.contract.setHourRate(hourRate);
+//    }
 
     public int getHourRate() {
         return this.contract.getHourRate();
@@ -176,6 +176,32 @@ public class Worker {
 
     public void DefaultNextWeek(){
         this.limitations.DefaultNextWeek();
+    }
+
+    public void updateWorker(Dictionary <String, String> data){
+        String updateTo = data.get("update");
+        switch (updateTo) {
+            case "firstName":
+                this.firstName = data.get("value");
+                break;
+            case "lastName":
+                this.lastName = data.get("value");
+                break;
+            case "bankDetails":
+                this.bankInfo = Integer.parseInt(data.get("value"));
+                break;
+            case "hourRate":
+                this.contract.setHourRate(Integer.parseInt(data.get("value")));
+                break;
+            case "jobType":
+                this.contract.setJobType(data.get("value"));
+                break;
+            case "date":
+                this.contract.setEmploymentEnd(LocalDate.of(Integer.parseInt(data.get("year")), Integer.parseInt(data.get("month")), Integer.parseInt(data.get("day"))));
+                break;
+            default:
+                return;
+        }
     }
 
     public String toString(){

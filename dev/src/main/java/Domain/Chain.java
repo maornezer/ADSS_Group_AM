@@ -11,9 +11,15 @@ import static java.time.DayOfWeek.*;
 import static java.time.temporal.TemporalAdjusters.next;
 
 public class Chain {
-    protected static Dictionary<Integer, SystemLimitations> branchesLimits;
     protected static LocalDate today;
-    protected static List<Branch> branches;
+
+    protected static BranchesRepository branchesRepository;
+
+    protected static List<Worker> firedWorkers;
+
+    protected static WorkersRepository workersRepository;
+
+    protected static List<Integer> branchesNums;
 
     protected static LocalDate[] nextWeekDates;
 
@@ -21,8 +27,13 @@ public class Chain {
 
     public Chain(int id, String firstName, String lastName,int bankInfo, LocalDate date ) {
         today = date;
-        branches = new ArrayList<>();
-        branchesLimits = new Hashtable<>();
+//        branches = new ArrayList<>();
+//        branchesLimits = new Hashtable<>();
+        branchesRepository = new BranchesRepository();
+        workersRepository = new WorkersRepository();
+        branchesNums = new ArrayList<>();
+        branchesNums.addAll(branchesRepository.getBranchesNums());
+        firedWorkers = new ArrayList<>();
         nextWeekDates = new LocalDate[7];
         hrManager = new HRManager(id,firstName,lastName, bankInfo, 0 );
         for(int i =0; i< 7; i++){
@@ -40,20 +51,16 @@ public class Chain {
         return hrManager;
     }
 
-    public static List<Worker> getWorkers(int branchId){// change this!! kuku
-        for (Branch b : branches){
-            if(b.getBranchId() == branchId)
-                return b.getWorkers();
-        }
-        return null;
+    public static List<Worker> getWorkers(int branchId){
+        return workersRepository.getWorkersOfBranch(branchId);
     }
 
     public static void creatNextWeek(){
         for(int i = 0; i< nextWeekDates.length; i++){
             nextWeekDates[i] = nextWeekDates[i].plusDays(7);
         }
-        for(Branch branch : branches){
-            branch.creatNextWeek();
+        for(int branchNum: branchesNums){
+            branchesRepository.getBranch(branchNum).creatNextWeek();
         }
     }
 
@@ -74,7 +81,7 @@ public class Chain {
     }
 
     public static int getDeadLineValue(int branchId){
-        DayOfWeek deadline = branchesLimits.get(branchId).getDeadLine();
+        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
         int deadLineVal = (deadline.getValue()+1)%7;
         return deadLineVal;
     }
@@ -92,38 +99,26 @@ public class Chain {
     }
 
     public static SystemLimitations getSystemLimit(int branchId){
-        return branchesLimits.get(branchId);
-    } // change this!! kuku
-
-//    public void addBranch(int branchId, String address){
-//        Branch nBranch = new Branch(branchId, address);
-//        branches.add(nBranch);
-//        branchesLimits.put(branchId, nBranch.getSystemLimitations());
-//    }
-
-    public static void addBranch(Dictionary<String,String> data){ // change this!! kuku
-        int branchId = Integer.parseInt(data.get("branchNum"));
-        String address = data.get("address");
-        Branch nBranch = new Branch(branchId, address);
-        String day = data.get("deadLine");
-        if(day != null) {
-            DayOfWeek dayOfWeek = DayOfWeek.valueOf(day);
-            nBranch.setDeadLine(dayOfWeek);
-        }
-        branches.add(nBranch);
-        branchesLimits.put(branchId, nBranch.getSystemLimitations());
+        return branchesRepository.getBranch(branchId).getSystemLimitations();
     }
 
-    public static List<Branch> getBranches() { // change this!! kuku
-        return branches;
+    public void addBranch(int branchId, String address){
+        Dictionary<String, String> data = new Hashtable<>();
+        data.put("branchId", Integer.toString(branchId));
+        data.put("address", address);
+        data.put("deadline", "THURSDAY");
+        branchesNums.add(branchId);
+
+        branchesRepository.createBranch(data);
     }
 
-    public static Branch getBranch(int branchId){ // change this!! kuku
-        for (Branch branch : branches ){
-            if(branch.getBranchId() == branchId)
-                return branch;
-        }
-        return null;
+    public static void addBranch(Dictionary<String,String> data){
+        branchesNums.add(Integer.parseInt(data.get("branchNum")));
+        branchesRepository.createBranch(data);
+    }
+
+    public static Branch getBranch(int branchId){
+        return branchesRepository.getBranch(branchId);
     }
 
     public static DayOfWeek getDayOfWeek(int day){
@@ -169,10 +164,43 @@ public class Chain {
     }
 
 
-    public static void creatScheduleForConfig(){ // change this!! kuku
-        for (Branch branch:branches) {
-            branch.creatNextWeek();
+    public static void creatScheduleForConfig(){
+        for (int branchNum : branchesNums) {
+            branchesRepository.getBranch(branchNum).creatNextWeek();
         }
+    }
+
+    public static boolean ShiftsAssignment(){
+
+        boolean flag = true;
+
+        for (int branchNum : branchesNums) {
+            flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
+        }
+
+        for(Worker worker: firedWorkers){
+            workersRepository.deleteWorker(worker.getId());
+        }
+        firedWorkers.clear();
+
+        if(flag) {
+            for (int branchNum : branchesNums)
+                branchesRepository.getBranch(branchNum).makeASchedule();
+        }
+
+        return flag;
+    }
+
+    public static BranchesRepository getBranchesRepository() {
+        return branchesRepository;
+    }
+
+    public static WorkersRepository getWorkersRepository() {
+        return workersRepository;
+    }
+
+    public static void updateWorker(Dictionary<String, String> data){
+        workersRepository.updateWorker(data);
     }
 
 

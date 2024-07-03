@@ -14,19 +14,19 @@ public class MainMenu {
     private static Scanner scanner;
     private static PresentationController presentationController;
 
-    public MainMenu() throws FileNotFoundException {
+    public MainMenu(){
         scanner = new Scanner(System.in);
         presentationController = new PresentationController();
-        System.out.println("Please choose:\n" +
-                "1. Initialize system with information\n" +
-                "2. Start without information");
-        int choice = scanner.nextInt();
-        if(choice == 2)
+//        System.out.println("Please choose:\n" +
+//                "1. Initialize system with information\n" +
+//                "2. Start without information");
+//        int choice = scanner.nextInt();
+//        if(choice == 2)
             creatChain();
-        else {
-            configurationForSystem temp = new configurationForSystem();
-            temp.readCSV();
-        }
+//        else {
+//            configurationForSystem temp = new configurationForSystem();
+//            temp.readCSV();
+//        }
     }
 
     public static void creatChain(){
@@ -337,7 +337,7 @@ public class MainMenu {
         System.out.println("Enter new first name:");
         scanner.skip("\\R?");
         String newName = scanner.nextLine();
-        data.put("newName", newName);
+        data.put("value", newName);
         presentationController.changeFirstName(data);
         System.out.println("First name changed successfully");
     }
@@ -346,7 +346,7 @@ public class MainMenu {
         System.out.println("Enter new last name:");
         scanner.skip("\\R?");
         String newName = scanner.nextLine();
-        data.put("newName", newName);
+        data.put("value", newName);
         presentationController.changeLastName(data);
         System.out.println("Last name changed successfully");
     }

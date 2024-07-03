@@ -15,9 +15,9 @@ public class DomainController {
 
     public void addBranch(Dictionary<String, String> data) {
         Chain.addBranch(data);
-    } // change this!! kuku
+    }
 
-    public boolean verification(Dictionary<String, String> info){ // change this!! kuku
+    public boolean verification(Dictionary<String, String> info){
         if(Objects.equals(info.get("branchNum"), "0")) {
             if (Integer.toString(Chain.getHrManager().getId()).equals(info.get("id")))
                 return true;
@@ -31,7 +31,7 @@ public class DomainController {
 
     }
 
-    public Worker getWorker(Dictionary<String, String> info){ // change this!! kuku
+    public Worker getWorker(Dictionary<String, String> info){
         List<Worker> workers = Chain.getWorkers(Integer.parseInt(info.get("branchNum")));
         if(workers == null)
             return null;
@@ -81,33 +81,48 @@ public class DomainController {
     }
 
     public void changeFirstName(Dictionary<String, String> data){
-        String newName = data.get("newName");
-        getWorker(data).setFirstName(newName);
+        data.put("key", data.get("id"));
+        data.put("update","firstName");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
     }
 
     public void changeLastName(Dictionary<String, String> data){
-        String newName = data.get("newName");
-        getWorker(data).setLastName(newName);
+        data.put("key", data.get("id"));
+        data.put("update","lastName");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
     }
 
     public void changeBankDetails(Dictionary<String, String> data){
-        int newBank = Integer.parseInt(data.get("newBank"));
-        getWorker(data).setBankInfo(newBank);
+        data.put("key", data.get("id"));
+        data.put("update","bankDetails");
+        data.put("type", "int");
+
+        Chain.updateWorker(data);
     }
 
     public void addRole(Dictionary<String, String> data){
-        String newRole = data.get("newRole");
-        getWorker(data).addRole(newRole);
+        data.put("key", data.get("id"));
+        data.put("update","role");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
     }
 
-    public boolean removeRole(Dictionary<String, String> data){
+    public boolean removeRole(Dictionary<String, String> data){  // kuku - update
         String roleToRemove = data.get("RoleToRemove");
         return getWorker(data).removeRole(roleToRemove);
     }
 
     public void changeHourRate(Dictionary<String, String> data){
-        int newSalary = Integer.parseInt(data.get("newSalary"));
-        getWorker(data).setHourRate(newSalary);
+        data.put("key", data.get("id"));
+        data.put("update","hourRate");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
     }
 
     public void changeVacationDays(Dictionary<String, String> data){
@@ -121,11 +136,14 @@ public class DomainController {
     }
 
     public void changeJobType(Dictionary<String, String> data){
-        String newType = data.get("newType");
-        getWorker(data).setJobType(newType);
+        data.put("key", data.get("id"));
+        data.put("update","jobType");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
     }
 
-    public LocalDate changingEndOfEmployment(Dictionary<String, String> data){
+    public LocalDate changingEndOfEmployment(Dictionary<String, String> data){  // kuku - update
         int year = Integer.parseInt(data.get("year"));
         int month = Integer.parseInt(data.get("month"));
         int day = Integer.parseInt(data.get("day"));
@@ -142,7 +160,7 @@ public class DomainController {
         if(branch == null || branch.checkBranchDeadLinePassed())
             return null;
 
-        return branch.removeWorker(getWorker(data));
+        return branch.removeWorker(data);
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data) {
@@ -159,7 +177,7 @@ public class DomainController {
         return branch.getShiftHistory();
     }
 
-    public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) {
+    public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) { // kuku - update
         int branchNum = Integer.parseInt(data.get("branchNum"));
         Branch branch = Chain.getBranch(branchNum);
         if(branch == null)
@@ -168,23 +186,14 @@ public class DomainController {
         return true;
     }
 
-    public boolean ChangingDeadline(Dictionary<String, String> data){
+    public boolean ChangingDeadline(Dictionary<String, String> data){  // kuku - update
         int branchNum = Integer.parseInt(data.get("branchNum"));
         Branch branch = Chain.getBranch(branchNum);
         return branch.ChangingDeadline(data);
     }
 
     public boolean ShiftsAssignment(){
-        List<Branch> branches = Chain.getBranches();
-        boolean flag = true;
-        for (Branch branch : branches)
-            flag = flag & branch.checkBranchDeadLinePassed();
-        branches = Chain.getBranches();
-        if(flag) {
-            for (Branch branch : branches)
-                branch.makeASchedule();
-        }
-        return flag;
+        return Chain.ShiftsAssignment();
     }
 
     public String PrintShiftsAssignment(Dictionary<String, String> data){

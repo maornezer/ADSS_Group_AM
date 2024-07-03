@@ -30,8 +30,7 @@ public class Scheduling {
     }
 
     public void creatSchedule(){
-        SystemLimitations limits = Chain.getSystemLimit(branchId);
-        int[][] nextWeekLimits = limits.getNextWeekLimits().clone();
+        int[][] nextWeekLimits = Chain.getBranch(branchId).getSystemLimitations().getNextWeekLimits();
         for(int i =0; i<7; i++){
             for (int j = 0; j<2; j++){
                 if(nextWeekLimits[i][j] == 1){

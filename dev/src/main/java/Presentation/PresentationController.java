@@ -19,8 +19,9 @@ public class PresentationController {
         if(data == null)
             MainMenu.creatChain();
         else{
-            this.domainController.createChain( data);
+            this.domainController.createChain(data);
         }
+        creatScheduleForConfig();
     }
 
     public void addBranch(Dictionary<String, String> data){

@@ -16,7 +16,7 @@ public class SystemLimitations {
 
     public SystemLimitations(int branchId) {
         this.branchId = branchId;
-        this.deadLine = TUESDAY;
+        this.deadLine = THURSDAY;
         shiftsOffConst = new ArrayList<>();
         shiftsOffTemp = new ArrayList<>();
         nextWeekLimits = new int[7][2];
@@ -96,6 +96,7 @@ public class SystemLimitations {
 
     public void creatNextWeek(){
         this.shiftsOffTemp.clear();
+
         for (int i = 0; i< 7; i++){
             for (int j = 0; j<2; j++){
                 nextWeekLimits[i][j] = 1;
