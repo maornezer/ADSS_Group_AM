@@ -1,9 +1,6 @@
 package Presentation;
 
-import Domain.Order;
-import Domain.Site;
-import Domain.TransportController;
-import Domain.Truck;
+import Domain.*;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -31,6 +28,10 @@ public class PresentationController {
     public void printallDriversByLicense(String licenseType) {System.out.println(transportController.getLogistics().printDriversByLicenseType(licenseType));}
 
     public boolean searchDriver(int id){return transportController.getLogistics().searchDriver(id);
+    }
+    public boolean removeDriver(Dictionary<String, String> data) {return transportController.getLogistics().removeDriver(data);
+    }
+    public Driver getDriver(Dictionary<String, String> data) {return transportController.getLogistics().getDriver(data);
     }
 
     /// truck ///
@@ -109,7 +110,5 @@ public class PresentationController {
     {
         return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));
     }
-
-
 
 }

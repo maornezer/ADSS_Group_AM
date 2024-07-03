@@ -75,6 +75,11 @@ public class LogisticsController {
         return driverRepo.insert(d);
     }
 
+    public boolean removeDriver(Dictionary<String, String> data)
+    {
+        int id = Integer.parseInt(data.get("id"));
+        return removeDriver(id);
+    }
     public boolean removeDriver(int id) {
         if (!searchDriver(id))
             return false;
@@ -85,7 +90,12 @@ public class LogisticsController {
         return driverRepo.search(id);
     }
 
-    public Driver getDriver(int id) {
+    public Driver getDriver(Dictionary<String, String> data)
+    {
+        int id = Integer.parseInt(data.get("id"));
+        return getDriver(id);
+    }
+        public Driver getDriver(int id) {
         if (!driverRepo.search(id))
             return null;
         return driverRepo.get(id);

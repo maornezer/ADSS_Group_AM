@@ -667,7 +667,6 @@ public void createOrder()
                 break;
             case "3":
                 driverMenu();
-                addDriver();
                 break;
             case "4":
                 managerMenu();
@@ -885,10 +884,10 @@ public void createOrder()
                 addDriver();
                 break;
             case "2":
-                removeTruck();
+                removeDriver();
                 break;
             case "3":
-                getTruck();
+                getDriver();
                 break;
             case "4":
                 managerMenu();
@@ -928,6 +927,33 @@ public void createOrder()
             System.out.println("Adding the driver failed");
         else
             System.out.println("Adding the driver complete");
+    }
+    public void removeDriver()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter driver id you want to remove: ");
+        scanner.skip("\\R?");
+        String idD = scanner.nextLine();
+        data.put("id", idD);
+        boolean b = controller.removeDriver(data);
+        if (!b)
+            System.out.println("Removing the driver failed");
+        else
+            System.out.println("Removing the driver complete");
+    }
+    public void getDriver()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter driver id you want to get his information: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        data.put("id", id);
+        Driver d = controller.getDriver(data);
+        if (d == null) {
+            System.out.println("There is no driver with id " + id + " in the system");
+        }
+        else
+            System.out.println("Name: "+ d.getName() + ", ID: " + id +", License type: " + d.getTypeOfLicense());
     }
     public void seeAllOrdersOrAllTransports()
     {
