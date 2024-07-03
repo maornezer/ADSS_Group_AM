@@ -30,7 +30,9 @@ public class OrderRepository {
         {
             if (o.getId() == id){
                 allOrders.remove(o);
+                break;
             }
+
         }
         orderDAO.remove(id);
         return true;

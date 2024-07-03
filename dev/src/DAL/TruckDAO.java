@@ -14,7 +14,8 @@ public class TruckDAO implements IDAO {
     public void insert(Object object) {
         TruckDTO truck = (TruckDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO Truck(initialWeight, maxWeight, model, id) VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setDouble(1, truck.initialWeight);
@@ -32,7 +33,8 @@ public class TruckDAO implements IDAO {
     public void remove(int id) {
         //Connection connection = db.getDB();
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "DELETE FROM Truck WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -46,7 +48,8 @@ public class TruckDAO implements IDAO {
     public Object get(int id) {
         TruckDTO truck = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT * FROM Truck WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -67,7 +70,8 @@ public class TruckDAO implements IDAO {
     public int countRecords() {
         int count = 0;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT COUNT(*) AS count FROM Truck";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

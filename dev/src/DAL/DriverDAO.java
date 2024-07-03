@@ -14,7 +14,8 @@ public class DriverDAO implements IDAO {
     public void insert(Object object) {
         DriverDTO driver = (DriverDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO Driver(name, typeOflicence,id) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, driver.name);
@@ -31,7 +32,8 @@ public class DriverDAO implements IDAO {
     // Delete a driver
     public void remove(int id) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "DELETE FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -45,7 +47,8 @@ public class DriverDAO implements IDAO {
     public Object get(int id) {
         DriverDTO driver = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT * FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -65,7 +68,8 @@ public class DriverDAO implements IDAO {
     public boolean checkIfDriverExistsByLicence(String type) {
         boolean exists = false;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT COUNT(*) AS count FROM Driver WHERE typeOflicence = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, type);
@@ -85,7 +89,8 @@ public class DriverDAO implements IDAO {
     public int countRecords() {
         int count = 0;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT COUNT(*) AS count FROM Driver";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

@@ -28,6 +28,7 @@ public class DriverRepository {
         for (Driver driver : drivers) {
             if (driver.getId() == id) {
                 drivers.remove(driver);
+                break;
             }
         }
         drivers.remove(id);

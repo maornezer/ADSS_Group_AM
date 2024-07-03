@@ -28,6 +28,7 @@ public class TransportRepository
         for (Transport t : transports) {
             if (t.getId() == id) {
                 transports.remove(t);
+                break;
             }
         }
         transportDAO.remove(id);

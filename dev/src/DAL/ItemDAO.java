@@ -15,7 +15,8 @@ public class ItemDAO implements IDAO {
     public void insert(Object object) {
         ItemDTO item = (ItemDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO Item(name, amount, id0) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, item.name);
@@ -31,7 +32,8 @@ public class ItemDAO implements IDAO {
     // Delete an item
     public void remove(int id) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "DELETE FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -45,7 +47,8 @@ public class ItemDAO implements IDAO {
     public Object get(int id) {
         ItemDTO item = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT * FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -66,7 +69,8 @@ public class ItemDAO implements IDAO {
     public ArrayList<Integer> getItemIdsByOrderId(int idOrder) {
         ArrayList<Integer> itemIds = new ArrayList<>();
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT id FROM Item WHERE id0 = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, idOrder);

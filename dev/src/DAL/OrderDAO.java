@@ -106,7 +106,8 @@ public class OrderDAO implements IDAO {
     public void insert(Object object) {
         OrderDTO order = (OrderDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO `Order`(date, source, destination, idT) VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, order.date);
@@ -131,7 +132,8 @@ public class OrderDAO implements IDAO {
     // Insert order items
     private void insertOrderItems(int orderId, HashMap<Integer, List<Integer>> items) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO `Item` (id, name, amount, id0) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -153,7 +155,8 @@ public class OrderDAO implements IDAO {
     // Delete an order
     public void remove(int id) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             // Delete items first
             String sqlItems = "DELETE FROM `Item` WHERE id0 = ?";
             PreparedStatement psItems = connection.prepareStatement(sqlItems);
@@ -174,7 +177,8 @@ public class OrderDAO implements IDAO {
     public Object get(int id) {
         OrderDTO order = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT * FROM `Order` WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -196,7 +200,8 @@ public class OrderDAO implements IDAO {
     private HashMap<Integer, List<Integer>> getOrderItems(int orderId) {
         HashMap<Integer, List<Integer>> itemsMap = new HashMap<>();
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT id FROM `Item` WHERE id0 = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, orderId);

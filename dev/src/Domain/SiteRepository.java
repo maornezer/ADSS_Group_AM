@@ -28,19 +28,19 @@ public class SiteRepository
     }
 
     public boolean remove(int id) {
-//        for (Site s : sites) {
-//            if (s.getId() == id) {
-//                sites.remove(s);
-//                break;
-//            }
-//        }
-        Iterator<Site> iterator = sites.iterator();
-        while (iterator.hasNext()) {
-            Site s = iterator.next();
+        for (Site s : sites) {
             if (s.getId() == id) {
-                iterator.remove();
+                sites.remove(s);
+                break;
             }
         }
+//        Iterator<Site> iterator = sites.iterator();
+//        while (iterator.hasNext()) {
+//            Site s = iterator.next();
+//            if (s.getId() == id) {
+//                iterator.remove();
+//            }
+//        }
         siteDAO.remove(id);
         return true;
     }

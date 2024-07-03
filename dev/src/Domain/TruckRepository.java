@@ -27,6 +27,7 @@ public class TruckRepository
         for (Truck truck : trucks) {
             if (truck.getIdTruck() == id) {
                 trucks.remove(truck);
+                break;
             }
         }
         truckDAO.remove(id);

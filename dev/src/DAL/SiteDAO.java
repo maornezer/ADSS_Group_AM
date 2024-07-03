@@ -14,7 +14,8 @@ public class SiteDAO implements IDAO {
     public void insert(Object object) {
         SiteDTO site = (SiteDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO Site(address, zone, contactName, phoneNumber,id) VALUES(?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, site.address);
@@ -22,7 +23,6 @@ public class SiteDAO implements IDAO {
             ps.setString(3, site.contactName);
             ps.setString(4, site.phoneNumber);
             ps.setInt(5, site.id);
-
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -33,7 +33,8 @@ public class SiteDAO implements IDAO {
     // Delete a site
     public void remove(int id) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "DELETE FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -47,7 +48,9 @@ public class SiteDAO implements IDAO {
     public Object get(int id) {
         SiteDTO site = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
+
             String sql = "SELECT * FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);

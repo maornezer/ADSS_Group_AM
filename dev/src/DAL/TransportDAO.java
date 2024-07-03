@@ -14,7 +14,8 @@ public class TransportDAO implements IDAO {
     public void insert(Object object) {
         TransportDTO transport = (TransportDTO) object;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "INSERT INTO Transport(idT, idD) VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, transport.idT);
@@ -29,7 +30,8 @@ public class TransportDAO implements IDAO {
     // Delete a transport
     public void remove(int id) {
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "DELETE FROM Transport WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -43,7 +45,8 @@ public class TransportDAO implements IDAO {
     public Object get(int id) {
         TransportDTO transport = null;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT * FROM Transport WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -63,7 +66,8 @@ public class TransportDAO implements IDAO {
     public int countRecords() {
         int count = 0;
         try {
-            Connection connection = DB.connect();
+            //Connection connection = DB.connect();
+            Connection connection = db.getDB();
             String sql = "SELECT COUNT(*) AS count FROM Transport";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

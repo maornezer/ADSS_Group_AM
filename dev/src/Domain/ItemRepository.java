@@ -32,6 +32,7 @@ public class ItemRepository{
             if (item.getId() == id) {
                 items.remove(item);
                 removeFromOrderItemsMap(item.getIdO(), item.getId());//maybe not
+                break;
             }
         }
         itemDAO.remove(id);

@@ -11,50 +11,47 @@ public class Menu {
     private PresentationController controller;
     boolean readFile = false;
 
-    public void startMenu()
-    {
-        scanner = new Scanner(System.in);
-        controller = new PresentationController();
-        int choice = -1;
-        while (choice != 1 || choice != 2)
-        {
-            System.out.println("Please choose:");
-            System.out.println("1. Initialize system with information");
-            System.out.println("2. Initialize empty system");
-            scanner.skip("\\R?");
-            choice = scanner.nextInt();
-            if (choice == 1) {
-                readDataFile data = new readDataFile(controller);
-                data.loadData();
-                readFile = true;
-                System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
-                printMenu();
-                return;
-            }
-            else if (choice == 2)
-            {
-                printMenu();
-                return;
-            }
-            else
-            {
-                System.out.println("Please choose option 1 or 2 only");
-            }
-        }
-
-
-    }
+//    public void startMenu()
+//    {
+//        scanner = new Scanner(System.in);
+//        controller = new PresentationController();
+//        int choice = -1;
+//        while (choice != 1 || choice != 2)
+//        {
+//            System.out.println("Please choose:");
+//            System.out.println("1. Initialize system with information");
+//            System.out.println("2. Initialize empty system");
+//            scanner.skip("\\R?");
+//            choice = scanner.nextInt();
+//            if (choice == 1) {
+//                readDataFile data = new readDataFile(controller);
+//                data.loadData();
+//                readFile = true;
+//                System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
+//                printMenu();
+//                return;
+//            }
+//            else if (choice == 2)
+//            {
+//                printMenu();
+//                return;
+//            }
+//            else
+//            {
+//                System.out.println("Please choose option 1 or 2 only");
+//            }
+//        }
+//
+//
+//    }
 
     public void printMenu()
     {
-        System.out.println("Welcome to Super-Li Shipment module\n");
-        System.out.println("Please login to the system");
-
-        //..boolean exit = false;
-        while (true)
-        {
-            System.out.println("Please enter your username:");
-            System.out.println("If you want to logout please enter exit");
+        scanner = new Scanner(System.in);
+        controller = new PresentationController();
+        System.out.println("Welcome to Super-Li Shipment module :)");
+        while (true) {
+            System.out.println("Please enter your username [for logout please enter exit]");
             scanner.skip("\\R?");
             String username =  scanner.nextLine();
             if(username.compareTo("exit") == 0){
