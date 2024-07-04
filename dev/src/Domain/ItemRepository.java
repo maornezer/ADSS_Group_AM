@@ -98,8 +98,7 @@ public class ItemRepository{
     }
 
 
-
-
+    public void updateAmount(int itemID, int amount) {itemDAO.updateAmount( itemID, amount);}
 }
 
 

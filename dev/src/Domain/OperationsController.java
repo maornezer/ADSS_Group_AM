@@ -214,9 +214,17 @@ public class OperationsController {
         Order o = getOrder(id);
         return o.isHaveTransport();
     }
-
+    public Item getItem(int itemID) {
+        if(!searchItem(itemID))
+        {
+            return null;
+        }
+        return itemRepo.get(itemID);
+    }
 
     public void updateIDTransport(int idOrder,int idTransport){orderRepo.updateIDTransport(idOrder,idTransport);}
 
-
+    public ItemRepository getItemRepo() {
+        return itemRepo;
+    }
 }

@@ -238,37 +238,17 @@ public class TransportController
         }
         return false;
     }
-//    public boolean treatmentWeightProblemChangeTruck(Dictionary<String,String> data)
-//    {
-//        int transportID = Integer.parseInt(data.get("transportID"));
-//        int truckId = Integer.parseInt(data.get("truckId"));
-//        return treatmentWeightProblemChangeTruck(transportID, truckId);
-//    }
-//    public boolean treatmentWeightProblemChangeTruck(int transportID,int truckId)
-//    {
-//        boolean b = changeTruck(transportID,truckId);
-//        if (b)
-//        {
-//            getTransport(transportID).setChangeTruck();
-//            return true;
-//        }
-//        return false;
-//    }
+
     public boolean treatmentWeightProblemUnloadingItems(Dictionary<String,String> data)
     {
         int orderID = Integer.parseInt(data.get("orderID"));
         int itemID = Integer.parseInt(data.get("itemID"));
         int amount = Integer.parseInt(data.get("amount"));
         int transportID = Integer.parseInt(data.get("transportID"));
-        return treatmentWeightProblemUnloadingItems(orderID,itemID, amount, transportID);
-    }
-
-    public boolean treatmentWeightProblemUnloadingItems(int orderID,int itemID,int amount, int transportID) {
         Order orderTemp = operations.getOrder(orderID);
-        Item itemTemp = orderTemp.getItemByID(itemID);
+        Item itemTemp = operations.getItem(itemID);
         if (amount < 0 || !orderTemp.getItems().contains(itemTemp))
         {
-            System.out.println("Error! The order " + orderID + " is not in contains this id item" );
             return false;
         }
         else
@@ -276,24 +256,13 @@ public class TransportController
             boolean b = orderTemp.changeAmount(itemID,amount);
             if (b)
                 {
+                    operations.getItemRepo().updateAmount(itemID, amount);
                     getTransport(transportID).setUnloadingItems();
                 }
         return true;
         }
     }
-//    public boolean treatmentWeightProblemChangeDestination(Dictionary<String,String> data)
-//    {
-//        int orderID = Integer.parseInt(data.get("orderID"));
-//        int idSite = Integer.parseInt(data.get("idS"));
-//        int transportID = Integer.parseInt(data.get("transportID"));
-//        boolean b = operations.changeDestination(orderID,idSite);
-//        if (b)
-//        {
-//            getTransport(transportID).setChangeDestination();
-//            return true;
-//        }
-//        return false;
-//    }
+
 
     public boolean changeDriver(Dictionary<String,String> data)
     {

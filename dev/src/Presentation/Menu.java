@@ -996,7 +996,7 @@ public class Menu {
         data.put("transportID", Integer.toString(transportID));
         data.put("orderID", Integer.toString(orderID));
         controller.printOrder(data);
-        System.out.println("Please enter the ID of the item you want to change the quantity of ");
+        System.out.println("Please enter the item id you want to change the quantity of ");
         scanner.skip("\\R?");
         String itemID = scanner.nextLine();
         System.out.println("What is the amount you would like to reduce from the item ");
@@ -1008,17 +1008,13 @@ public class Menu {
         if (!sol2)
         {
             System.out.println("Changing the quantity of item "+ itemID + " failed Please choose again a solution for the weight problem");
-            managerSulotion(transportID, orderID);
+            return;
         }
         else
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
             System.out.println("Weight the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
-            for (Order order: orderArrayList)
-            {
-                Orderweightupdate(transportID, orderID);
-            }
+            Orderweightupdate(transportID, orderID);
         }
     }
     private void changeDestinationSol(int transportID, int orderID)
@@ -1040,17 +1036,13 @@ public class Menu {
         if (!sol3)
         {
             System.out.println("Changing the destination failed Please choose again a solution for the weight problem");
-            managerSulotion(transportID, orderID);
+            return;
         }
         else
         {
             System.out.println("The destination was successfully replaced");
             System.out.println("Weigh the truck again");
-            ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
-            for (Order order: orderArrayList)
-            {
-                Orderweightupdate(transportID, orderID);
-            }
+            Orderweightupdate(transportID, orderID);
         }
     }
     public static LocalDate validateAndParseDate(String dateStr) {
