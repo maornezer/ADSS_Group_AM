@@ -281,24 +281,19 @@ public class TransportController
         return true;
         }
     }
-    public boolean treatmentWeightProblemChangeDestination(Dictionary<String,String> data)
-    {
-        int orderID = Integer.parseInt(data.get("orderID"));
-        String address = data.get("address");
-        int transportID = Integer.parseInt(data.get("transportID"));
-        return treatmentWeightProblemChangeDestination(orderID, address, transportID );
-    }
-
-    public boolean treatmentWeightProblemChangeDestination(int orderID, String address, int transportID)
-    {
-        boolean b = operations.changeDestination(orderID,address);
-        if (b)
-        {
-            getTransport(transportID).setChangeDestination();
-            return true;
-        }
-        return false;
-    }
+//    public boolean treatmentWeightProblemChangeDestination(Dictionary<String,String> data)
+//    {
+//        int orderID = Integer.parseInt(data.get("orderID"));
+//        int idSite = Integer.parseInt(data.get("idS"));
+//        int transportID = Integer.parseInt(data.get("transportID"));
+//        boolean b = operations.changeDestination(orderID,idSite);
+//        if (b)
+//        {
+//            getTransport(transportID).setChangeDestination();
+//            return true;
+//        }
+//        return false;
+//    }
 
     public boolean changeDriver(Dictionary<String,String> data)
     {

@@ -536,7 +536,6 @@ public class Menu {
         scanner.skip("\\R?");
         String id = scanner.nextLine();
         data.put("id", id);
-
         System.out.println("Enter Site Address: ");
         scanner.skip("\\R?");
         String address = scanner.nextLine();
@@ -1020,19 +1019,24 @@ public class Menu {
             {
                 Orderweightupdate(transportID, orderID);
             }
-
         }
     }
     private void changeDestinationSol(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Please enter new destination address: ");
+        System.out.println("Please enter new destination id: ");
         scanner.skip("\\R?");
-        String address = scanner.nextLine();
+        String idSite = scanner.nextLine();
+        boolean b = controller.searchSite(idSite);
+        if (!b)
+        {
+            System.out.println("Site with ID "+idSite+" does not exist");
+            return;
+        }
         data.put("orderID", Integer.toString(orderID));
         data.put("transportID", Integer.toString(transportID));
-        data.put("address", address);
-        boolean sol3 = controller.treatmentWeightProblemChangeDestination(data);
+        data.put("idS", idSite);
+        boolean sol3 = controller.changeDestination(data);
         if (!sol3)
         {
             System.out.println("Changing the destination failed Please choose again a solution for the weight problem");

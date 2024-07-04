@@ -74,4 +74,10 @@ public class OrderRepository {
         return orderDAO;
     }
     public List<Integer> getOrderIdsByTransportId(int idTransport) {return orderDAO.getOrderIdsByTransportId(idTransport);}
+
+    public void updateSiteDest(Order orderTemp, Site site) {
+        orderTemp.setDestinationID(site.getId());
+        orderTemp.setDestination(site);
+        orderDAO.updateDestination(orderTemp.getId(), site.getId(), site.getAddress());
+    }
 }

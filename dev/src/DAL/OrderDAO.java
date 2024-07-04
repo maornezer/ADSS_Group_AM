@@ -135,4 +135,18 @@ public class OrderDAO implements IDAO {
     }
 
 
+    public void updateDestination(int id, int idDestination, String destination) {
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "UPDATE `Order` SET idDestination = ?, destination = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idDestination);
+            ps.setString(2, destination);
+            ps.setInt(3, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

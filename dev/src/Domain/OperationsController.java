@@ -157,20 +157,15 @@ public class OperationsController {
         return order;
     }
     public boolean changeDestination(Dictionary<String, String> data) {
-        int id = Integer.parseInt(data.get("id"));
-        String newAddress = data.get("destination");
-        return changeDestination(id, newAddress);
-    }
-    public boolean changeDestination(int orderID,String address ) {
-        if(isAddressSiteAlreadyIn(address)) {
-            Order orderTemp = getOrder(orderID);
-            if(getSiteByAddress(address).getSiteZone().compareTo(orderTemp.getDestination().getSiteZone()) != 0 ) {
-                return false;
-            }
-            orderTemp.setDestination(getSiteByAddress(address));
-            return true;
+        int idOrder = Integer.parseInt(data.get("id"));
+        int idSite = Integer.parseInt(data.get("idS"));
+        Site site = getSite(idSite);
+        Order orderTemp = getOrder(idOrder);
+        if(site.getSiteZone().compareTo(orderTemp.getDestination().getSiteZone()) != 0) {
+            return false;
         }
-        return false;
+        orderRepo.updateSiteDest(orderTemp, site);
+        return true;
     }
     ////to String for order
     public String generateOrderReport(String orderId) {

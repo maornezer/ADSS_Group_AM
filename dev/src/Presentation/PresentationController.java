@@ -108,7 +108,7 @@ public class PresentationController {
     public boolean listSizeIsEmpty() {
         return transportController.listSizeIsEmpty();
     }
-    public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
+    //public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
 
 
     public void updateComplete(int transportID) {transportController.updateComplete(transportID);}
