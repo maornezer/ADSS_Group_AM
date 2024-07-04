@@ -30,13 +30,13 @@ public class WorkersRepository {
         List<Worker> res = new ArrayList<>();
         for(Worker worker: workerList){
             Worker tempWorker = workersRepo.get(worker.getId());
-            if( tempWorker != null){
-                res.add(tempWorker);
+                if (tempWorker != null && tempWorker.getEmploymentEnd().isBefore(Chain.getToday())) {
+                    res.add(tempWorker);
+                } else {
+                    if(worker.getEmploymentEnd().isBefore(Chain.getToday()))
+                        res.add(worker);
+                }
             }
-            else {
-                res.add(worker);
-            }
-        }
         return res;
     }
 
@@ -62,7 +62,7 @@ public class WorkersRepository {
     }
 
     public void deleteWorker(int id){
-        Worker worker = workersRepo.get("id");
+        Worker worker = workersRepo.get(id);
         if(worker != null) {
             workersRepo.remove(id);
         }

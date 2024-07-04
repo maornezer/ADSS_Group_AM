@@ -10,24 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="bugs fixed">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/adss2024_v02.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_2_0_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_46_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Personnel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Personnel.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configuration.csv" beforeDir="false" afterPath="$PROJECT_DIR$/configuration.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Domain/BranchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Domain/BranchTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../release/adss2024_v01.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +223,7 @@
       <workItem from="1719937220464" duration="16838000" />
       <workItem from="1719962193194" duration="1413000" />
       <workItem from="1719968088782" duration="2057000" />
-      <workItem from="1720000412007" duration="42575000" />
+      <workItem from="1720000412007" duration="45742000" />
     </task>
     <task id="LOCAL‎-00001" summary="bla">
       <created>1717521888018</created>
@@ -381,7 +365,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1720121931424</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎-00021" summary="bugs fixed">
+      <created>1720121984991</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL‎-00021" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1720121984991</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
