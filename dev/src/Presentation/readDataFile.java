@@ -63,7 +63,7 @@ public class readDataFile
                         String siteAddress = parts[2];
                         String sitePhoneNumber = parts[3];
                         Dictionary<String,String> s = addSiteDict(siteAddress,siteZone,siteName,sitePhoneNumber);
-                        prController.addSite(s,"csv");
+                        //prController.addSite(s,"csv");
                         break;
                     case "truck":
                         if (parts.length < 4) break;

@@ -18,7 +18,7 @@ public class OperationsController {
     }
 
     //**********************SITE:**********************//
-    public boolean addSite(Dictionary<String, String> data,String str) {
+    public boolean addSite(Dictionary<String, String> data) {
         int siteID = Integer.parseInt(data.get("id"));
         if (searchSite(siteID)) {
             return false;
@@ -37,7 +37,7 @@ public class OperationsController {
         return removeSite(idSite);
     }
 
-        public boolean removeSite(int id) {
+    public boolean removeSite(int id) {
         if (!searchSite(id))
             return false;
         return siteRepo.remove(id);

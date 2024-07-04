@@ -48,7 +48,7 @@ public class PresentationController {
 
 
     /// site ///
-    public boolean addSite(Dictionary<String, String> data,String str) {return this.transportController.getOperations().addSite(data,str);}
+    public boolean addSite(Dictionary<String, String> data) {return this.transportController.getOperations().addSite(data);}
     public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getOperations().changeDestination(data);}
     public boolean checkAddress(String source) {return this.transportController.getOperations().isAddressSiteAlreadyIn(source);}
     public void printAllAddress() {System.out.println(transportController.getOperations().printAllAddress());}

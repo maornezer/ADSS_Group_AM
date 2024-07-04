@@ -559,7 +559,7 @@ public class Menu {
         String phoneNumber = scanner.nextLine();
         data.put("phoneNumber", phoneNumber);
 
-        boolean b = controller.addSite(data,"menu");
+        boolean b = controller.addSite(data);
         if (!b) {
             System.out.println("Adding the site failed");
 

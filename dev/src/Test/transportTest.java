@@ -1,38 +1,38 @@
-//package Test;
+package Test;
+
+import Domain.Order;
+//import org.junit.After;
+//import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import Domain.*;
+
+
+public class transportTest
+{
+    private  TransportController tr = new TransportController();
+
+
+//    @Before
+//    public  void setUp() {
+//        tr = new TransportController();
+//    }
 //
-//import Domain.Order;
-////import org.junit.After;
-////import org.junit.Before;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-////import static org.junit.jupiter.api.Assertions.assertEquals;
-//import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.util.Dictionary;
-//import java.util.Hashtable;
-//import Domain.*;
-//
-//
-//public class transportTest
-//{
-//    private  TransportController tr;// = new TransportController();
-//
-//
-////    @Before
-////    public  void setUp() {
-////        tr = new TransportController();
-////    }
-////
-////    @After
-////    public void tearDown()
-////    {
-////        tr.getDomain().getTrucks().clear();
-////        tr.getDomain().getSites().clear();
-////        tr.getDomain().getAllOrders().clear();
-////        tr.getDomain().getDrivers().clear();
-////        tr.getTransports().clear();
-////    }
-//
+//    @After
+//    public void tearDown()
+//    {
+//        tr.getDomain().getTrucks().clear();
+//        tr.getDomain().getSites().clear();
+//        tr.getDomain().getAllOrders().clear();
+//        tr.getDomain().getDrivers().clear();
+//        tr.getTransports().clear();
+//    }
+
 //    @Test
 //    public void addSite() //add 4 site, 1 false
 //    {
@@ -42,31 +42,32 @@
 //        dataSite.put("zone", "Center");
 //        dataSite.put("contactName", "Maor");
 //        dataSite.put("phoneNumber", "0508260837");
-//        tr.getDomain().addSite(dataSite,"test");
-//        int size = tr.getDomain().getSites().size();
+//        d
+//        tr.getOperations().addSite(dataSite);
+//        int size = tr.getOperations().getSiteRepo().getSites().size();
 //        assertEquals(size, 1);
 //        dataSite.put("address", "Rager");
 //        dataSite.put("zone", "Center");
 //        dataSite.put("contactName", "Mor");
 //        dataSite.put("phoneNumber", "0507630837");
-//        assertFalse(tr.getDomain().addSite(dataSite,"test"));
-//        size = tr.getDomain().getSites().size();
+//        assertFalse(tr.getOperations().addSite(dataSite));
+//        size = tr.getOperations().getSiteRepo().getSites().size();
 //        assertEquals(size, 1);
 //        dataSite.put("address", "Block");
 //        dataSite.put("zone", "Center");
 //        dataSite.put("contactName", "Mri");
 //        dataSite.put("phoneNumber", "050123457");
-//        tr.getDomain().addSite(dataSite,"test");
+//        tr.getOperations().addSite(dataSite);
 //        dataSite.put("address", "Bialik");
 //        dataSite.put("zone", "South");
 //        dataSite.put("contactName", "Bialik");
 //        dataSite.put("phoneNumber", "05678457");
-//        tr.getDomain().addSite(dataSite,"test");
-//        size = tr.getDomain().getSites().size();
+//        tr.getOperations().addSite(dataSite);
+//        size = tr.getOperations().getSiteRepo().getSites().size();
 //        assertEquals(size, 3);
 //
 //    }
-//
+
 //    @Test
 //    public void testAddOrder()
 //    {
@@ -74,7 +75,7 @@
 //        Dictionary<String, String> data1= new Hashtable<String, String>();
 //        Site s1 = new Site("Rose", "North", "Bob", "0987654321");
 //        Site s2 = new Site("Lili", "North", "Bob", "0987654321");
-//        tr.getDomain().addSiteToList(s1);
+//        tr.getOperations().getSiteRepo().getSites().add(s1);
 //        tr.getDomain().addSiteToList(s2);
 //        ArrayList<String> item1 = new ArrayList<>();
 //        item1.add("10");
@@ -451,5 +452,92 @@
 //        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
 //
 //    }
-//
-//}
+    @Test
+    public void addSite1()
+    {
+        Dictionary<String, String> addSite1 = new Hashtable<String, String>();
+        addSite1.put("id", "1");
+        addSite1.put("address", "Rager");
+        addSite1.put("zone", "Central");
+        addSite1.put("contactName", "Maor");
+        addSite1.put("phoneNumber", "0508260837");
+        boolean b = tr.getOperations().addSite(addSite1);
+        assertFalse(b);
+    }
+
+    @Test
+    public void addSite2()
+    {
+        Dictionary<String, String> addSite2 = new Hashtable<String, String>();
+        addSite2.put("id", "1000");
+        addSite2.put("address", "R");
+        addSite2.put("zone", "Central");
+        addSite2.put("contactName", "M");
+        addSite2.put("phoneNumber", "057");
+        boolean b = tr.getOperations().addSite(addSite2);
+        assertTrue(b);
+    }
+    @Test
+    public void addSite3()
+    {
+        Dictionary<String, String> addSite3 = new Hashtable<String, String>();
+        addSite3.put("id", "1001");
+        addSite3.put("address", "RR");
+        addSite3.put("zone", "Central");
+        addSite3.put("contactName", "MM");
+        addSite3.put("phoneNumber", "0557");
+        boolean b = tr.getOperations().addSite(addSite3);
+        assertTrue(b);
+    }
+    @Test
+    public void addTruck()
+    {
+        Dictionary<String, String> addTruck = new Hashtable<String, String>();
+        addTruck.put("idT", "1001");
+        addTruck.put("initialWeight", "200");
+        addTruck.put("maxWeight", "4000");
+        addTruck.put("model", "MMM");
+        boolean b = tr.getLogistics().addTruck(addTruck);
+        assertTrue(b);
+    }
+    @Test
+    public void addDriver()
+    {
+        Dictionary<String, String> addDriver = new Hashtable<String, String>();
+        addDriver.put("id", "1001");
+        addDriver.put("initialWeight", "200");
+        addDriver.put("maxWeight", "4000");
+        addDriver.put("model", "MMM");
+        boolean b = tr.getLogistics().addDriver(addDriver);
+        assertTrue(b);
+    }
+
+    @Test
+    public void removeTruck()
+    {
+        Dictionary<String, String> removeTruck = new Hashtable<String, String>();
+        removeTruck.put("id", "1001");
+        boolean b = tr.getLogistics().remove(removeTruck);
+        assertTrue(b);
+    }
+
+
+    @Test
+    public void removeSite1()
+    {
+        Dictionary<String, String> removeSite = new Hashtable<String, String>();
+        removeSite.put("id", "100");
+
+        boolean b = tr.getOperations().removeSite(removeSite);
+        assertFalse(b);
+    }
+    @Test
+    public void removeSite2()
+    {
+        Dictionary<String, String> removeSite2 = new Hashtable<String, String>();
+        removeSite2.put("id", "1000");
+        boolean b = tr.getOperations().removeSite(removeSite2);
+        assertTrue(b);
+    }
+
+}
