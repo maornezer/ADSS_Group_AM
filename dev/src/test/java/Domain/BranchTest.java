@@ -211,22 +211,32 @@ class BranchTest {
 
     @Test
     void getBranchNum() {
+        assertEquals(20, branch.getBranchNum());
     }
 
     @Test
     void getAddress() {
+        assertEquals("Tel aviv", branch.getAddress());
     }
 
-    @Test
-    void changeAmountTypeOfWorkersShift() {
-    }
+//    @Test
+//    void changeAmountTypeOfWorkersShift() {
+//
+//    }
 
     @Test
     void changeStartAndEndTime() {
+        Dictionary<String, String> data = new Hashtable<>();
+        data.put("day", "7");
+        data.put("shift", "1");
+        data.put("start", "7");
+        data.put("end", "13");
+        assertEquals(false, branch.changeStartAndEndTime(data));
     }
 
     @Test
     void testToString() {
+        assertNotEquals(0, branch.toString().length());
     }
 
 
