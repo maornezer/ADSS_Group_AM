@@ -62,8 +62,8 @@ public class PresentationController {
     public void printAllOrders() {System.out.print(transportController.getOperations().toStringOrders());}
     public void getItemInOrder(String idOrder) {System.out.println(this.transportController.getOperations().generateOrderReport(idOrder));}
     public void printOrder(Dictionary<String, String> data) {System.out.println(transportController.getOperations().printOrder(data));}
-
-
+    public boolean removeOrder(Dictionary<String, String> data) {return transportController.getOperations().removeOrder(data);}
+    public Order getOrder(String data) {return transportController.getOperations().getOrder(Integer.parseInt(data));}
 
 
 
@@ -113,5 +113,6 @@ public class PresentationController {
     {
         return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));
     }
+
 
 }

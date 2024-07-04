@@ -20,7 +20,7 @@ public class OrderRepository {
     }
 
     public boolean insert(Order o) {
-        OrderDTO orderDTO  = new OrderDTO(o.getId(),o.getDate().toString(), o.getSource().getAddress(), o.getDestination().getAddress(), o.getSourceID(),o.getDestinationID());
+        OrderDTO orderDTO  = new OrderDTO(o.getId(),o.getDate().toString(), o.getSource().getAddress(), o.getDestination().getAddress(), o.getSourceID(),o.getDestinationID(), -1);
         orderDAO.insert(orderDTO);
         allOrders.add(o);
         return true;
@@ -56,7 +56,7 @@ public class OrderRepository {
             }
         }
         Order order = new Order((OrderDTO) orderDAO.get(id));
-        //allOrders.add(order);///? לא פה
+        allOrders.add(order);
         return order;
     }
     public OrderDTO helpGetFunc(int id) {return (OrderDTO) orderDAO.get(id);}
@@ -65,4 +65,6 @@ public class OrderRepository {
     public ArrayList<Order> getAllOrders() {return allOrders;}
 
     public int getSizeOrders() {return allOrders.size();}
+
+    public int getMaxId() {return orderDAO.getMaxOrderId();}
 }

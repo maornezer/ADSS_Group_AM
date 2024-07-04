@@ -52,7 +52,7 @@ public class TransportController
             return -4;
         }
         Transport transport = new Transport(truck, driver, order);
-        order.setHaveTransport();
+        order.setTransportAssociation(transport.getId());
         driver.addDate(order.getDate());
         truck.addDate(order.getDate());
         transportRepo.insert(transport);

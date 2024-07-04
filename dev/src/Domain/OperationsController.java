@@ -95,9 +95,9 @@ public class OperationsController {
             ArrayList<String> itemData = key.getValue();
             Item item = addItem(itemData); // create item from data
             orderItems.add(item); // add new item from data to list
-            //צריך להוסיף את הidorder לטבלת ה-items////////////////
         }
-        Order newOrder = new Order(date,destID,destinationSite,sourceID,sourceSite,orderItems);
+        int maxID = orderRepo.getMaxId() + 1;
+        Order newOrder = new Order(maxID,date,destID,destinationSite,sourceID,sourceSite,orderItems);
         orderRepo.insert(newOrder);
 
         for (Item item: orderItems) {
@@ -106,6 +106,11 @@ public class OperationsController {
         }
 
         return newOrder.getId();
+    }
+    public boolean removeOrder(Dictionary<String, String> data)
+    {
+        int orderID = Integer.parseInt(data.get("id"));
+        return remove(orderID);
     }
     public boolean remove(int id) {
         if (!searchOrder(id))
@@ -125,7 +130,7 @@ public class OperationsController {
         order.setDestination(destination);
         List<Integer> items = itemRepo.getItemsByOrderId(id);
         ArrayList<Item> itemsOfOrder = new ArrayList<>();
-        if(items != null)
+        if(!items.isEmpty())
         {
             for (Integer itemID: items)
             {
@@ -133,10 +138,9 @@ public class OperationsController {
                 itemsOfOrder.add(item);
             }
             order.setItems(itemsOfOrder);
-            orderRepo.insert(order);
-            return order;
+            //orderRepo.insert(order);
         }
-        return null;
+        return order;
     }
     public boolean changeDestination(Dictionary<String, String> data) {
         int id = Integer.parseInt(data.get("id"));

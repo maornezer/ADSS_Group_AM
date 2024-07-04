@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Order
 {
-    private static int next_id = 51;
+    //private static int next_id = 51;
     private int id;
     private ArrayList<Item> items;
     private Site source;
@@ -19,12 +19,12 @@ public class Order
     private int destinationID;
     private LocalDate date;
     private double orderWeight;
-    private boolean transportAssociation;
+    private int transportAssociation;
 
 
-    public Order(LocalDate date, int destID,Site destination, int sourceID,Site source, ArrayList<Item> itemsList)
+    public Order(int id, LocalDate date, int destID,Site destination, int sourceID,Site source, ArrayList<Item> itemsList)
     {
-        id = next_id++;
+        setId(id);
         setDate(date);
         setSource(source);
         setDestination(destination);
@@ -34,7 +34,7 @@ public class Order
         {
             addItem(item.getId(), item.getName(), item.getAmount());
         }
-        transportAssociation = false;
+        transportAssociation = -1;
         setDestinationID(destID);
         setSourceID(sourceID);
 
@@ -50,6 +50,7 @@ public class Order
         setDestination(null);//set in operation controller
         setSourceID(orderDTO.sourceID);//add
         setDestinationID(orderDTO.destinationID);//add
+        transportAssociation = orderDTO.transportId;
         // Load items from the OrderDTO
         this.items = new ArrayList<>();//set in operation controller
     }
@@ -70,12 +71,9 @@ public class Order
     public void setSourceID(int id){this.sourceID = id;}
 
     public boolean isHaveTransport() {
-        return transportAssociation;
-    }
+        return transportAssociation!=-1;}
 
-    public void setHaveTransport() {
-        this.transportAssociation = true;
-    }
+    public int setTransportAssociation(int transportID) {return this.transportAssociation = transportID;}
 
     public int getSourceID() {
         return sourceID;
@@ -101,7 +99,9 @@ public class Order
         return orderWeight;
     }
 
-
+    public int getTransportAssociation() {
+        return transportAssociation;
+    }
 
     public int getId() {
         return id;

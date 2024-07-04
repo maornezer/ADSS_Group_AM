@@ -21,6 +21,7 @@ public class OrderDAO implements IDAO {
             //Connection connection = db.getDB();
             String sql = "INSERT INTO `Order`(date,idSource ,source, idDestination,destination) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
+
             ps.setString(1, order.date);
             ps.setInt(2, order.sourceID);
             ps.setString(3, order.source);
@@ -32,7 +33,6 @@ public class OrderDAO implements IDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("lock order");
-
         }
     }
 
@@ -98,9 +98,12 @@ public class OrderDAO implements IDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String date = rs.getString("date");
+                int idSource = rs.getInt("idSource");
                 String source = rs.getString("source");
+                int idDestination = rs.getInt("idDestination");
                 String destination = rs.getString("destination");
                 int transportId = rs.getInt("idT");
+                order = new OrderDTO(id,date,source,destination,idSource,idDestination,transportId);
                 //HashMap<Integer, List<Integer>> items = getOrderItems(id);
                 ps.executeBatch();
                 ps.close();
@@ -136,7 +139,23 @@ public class OrderDAO implements IDAO {
 //        }
 //        return itemsMap;
 //    }
-
+public int getMaxOrderId() {
+    int maxId = -1;
+    try {
+        Connection connection = DB.getConnection();
+        String sql = "SELECT MAX(id) FROM `Order`";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            maxId = rs.getInt(1);
+        }
+        rs.close();
+        ps.close();
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return maxId;
+}
 }
 //package DAL;
 //

@@ -13,13 +13,14 @@ public class OrderDTO {
     public int destinationID;
     //public HashMap<Integer, List<Integer>> items;
 
-    public OrderDTO(int id, String date, String source, String destination, int sourceID, int destinationID) {
+    public OrderDTO(int id, String date, String source, String destination, int sourceID, int destinationID, int transportId) {
         this.id = id;
         this.date = date;
         this.source = source;
         this.destination = destination;
         this.sourceID = sourceID;
         this.destinationID = destinationID;
+        this.transportId = transportId;
         //this.items = new HashMap<>();
     }
 

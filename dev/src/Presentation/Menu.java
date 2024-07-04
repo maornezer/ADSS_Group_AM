@@ -9,41 +9,6 @@ import java.util.*;
 public class Menu {
     private Scanner scanner;
     private PresentationController controller;
-    boolean readFile = false;
-
-//    public void startMenu()
-//    {
-//        scanner = new Scanner(System.in);
-//        controller = new PresentationController();
-//        int choice = -1;
-//        while (choice != 1 || choice != 2)
-//        {
-//            System.out.println("Please choose:");
-//            System.out.println("1. Initialize system with information");
-//            System.out.println("2. Initialize empty system");
-//            scanner.skip("\\R?");
-//            choice = scanner.nextInt();
-//            if (choice == 1) {
-//                readDataFile data = new readDataFile(controller);
-//                data.loadData();
-//                readFile = true;
-//                System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
-//                printMenu();
-//                return;
-//            }
-//            else if (choice == 2)
-//            {
-//                printMenu();
-//                return;
-//            }
-//            else
-//            {
-//                System.out.println("Please choose option 1 or 2 only");
-//            }
-//        }
-//
-//
-//    }
 
     public void printMenu()
     {
@@ -58,7 +23,6 @@ public class Menu {
                 System.out.println("Exiting the program. Goodbye!");
                 scanner.close();
                 System.exit(0);
-
             }
             System.out.println("Please enter your password:");
             scanner.skip("\\R?");
@@ -67,7 +31,6 @@ public class Menu {
             if (username.compareTo("manager") == 0 && password.compareTo("1234") == 0)
             {
                 managerMenu();
-
                 return;
             }
             if (username.compareTo("driver") == 0 && password.compareTo("1111") == 0)
@@ -77,7 +40,6 @@ public class Menu {
             }
             System.out.println("Username or password incorrect. Please enter again");
         }
-
     }
 
     public void managerMenu()
@@ -88,56 +50,33 @@ public class Menu {
         while (true)
         {
             System.out.println("Please choose what you would like to do:");
-            System.out.println("1. Create Order");
+            System.out.println("1. Add / Delete / Get");
             System.out.println("2. Create Transport");
-            System.out.println("3. Edit existing order or existing transport");
-            System.out.println("4. Edit object");
-            System.out.println("5. View all orders or all shipments");
-            System.out.println("6. Starting transport");
-            System.out.println("7. Load the system with information");
-            System.out.println("8. Log out");
-            System.out.println("9. Exit");
-
+            System.out.println("3. Update transport");
+            System.out.println("4. Starting transport");
+            System.out.println("5. Log out");
+            System.out.println("6. Exit");
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
             {
                 case "1":
-                    createOrder();
+                    editDatabase();
                     break;
                 case "2":
                     createNewTransport();
                     break;
                 case "3":
-                    editOrderOrTransport();
+                    editTransport();
                     break;
-                case  "4":
-                    editDatabase();
-                    break;
-                case "5":
-                    seeAllOrdersOrAllTransports();
-                    break;
-                case "6":
+                case "4":
                     deliveryStartUpdate();
                     break;
-                case "7":
-                    if (!readFile)
-                    {
-                        readDataFile data1 = new readDataFile(controller);
-                        data1.loadData();
-                        System.out.println("Sites, trucks, orders and drivers loaded successfully to the system");
-                        readFile = true;
-                    }
-                    else {
-                        System.out.println("The data is already exists in the system");
-
-                    }
-                    break;
-                case "8":
+                case "5":
                     System.out.println("Logging out. Returning to the main menu...");
                     printMenu();
                     break;
-                case "9":
+                case "6":
                     System.out.println("Exiting the program. Goodbye!");
                     scanner.close();
                     System.exit(0);
@@ -147,8 +86,6 @@ public class Menu {
                     break;
             }
         }
-
-
     }
 
     public void DriverMenu()
@@ -194,61 +131,57 @@ public class Menu {
          }
     }
 
-public void createOrder()
-{
-    Dictionary<String, String> data1= new Hashtable<String, String>();
-    System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
-    scanner.skip("\\R?");
-    String date = scanner.nextLine();
-    LocalDate check = validateAndParseDate(date);
-    if (check == null) {
-        System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
-        createOrder();
-    }
-
-
-    String[] dateParts = date.split("/");
-    if (dateParts.length == 3)
+    public void createOrder()
     {
-        String year = dateParts[0];
-        String month = dateParts[1];
-        String day = dateParts[2];
-        data1.put("year", year);
-        data1.put("month", month);
-        data1.put("day", day);
-    }
-    System.out.println("Enter source site id:");
-    scanner.skip("\\R?");
-    String sourceID = scanner.nextLine();
-    boolean checkId = controller.searchSite(sourceID);
-    if (!checkId) {
-        System.out.println("Site id is not registered in the system, order canceled");
-        return;
-    }
-    System.out.println("Enter destination site id:");
-    scanner.skip("\\R?");
-    String destID = scanner.nextLine();
-    boolean checkDestID = controller.searchSite(destID);
-    if (!checkDestID) {
-        System.out.println("Site id is not registered in the system, order canceled");
-        return;
-    }
-    boolean machZone = controller.validMatchZone(sourceID, destID);
-    if (!machZone)
-    {
-        System.out.println("Source site and destination site are not in the same zone, order canceled");
-        return;
+        Dictionary<String, String> data1= new Hashtable<String, String>();
+        System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
+        scanner.skip("\\R?");
+        String date = scanner.nextLine();
+        LocalDate check = validateAndParseDate(date);
+        if (check == null) {
+            System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
+            createOrder();
+        }
+        String[] dateParts = date.split("/");
+        if (dateParts.length == 3)
+        {
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];
+            data1.put("year", year);
+            data1.put("month", month);
+            data1.put("day", day);
+        }
+        System.out.println("Enter source site id:");
+        scanner.skip("\\R?");
+        String sourceID = scanner.nextLine();
+        boolean checkId = controller.searchSite(sourceID);
+        if (!checkId) {
+            System.out.println("Site id is not registered in the system, order canceled");
+            return;
+        }
+        System.out.println("Enter destination site id:");
+        scanner.skip("\\R?");
+        String destID = scanner.nextLine();
+        boolean checkDestID = controller.searchSite(destID);
+        if (!checkDestID) {
+            System.out.println("Site id is not registered in the system, order canceled");
+            return;
+        }
+        boolean machZone = controller.validMatchZone(sourceID, destID);
+        if (!machZone)
+        {
+            System.out.println("Source site and destination site are not in the same zone, order canceled");
+            return;
+        }
+        data1.put("source", sourceID);
+        data1.put("destination", destID);
+        Dictionary<Integer, ArrayList<String>> data2 = addItems();
+        int ans = controller.creatNewOrder(data1, data2);
+        System.out.println("Your order id is: " + ans );
+        managerMenu();
     }
 
-    data1.put("source", sourceID);
-    data1.put("destination", destID);
-
-    Dictionary<Integer, ArrayList<String>> data2 = addItems();
-
-    int ans = controller.creatNewOrder(data1, data2);
-    System.out.println("Your order id is: " + ans );
-    managerMenu();
-}
     public Dictionary<Integer, ArrayList<String>> addItems(){
         Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
 
@@ -288,62 +221,6 @@ public void createOrder()
         }
         return data2;
     }
-
-
-    public String checkAddressSource() {
-
-        while (true) {
-            System.out.println("Enter the source address (Enter 0 to see all the addresses in the system)");
-            scanner.skip("\\R?");
-            String source = scanner.nextLine();
-            boolean condition = controller.listSizeIsEmpty();
-            if (source.compareTo("0") == 0) {
-                if (condition) {
-                    System.out.println("There are no registered sites in the system");
-                    continue;
-                }
-                controller.printAllAddress();
-                continue;
-            }
-            if (controller.checkAddress(source)) {
-                return source;
-            } else {
-                addressSolution(1);
-            }
-        }
-    }
-
-    public String checkAddressDestination() {
-        while (true) {
-            System.out.println("Enter the destination address");
-            scanner.skip("\\R?");
-            String destination = scanner.nextLine();
-            if (controller.checkAddress(destination)) {
-                return destination;
-            } else {
-                addressSolution(2);
-            }
-        }
-    }
-    public void addressSolution(int x) {
-        while (true) {
-            System.out.println("Please choose what you would like to do:");
-            System.out.println("1. Enter this address into the system ");
-            System.out.println("2. Enter address again ");
-            scanner.skip("\\R?");
-            String s = scanner.nextLine();
-            scanner.nextLine(); // Clear the newline
-            if (s.compareTo("1") == 0) {
-                addSite();
-                return; // Exit the function after adding the site
-            } else if (s.compareTo("2") == 0) {
-                return; // Exit the function to re-enter the address
-            } else {
-                System.out.println("There is no such option of choice, please choose a valid number\n");
-            }
-        }
-    }
-
 
     public void  createNewTransport()
     {
@@ -452,29 +329,17 @@ public void createOrder()
         }
 
     }
-    public void addOrderTonewTransport(int transportID) {
-//        System.out.println("Please enter the ID number of the transport you received: ");
-//        int transID = scanner.nextInt();
-//        boolean tranIDExist = controller.isTransportExist(transID);
-//        if (!tranIDExist)
-//        {
-//            System.out.println("There is no such a transport ID in the system");
-//            JEKDFHRaddOrderTonewTransport();
-//        }
 
+    public void addOrderTonewTransport(int transportID)
+    {
         int conditionOrders = controller.getSizeOfListOrders();
         System.out.println("Please choose:");
-        //System.out.println("1. Creat new order");
         System.out.println("1. Add an existing order");
         System.out.println("2. Exit");
         scanner.skip("\\R?");
         String choose = scanner.nextLine();
 
         switch (choose) {
-//            case "1":
-//                createOrder();
-//                anotherOrder(transportID);
-//                break;
             case "1":
                 if (conditionOrders == 0)
                 {
@@ -490,77 +355,7 @@ public void createOrder()
                 System.out.println("There is no such option of choice, please choose valid number\n");
         }
     }
-
-    public void editOrderOrTransport()
-    {
-        int conditionOrders = controller.getSizeOfListOrders();
-        int conditionTransports = controller.getSizeOfListTransports();
-        System.out.println("Enter what do you like to edit: ");
-        System.out.println("1. Edit the address of the order");
-        System.out.println("2. Edit Transport");
-        System.out.println("3. Return to Menu");
-        scanner.skip("\\R?");
-        String choice = scanner.nextLine();
-        switch (choice)
-        {
-            case "1":
-                if (conditionOrders == 0)
-                {
-                    System.out.println("You do not have orders in the system");
-                }
-                else
-                {
-                    editOrder();
-                }
-                break;
-            case "2":
-                if (conditionTransports == 0)
-                {
-                    System.out.println("You do not have transports in the system");
-                }
-                else
-                {
-                    editTransport();
-                }
-                break;
-            case "3":
-                managerMenu();
-                break;
-            default:
-                System.out.println("There is no such option of choice");
-                editOrderOrTransport();
-                break;
-
-        }
-    }
-    public void editOrder()
-    {
-
-        System.out.println("Enter ID of the Order you want to change: ");
-        scanner.skip("\\R?");
-        String idOrder = scanner.nextLine();
-
-        System.out.println("Choose if you want to change the Address of destination order: " + idOrder + ": [Y/N]");
-        scanner.skip("\\R?");
-        String ans = scanner.nextLine();
-        if (ans.compareTo("Y") == 0)
-        {
-            changeDestination(Integer.parseInt(idOrder));
-
-        }
-        else if (ans.compareTo("N") == 0)
-        {
-            System.out.println("You Choose that you dont want to change anything in order: " + idOrder );
-            editOrderOrTransport();
-        }
-        else
-        {
-            System.out.println("You must choose Y/N please try again" );
-
-        }
-
-        ///complete
-    }
+    //for over weight:
     public void changeDestination(int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
@@ -580,6 +375,7 @@ public void createOrder()
             System.out.println("Change destination successfully!");
         }
     }
+
     public void editTransport() {
         System.out.println("Choose transport that you want to edit: ");
         controller.printAllTransports();
@@ -611,19 +407,16 @@ public void createOrder()
                 addOrderTonewTransport(Integer.parseInt(id));
                 break;
             case "4":
-                editOrderOrTransport();
+                managerMenu();
                 break;
-
-
-            ///complete
         }
     }
+
     public void changeTruck(int id)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
         data.put("idTransport", Integer.toString(idTransport));
-        //String licenseTruck = getTypeOfLicense();
         System.out.println("Enter new Truck ID: ");
         scanner.skip("\\R?");
         String idTruck = scanner.nextLine();
@@ -633,7 +426,6 @@ public void createOrder()
             System.out.println("Please enter truck ID that exist in the system");
             changeTruck(id);
         }
-        String licenseTruckNew = getTypeOfLicense(Integer.parseInt(idTruck));
         data.put("idTruck", idTruck);
         controller.changeTruck(data);
     }
@@ -654,18 +446,17 @@ public void createOrder()
             changeDriver(id);
         }
         data.put("idDriver",idDriver);
-
         controller.changeDriver(data);
-
     }
+
     public void editDatabase()
     {
-
         System.out.println("Enter what do you want to edit:");
         System.out.println("1. Site");
         System.out.println("2. Truck");
         System.out.println("3. Driver");
-        System.out.println("4. Return back");
+        System.out.println("4. Order");
+        System.out.println("5. Return back");
 
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
@@ -681,6 +472,9 @@ public void createOrder()
                 driverMenu();
                 break;
             case "4":
+                orderMenu();
+                break;
+            case "5":
                 managerMenu();
                 break;
             default:
@@ -967,57 +761,76 @@ public void createOrder()
         else
             System.out.println("Name: "+ d.getName() + ", ID: " + id +", License type: " + d.getTypeOfLicense());
     }
-    public void seeAllOrdersOrAllTransports()
+    public void orderMenu()
     {
-        System.out.println("What would you like to watch? ");
-        System.out.println("1. Orders");
-        System.out.println("2. Transports");
-        System.out.println("3. Return back");
+        System.out.println("Enter what do you want to do:");
+        System.out.println("1. Add new order");
+        System.out.println("2. Remove order");
+        System.out.println("3. Get order information");
+        System.out.println("4. Return back");
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
             case "1":
-                printAllOrders();
+                createOrder();
                 break;
             case "2":
-                printAllTransports();
+                removeOrder();
                 break;
             case "3":
+                getOrder();
+                break;
+            case "4":
                 managerMenu();
                 break;
             default:
-                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 for return to back");
-                seeAllOrdersOrAllTransports();
-                break;
+                System.out.println("There is no such option of choice please try again");
+                editDatabase();
+        }
+    }
+    public void removeOrder()
+    {
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter oder id you want to remove: ");
+        scanner.skip("\\R?");
+        String idO = scanner.nextLine();
+        data.put("id", idO);
+        boolean b = controller.removeOrder(data);
+        if (!b)
+            System.out.println("Removing the order failed");
+        else
+            System.out.println("Removing the order complete");
+    }
+    public void getOrder()
+    {
+        System.out.println("Please enter order id you want to get her information: ");
+        scanner.skip("\\R?");
+        String id = scanner.nextLine();
+        Order o = controller.getOrder(id);
+        if (o == null) {
+            System.out.println("There is no order with id " + id + " in the system");
+        }
+        else
+        {
+            System.out.println("Order ID: "+ id);
+            System.out.println("Zone: "+ o.getDestination().getSiteZone());
+            System.out.println("Source: "+ o.getSource().getAddress());
+            System.out.println("Destination: "+ o.getDestination().getAddress());
+            System.out.println("Deliver in: "+ o.getDate().toString());
+            System.out.println(("Items:"));
+            for (Item item : o.getItems()) {
+                System.out.println("Item ID: " + item.getId() + ", Name: " + item.getName() + ", Amount: " + item.getAmount());
+            }
+            if (o.getTransportAssociation() != -1 )
+            {
+                System.out.println("Transport Association: "+ o.getTransportAssociation());
+            }
+            else
+                System.out.println("The order is not have Transport Association");
         }
     }
 
-    public void printAllOrders()
-    {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("1. all orders by transport");
-        System.out.println("2. all orders in system");
-        System.out.println("3. Return to Menu");
-        scanner.skip("\\R?");
-        String choice = scanner.nextLine();
-        switch (choice)
-        {
-            case "1":
-                System.out.println("Pleas enter Transport ID: ");
-                scanner.skip("\\R?");
-                String id = scanner.nextLine();
-                data.put("id", id);
-                controller.printAllOrdersByTransport(data);
-                break;
-            case "2":
-                controller.printAllOrders();
-                 break;
-            case "3":
-                managerMenu();
-                break;
-        }
-    }
     public void anotherOrder(int transportID)
     {
         System.out.println("Do you want to add order to this transport? [Y/N] ");
@@ -1029,15 +842,14 @@ public void createOrder()
         }
         else
             managerMenu();
-
     }
+
     public void getAllDeliveries()
     {
         System.out.println("Please enter your ID:");
         scanner.skip("\\R?");
         String idDriver = scanner.nextLine();
         controller.seeAllTransportByDriver(idDriver);
-
     }
 
     public void getItemsReport()
@@ -1054,27 +866,7 @@ public void createOrder()
         String transportId = scanner.nextLine();
         controller.getTransportReport(transportId);
     }
-    public void printAllTransports()
-    {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("1. all transports in system");
-        System.out.println("2. transport by ID");
-        System.out.println("3. Return to Menu");
-        scanner.skip("\\R?");
-        String choice = scanner.nextLine();
-        switch (choice)
-        {
-            case "1":
-                controller.printAllTransports();
-                break;
-            case "2":
-                getTransportReport();
-                break;
-            case "3":
-                managerMenu();
-                break;
-        }
-    }
+
 
     public void addOrderToTransport(int transportID)
     {
@@ -1117,6 +909,7 @@ public void createOrder()
     {
         controller.printallDriversByLicense( licenseType);
     }
+
     public void deliveryStartUpdate()
     {
         System.out.println("Please enter the transport id you want to send ");
@@ -1165,23 +958,10 @@ public void createOrder()
         }
 
         System.out.println("Weighing was done successfully! The truck can leave");
-
-//        System.out.println("Please enter the order ID for which you would like to update the weight");
-//        int orderID = scanner.nextInt();
-//        boolean b = Orderweightupdate(transportID,orderID);
-//        if (!b)
-//        {
-//            System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
-//            managerSulotion(transportID, orderID);
-//        }
-
-
     }
     public boolean Orderweightupdate(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
-//        System.out.println("Please enter the order ID for which you would like to update the weight");
-//        int orderID = scanner.nextInt();
         System.out.println("Please enter the order "+ orderID +" weight: ");
         scanner.skip("\\R?");
         String weight = scanner.nextLine();
@@ -1192,7 +972,6 @@ public void createOrder()
     }
     public void managerSulotion(int transportID, int orderID)
     {
-        //System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + orderID);
         System.out.println("1. Change Truck");
         System.out.println("2. Unloading Item");
         System.out.println("3. Change destination");
@@ -1214,8 +993,6 @@ public void createOrder()
                 managerSulotion(transportID, orderID);
                 break;
         }
-//        public boolean treatmentWeightProblemChangeDestination(int orderID,String address,int transportID)
-
     }
 
 
