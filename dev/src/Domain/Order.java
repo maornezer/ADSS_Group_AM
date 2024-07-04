@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Order
 {
-    private static int next_id = 1;
+    private static int next_id = 51;
     private int id;
     private ArrayList<Item> items;
     private Site source;

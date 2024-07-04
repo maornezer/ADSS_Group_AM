@@ -93,19 +93,18 @@ public class OperationsController {
         for (Map.Entry<Integer, ArrayList<String>> key : ((Hashtable<Integer, ArrayList<String>>) data2).entrySet())
         {
             ArrayList<String> itemData = key.getValue();
-            Item item = addItem(itemData);
-            orderItems.add(item);
+            Item item = addItem(itemData); // create item from data
+            orderItems.add(item); // add new item from data to list
             //צריך להוסיף את הidorder לטבלת ה-items////////////////
         }
         Order newOrder = new Order(date,destID,destinationSite,sourceID,sourceSite,orderItems);
-        for (Item item: orderItems)
-        {
+        orderRepo.insert(newOrder);
+
+        for (Item item: orderItems) {
             item.setIdO(newOrder.getId());
             itemRepo.insert(item);
         }
-        orderRepo.insert(newOrder);
-        //if (newOrder != null)
-            //allOrders.add(newOrder);
+
         return newOrder.getId();
     }
     public boolean remove(int id) {

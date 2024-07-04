@@ -82,6 +82,8 @@ public class Menu {
 
     public void managerMenu()
     {
+        scanner = new Scanner(System.in);
+        controller = new PresentationController();
         System.out.println("Hello Manager!");
         while (true)
         {
@@ -245,7 +247,7 @@ public void createOrder()
 
     int ans = controller.creatNewOrder(data1, data2);
     System.out.println("Your order id is: " + ans );
-
+    managerMenu();
 }
     public Dictionary<Integer, ArrayList<String>> addItems(){
         Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();

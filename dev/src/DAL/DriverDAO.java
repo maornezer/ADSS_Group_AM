@@ -3,25 +3,28 @@ package DAL;
 import java.sql.*;
 
 public class DriverDAO implements IDAO {
-    private DB db;
+//    private DB db;
+//
+//    public DriverDAO() {
+//        this.db = new DB();
+//    }
 
-    public DriverDAO() {
-        this.db = new DB();
-    }
-
-    // Insert a new driver
+    // Insert a new driverOrder
     @Override
     public void insert(Object object) {
         DriverDTO driver = (DriverDTO) object;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
+
             String sql = "INSERT INTO Driver(name, typeOflicence,id) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, driver.name);
             ps.setString(2, driver.typeOflicence);
             ps.setInt(3, driver.id);
             ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -33,11 +36,13 @@ public class DriverDAO implements IDAO {
     public void remove(int id) {
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "DELETE FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
+            ps.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -48,7 +53,8 @@ public class DriverDAO implements IDAO {
         DriverDTO driver = null;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -69,7 +75,8 @@ public class DriverDAO implements IDAO {
         boolean exists = false;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "SELECT COUNT(*) AS count FROM Driver WHERE typeOflicence = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, type);
@@ -90,7 +97,8 @@ public class DriverDAO implements IDAO {
         int count = 0;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "SELECT COUNT(*) AS count FROM Driver";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

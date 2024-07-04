@@ -3,11 +3,11 @@ package DAL;
 import java.sql.*;
 
 public class SiteDAO implements IDAO {
-    private DB db;
-
-    public SiteDAO() {
-        this.db = new DB();
-    }
+//    private DB db;
+//
+//    public SiteDAO() {
+//        this.db = new DB();
+//    }
 
     // Insert a new site
     @Override
@@ -15,7 +15,8 @@ public class SiteDAO implements IDAO {
         SiteDTO site = (SiteDTO) object;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "INSERT INTO Site(address, zone, contactName, phoneNumber,id) VALUES(?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, site.address);
@@ -24,6 +25,7 @@ public class SiteDAO implements IDAO {
             ps.setString(4, site.phoneNumber);
             ps.setInt(5, site.id);
             ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -34,11 +36,13 @@ public class SiteDAO implements IDAO {
     public void remove(int id) {
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "DELETE FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
+            ps.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -49,8 +53,8 @@ public class SiteDAO implements IDAO {
         SiteDTO site = null;
         try {
             //Connection connection = DB.connect();
-            Connection connection = db.getDB();
-
+            //Connection connection = db.getDB();
+            Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
