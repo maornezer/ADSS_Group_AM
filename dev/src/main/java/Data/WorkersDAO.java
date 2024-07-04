@@ -14,7 +14,7 @@ public class WorkersDAO {
 
     public Worker read(int id){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Workers WHERE employee_id = " + id + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet  resultSet  = preparedStatement.executeQuery();
@@ -33,7 +33,7 @@ public class WorkersDAO {
 
     public List<Worker> readWorkersByBranch(int branchNum){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Workers WHERE branchNum = " + branchNum + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet  resultSet  = preparedStatement.executeQuery();
@@ -80,8 +80,8 @@ public class WorkersDAO {
 
     public Worker create(Dictionary<String, String> data){
         try {
-            Connection connection = DB.connect();
-            String sql ="insert into Workers (id, firstName, lastName, bankDetails, hourRate, jobType, \"year\", \"month\", \"day\", branchNum values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            Connection connection = DB.getConnection();
+            String sql ="insert into Workers (id, firstName, lastName, bankDetails, hourRate, jobType, \"year\", \"month\", \"day\", branchNum) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, Integer.parseInt(data.get("id")));
@@ -102,35 +102,47 @@ public class WorkersDAO {
             return new Worker(data);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + e.getLocalizedMessage());
             return null;
         }
     }
 
     public Boolean update(Dictionary<String, String> data){
         if(data.get("update").equals("role"))
-            return DB.getRolesDAO().update(data);
+            if(data.get("update2").equals("add"))
+                return DB.getRolesDAO().update(data);
+            else {
+                DB.getRolesDAO().delete(Integer.parseInt(data.get("key")), data.get("value"));
+                return true;
+            }
         try {
-            Connection connection = DB.connect();
-            String sql = "UPDATE Workers SET ? = ? WHERE id = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setString(1, data.get("update"));
-
+            Connection connection = DB.getConnection();
             if(data.get("update").equals("date"))
             {
-                // kuku - deal with this!!!
-            }
+                String sql = "UPDATE Workers SET year = ?, month = ?, day = ?  WHERE id = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            if(data.get("type").equals("int")){
-                preparedStatement.setInt(2, Integer.parseInt(data.get("value")));
+                preparedStatement.setInt(1, Integer.parseInt(data.get("year")));
+                preparedStatement.setInt(2, Integer.parseInt(data.get("month")));
+                preparedStatement.setInt(3, Integer.parseInt(data.get("day")));
+                preparedStatement.setInt(4, Integer.parseInt(data.get("key")));
             }
             else {
-                preparedStatement.setString(2, data.get("value"));
-            }
-            preparedStatement.setInt(3, Integer.parseInt(data.get("key")));
+                String sql = "UPDATE Workers SET ? = ? WHERE id = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.execute();
+                preparedStatement.setString(1, data.get("update"));
+
+
+                if (data.get("type").equals("int")) {
+                    preparedStatement.setInt(2, Integer.parseInt(data.get("value")));
+                } else {
+                    preparedStatement.setString(2, data.get("value"));
+                }
+                preparedStatement.setInt(3, Integer.parseInt(data.get("key")));
+                preparedStatement.execute();
+            }
+
 
         }
         catch (Exception e){
@@ -142,7 +154,7 @@ public class WorkersDAO {
 
     public void delete(int id){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "DELETE FROM Workers WHERE id = "+ id + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();

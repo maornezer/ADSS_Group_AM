@@ -79,8 +79,8 @@ public class PresentationController {
         this.domainController.addRole(data);
     }
 
-    public boolean removeRole(Dictionary<String, String> data) {
-        return this.domainController.removeRole(data);
+    public void removeRole(Dictionary<String, String> data) {
+        this.domainController.removeRole(data);
     }
 
     public void changeHourRate(Dictionary<String, String> data) {
@@ -123,8 +123,8 @@ public class PresentationController {
         return this.domainController.AddOrRemoveDaysOffWork(data);
     }
 
-    public boolean ChangingDeadline(Dictionary<String, String> data) {
-        return this.domainController.ChangingDeadline(data);
+    public void ChangingDeadline(Dictionary<String, String> data) {
+        this.domainController.ChangingDeadline(data);
     }
 
     public boolean ShiftsAssignment() {

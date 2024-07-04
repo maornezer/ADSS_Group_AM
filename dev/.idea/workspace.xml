@@ -9,28 +9,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="data base">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/ShiftHistoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" afterDir="false" />
+    <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="dao added and more">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/TransportationDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/TransportationRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Data/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/DB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/BranchTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Scheduling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/SystemLimitations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/SystemLimitations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Shift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Shift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/ShiftHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/ShiftHistoryRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Worker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/WorkerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Presentation/PresentationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/PresentationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Presentation/configurationForSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/configurationForSystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,36 +57,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/noash/Desktop/testMaven&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "C:/Users/noash/Desktop/testMaven",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -96,7 +95,7 @@
       <recent name="Domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.WorkerTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Personnel" />
@@ -115,6 +114,22 @@
       <option name="PACKAGE_NAME" value="Domain" />
       <option name="MAIN_CLASS_NAME" value="Domain.BranchTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BranchTest.getWorkers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personnel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Domain.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Domain" />
+      <option name="MAIN_CLASS_NAME" value="Domain.BranchTest" />
+      <option name="METHOD_NAME" value="getWorkers" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,9 +167,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.WorkerTest" />
         <item itemvalue="JUnit.BranchTest" />
+        <item itemvalue="JUnit.BranchTest.getWorkers" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.WorkerTest.testToString" />
       </list>
     </recent_temporary>
@@ -194,7 +210,8 @@
       <workItem from="1719930356145" duration="5500000" />
       <workItem from="1719937220464" duration="16838000" />
       <workItem from="1719962193194" duration="1413000" />
-      <workItem from="1719968088782" duration="1692000" />
+      <workItem from="1719968088782" duration="2057000" />
+      <workItem from="1720000412007" duration="29161000" />
     </task>
     <task id="LOCAL‎-00001" summary="bla">
       <created>1717521888018</created>
@@ -287,7 +304,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1719939084173</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL‎-00014" summary="dao added and more">
+      <created>1719970169842</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL‎-00014" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1719970169842</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +350,8 @@
     <MESSAGE value="bugs fixed" />
     <MESSAGE value="maven" />
     <MESSAGE value="data base" />
-    <option name="LAST_COMMIT_MESSAGE" value="data base" />
+    <MESSAGE value="dao added and more" />
+    <option name="LAST_COMMIT_MESSAGE" value="dao added and more" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -351,14 +376,9 @@
           <line>8</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Domain/Chain.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Domain/Scheduling.java</url>
-          <line>50</line>
+          <line>45</line>
           <properties class="Domain.Scheduling" method="makeASchedule">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -367,7 +387,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Domain/Branch.java</url>
-          <line>22</line>
+          <line>25</line>
           <properties class="Domain.Branch" method="getScheduleNextWeek">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

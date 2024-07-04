@@ -15,6 +15,10 @@ public class Chain {
 
     protected static BranchesRepository branchesRepository;
 
+    protected static ShiftHistoryRepository shiftHistoryRepository;
+
+    protected static TransportationRepository transportationRepository;
+
     protected static List<Worker> firedWorkers;
 
     protected static WorkersRepository workersRepository;
@@ -31,20 +35,26 @@ public class Chain {
 //        branchesLimits = new Hashtable<>();
         branchesRepository = new BranchesRepository();
         workersRepository = new WorkersRepository();
+        shiftHistoryRepository = new ShiftHistoryRepository();
+        transportationRepository = new TransportationRepository();
+
         branchesNums = new ArrayList<>();
         branchesNums.addAll(branchesRepository.getBranchesNums());
+
         firedWorkers = new ArrayList<>();
         nextWeekDates = new LocalDate[7];
-        hrManager = new HRManager(id,firstName,lastName, bankInfo, 0 );
         for(int i =0; i< 7; i++){
             nextWeekDates[i] = Chain.getToday().with(next(SUNDAY)).plusDays(i);
         }
+
+        hrManager = new HRManager(id,firstName,lastName, bankInfo, 0 );
     }
 
     public Chain(Dictionary<String,String> data){
         this(Integer.parseInt(data.get("id")), data.get("firstName"),data.get("lastName"),
                 Integer.parseInt(data.get("bankDetails")),LocalDate.of(Integer.parseInt(data.get("year")),Integer.parseInt(data.get("month")),
                         Integer.parseInt(data.get("day"))));
+        shiftHistoryRepository.deleteHistory();
     }
 
     public static HRManager getHrManager(){
@@ -89,6 +99,10 @@ public class Chain {
     public static int getDayValue(DayOfWeek day){
         int dayVal = (day.getValue()%7) + 1;
         return dayVal;
+    }
+
+    public static ShiftHistoryRepository getShiftHistoryRepository() {
+        return shiftHistoryRepository;
     }
 
     public static void tomorrow(){
@@ -178,17 +192,30 @@ public class Chain {
             flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
         }
 
+        if(!flag)
+            return false;
+
         for(Worker worker: firedWorkers){
             workersRepository.deleteWorker(worker.getId());
         }
         firedWorkers.clear();
 
-        if(flag) {
-            for (int branchNum : branchesNums)
-                branchesRepository.getBranch(branchNum).makeASchedule();
-        }
+        Dictionary<LocalDate, List<String[]>> transports = transportationRepository.getTransports();
 
-        return flag;
+        for(LocalDate date : nextWeekDates){
+            List<String[]> temp = transports.get(date);
+            for(String[] transport : temp){
+                String driverName = transport[1];
+                int branchNum = Integer.parseInt(transport[2]);
+                int shiftNum = Integer.parseInt(transport[6]);
+                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), shiftNum);
+                shift.transport(driverName);
+            }
+        }
+        for (int branchNum : branchesNums)
+            branchesRepository.getBranch(branchNum).makeASchedule();
+
+        return true;
     }
 
     public static BranchesRepository getBranchesRepository() {
@@ -203,6 +230,9 @@ public class Chain {
         workersRepository.updateWorker(data);
     }
 
+    public static boolean updateBranch(Dictionary<String, String> data){
+        return branchesRepository.updateBranch(data);
+    }
 
 
 }

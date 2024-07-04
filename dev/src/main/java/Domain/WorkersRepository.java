@@ -40,13 +40,13 @@ public class WorkersRepository {
         return res;
     }
 
-    public Boolean createWorker(Dictionary<String, String> data){
+    public Worker createWorker(Dictionary<String, String> data){
         Worker worker = DB.getWorkersDAO().create(data);
         if(worker != null){
             workersRepo.put(worker.getId(), worker);
-            return true;
+            return worker;
         }
-        return false;
+        return null;
     }
 
     public boolean updateWorker(Dictionary<String, String> data){

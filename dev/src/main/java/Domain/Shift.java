@@ -21,6 +21,8 @@ public class Shift {
 
     private genShift genShift;
 
+    private String driverName;
+
     public genShift getGenShift() {
         return genShift;
     }
@@ -37,18 +39,13 @@ public class Shift {
             this.endTime = LocalTime.of(20,0);
         }
         roles = new ArrayList<>();
-        notAssignedRoles = new Hashtable<>();
         String[] temp= {"Cashier", "Cashier", "Storekeeper"};
         this.roles.addAll(List.of(temp));
-        notAssignedRoles.put("Shift Manager",1);
-        for (String role : roles){
-            if(notAssignedRoles.get(role) == null)
-                notAssignedRoles.put(role, 1);
-            else
-                notAssignedRoles.put(role, notAssignedRoles.get(role) + 1);
-        }
+
+        setNotAssignedRoles();
         workersInShift = new Hashtable<>();
         this.genShift = new genShift(date.getDayOfWeek(),shiftType);
+        this.driverName = "no driver";
     }
 
     public LocalDate getDate() {
@@ -83,23 +80,25 @@ public class Shift {
         return notAssignedRoles;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setNotAssignedRoles() {
+        notAssignedRoles = new Hashtable<>();
+        notAssignedRoles.put("Shift Manager",1);
+
         for (String role : roles){
             if(notAssignedRoles.get(role) == null)
                 notAssignedRoles.put(role, 1);
             else
-                notAssignedRoles.put(role, notAssignedRoles.get(role) +1 );
+                notAssignedRoles.put(role, notAssignedRoles.get(role) +1);
         }
     }
 
     public void setRoles(Dictionary<String,String> data){
-        List<String> roles = new ArrayList<>();
+        roles.clear();
         int amount = Integer.parseInt(data.get("amount"));
         for(int i =0; i<amount; i++){
-            roles.add(data.get(Integer.toString(i)));
+            this.roles.add(data.get(Integer.toString(i)));
         }
-        this.roles = roles;
+        setNotAssignedRoles();
     }
     public Dictionary<Worker, String> getWorkersInShift() {
         return workersInShift;
@@ -139,10 +138,22 @@ public class Shift {
         return res;
     }
 
+    public void transport(String driverName){
+
+        this.driverName = driverName;
+
+        if(this.notAssignedRoles.get("Storekeeper") == null){
+            this.notAssignedRoles.put("Storekeeper", 1);
+            this.roles.add("Storekeeper");
+        }
+    }
+
     public String toString(){
         String res = "\nShift date: " + this.date + "\nShift start time: " + this.startTime +
                 "\nShift end time: " + this.endTime + "\nShift manager: " + this.shiftManager +
                 "\nWorkers in shift: \n" + workersInShiftToString();
+        if(!this.driverName.equals("no driver"))
+            res += "Drivers Name: " + this.driverName + "\n";
         return res;
     }
 

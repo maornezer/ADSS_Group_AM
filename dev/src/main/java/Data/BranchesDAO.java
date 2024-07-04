@@ -6,6 +6,7 @@ import Domain.Worker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -15,7 +16,7 @@ public class BranchesDAO {
 
     public Branch read(int id){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Branches WHERE branchNum = " + id + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet  = preparedStatement.executeQuery();
@@ -37,7 +38,7 @@ public class BranchesDAO {
 
     public Branch create(Dictionary<String, String> data){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql ="insert into Branches (branchNum, address, deadline) values (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -57,15 +58,16 @@ public class BranchesDAO {
 
     public Boolean update(Dictionary<String, String> data){
         try {
-            Connection connection = DB.connect();
-            String sql = "UPDATE Branches SET ? = ? WHERE branchNum = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            if(data.get("update").equals("deadline")) {
+                Connection connection = DB.getConnection();
+                String sql = "UPDATE Branches SET deadline = ? WHERE branchNum = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, data.get("update"));
-            preparedStatement.setString(2, data.get("value"));
-            preparedStatement.setInt(3, Integer.parseInt(data.get("key")));
+                preparedStatement.setString(1, data.get("value"));
+                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
 
-            preparedStatement.execute();
+                preparedStatement.execute();
+            }
 
         }
         catch (Exception e){
@@ -77,7 +79,7 @@ public class BranchesDAO {
 
     public void delete(int id){
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "DELETE FROM Branches WHERE branchNum = "+ id + ";";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
@@ -91,7 +93,7 @@ public class BranchesDAO {
     public List<Integer> getBranchesNums(){
 
         try {
-            Connection connection = DB.connect();
+            Connection connection = DB.getConnection();
             String sql = "SELECT DISTINCT branchNum FROM Branches;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();

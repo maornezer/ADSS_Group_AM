@@ -74,10 +74,14 @@ public class DomainController {
     }
 
     public void ChangeAmountTypeOfWorkersShift(Dictionary<String, String> data){
-        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
-        if(branch == null)
-            return;
-        branch.ChangeAmountTypeOfWorkersShift(data);
+//        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
+//        if(branch == null)
+//            return;
+//        branch.ChangeAmountTypeOfWorkersShift(data);
+        data.put("key", data.get("branchNum"));
+        data.put("update","changeAmount");
+
+        Chain.updateBranch(data);
     }
 
     public void changeFirstName(Dictionary<String, String> data){
@@ -107,14 +111,22 @@ public class DomainController {
     public void addRole(Dictionary<String, String> data){
         data.put("key", data.get("id"));
         data.put("update","role");
+        data.put("update2","add");
         data.put("type", "string");
 
         Chain.updateWorker(data);
     }
 
-    public boolean removeRole(Dictionary<String, String> data){  // kuku - update
-        String roleToRemove = data.get("RoleToRemove");
-        return getWorker(data).removeRole(roleToRemove);
+    public void removeRole(Dictionary<String, String> data){
+        data.put("key", data.get("id"));
+        data.put("update","role");
+        data.put("update2","remove");
+        data.put("type", "string");
+
+        Chain.updateWorker(data);
+
+//        String roleToRemove = data.get("RoleToRemove");
+//        return getWorker(data).removeRole(roleToRemove);
     }
 
     public void changeHourRate(Dictionary<String, String> data){
@@ -143,12 +155,26 @@ public class DomainController {
         Chain.updateWorker(data);
     }
 
-    public LocalDate changingEndOfEmployment(Dictionary<String, String> data){  // kuku - update
+    public LocalDate changingEndOfEmployment(Dictionary<String, String> data){
+        data.put("key", data.get("id"));
+        data.put("update","date");
+
         int year = Integer.parseInt(data.get("year"));
         int month = Integer.parseInt(data.get("month"));
         int day = Integer.parseInt(data.get("day"));
+
         LocalDate date = LocalDate.of(year, month,day);
-        return getWorker(data).setEmploymentEnd(date);
+        LocalDate nextSunday = Chain.getNextWeekDates()[0];
+        if(date.isBefore(nextSunday)){
+            data.put("year",Integer.toString(nextSunday.getYear()));
+            data.put("month",Integer.toString(nextSunday.getMonthValue()));
+            data.put("day",Integer.toString(nextSunday.getDayOfMonth()));
+            date = nextSunday;
+        }
+
+        Chain.updateWorker(data);
+
+        return date;
     }
 
     public void hireWorker(Dictionary<String, String> data){
@@ -164,8 +190,10 @@ public class DomainController {
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data) {
-        int branchNum = Integer.parseInt(data.get("branchNum"));
-        return Chain.getBranch(branchNum).changeStartAndEndTime(data);
+        data.put("key", data.get("branchNum"));
+        data.put("update","changeTime");
+
+        return Chain.updateBranch(data);
     }
 
     public String ViewShiftHistory(Dictionary<String, String> data) {
@@ -177,19 +205,32 @@ public class DomainController {
         return branch.getShiftHistory();
     }
 
-    public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) { // kuku - update
-        int branchNum = Integer.parseInt(data.get("branchNum"));
-        Branch branch = Chain.getBranch(branchNum);
-        if(branch == null)
-            return false;
-        branch.AddOrRemoveDaysOffWork(data);
-        return true;
+    public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) {
+//        int branchNum = Integer.parseInt(data.get("branchNum"));
+//        Branch branch = Chain.getBranch(branchNum);
+//        if(branch == null)
+//            return false;
+//        branch.AddOrRemoveDaysOffWork(data);
+//        return true;
+        data.put("key", data.get("branchNum"));
+        data.put("update","daysOff");
+
+        return Chain.updateBranch(data);
     }
 
-    public boolean ChangingDeadline(Dictionary<String, String> data){  // kuku - update
-        int branchNum = Integer.parseInt(data.get("branchNum"));
-        Branch branch = Chain.getBranch(branchNum);
-        return branch.ChangingDeadline(data);
+    public void ChangingDeadline(Dictionary<String, String> data){
+//        int branchNum = Integer.parseInt(data.get("branchNum"));
+//        Branch branch = Chain.getBranch(branchNum);
+        data.put("key", data.get("branchNum"));
+        data.put("update","deadline");
+
+        int day = Integer.parseInt(data.get("day"));
+        DayOfWeek dayOfWeek = Chain.getNextWeekDates()[day -1].getDayOfWeek();
+
+        data.put("value", dayOfWeek.toString());
+
+        Chain.updateBranch(data);
+//        return branch.ChangingDeadline(data);
     }
 
     public boolean ShiftsAssignment(){

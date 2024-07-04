@@ -34,11 +34,11 @@ public class BranchesRepository {
     }
 
     public boolean updateBranch(Dictionary<String, String> data){
-        Branch branch = branchesRepo.get(Integer.parseInt(data.get("id")));
+        Branch branch = branchesRepo.get(Integer.parseInt(data.get("key")));
         if(branch != null) {
-            branch.updateBranch(data);
+            boolean flag = branch.updateBranch(data);
             DB.getBranchesDAO().update(data);
-            return true;
+            return flag;
         }
         return false;
     }

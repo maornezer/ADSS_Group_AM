@@ -47,32 +47,8 @@ public class Worker {
         return firstName;
     }
 
-//    public void setFirstName(String firstName) {
-//        this.firstName = firstName;
-//    }
-
     public String getLastName() {
         return lastName;
-    }
-
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-
-    public int getBankInfo() {
-        return bankInfo;
-    }
-
-    public void setBankInfo(int bankInfo) {
-        this.bankInfo = bankInfo;
-    }
-
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
     }
 
     public Roles getRoles() {
@@ -87,23 +63,11 @@ public class Worker {
         return this.roles.removeRole(role);
     }
 
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
-
-    public WorkerLimit getLimitations() {
-        return limitations;
-    }
-
     public LocalDate resignationNotice(){
         if(Chain.getToday().plusDays(30).isBefore(this.contract.getEmploymentEnd()))
             this.contract.setEmploymentEnd(Chain.getToday().plusDays(30));
         return this.contract.getEmploymentEnd();
     }
-
-//    public void setHourRate(int hourRate) {
-//        this.contract.setHourRate(hourRate);
-//    }
 
     public int getHourRate() {
         return this.contract.getHourRate();
@@ -166,10 +130,6 @@ public class Worker {
         return stillEmployed(date) && this.limitations.ifCanWork(date.getDayOfWeek(), shiftType);
     }
 
-    public boolean checkShiftManager(){
-        return this.roles.checkShiftManager();
-    }
-
     public boolean checkRole(String role){
         return this.roles.checkRole(role);
     }
@@ -199,6 +159,11 @@ public class Worker {
             case "date":
                 this.contract.setEmploymentEnd(LocalDate.of(Integer.parseInt(data.get("year")), Integer.parseInt(data.get("month")), Integer.parseInt(data.get("day"))));
                 break;
+            case "role":
+                if (data.get("update2").equals("add"))
+                    this.addRole(data.get("value"));
+                else
+                    this.removeRole(data.get("value"));
             default:
                 return;
         }

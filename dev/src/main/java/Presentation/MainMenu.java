@@ -22,7 +22,7 @@ public class MainMenu {
 //                "2. Start without information");
 //        int choice = scanner.nextInt();
 //        if(choice == 2)
-            creatChain();
+        creatChain();
 //        else {
 //            configurationForSystem temp = new configurationForSystem();
 //            temp.readCSV();
@@ -48,7 +48,7 @@ public class MainMenu {
         int bankDetails = scanner.nextInt();
         data.put("bankDetails", Integer.toString(bankDetails));
         data.put("year", Integer.toString(LocalDate.now().getYear()));
-        data.put("month",  Integer.toString(LocalDate.now().getMonth().getValue()));
+        data.put("month",  Integer.toString(LocalDate.now().getMonthValue()));
         data.put("day",  Integer.toString(LocalDate.now().getDayOfMonth()));
         System.out.println("thank you! Super-Le will be with you shortly");
         presentationController.creatChain(data);
@@ -389,13 +389,8 @@ public class MainMenu {
         scanner.skip("\\R?");
         String RoleToRemove = scanner.nextLine();
         data.put("RoleToRemove", RoleToRemove);
-        boolean flag = presentationController.removeRole(data);
-        if(flag){
-            System.out.println("role removed successfully");
-        }
-        else{
-            System.out.println("Role does not exist for this employee");
-        }
+        presentationController.removeRole(data);
+        System.out.println("role removed successfully");
     }
 
     public void changeHourRate(Dictionary<String, String> data){
@@ -646,10 +641,8 @@ public class MainMenu {
             int day = scanner.nextInt();
             data.put("branchNum", Integer.toString(branchNum));
             data.put("day", Integer.toString(day));
-            if (presentationController.ChangingDeadline(data))
-                System.out.println("Change was made Successfully");
-            else
-                System.out.println("change was not Successful");
+            presentationController.ChangingDeadline(data);
+            System.out.println("Change was made Successfully");
         }
         else
             System.out.println("Changes are not possible for this week, may cause problems. try changing after current deadline passes");

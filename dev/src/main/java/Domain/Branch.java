@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Branch {
@@ -17,6 +18,8 @@ public class Branch {
     private Scheduling scheduleNextWeek;
 
     private String scheduleThisWeek;
+
+    private int weekCounter;
 
 //    private List<String> branchHistory;
 
@@ -32,16 +35,12 @@ public class Branch {
         this.systemLimitations = new SystemLimitations(branchId);
         this.scheduleNextWeek = new Scheduling(branchId, this.systemLimitations);
         this.scheduleThisWeek = "No shifts yet";
+        this.weekCounter = 0;
 //        this.branchHistory = new ArrayList<>();
     }
 
     public Branch(Dictionary<String,String> data) {
-        this.branchNum = Integer.parseInt(data.get("branchNum"));
-        this.address = data.get("address");
-        this.systemLimitations = new SystemLimitations(branchNum);
-        this.scheduleNextWeek = new Scheduling(branchNum, this.systemLimitations);
-        this.scheduleThisWeek = "No shifts yet";
-//        this.branchHistory = new ArrayList<>();
+        this(Integer.parseInt(data.get("branchNum")), data.get("address"));
         this.systemLimitations.setDeadLine(DayOfWeek.valueOf(data.get("deadline")));
     }
 
@@ -57,8 +56,8 @@ public class Branch {
         return address;
     }
 
-    public void addWorker(Dictionary<String, String> data){
-        Chain.getWorkersRepository().createWorker(data);
+    public Worker addWorker(Dictionary<String, String> data){
+        return Chain.getWorkersRepository().createWorker(data);
     }
 
     public LocalDate removeWorker(Dictionary<String, String> data){
@@ -75,10 +74,6 @@ public class Branch {
     public SystemLimitations getSystemLimitations() {
         return systemLimitations;
     }
-
-//    public void setSystemLimitations(SystemLimitations systemLimitations) {
-//        this.systemLimitations = systemLimitations;
-//    }
 
     public DayOfWeek getDeadLine() {
         return this.systemLimitations.getDeadLine();
@@ -103,14 +98,39 @@ public class Branch {
     }
 
     public void creatNextWeek(){
-//        this.branchHistory.add(this.scheduleNextWeek.toString()); //kuku
+
+        this.weekCounter++;
+
+        addToHistory();
+
         this.scheduleNextWeek = new Scheduling(this.branchNum);
         this.scheduleNextWeek.creatSchedule();
+
         List<Worker> workers = getWorkers();
 
         for(Worker worker : workers){
             worker.DefaultNextWeek();
         }
+    }
+
+    public void addToHistory(){
+        Shift[][] shifts = this.scheduleNextWeek.getSchedule();
+
+        Dictionary<String, String> data = new Hashtable<>();
+        data.put("branchNum", Integer.toString(branchNum));
+        data.put("weekCounter", Integer.toString(this.weekCounter));
+
+
+        for(int i = 0; i < 7; i++){
+            for (int j = 0; j< 2; j++){
+                Shift shift = shifts[i][j];
+                if(shift != null) {
+                    data.put("shiftString" + Integer.toString(i), shift.toString());
+                }
+            }
+        }
+
+        Chain.getShiftHistoryRepository().create(data);
     }
 
     public String getScheduleThisWeek() {
@@ -158,10 +178,12 @@ public class Branch {
     }
 
     public String getShiftHistory(){
+        List<String> history = Chain.shiftHistoryRepository.getHistory(branchNum, weekCounter);
+
         StringBuilder res = new StringBuilder("Branch number: " + this.branchNum + "\n");
-//        for (String schedule: this.branchHistory){ // kuku
-//            res.append(schedule.toString());
-//        }
+        for (String schedule: history){
+            res.append(schedule);
+        }
         return res.toString();
     }
 
@@ -214,8 +236,52 @@ public class Branch {
     }
 
     public boolean updateBranch(Dictionary<String, String> data){
-        return true; //kuku
+        String updateTo = data.get("update");
+        boolean flag = true;
+        switch (updateTo) {
+            case "deadline":
+                flag = this.ChangingDeadline(data);
+                break;
+            case "changeTime":
+                flag = this.changeStartAndEndTime(data);
+                break;
+            case "daysOff":
+                flag = this.AddOrRemoveDaysOffWork(data);
+                break;
+            case "changeAmount":
+                this.ChangeAmountTypeOfWorkersShift(data);
+                break;
+            default:
+                break;
+        }
+        return flag;
     }
+
+//    public void updateWorker(Dictionary <String, String> data){
+//        String updateTo = data.get("update");
+//        switch (updateTo) {
+//            case "firstName":
+//                this.firstName = data.get("value");
+//                break;
+//            case "lastName":
+//                this.lastName = data.get("value");
+//                break;
+//            case "bankDetails":
+//                this.bankInfo = Integer.parseInt(data.get("value"));
+//                break;
+//            case "hourRate":
+//                this.contract.setHourRate(Integer.parseInt(data.get("value")));
+//                break;
+//            case "jobType":
+//                this.contract.setJobType(data.get("value"));
+//                break;
+//            case "date":
+//                this.contract.setEmploymentEnd(LocalDate.of(Integer.parseInt(data.get("year")), Integer.parseInt(data.get("month")), Integer.parseInt(data.get("day"))));
+//                break;
+//            default:
+//                return;
+//        }
+//    }
 
     public boolean checkBranchDeadLinePassed() {
         return !checkBranchDeadLine();

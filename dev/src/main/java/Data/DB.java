@@ -12,12 +12,24 @@ public class DB {
 
     protected static RolesDAO rolesDAO = new RolesDAO();
 
+    protected static ShiftHistoryDAO shiftHistoryDAO = new ShiftHistoryDAO();
+
+    protected static TransportationDAO transportationDAO = new TransportationDAO();
+
     private static final String URL = "jdbc:sqlite:identifier.sqlite";
 
-    public DB(){
-        branchesDAO =new BranchesDAO();
-        workersDAO = new WorkersDAO();
-        rolesDAO = new RolesDAO();
+    protected static Connection connection;
+
+    static {
+        try {
+            connection = DriverManager.getConnection(URL);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 
     public static Connection connect() throws SQLException {
@@ -34,5 +46,13 @@ public class DB {
 
     public static RolesDAO getRolesDAO() {
         return rolesDAO;
+    }
+
+    public static ShiftHistoryDAO getShiftHistoryDAO() {
+        return shiftHistoryDAO;
+    }
+
+    public static TransportationDAO getTransportationDAO() {
+        return transportationDAO;
     }
 }
