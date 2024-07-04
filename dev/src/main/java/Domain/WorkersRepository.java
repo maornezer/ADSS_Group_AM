@@ -51,7 +51,9 @@ public class WorkersRepository {
 
     public boolean updateWorker(Dictionary<String, String> data){
         Worker worker = workersRepo.get(Integer.parseInt(data.get("id")));
-        if(worker != null) {
+        if(worker == null)
+            worker = DB.getWorkersDAO().read(Integer.parseInt(data.get("id")));
+        if(worker != null){
             worker.updateWorker(data);
             DB.getWorkersDAO().update(data);
             return true;

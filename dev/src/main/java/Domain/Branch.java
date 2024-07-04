@@ -66,6 +66,8 @@ public class Branch {
         Worker worker = Chain.getWorkersRepository().getWorker(Integer.parseInt(data.get("id")));
         worker.setEmploymentEnd(Chain.getNextWeekDates()[0]);
 
+        Chain.fireWorker(Integer.parseInt(data.get("id")));
+
         date = Chain.getNextWeekDates()[0];
 
         return date;

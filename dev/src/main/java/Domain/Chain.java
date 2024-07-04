@@ -19,7 +19,7 @@ public class Chain {
 
     protected static TransportationRepository transportationRepository;
 
-    protected static List<Worker> firedWorkers;
+    protected static List<Integer> firedWorkers;
 
     protected static WorkersRepository workersRepository;
 
@@ -195,8 +195,8 @@ public class Chain {
         if(!flag)
             return false;
 
-        for(Worker worker: firedWorkers){
-            workersRepository.deleteWorker(worker.getId());
+        for(int worker: firedWorkers){
+            workersRepository.deleteWorker(worker);
         }
         firedWorkers.clear();
 
@@ -235,5 +235,8 @@ public class Chain {
     }
 
 
+    public static void fireWorker(int id){
+
+    }
 }
 
