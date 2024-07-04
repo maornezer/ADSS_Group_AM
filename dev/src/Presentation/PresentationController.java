@@ -61,7 +61,7 @@ public class PresentationController {
     /// order + item ///
     public int creatNewOrder(Dictionary<String, String> data1, Dictionary<Integer, ArrayList<String>> data2) {return this.transportController.getOperations().addOrder(data1, data2);}
     public void printAllOrders() {System.out.print(transportController.getOperations().toStringOrders());}
-    public void getItemInOrder(String idOrder) {System.out.println(this.transportController.getOperations().generateOrderReport(idOrder));}
+    public String getItemInOrder(String idOrder) {return this.transportController.getOperations().generateOrderReport(idOrder);}
     public void printOrder(Dictionary<String, String> data) {System.out.println(transportController.getOperations().printOrder(data));}
     public boolean removeOrder(Dictionary<String, String> data) {return transportController.getOperations().removeOrder(data);}
     public Order getOrder(String data) {return transportController.getOperations().getOrder(Integer.parseInt(data));}
@@ -81,7 +81,7 @@ public class PresentationController {
     /// transport ///
     public int addTransport(Dictionary<String, String> data) {return this.transportController.addTransport(data);}
     public void printAllOrdersByTransport(Dictionary<String, String> data){System.out.println(this.transportController.printAllOrdersByTransportID(data));}
-    public void getTransportReport(String transportId) {System.out.println(transportController.generateTransportReport(transportId));}
+    public String getTransportReport(String transportId) {return transportController.generateTransportReport(transportId);}
     public void printAllTransports(){System.out.println(transportController.printAllTransport());}
     public boolean addOrderToTransport(Dictionary<String, String> data){return transportController.addOrderToTransport(data);}
     public boolean loadOrderToTruck(Dictionary<String, String> data) {return transportController.loadOrderToTruck(data);}

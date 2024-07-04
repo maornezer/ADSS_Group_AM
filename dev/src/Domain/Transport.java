@@ -156,7 +156,7 @@ public class Transport
         sb.append("Departure Time: ").append(time).append("\n");
         sb.append("Truck Number: ").append(truck.getIdTruck()).append("\n");
         sb.append("Driver Name: ").append(driver.getName()).append("\n");
-        sb.append("Source: ").append(zone).append("\n");
+        sb.append("Zone: ").append(zone).append("\n");
         sb.append("Destinations: ").append("\n");
         for (Order order : myOrders) {
                 sb.append("  - ").append(order.getDestination().getAddress()).append("\n");

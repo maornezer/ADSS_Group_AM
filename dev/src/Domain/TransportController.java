@@ -185,13 +185,7 @@ public class TransportController
         int idT = Integer.parseInt(id);
         Transport transport = getTransport(idT);
         StringBuilder sb = new StringBuilder();
-        if (transport == null){
-            System.out.println("Transport with ID "+ id +  " not found");
-        }
-        else {
-            sb.append(transport.toStringTransportReport());
-        }
-
+        sb.append(transport.toStringTransportReport());
         return sb.toString();
     }
     public String generateTransportReport() {

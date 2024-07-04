@@ -172,11 +172,8 @@ public class OperationsController {
 
         Order order = getOrder(Integer.parseInt(orderId));
         StringBuilder sb = new StringBuilder();
-        if (order != null) {
-            sb.append(order.toStringReport());
-            return sb.toString();
-        }
-        return "Order with ID " + orderId + " not found.";
+        sb.append(order.toStringReport());
+        return sb.toString();
     }
     public String toStringOrders() {
         StringBuilder result = new StringBuilder();

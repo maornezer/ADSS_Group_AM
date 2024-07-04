@@ -44,8 +44,6 @@ public class Menu {
 
     public void managerMenu()
     {
-        scanner = new Scanner(System.in);
-        controller = new PresentationController();
         System.out.println("Hello Manager!");
         while (true)
         {
@@ -95,30 +93,26 @@ public class Menu {
         while (true)
         {
             System.out.println("Please choose what you would like to do:");
-            System.out.println("1. See all my transports");
-            System.out.println("2. Producing a item report");
-            System.out.println("3. Producing a transport report");
-            System.out.println("4. Log out");
-            System.out.println("5. Exit");
+            System.out.println("1. Producing a item report");
+            System.out.println("2. Producing a transport report");
+            System.out.println("3. Log out");
+            System.out.println("4. Exit");
 
             scanner.skip("\\R?");
             String choice = scanner.nextLine();
             switch (choice)
             {
                 case "1":
-                    getAllDeliveries();
-                    break;
-                case "2":
                     getItemsReport();
                     break;
-                case "3":
+                case "2":
                     getTransportReport();
                     break;
-                case "4":
+                case "3":
                     System.out.println("Logging out. Returning to the main menu...");
                     printMenu();
                     break;
-                case "5":
+                case "4":
                     System.out.println("Exiting the program. Goodbye!");
                     scanner.close();
                     System.exit(0);
@@ -872,14 +866,26 @@ public class Menu {
         System.out.println("Please enter order ID:");
         scanner.skip("\\R?");
         String idOrder = scanner.nextLine();
-        controller.getItemInOrder(idOrder);
+        boolean b = controller.checkOrder(idOrder);
+        if(!b)
+        {
+            System.out.println("Order with ID "+idOrder+" does not exist");
+            return;
+        }
+        System.out.println(controller.getItemInOrder(idOrder));
     }
     public void getTransportReport()
     {
         System.out.println("Please enter transport ID:");
         scanner.skip("\\R?");
         String transportId = scanner.nextLine();
-        controller.getTransportReport(transportId);
+        boolean existTransport = controller.isTransportExist(Integer.parseInt(transportId));
+        if (!existTransport)
+        {
+            System.out.println("Transport with ID "+transportId+" does not exist");
+            return;
+        }
+        System.out.println(controller.getTransportReport(transportId));
     }
 
 

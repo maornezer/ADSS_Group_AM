@@ -7,8 +7,8 @@ public class Main
 
         Menu menu = new Menu();
         //menu.startMenu();
-        menu.managerMenu();
-        //menu.printMenu();
+        //menu.managerMenu();
+        menu.printMenu();
     }
 }
 
