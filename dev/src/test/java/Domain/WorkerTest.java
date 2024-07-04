@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -63,9 +64,6 @@ class WorkerTest {
         data.put("lastName", "Chemo");
 
         this.worker2 = branch.addWorker(data);
-
-
-
     }
 
     @AfterEach
@@ -74,7 +72,6 @@ class WorkerTest {
 
         Chain.getWorkersRepository().deleteWorker(501);
         Chain.getWorkersRepository().deleteWorker(502);
-
     }
 
     @Test
@@ -84,6 +81,18 @@ class WorkerTest {
 
     }
 
+    @Test
+    void getUsedVacationDays() {
+        assertEquals(0, worker1.getUsedVacationDays());
+        assertEquals(0, worker2.getUsedVacationDays());
+
+        worker1.IncreaseUsedVacationDays();
+        worker1.IncreaseUsedVacationDays();
+        worker2.IncreaseUsedVacationDays();
+
+        assertEquals(2, worker1.getUsedVacationDays());
+        assertEquals(1, worker2.getUsedVacationDays());
+    }
 
     @Test
     void getFirstName() {
@@ -93,11 +102,23 @@ class WorkerTest {
     }
 
     @Test
+    void getJobType() {
+        assertEquals("1", worker1.getJobType());
+        assertEquals("1",  worker2.getJobType());
+
+        worker1.setJobType("fullTime");
+        worker2.setJobType("partTime");
+
+        assertEquals("fullTime",  worker1.getJobType());
+        assertEquals("partTime", worker2.getJobType());
+
+
+    }
+
+    @Test
     void getLastName() {
         assertEquals("Chemo", worker2.getLastName());
-
         assertEquals("Shvets", worker1.getLastName());
-
     }
 
 
@@ -116,6 +137,14 @@ class WorkerTest {
     }
 
     @Test
+    void getEmploymentEnd(){
+        worker1.setEmploymentEnd(LocalDate.now().plusDays(30));
+        worker2.setEmploymentEnd(LocalDate.now().plusDays(32));
+        assertEquals(LocalDate.now().plusDays(30), worker1.getEmploymentEnd());
+        assertEquals(LocalDate.now().plusDays(32), worker2.getEmploymentEnd());
+    }
+
+    @Test
     void testCheckRole(){
         assertEquals(worker1.checkRole("Manager"), true);
         assertEquals(worker1.checkRole("Cashier"), true);
@@ -123,5 +152,17 @@ class WorkerTest {
         assertEquals(worker2.checkRole("Manager"), true);
         assertEquals(worker2.checkRole("Cashier"), true);
         assertEquals(worker2.checkRole("Storekeeper"), true);
+    }
+
+    @Test
+    void ifCanWork(){
+        int temp = 0;
+        if(LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY))
+            temp = 1;
+        assertEquals(worker1.ifCanWork(LocalDate.now().plusDays(temp), 1), true);
+        assertEquals(worker1.ifCanWork(LocalDate.now().plusDays(temp), 2), true);
+        assertEquals(worker2.ifCanWork(LocalDate.now().plusDays(temp), 1), true);
+        assertEquals(worker2.ifCanWork(LocalDate.now().plusDays(temp), 2), true);
+
     }
 }

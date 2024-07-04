@@ -209,4 +209,25 @@ class BranchTest {
         assertEquals(branch.getDaysOffTemp().size(), 0);
     }
 
+    @Test
+    void getBranchNum() {
+    }
+
+    @Test
+    void getAddress() {
+    }
+
+    @Test
+    void changeAmountTypeOfWorkersShift() {
+    }
+
+    @Test
+    void changeStartAndEndTime() {
+    }
+
+    @Test
+    void testToString() {
+    }
+
+
 }

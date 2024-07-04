@@ -221,7 +221,6 @@ public class Branch {
         return Chain.getDayValue(Chain.getToday().getDayOfWeek()) <= Chain.getDayValue(getDeadLine());
     }
 
-
     public String toString(){
         StringBuilder res = new StringBuilder();
         res.append("branch number: " + this.branchNum + "\nbranch location: " + this.address + "\nworkers in branch are:\n");
@@ -256,32 +255,6 @@ public class Branch {
         }
         return flag;
     }
-
-//    public void updateWorker(Dictionary <String, String> data){
-//        String updateTo = data.get("update");
-//        switch (updateTo) {
-//            case "firstName":
-//                this.firstName = data.get("value");
-//                break;
-//            case "lastName":
-//                this.lastName = data.get("value");
-//                break;
-//            case "bankDetails":
-//                this.bankInfo = Integer.parseInt(data.get("value"));
-//                break;
-//            case "hourRate":
-//                this.contract.setHourRate(Integer.parseInt(data.get("value")));
-//                break;
-//            case "jobType":
-//                this.contract.setJobType(data.get("value"));
-//                break;
-//            case "date":
-//                this.contract.setEmploymentEnd(LocalDate.of(Integer.parseInt(data.get("year")), Integer.parseInt(data.get("month")), Integer.parseInt(data.get("day"))));
-//                break;
-//            default:
-//                return;
-//        }
-//    }
 
     public boolean checkBranchDeadLinePassed() {
         return !checkBranchDeadLine();
