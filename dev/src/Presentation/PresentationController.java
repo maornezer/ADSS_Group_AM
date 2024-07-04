@@ -21,7 +21,7 @@ public class PresentationController {
 
     /// driver ///
     public boolean addDriver(Dictionary<String, String> data){return this.transportController.getLogistics().addDriver(data);}
-    public void changeDriver(Dictionary<String, String> data){this.transportController.changeDriver(data);}
+    public boolean changeDriver(Dictionary<String, String> data){return this.transportController.changeDriver(data);}
     public void seeAllTransportByDriver(String id) {System.out.println(transportController.getTransportByIdDriver(id));}
     public boolean checkIfDriverExistsByLicence(String type){return transportController.getLogistics().checkIfDriverExistsByLicence(type);
     }

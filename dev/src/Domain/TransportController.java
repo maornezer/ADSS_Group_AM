@@ -157,16 +157,14 @@ public class TransportController
     public boolean changeDriver(int transportID, int newDriverID)
     {
         Transport tempTransport = getTransport(transportID);
-        if(tempTransport !=null)
-        {
-            Driver tempDriver = logistics.getDriver(newDriverID);
-            if (tempTransport.getTruck().getTypeOfLicense().compareTo(tempDriver.getTypeOfLicense())==0)
+        Driver tempDriver = logistics.getDriver(newDriverID);
+
+        if (tempTransport.getTruck().getTypeOfLicense().compareTo(tempDriver.getTypeOfLicense())==0) {
+            if(freeDriver(newDriverID,tempTransport.getMyOrders().get(0).getId()))
             {
-                if(driverAvailability(tempTransport.getDate(),tempDriver))
-                {
-                    tempTransport.setDriver(tempDriver);
-                    return true;
-                }
+                transportRepo.updateDriver(newDriverID,transportID);
+                tempTransport.setDriver(tempDriver);
+                return true;
             }
         }
         return false;

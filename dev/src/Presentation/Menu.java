@@ -405,7 +405,7 @@ public class Menu {
         boolean truckExist = controller.searchTruck(Integer.parseInt(idTruck));
         if(!truckExist)
         {
-            System.out.println("There is no site with id " + id + " in the system");
+            System.out.println("There is no truck with id " + id + " in the system");
             changeTruck(id);
         }
         data.put("idTruck", idTruck);
@@ -424,18 +424,25 @@ public class Menu {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
         data.put("idTransport", Integer.toString(idTransport));
-
         System.out.println("Enter new Driver ID: ");
         scanner.skip("\\R?");
         String idDriver = scanner.nextLine();
         boolean existDriver = controller.searchDriver(Integer.parseInt(idDriver));
         while (!existDriver)
         {
-            System.out.println("The id of driver that not exist");
+            System.out.println("There is no driver with id " + id + " in the system");
             changeDriver(id);
         }
+
         data.put("idDriver",idDriver);
-        controller.changeDriver(data);
+        boolean b = controller.changeDriver(data);
+        if(!b)
+        {
+            System.out.println("Driver in transport "+ idTransport + " was not change");
+            return;
+        }
+        else
+            System.out.println("Driver in transport "+ idTransport + " was change successfully");
     }
 
     public void editDatabase()

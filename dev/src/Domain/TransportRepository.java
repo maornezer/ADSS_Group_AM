@@ -88,4 +88,6 @@ public class TransportRepository
     public void updateTruck(int idTruck, int idTransport) {
         transportDAO.updateTruck(idTruck, idTransport);
     }
+
+    public void updateDriver(int newDriverID, int transportID) {transportDAO.updateDriver(newDriverID,transportID);}
 }
