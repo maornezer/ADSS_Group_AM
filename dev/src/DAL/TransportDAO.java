@@ -1,6 +1,8 @@
 package DAL;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransportDAO implements IDAO {
 //    private DB db;
@@ -84,5 +86,42 @@ public class TransportDAO implements IDAO {
             System.out.println(e.getMessage());
         }
         return count;
+
+    }
+    // Function to get transport IDs by truck ID
+    public List<Integer> getTransportIdsByTruck(int idTruck) {
+        List<Integer> transportIds = new ArrayList<>();
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "SELECT id FROM Transport WHERE idT = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idTruck);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                transportIds.add(rs.getInt("id"));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return transportIds;
+    }
+    // Function to get transport IDs by driver ID
+    public List<Integer> getTransportIdsByDriver(int idDriver) {
+        List<Integer> transportIds = new ArrayList<>();
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "SELECT id FROM Transport WHERE idD = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idDriver);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                transportIds.add(rs.getInt("id"));
+            }
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return transportIds;
     }
 }

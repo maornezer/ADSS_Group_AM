@@ -33,7 +33,9 @@ public class PresentationController {
     }
     public Driver getDriver(Dictionary<String, String> data) {return transportController.getLogistics().getDriver(data);
     }
-
+    public boolean freeDriver(int idD, int idO) {return transportController.freeDriver(idD,idO);}
+    public boolean checkMatchLicense(String idT, String idD) {return transportController.getLogistics().checkMatchLicense(idT,idD);
+    }
     /// truck ///
     public boolean addTruck(Dictionary<String, String> data){ return this.transportController.getLogistics().addTruck(data);}
     public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
@@ -44,6 +46,7 @@ public class PresentationController {
     }
     public boolean removeTruck(Dictionary<String, String> data) {return transportController.getLogistics().remove(data);}
     public Truck getTruck(Dictionary<String, String> data) {return transportController.getLogistics().getTruck(data);}
+    public boolean freeTruck(int idT, int idOrder) {return transportController.freeTruck(idT,idOrder);}
 
 
     /// site ///
@@ -64,7 +67,7 @@ public class PresentationController {
     public void printOrder(Dictionary<String, String> data) {System.out.println(transportController.getOperations().printOrder(data));}
     public boolean removeOrder(Dictionary<String, String> data) {return transportController.getOperations().removeOrder(data);}
     public Order getOrder(String data) {return transportController.getOperations().getOrder(Integer.parseInt(data));}
-
+    public boolean checkOrder(String idOrder) {return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));}
 
 
 
@@ -109,10 +112,6 @@ public class PresentationController {
     }
     public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
 
-    public boolean checkOrder(String idOrder)
-    {
-        return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));
-    }
 
 
 }

@@ -150,4 +150,14 @@ public class LogisticsController {
         }
         return sb.toString();
     }
+
+    public boolean checkMatchLicense(String idT, String idD) {
+        Driver d = getDriver(Integer.parseInt(idD));
+        Truck t = getTruck(Integer.parseInt(idT));
+        if (d.getTypeOfLicense().compareTo(t.getTypeOfLicense()) == 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }

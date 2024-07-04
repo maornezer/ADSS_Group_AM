@@ -5,6 +5,7 @@ import DAL.TransportDTO;
 import DAL.TruckDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransportRepository
 {
@@ -74,6 +75,13 @@ public class TransportRepository
         }
         return false;
     }
+
+
+    public List<Integer> getTransportIdsByTruck(int idTruck){return transportDAO.getTransportIdsByTruck(idTruck);}
+
+    public List<Integer> getTransportIdsByDriver(int idDriver){return transportDAO.getTransportIdsByDriver(idDriver);}
+
+
 
 }
 //???

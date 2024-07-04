@@ -5,6 +5,7 @@ import DAL.TransportDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 
 public class TransportController
 {
@@ -425,4 +426,38 @@ public class TransportController
         return sb.toString();
     }
 
+    public boolean freeTruck(int idTruck, int idOrder)
+    {
+        Order order = getOperations().getOrder(idOrder);
+        //Truck truck = getLogistics().getTruck(idTruck);
+        List<Integer> transportIds = transportRepo.getTransportIdsByTruck(idTruck);
+        if(transportIds.isEmpty())
+            return true;
+        for (Integer idTransport: transportIds)
+        {
+            Transport transport = getTransport(idTransport);
+            if(transport.getDate().isEqual(order.getDate()))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean freeDriver(int idD, int idO) {
+        Order order = getOperations().getOrder(idO);
+        //Driver driver = getLogistics().getDriver(idD);
+        List<Integer> transportIds = transportRepo.getTransportIdsByDriver(idD);
+        if(transportIds.isEmpty())
+            return true;
+        for (Integer idTransport: transportIds)
+        {
+            Transport transport = getTransport(idTransport);
+            if(transport.getDate().isEqual(order.getDate()))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

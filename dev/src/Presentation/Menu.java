@@ -224,44 +224,78 @@ public class Menu {
 
     public void  createNewTransport()
     {
-        int conditionTrucks = controller.getSizeOfListTrucks();
-        int conditionDrivers = controller.getSizeOfListDrivers();
+//        int conditionTrucks = controller.getSizeOfListTrucks();
+//        int conditionDrivers = controller.getSizeOfListDrivers();
+        Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter id order that you would like to add to transport:");
         scanner.skip("\\R?");
         String idOrder = scanner.nextLine();
         boolean checkOrder = controller.checkOrder(idOrder);
-        if (!checkOrder)
-        {
+        if (!checkOrder) {
             System.out.println("Order "+ idOrder +" was not exist, please try again");
             return;
         }
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        if (conditionTrucks == 0)
-        {
-            System.out.println("You do not have trucks in the system");
-            //managerMenu();
-            return;
-        }
-        if (conditionDrivers == 0)
-        {
-            System.out.println("You do not have drivers in the system");
-            //managerMenu();
-            return;
-        }
-        System.out.println("Please choose truck ID from truck list: ");
-        printAllTrucks();
+//        System.out.println("Please choose truck ID from truck list: ");
+//        printAllTrucks();
         System.out.println("Enter Truck ID: ");
         scanner.skip("\\R?");
         String idT = scanner.nextLine();
         boolean existTruck = controller.searchTruck(Integer.parseInt(idT));
-        while (!existTruck)
+        if (!existTruck)
         {
-            System.out.println("Please choose truck ID from truck list");
-            System.out.println("Enter Truck ID: ");
+            System.out.println("Truck "+ idT +" was not exist");
+            return;
+        }
+        boolean freeTruck = controller.freeTruck(Integer.parseInt(idT), Integer.parseInt(idOrder));
+        while(!freeTruck)
+        {
+            System.out.println("Truck "+ idT +" was not free in this order date");
+            System.out.println("Enter Truck ID again: ");
+            scanner.skip("\\R?");
             idT = scanner.nextLine();
             existTruck = controller.searchTruck(Integer.parseInt(idT));
+            if (!existTruck)
+            {
+                System.out.println("Truck "+ idT +" was not exist");
+                return;
+            }
+            freeTruck = controller.freeTruck(Integer.parseInt(idT), Integer.parseInt(idOrder));
         }
+
         String licenseType = getTypeOfLicense(Integer.parseInt(idT));
+        System.out.println("Enter Driver ID: ");
+        scanner.skip("\\R?");
+        String idD = scanner.nextLine();
+        boolean driverExist = controller.searchDriver(Integer.parseInt(idD));
+        boolean machLicense = controller.checkMatchLicense(idT, idD);
+        boolean freeDriver = controller.freeDriver(Integer.parseInt(idD), Integer.parseInt(idOrder));
+
+        while (!driverExist || !machLicense || !freeDriver)
+        {
+            if (!driverExist)
+            {
+                System.out.println("Driver "+ idD +" was not exist");
+                System.out.println("Enter Driver ID again: ");
+                scanner.skip("\\R?");
+                idD = scanner.nextLine();
+                continue;
+            }
+            if (!machLicense)
+            {
+                System.out.println("Driver "+ idD +" was not have mach license to Truck");
+            }
+            if (!freeDriver)
+            {
+                System.out.println("Driver "+ idD +" was not free in this order date");
+            }
+            System.out.println("Enter Driver ID again: ");
+            scanner.skip("\\R?");
+            idD = scanner.nextLine();
+            driverExist = controller.searchDriver(Integer.parseInt(idD));
+            machLicense = controller.checkMatchLicense(idT, idD);
+            freeDriver = controller.freeDriver(Integer.parseInt(idD), Integer.parseInt(idOrder));
+        }
+
         data.put("idO", idOrder);
         data.put("idT", idT);
         if (!controller.checkIfDriverExistsByLicence(licenseType))
@@ -270,20 +304,9 @@ public class Menu {
             return;
         }
 
-        System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
-        printallDriversByLicense(licenseType);
-        System.out.println("Enter Driver ID: ");
-        scanner.skip("\\R?");
-        String idD = scanner.nextLine();
-        boolean driverExist = controller.searchDriver(Integer.parseInt(idD));
-        while (!driverExist)
-        {
-            System.out.println("Please choose driver ID from driver list ");
-            System.out.println("Enter Driver ID: ");
-            scanner.skip("\\R?");
-            idD = scanner.nextLine();
-            driverExist = controller.searchDriver(Integer.parseInt(idD));
-        }
+//        System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
+//        printallDriversByLicense(licenseType);
+
 
         data.put("idD", idD);
         int ans = controller.addTransport(data);
