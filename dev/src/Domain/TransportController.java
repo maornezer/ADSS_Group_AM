@@ -1,5 +1,6 @@
 package Domain;
 
+import DAL.OrderDTO;
 import DAL.TransportDTO;
 
 import java.time.LocalDate;
@@ -32,30 +33,13 @@ public class TransportController
         int idT = Integer.parseInt(data.get("idT"));
         int idD = Integer.parseInt(data.get("idD"));
         int idO = Integer.parseInt(data.get("idO"));
-        return addTransport(idT, idD,idO);
-    }
-    public int addTransport(int idTruck, int idDriver, int idOrder) {
-        Truck truck = logistics.getTruck(idTruck);
-        Driver driver = logistics.getDriver(idDriver);
-        Order order = operations.getOrder(idOrder);
-        if (truck == null) {
-            return -1;
-        }
-        if(driver == null || driver.getTypeOfLicense().compareTo(truck.getTypeOfLicense()) != 0 ) {
-            return -2;
-        }
-        if (order == null)
-        {
-            return -3;
-        }
-        if (driver.checkShiftDate(order.getDate()) || truck.checkShiftDate(order.getDate()))
-        {
-            return -4;
-        }
-        Transport transport = new Transport(truck, driver, order);
+        Truck truck = logistics.getTruck(idT);
+        Driver driver = logistics.getDriver(idD);
+        Order order = operations.getOrder(idO);
+        int maxID = transportRepo.getMaxId() + 1;
+        Transport transport = new Transport(maxID,truck, driver, order);
         order.setTransportAssociation(transport.getId());
-        driver.addDate(order.getDate());
-        truck.addDate(order.getDate());
+        operations.updateIDTransport(idO,maxID);
         transportRepo.insert(transport);
         return transport.getId();
     }
@@ -77,9 +61,19 @@ public class TransportController
             TransportDTO tDTO = transportRepo.helpGetFunc(id);
             Truck truck = logistics.getTruck(tDTO.idT);
             Driver driver = logistics.getDriver(tDTO.idD);
-            //Order order = operations.getOrder(tDTO.idO);
+            List<Integer> ordersID = operations.getOrderIdsByTransportId(id);
+            ArrayList<Order> orders = new ArrayList<>();
+
+            for (Integer idO : ordersID)
+            {
+                Order o = operations.getOrder(idO);
+                orders.add(o);
+            }
             Transport t = new Transport(truck,driver,tDTO.id);//order
-            //driver.addDate(order.getDate());
+            t.setDate(orders.get(0).getDate());
+            t.setMyOrders(orders);
+            t.setZone(orders.get(0).getSource().getSiteZone());
+            //driver.addDate(orders.getDate());
             //truck.addDate(order.getDate());
             transportRepo.getTransports().add(t);
             return t;
@@ -97,33 +91,12 @@ public class TransportController
         int transportID = Integer.parseInt(data.get("transportID"));
         int orderID = Integer.parseInt(data.get("orderID"));
         Transport transport = getTransport(transportID);
-        Order order = operations.getOrder(orderID);///
-        if(order == null || transport == null) {
-            return false;
-        }
-        return addOrderToTransport(transport,order);
-    }
-
-    public boolean addOrderToTransport(Transport transport, Order order)
-    {
-        if(transport != null) {
-            if(!transport.getMyOrders().isEmpty()) {
-                if(order.getSource().getSiteZone().compareTo(transport.getZone()) == 0) {
-                    if(transport.getDate().isEqual(order.getDate())) {
-                        transport.addOrderToMYTransport(order);
-                        return true;
-                    }
-                    else
-                    {
-                        System.out.println("The order date you wanted to add does not match the shipping date");
-                    }
-                }
-                else {
-                    System.out.println("The order zone you wanted to add does not match the shipping zone");
-                }
-            }
-            else {
-                return transport.addOrderToMYTransport(order);
+        Order order = operations.getOrder(orderID);
+        if(order.getSource().getSiteZone().compareTo(transport.getZone()) == 0) {
+            if(transport.getDate().isEqual(order.getDate())) {
+                transport.getMyOrders().add(order);
+                operations.updateIDTransport(orderID,transportID);
+                return true;
             }
         }
         return false;

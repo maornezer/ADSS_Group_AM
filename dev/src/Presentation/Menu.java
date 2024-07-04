@@ -195,6 +195,12 @@ public class Menu {
             System.out.println("Enter item ID");
             scanner.skip("\\R?");
             String itemID = scanner.nextLine();
+            boolean searchItem = controller.searchItem(Integer.parseInt(itemID));
+            if (searchItem)
+            {
+                System.out.println("Id item is already exit, please try again");
+                addItems();
+            }
             itemi.add(itemID);
             System.out.println("Enter item name");
             scanner.skip("\\R?");
@@ -235,6 +241,12 @@ public class Menu {
             System.out.println("Order "+ idOrder +" was not exist, please try again");
             return;
         }
+        boolean associatedTransport = controller.associatedTransport(idOrder);
+        if(associatedTransport)
+        {
+            System.out.println("This order is already associated to different transport");
+            return;
+        }
 //        System.out.println("Please choose truck ID from truck list: ");
 //        printAllTrucks();
         System.out.println("Enter Truck ID: ");
@@ -267,115 +279,63 @@ public class Menu {
         scanner.skip("\\R?");
         String idD = scanner.nextLine();
         boolean driverExist = controller.searchDriver(Integer.parseInt(idD));
-        boolean machLicense = controller.checkMatchLicense(idT, idD);
-        boolean freeDriver = controller.freeDriver(Integer.parseInt(idD), Integer.parseInt(idOrder));
 
-        while (!driverExist || !machLicense || !freeDriver)
-        {
-            if (!driverExist)
-            {
-                System.out.println("Driver "+ idD +" was not exist");
-                System.out.println("Enter Driver ID again: ");
-                scanner.skip("\\R?");
-                idD = scanner.nextLine();
-                continue;
-            }
-            if (!machLicense)
-            {
-                System.out.println("Driver "+ idD +" was not have mach license to Truck");
-            }
-            if (!freeDriver)
-            {
-                System.out.println("Driver "+ idD +" was not free in this order date");
-            }
+        while(!driverExist) {
+            System.out.println("Driver " + idD + " was not exist");
             System.out.println("Enter Driver ID again: ");
             scanner.skip("\\R?");
             idD = scanner.nextLine();
             driverExist = controller.searchDriver(Integer.parseInt(idD));
-            machLicense = controller.checkMatchLicense(idT, idD);
-            freeDriver = controller.freeDriver(Integer.parseInt(idD), Integer.parseInt(idOrder));
         }
 
+        boolean machLicense = controller.checkMatchLicense(idT, idD);
+        if (!machLicense)
+        {
+            System.out.println("Driver "+ idD +" was not have mach license to Truck");
+            return;
+        }
+        boolean freeDriver = controller.freeDriver(Integer.parseInt(idD), Integer.parseInt(idOrder));
+        if (!freeDriver)
+        {
+            System.out.println("Driver "+ idD +" was not free in this order date");
+            return;
+        }
         data.put("idO", idOrder);
         data.put("idT", idT);
-        if (!controller.checkIfDriverExistsByLicence(licenseType))
-        {
-            System.out.println("You do not have drivers with license type: " + licenseType+" in the system");
-            return;
-        }
-
-//        System.out.println("Please choose driver ID from driver list with type license " + licenseType + ": ");
-//        printallDriversByLicense(licenseType);
-
-
         data.put("idD", idD);
         int ans = controller.addTransport(data);
-
-        if (ans == -1)
-        {
-            System.out.println("The Truck id is not registered in the system");
-            System.out.println("Failed to create the shipment");
-            createNewTransport();
-        }
-        if (ans == -2)
-        {
-            System.out.println("The Driver id is not registered in the system");
-            System.out.println("Failed to create the transport");
-            createNewTransport();
-
-        }
-        if (ans == -3)
-        {
-            System.out.println("The order has already been associated with another transport");
-            return;
-        }
-
-        if (ans == -4)
-        {
-            System.out.println("The truck and driver cannot be entered on the transport date");
-            createNewTransport();
-
-
-        }
-        else
-        {
-            System.out.println("The transport has been successfully added to the system");
-            System.out.println("Your transport number is: " + ans);
-            System.out.println("Enter if you want to add a order number to this transport [Y/N]");
-            scanner.skip("\\R?");
-            String s = scanner.nextLine();
-            if (s.compareTo("Y") == 0)
-            {
-                addOrderTonewTransport(ans);
-            }
-            managerMenu();
-        }
-
+        System.out.println("The transport has been successfully added to the system");
+        System.out.println("Your transport number is: " + ans);
     }
+
 
     public void addOrderTonewTransport(int transportID)
     {
-        int conditionOrders = controller.getSizeOfListOrders();
-        System.out.println("Please choose:");
-        System.out.println("1. Add an existing order");
-        System.out.println("2. Exit");
+        Dictionary<String, String> data = new Hashtable<String, String>();
+        System.out.println("Please enter id order you would like to add to transport: "+ transportID);
         scanner.skip("\\R?");
-        String choose = scanner.nextLine();
-
-        switch (choose) {
-            case "1":
-                if (conditionOrders == 0)
-                {
-                    System.out.println("There is no orders system");
-                    break;
-                }
-                addOrderToTransport(transportID);
-                anotherOrder(transportID);
-                break;
-            case "2":
-                break;
-            default:
-                System.out.println("There is no such option of choice, please choose valid number\n");
+        String idOrder = scanner.nextLine();
+        boolean checkOrder = controller.checkOrder(idOrder);
+        if (!checkOrder) {
+            System.out.println("Order "+ idOrder +" was not exist, please try again");
+            return;
+        }
+        boolean associatedTransport = controller.associatedTransport(idOrder);
+        if(associatedTransport)
+        {
+            System.out.println("This order is already associated to different transport");
+            return;
+        }
+        data.put("transportID",Integer.toString(transportID));
+        data.put("orderID", idOrder);
+        boolean b = controller.addOrderToTransport(data);
+        if (!b)
+        {
+            System.out.println("The Order with number id " + idOrder + " was not added to transport "+ transportID);
+        }
+        else
+        {
+            System.out.println("The Order with number id " + idOrder + " was added successfully to transport "+ transportID);
         }
     }
     //for over weight:
@@ -399,19 +359,18 @@ public class Menu {
         }
     }
 
-    public void editTransport() {
-        System.out.println("Choose transport that you want to edit: ");
-        controller.printAllTransports();
-        System.out.println("Enter ID of the Transport you want to change: ");
+    public void editTransport()
+    {
+        System.out.println("Enter ID of the Transport you want to edit: ");
         scanner.skip("\\R?");
         String id = scanner.nextLine();
         boolean existTransport = controller.isTransportExist(Integer.parseInt(id));
         if (!existTransport)
         {
-            System.out.println("Enter valid ID from the list");
+            System.out.println("Transport "+ id +" was not exist");
             editTransport();
         }
-        System.out.println("Choose what change you would like to make in the shipment with an ID number " + id + ": ");
+        System.out.println("Choose what change you would like to do in transport " + id + ": ");
         System.out.println("1. Change Truck");
         System.out.println("2. Change Driver");
         System.out.println("3. Add order to transport");
@@ -890,34 +849,6 @@ public class Menu {
         controller.getTransportReport(transportId);
     }
 
-
-    public void addOrderToTransport(int transportID)
-    {
-        System.out.println("Please enter order ID would you like to add to transport "+ transportID + ": ");
-        scanner.skip("\\R?");
-        String orderID = scanner.nextLine();
-        boolean orderExist = controller.searchOrder(Integer.toString(transportID),orderID);
-        if (orderExist)
-        {
-            System.out.println("The order with ID "+orderID+ " already exit in this transport");
-            return;
-
-        }
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        data.put("transportID",Integer.toString(transportID));
-        data.put("orderID", orderID);
-        boolean b = controller.addOrderToTransport(data);
-        if (!b)
-        {
-            System.out.println("The Order with number id " + orderID + " was not added to transport "+ transportID);
-        }
-        else
-        {
-
-            System.out.println("The Order with number id " + orderID + " was added successfully to transport "+ transportID);
-        }
-
-    }
 
     public void printAllTrucks()
     {

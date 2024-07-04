@@ -67,4 +67,11 @@ public class OrderRepository {
     public int getSizeOrders() {return allOrders.size();}
 
     public int getMaxId() {return orderDAO.getMaxOrderId();}
+
+    public void updateIDTransport(int idOrder,int idTransport){orderDAO.updateIDTransport(idOrder,idTransport);}
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
+    }
+    public List<Integer> getOrderIdsByTransportId(int idTransport) {return orderDAO.getOrderIdsByTransportId(idTransport);}
 }

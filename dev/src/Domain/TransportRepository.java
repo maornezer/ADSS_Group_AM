@@ -20,8 +20,9 @@ public class TransportRepository
 
     public boolean insert(Transport transport)
     {
+        TransportDTO transportDTO = new TransportDTO(transport.getId(), transport.getTruck().getIdTruck(),transport.getDriver().getId());
         transports.add(transport);
-        transportDAO.insert(transport);
+        transportDAO.insert(transportDTO);
         return true;
     }
 
@@ -63,6 +64,7 @@ public class TransportRepository
     public int countRecords() {return transportDAO.countRecords();}
 
     public ArrayList<Transport> getTransports() {return transports;}
+
     public boolean searchOrder(int id, int idOrder)
     {
         Transport transport = get(id);
@@ -80,19 +82,7 @@ public class TransportRepository
     public List<Integer> getTransportIdsByTruck(int idTruck){return transportDAO.getTransportIdsByTruck(idTruck);}
 
     public List<Integer> getTransportIdsByDriver(int idDriver){return transportDAO.getTransportIdsByDriver(idDriver);}
-
+    public int getMaxId() {return transportDAO.getMaxTransportId();}
 
 
 }
-//???
-//    public boolean orderExist(String parseInt, String transportID) {
-//        ArrayList<Order> myOrders = getTransportByID(Integer.parseInt(transportID)).getMyOrders();
-//        for (Order order: myOrders){
-//            if (order.getId() == Integer.parseInt(parseInt))
-//            {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//}

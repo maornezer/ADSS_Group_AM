@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Transport
 {
-    private static int next_id = 1;
     private int id;
     private LocalDate date;
     private LocalTime time;
@@ -23,14 +22,14 @@ public class Transport
     private boolean changeTruck;
 
 
-    public  Transport(Truck truck, Driver driver, Order order)
+    public  Transport(int id,Truck truck, Driver driver, Order order)
     {
+        setId(id);
         setTruck(truck);
         setDriver(driver);
         setTime();
         setDate(order.getDate());
         setZone(order.getDestination().getSiteZone());
-        id = next_id++;
         myOrders = new ArrayList<>();
         myOrders.add(order);
         changeDestination = false;
@@ -102,6 +101,10 @@ public class Transport
 
     public void setTime() {this.time = LocalTime.of(8, 0);;}
 
+    public void setMyOrders(ArrayList<Order> myOrders) {
+        this.myOrders = myOrders;
+    }
+
     public void setZone(String zone)
     {
             this.zone = zone;
@@ -125,22 +128,18 @@ public class Transport
         }
     }
 
-    public boolean addOrderToMYTransport(Order order) {
-        if(myOrders.isEmpty()){
-                setDate(order.getDate());
-                setZone(order.getSource().getSiteZone());
-        }
-        else{
-            if (order.getDestination().getSiteZone().compareTo(this.getMyOrders().get(0).getDestination().getSiteZone()) != 0 || order.getSource().getSiteZone().compareTo(this.getMyOrders().get(0).getSource().getSiteZone())!= 0){
-                return false;
-            }
-            if(!order.getDate().isEqual(this.getMyOrders().get(0).getDate())) {
-                return false;
-            }
-        }
-        myOrders.add(order);
-       return true;
-    }
+//    public boolean addOrderToMYTransport(Order order) {
+//
+//        if (order.getDestination().getSiteZone().compareTo(this.getMyOrders().get(0).getDestination().getSiteZone()) != 0 || order.getSource().getSiteZone().compareTo(this.getMyOrders().get(0).getSource().getSiteZone())!= 0){
+//            return false;
+//        }
+//        if(!order.getDate().isEqual(this.getMyOrders().get(0).getDate())) {
+//            return false;
+//        }
+//
+//        myOrders.add(order);
+//       return true;
+//    }
 
 //    public Order getOrderByID(int orderID) {
 //        for (Order order : myOrders) {

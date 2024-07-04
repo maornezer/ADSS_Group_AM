@@ -71,7 +71,7 @@ public class Order
     public void setSourceID(int id){this.sourceID = id;}
 
     public boolean isHaveTransport() {
-        return transportAssociation!=-1;}
+        return transportAssociation != -1;}
 
     public int setTransportAssociation(int transportID) {return this.transportAssociation = transportID;}
 

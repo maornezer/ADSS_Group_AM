@@ -68,8 +68,8 @@ public class PresentationController {
     public boolean removeOrder(Dictionary<String, String> data) {return transportController.getOperations().removeOrder(data);}
     public Order getOrder(String data) {return transportController.getOperations().getOrder(Integer.parseInt(data));}
     public boolean checkOrder(String idOrder) {return transportController.getOperations().searchOrder(Integer.parseInt(idOrder));}
-
-
+    public boolean associatedTransport(String idOrder) {return transportController.getOperations().associatedTransport(Integer.parseInt(idOrder));}
+    public boolean searchItem(int id) {return transportController.getOperations().searchItem(id);}
 
 
 

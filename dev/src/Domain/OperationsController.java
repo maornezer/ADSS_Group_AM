@@ -1,5 +1,7 @@
 package Domain;
 
+import DAL.OrderDTO;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -53,6 +55,11 @@ public class OperationsController {
         }
         return siteRepo.get(id);
     }
+
+    public SiteRepository getSiteRepo() {
+        return siteRepo;
+    }
+
     public int sizeOfSites(){return siteRepo.getSizeSites();}
 
     public boolean isAddressSiteAlreadyIn(String address) {return siteRepo.isAddressSiteAlreadyIn(address);}//לשנות את הפונקציות שמשתמשות בזה
@@ -105,7 +112,7 @@ public class OperationsController {
             itemRepo.insert(item);
         }
 
-        return newOrder.getId();
+        return maxID;
     }
     public boolean removeOrder(Dictionary<String, String> data)
     {
@@ -118,6 +125,13 @@ public class OperationsController {
         return orderRepo.remove(id);
     }
     public boolean searchOrder(int id) {return orderRepo.search(id);}
+
+    public OrderRepository getOrderRepo() {
+        return orderRepo;
+    }
+    public List<Integer> getOrderIdsByTransportId(int idTransport){
+        return orderRepo.getOrderIdsByTransportId(idTransport);
+    }
     public Order getOrder(int id) {
         if(!searchOrder(id))
         {
@@ -198,9 +212,16 @@ public class OperationsController {
         Item newItem = new Item(id, name, amount);
         return newItem;
     }
+    public boolean searchItem(int id) {return itemRepo.search(id);}
 
 
+    public boolean associatedTransport(int id) {
+        Order o = getOrder(id);
+        return o.isHaveTransport();
+    }
 
+
+    public void updateIDTransport(int idOrder,int idTransport){orderRepo.updateIDTransport(idOrder,idTransport);}
 
 
 }

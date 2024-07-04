@@ -19,10 +19,12 @@ public class TransportDAO implements IDAO {
             //Connection connection = DB.connect();
             //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
-            String sql = "INSERT INTO Transport(idT, idD) VALUES(?, ?)";
+            String sql = "INSERT INTO Transport(id,idT, idD,complete) VALUES(?,?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, transport.idT);
-            ps.setInt(2, transport.idD);
+            ps.setInt(1, transport.id);
+            ps.setInt(2, transport.idT);
+            ps.setInt(3, transport.idD);
+            ps.setString(4,"false");
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
@@ -123,5 +125,24 @@ public class TransportDAO implements IDAO {
             System.out.println(e.getMessage());
         }
         return transportIds;
+    }
+
+    public int getMaxTransportId()
+    {
+        int maxId = -1;
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "SELECT MAX(id) FROM `Transport`";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                maxId = rs.getInt(1);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return maxId;
     }
 }
