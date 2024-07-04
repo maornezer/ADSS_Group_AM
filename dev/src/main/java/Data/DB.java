@@ -22,8 +22,9 @@ public class DB {
 
     static {
         try {
-            connection = DriverManager.getConnection(URL);
-        } catch (SQLException e) {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite::resource:identifier.sqlite");
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
     }

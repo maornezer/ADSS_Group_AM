@@ -219,11 +219,6 @@ class BranchTest {
         assertEquals("Tel aviv", branch.getAddress());
     }
 
-//    @Test
-//    void changeAmountTypeOfWorkersShift() {
-//
-//    }
-
     @Test
     void changeStartAndEndTime() {
         Dictionary<String, String> data = new Hashtable<>();
