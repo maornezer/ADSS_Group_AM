@@ -312,6 +312,12 @@ public class Menu {
     public void addOrderTonewTransport(int transportID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
+        boolean complete = controller.getStatus(transportID);
+        if (complete)
+        {
+            System.out.println("Transport with ID "+transportID+" is already completed");
+            return;
+        }
         System.out.println("Please enter id order you would like to add to transport: "+ transportID);
         scanner.skip("\\R?");
         String idOrder = scanner.nextLine();
@@ -394,11 +400,17 @@ public class Menu {
         }
     }
 
-    public void changeTruck(int id)
+    public boolean changeTruck(int id)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
         data.put("idTransport", Integer.toString(idTransport));
+        boolean complete = controller.getStatus(idTransport);
+        if (complete)
+        {
+            System.out.println("Transport with ID "+idTransport+" is already completed");
+            return false;
+        }
         System.out.println("Enter new Truck ID: ");
         scanner.skip("\\R?");
         String idTruck = scanner.nextLine();
@@ -413,16 +425,24 @@ public class Menu {
         if(!b)
         {
             System.out.println("Truck in transport "+ idTransport + " was not change");
-            return;
+            return false;
         }
-        else
+        else{
             System.out.println("Truck in transport "+ idTransport + " was change successfully");
+            return true;
+        }
     }
 
     public void changeDriver(int id)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
+        boolean complete = controller.getStatus(idTransport);
+        if (complete)
+        {
+            System.out.println("Transport with ID "+idTransport+" is already completed");
+            return;
+        }
         data.put("idTransport", Integer.toString(idTransport));
         System.out.println("Enter new Driver ID: ");
         scanner.skip("\\R?");
@@ -886,19 +906,14 @@ public class Menu {
         boolean check = controller.isTransportExist(Integer.parseInt(transportID));
         if (!check)
         {
-            System.out.println("Transport with ID "+transportID+" does not exist in the system, please enter it again");
-            System.out.println("Please choose if you want try again or return back");
-            System.out.println("1. Try again");
-            System.out.println("2. Return back");
-            scanner.skip("\\R?");
-            String choose = scanner.nextLine();
-            if (choose.compareTo("2") == 0)
-            {
-                managerMenu();
-            }
-            else {
-                deliveryStartUpdate();
-            }
+            System.out.println("Transport with ID "+transportID+" does not exist");
+            return;
+        }
+        boolean complete = controller.getStatus(Integer.parseInt(transportID));
+        if (complete)
+        {
+            System.out.println("Transport with ID "+transportID+" is already completed");
+            return;
         }
         ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(Integer.parseInt(transportID));
         boolean b ;
@@ -914,23 +929,18 @@ public class Menu {
                 if (!b)
                 {
                     System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
-                    System.out.println("Hi manager, please select a solution for shipment "+ transportID +" containing order " + order.getId());
+                    System.out.println("Hi manager, please select a solution for transport "+ transportID +" containing order " + order.getId());
                     managerSulotion(Integer.parseInt(transportID), order.getId());
                 }
-                else
-                {
-                    System.out.println("Adding order number " + order.getId() + " to the truck has been successfully completed");
-                }
-
             }
         }
-
-        System.out.println("Weighing was done successfully! The truck can leave");
+        controller.updateComplete(Integer.parseInt(transportID));
+        System.out.println("Loading the truck was done successfully");
     }
     public boolean Orderweightupdate(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Please enter the order "+ orderID +" weight: ");
+        System.out.println("Please enter the weight of order "+ orderID +": ");
         scanner.skip("\\R?");
         String weight = scanner.nextLine();
         data.put("transportID", Integer.toString(transportID));
@@ -967,28 +977,17 @@ public class Menu {
 
     public void changeTruckSol(int transportID , int orderID)
     {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Please enter new truck ID: ");
-        scanner.skip("\\R?");
-        String truckId = scanner.nextLine();
-        data.put("transportID", Integer.toString(transportID));
-        data.put("truckId", truckId);
-
-        boolean sol1 = controller.treatmentWeightProblemChangeTruck(data);
+        boolean sol1 = changeTruck(transportID);
         if (!sol1)
         {
-            System.out.println("Changing the truck failed Please choose again a solution for the weight problem");
+            System.out.println("Please choose again a solution for the weight problem");
             managerSulotion(transportID, orderID);
         }
         else
         {
-            System.out.println("The truck was successfully replaced");
             System.out.println("Weigh the truck again");
             ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
-            for (Order order: orderArrayList)
-            {
-                Orderweightupdate(transportID, order.getId());
-            }
+            Orderweightupdate(transportID, orderID);
         }
     }
 
@@ -1015,7 +1014,7 @@ public class Menu {
         else
         {
             System.out.println("The quantity of item "+ itemID + " was successfully replaced");
-            System.out.println("Weigh the truck again");
+            System.out.println("Weight the truck again");
             ArrayList<Order> orderArrayList = controller.getAllOrdersByTransport(transportID);
             for (Order order: orderArrayList)
             {

@@ -172,4 +172,37 @@ public class TransportDAO implements IDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public void updateComplete(int transportID)
+    {
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "UPDATE Transport SET complete = 'true' WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, transportID);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public boolean getStatus(int idT) {
+        boolean status = false;
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "SELECT complete FROM Transport WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idT);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                status = rs.getString("complete").equalsIgnoreCase("true");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return status;
+    }
 }

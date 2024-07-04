@@ -90,4 +90,8 @@ public class TransportRepository
     }
 
     public void updateDriver(int newDriverID, int transportID) {transportDAO.updateDriver(newDriverID,transportID);}
+
+    public void updateComplete(int transportID) {transportDAO.updateComplete(transportID);}
+
+    public boolean getStatus(int idT) {return transportDAO.getStatus(idT);}
 }

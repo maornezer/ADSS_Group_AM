@@ -206,31 +206,18 @@ public class TransportController
         int orderWeight = Integer.parseInt(data.get("weight"));
         int orderID = Integer.parseInt(data.get("orderID"));
         int transportID = Integer.parseInt(data.get("transportID"));
-        return loadOrderToTruck(orderWeight,orderID,transportID);
-    }
-
-    public boolean loadOrderToTruck(double orderWeight,int orderID, int transportID)
-    {
         Transport transportTemp = getTransport(transportID);
         Order orderTemp = operations.getOrder(orderID);
-        if (transportTemp != null && orderTemp != null)
+        orderTemp.setOrderWeight(orderWeight);
+        Truck truckTemp = transportTemp.getTruck();
+        if (truckTemp.getCurrWeight() + orderWeight > truckTemp.getMaxWeight())
         {
-            if (transportTemp.getMyOrders().contains(orderTemp))
-            {
-                orderTemp.setOrderWeight(orderWeight);
-                int truckIDTemp = transportTemp.getTruck().getIdTruck();
-                Truck truckTemp = logistics.getTruck(truckIDTemp);
-                if (truckTemp.getCurrWeight() + orderWeight > truckTemp.getMaxWeight())
-                {
-//                    System.out.println("Unsuccessful loading! The weight of the truck is greater than its maximum weight");
-                    return false;
-                }
-                truckTemp.setAddToCurrWeight(orderWeight);
-                return true;
-            }
-            System.out.println("Error! The order " + orderID + " is not in transport " + transportID);
+            return false;
         }
-        return false;
+        truckTemp.setAddToCurrWeight(orderWeight);
+        return true;
+
+
     }
     public boolean unloadOrderFromTruck(double orderWeight,int orderID, int transportID)
     {
@@ -251,22 +238,22 @@ public class TransportController
         }
         return false;
     }
-    public boolean treatmentWeightProblemChangeTruck(Dictionary<String,String> data)
-    {
-        int transportID = Integer.parseInt(data.get("transportID"));
-        int truckId = Integer.parseInt(data.get("truckId"));
-        return treatmentWeightProblemChangeTruck(transportID, truckId);
-    }
-    public boolean treatmentWeightProblemChangeTruck(int transportID,int truckId)
-    {
-        boolean b = changeTruck(transportID,truckId);
-        if (b)
-        {
-            getTransport(transportID).setChangeTruck();
-            return true;
-        }
-        return false;
-    }
+//    public boolean treatmentWeightProblemChangeTruck(Dictionary<String,String> data)
+//    {
+//        int transportID = Integer.parseInt(data.get("transportID"));
+//        int truckId = Integer.parseInt(data.get("truckId"));
+//        return treatmentWeightProblemChangeTruck(transportID, truckId);
+//    }
+//    public boolean treatmentWeightProblemChangeTruck(int transportID,int truckId)
+//    {
+//        boolean b = changeTruck(transportID,truckId);
+//        if (b)
+//        {
+//            getTransport(transportID).setChangeTruck();
+//            return true;
+//        }
+//        return false;
+//    }
     public boolean treatmentWeightProblemUnloadingItems(Dictionary<String,String> data)
     {
         int orderID = Integer.parseInt(data.get("orderID"));
@@ -424,4 +411,8 @@ public class TransportController
         }
         return true;
     }
+
+    public void updateComplete(int transportID) {transportRepo.updateComplete(transportID);}
+
+    public boolean getStatus(int idT) {return transportRepo.getStatus(idT);}
 }

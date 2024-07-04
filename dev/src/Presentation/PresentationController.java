@@ -86,7 +86,7 @@ public class PresentationController {
     public boolean addOrderToTransport(Dictionary<String, String> data){return transportController.addOrderToTransport(data);}
     public boolean loadOrderToTruck(Dictionary<String, String> data) {return transportController.loadOrderToTruck(data);}
 
-    public boolean treatmentWeightProblemChangeTruck(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeTruck(data);}
+//public boolean treatmentWeightProblemChangeTruck(Dictionary<String, String> data) {return transportController.changeTruck(data);}
 
     public boolean UnloadingItems(Dictionary<String, String> data) {return transportController.treatmentWeightProblemUnloadingItems(data);}
 
@@ -111,5 +111,7 @@ public class PresentationController {
     public boolean treatmentWeightProblemChangeDestination(Dictionary<String, String> data) {return transportController.treatmentWeightProblemChangeDestination(data);}
 
 
+    public void updateComplete(int transportID) {transportController.updateComplete(transportID);}
 
+    public boolean getStatus(int idT) {return transportController.getStatus(idT);}
 }
