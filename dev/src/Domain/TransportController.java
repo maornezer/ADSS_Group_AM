@@ -133,22 +133,21 @@ public class TransportController
 
 
 
+    public boolean changeTruck(Dictionary<String,String> data) {
+        int idTransport = Integer.parseInt(data.get("idTransport"));
+        int idTruck = Integer.parseInt(data.get("idTruck"));
+        return changeTruck(idTransport, idTruck);
+    }
 
-
-
-
-
-
-
-
-    public boolean changeTruck(int transportID, int newTruckID) {
-        Transport tempTransport = getTransport(transportID);
-        if(tempTransport !=null) {
-            Truck tempTruck = logistics.getTruck(newTruckID);
-            if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0) {
+    public boolean changeTruck(int idTransport,int idTruck) {
+        Transport tempTransport = getTransport(idTransport);
+        Truck tempTruck = logistics.getTruck(idTruck);
+        if (tempTransport.getDriver().getTypeOfLicense().compareTo(tempTruck.getTypeOfLicense())==0) {
+            if(freeTruck(idTruck,tempTransport.getMyOrders().get(0).getId()))
+            {
+                transportRepo.updateTruck(idTruck,idTransport);
                 tempTransport.setTruck(tempTruck);
                 return true;
-
             }
         }
         return false;
@@ -314,12 +313,6 @@ public class TransportController
             return true;
         }
         return false;
-    }
-    public boolean changeTruck(Dictionary<String,String> data)
-    {
-        int idTransport = Integer.parseInt(data.get("idTransport"));
-        int idTruck = Integer.parseInt(data.get("idTruck"));
-        return changeTruck(idTransport, idTruck);
     }
 
     public boolean changeDriver(Dictionary<String,String> data)

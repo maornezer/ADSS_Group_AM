@@ -403,13 +403,20 @@ public class Menu {
         scanner.skip("\\R?");
         String idTruck = scanner.nextLine();
         boolean truckExist = controller.searchTruck(Integer.parseInt(idTruck));
-        while (!truckExist)
+        if(!truckExist)
         {
-            System.out.println("Please enter truck ID that exist in the system");
+            System.out.println("There is no site with id " + id + " in the system");
             changeTruck(id);
         }
         data.put("idTruck", idTruck);
-        controller.changeTruck(data);
+        boolean b = controller.changeTruck(data);
+        if(!b)
+        {
+            System.out.println("Truck in transport "+ idTransport + " was not change");
+            return;
+        }
+        else
+            System.out.println("Truck in transport "+ idTransport + " was change successfully");
     }
 
     public void changeDriver(int id)

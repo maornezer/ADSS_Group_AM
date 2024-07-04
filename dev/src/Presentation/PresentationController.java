@@ -38,12 +38,10 @@ public class PresentationController {
     }
     /// truck ///
     public boolean addTruck(Dictionary<String, String> data){ return this.transportController.getLogistics().addTruck(data);}
-    public void changeTruck(Dictionary<String, String> data){this.transportController.changeTruck(data);}
+    public boolean changeTruck(Dictionary<String, String> data){return this.transportController.changeTruck(data);}
     public void printAllTrucks() {System.out.println(transportController.getLogistics().toStringTrucks());}
     public String getTypeOfLicense(int idT) {return transportController.getLogistics().getTruck(idT).getTypeOfLicense();}
-    public boolean searchTruck(int idTruck) {
-        return transportController.getLogistics().searchTruck(idTruck);
-    }
+    public boolean searchTruck(int idTruck) {return transportController.getLogistics().searchTruck(idTruck);}
     public boolean removeTruck(Dictionary<String, String> data) {return transportController.getLogistics().remove(data);}
     public Truck getTruck(Dictionary<String, String> data) {return transportController.getLogistics().getTruck(data);}
     public boolean freeTruck(int idT, int idOrder) {return transportController.freeTruck(idT,idOrder);}

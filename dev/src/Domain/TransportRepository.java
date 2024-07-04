@@ -85,4 +85,7 @@ public class TransportRepository
     public int getMaxId() {return transportDAO.getMaxTransportId();}
 
 
+    public void updateTruck(int idTruck, int idTransport) {
+        transportDAO.updateTruck(idTruck, idTransport);
+    }
 }

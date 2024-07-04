@@ -145,4 +145,31 @@ public class TransportDAO implements IDAO {
         }
         return maxId;
     }
+
+    public void updateTruck(int idTruck, int idTransport) {
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "UPDATE Transport SET idT = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idTruck);
+            ps.setInt(2, idTransport);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateDriver(int idDriver, int idTransport) {
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "UPDATE Transport SET idD = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, idDriver);
+            ps.setInt(2, idTransport);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
