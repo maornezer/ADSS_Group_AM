@@ -21,7 +21,9 @@ public class TransportController
         transportRepo = new TransportRepository();
     }
 
-    public ArrayList<Transport> getTransports() {return transportRepo.getTransports();}
+    public TransportRepository getTransportRepo() {
+        return transportRepo;
+    }
 
     public OperationsController getOperations() {
         return operations;
@@ -49,7 +51,6 @@ public class TransportController
             return false;
         return transportRepo.remove(id);
     }
-    //int idT = Integer.parseInt(transportID);
 
     public boolean searchTransport(int id) {return transportRepo.search(id);}
 
@@ -73,8 +74,6 @@ public class TransportController
             t.setDate(orders.get(0).getDate());
             t.setMyOrders(orders);
             t.setZone(orders.get(0).getSource().getSiteZone());
-            //driver.addDate(orders.getDate());
-            //truck.addDate(order.getDate());
             transportRepo.getTransports().add(t);
             return t;
         }
@@ -83,9 +82,6 @@ public class TransportController
     public boolean searchOrder(String transportID, String idOrder) {return transportRepo.searchOrder(Integer.parseInt(transportID), Integer.parseInt(idOrder));}
 
     public int getSizeOfListTransports() {return transportRepo.countRecords();}
-
-    ////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////
 
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
@@ -102,8 +98,6 @@ public class TransportController
         return false;
     }
 
-
-
     public boolean listSizeIsEmpty() {return operations.sizeOfSites() == 0;}
 
     public int getSizeOfListTrucks() {
@@ -113,9 +107,6 @@ public class TransportController
     public int getSizeOfListDrivers() {return logistics.getSizeDrivers();}
 
     public int getSizeOfListOrders() {return operations.getSizeOrders();}
-
-
-   // public boolean orderExist(String parseInt, String transportID) {return transportRepo.orderExist(parseInt, transportID);}
 
 
 

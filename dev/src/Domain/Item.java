@@ -41,8 +41,6 @@ public class Item
           this.amount -= amount;
           return true;
      }
-
-
      public String getName() {
           return name;
      }
@@ -54,7 +52,6 @@ public class Item
      public void setIdO(int idO) {
           this.idO = idO;
      }
-
      @Override
      public String toString() {
           return "Item ID: " + id + ", Name: " + name + ", Amount: " + amount ;

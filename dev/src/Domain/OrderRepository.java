@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class OrderRepository {
+public class OrderRepository implements IRepository{
     private ArrayList<Order> allOrders;
     private OrderDAO orderDAO;
 
@@ -19,10 +19,11 @@ public class OrderRepository {
         orderDAO = new OrderDAO();
     }
 
-    public boolean insert(Order o) {
-        OrderDTO orderDTO  = new OrderDTO(o.getId(),o.getDate().toString(), o.getSource().getAddress(), o.getDestination().getAddress(), o.getSourceID(),o.getDestinationID(), -1);
+    public boolean insert(Object o) {
+        Order order = (Order) o;
+        OrderDTO orderDTO  = new OrderDTO(order.getId(),order.getDate().toString(), order.getSource().getAddress(), order.getDestination().getAddress(), order.getSourceID(),order.getDestinationID(), -1);
         orderDAO.insert(orderDTO);
-        allOrders.add(o);
+        allOrders.add(order);
         return true;
     }
 

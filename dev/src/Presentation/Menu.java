@@ -224,8 +224,7 @@ public class Menu {
 
     public void  createNewTransport()
     {
-//        int conditionTrucks = controller.getSizeOfListTrucks();
-//        int conditionDrivers = controller.getSizeOfListDrivers();
+
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter id order that you would like to add to transport:");
         scanner.skip("\\R?");
@@ -241,8 +240,7 @@ public class Menu {
             System.out.println("This order is already associated to different transport");
             return;
         }
-//        System.out.println("Please choose truck ID from truck list: ");
-//        printAllTrucks();
+
         System.out.println("Enter Truck ID: ");
         scanner.skip("\\R?");
         String idT = scanner.nextLine();
@@ -840,26 +838,6 @@ public class Menu {
         }
     }
 
-    public void anotherOrder(int transportID)
-    {
-        System.out.println("Do you want to add order to this transport? [Y/N] ");
-        scanner.skip("\\R?");
-        String choice = scanner.nextLine();
-        if (choice.compareTo("Y") == 0)
-        {
-            addOrderTonewTransport(transportID);
-        }
-        else
-            managerMenu();
-    }
-
-    public void getAllDeliveries()
-    {
-        System.out.println("Please enter your ID:");
-        scanner.skip("\\R?");
-        String idDriver = scanner.nextLine();
-        controller.seeAllTransportByDriver(idDriver);
-    }
 
     public void getItemsReport()
     {
@@ -889,18 +867,9 @@ public class Menu {
     }
 
 
-    public void printAllTrucks()
-    {
-        controller.printAllTrucks();
-    }
-
     public String getTypeOfLicense(int idT)
     {
         return controller.getTypeOfLicense(idT);
-    }
-    public void printallDriversByLicense(String licenseType)
-    {
-        controller.printallDriversByLicense( licenseType);
     }
 
     public void deliveryStartUpdate()

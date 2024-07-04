@@ -3,13 +3,7 @@ package DAL;
 import java.sql.*;
 
 public class DriverDAO implements IDAO {
-//    private DB db;
-//
-//    public DriverDAO() {
-//        this.db = new DB();
-//    }
 
-    // Insert a new driverOrder
     @Override
     public void insert(Object object) {
         DriverDTO driver = (DriverDTO) object;
@@ -52,8 +46,6 @@ public class DriverDAO implements IDAO {
     public Object get(int id) {
         DriverDTO driver = null;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -74,8 +66,6 @@ public class DriverDAO implements IDAO {
     public boolean checkIfDriverExistsByLicence(String type) {
         boolean exists = false;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "SELECT COUNT(*) AS count FROM Driver WHERE typeOflicence = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -96,8 +86,6 @@ public class DriverDAO implements IDAO {
     public int countRecords() {
         int count = 0;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "SELECT COUNT(*) AS count FROM Driver";
             PreparedStatement ps = connection.prepareStatement(sql);

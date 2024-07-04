@@ -6,14 +6,12 @@ import java.util.Objects;
 
 public class Site
 {
-    //private static int next_id = 1;
     private int id;
     private String address;
     private String phoneNumber;
     private String contactName;
     private String zone;
-//    private boolean unloadingSite;
-//    private boolean loadingSite;
+
 
     public Site(String address,String zone ,String contactName, String phoneNumber,int idSite)
     {

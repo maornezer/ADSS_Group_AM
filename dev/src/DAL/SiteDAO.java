@@ -3,19 +3,11 @@ package DAL;
 import java.sql.*;
 
 public class SiteDAO implements IDAO {
-//    private DB db;
-//
-//    public SiteDAO() {
-//        this.db = new DB();
-//    }
-
     // Insert a new site
     @Override
     public void insert(Object object) {
         SiteDTO site = (SiteDTO) object;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "INSERT INTO Site(address, zone, contactName, phoneNumber,id) VALUES(?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -35,8 +27,7 @@ public class SiteDAO implements IDAO {
     // Delete a site
     public void remove(int id) {
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "DELETE FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -52,8 +43,7 @@ public class SiteDAO implements IDAO {
     public Object get(int id) {
         SiteDTO site = null;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Site WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);

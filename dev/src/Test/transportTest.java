@@ -505,11 +505,51 @@ public class transportTest
     {
         Dictionary<String, String> addDriver = new Hashtable<String, String>();
         addDriver.put("id", "1001");
-        addDriver.put("initialWeight", "200");
-        addDriver.put("maxWeight", "4000");
-        addDriver.put("model", "MMM");
+        addDriver.put("name", "Bobi");
+        addDriver.put("typeOfLicense", "C");
         boolean b = tr.getLogistics().addDriver(addDriver);
         assertTrue(b);
+    }
+
+    @Test
+    public void addOrder()
+    {
+        Dictionary<String, String> data1 = new Hashtable<String, String>();
+        data1.put("year", "2028");
+        data1.put("month", "06");
+        data1.put("day", "08");
+        data1.put("source", "1000");
+        data1.put("destination", "1001");
+
+        Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
+        ArrayList<String> item1 = new ArrayList<>();
+        item1.add("1000");
+        item1.add("Banana");
+        item1.add("4");
+        data2.put(1,item1);
+        ArrayList<String> item2 = new ArrayList<>();
+        item2.add("1001");
+        item2.add("Apple");
+        item2.add("4");
+        data2.put(2,item2);
+
+        int idOrder = tr.getOperations().addOrder(data1, data2);
+        boolean b=tr.getOperations().searchOrder(idOrder);
+        assertTrue(b);
+    }
+
+    @Test
+    public void addTransport()
+    {
+        Dictionary<String, String> addTransport = new Hashtable<String, String>();
+        addTransport.put("idT", "1001");
+        addTransport.put("idD", "1001");
+        int idOrder = tr.getOperations().getOrderRepo().getMaxId();
+        addTransport.put("idO",Integer.toString(idOrder));
+        int idTransport = tr.addTransport(addTransport);
+        boolean bt=tr.searchTransport(idTransport);
+        assertTrue(bt);
+
     }
 
     @Test
@@ -520,6 +560,15 @@ public class transportTest
         boolean b = tr.getLogistics().remove(removeTruck);
         assertTrue(b);
     }
+    @Test
+    public void removeDriver()
+    {
+        Dictionary<String, String> removeDriver = new Hashtable<String, String>();
+        removeDriver.put("id", "1001");
+        boolean b = tr.getLogistics().removeDriver(removeDriver);
+        assertTrue(b);
+    }
+
 
 
     @Test
@@ -539,5 +588,31 @@ public class transportTest
         boolean b = tr.getOperations().removeSite(removeSite2);
         assertTrue(b);
     }
+    @Test
+    public void removeSite3()
+    {
+        Dictionary<String, String> removeSite3 = new Hashtable<String, String>();
+        removeSite3.put("id", "1001");
+        boolean b = tr.getOperations().removeSite(removeSite3);
+        assertTrue(b);
+    }
+    @Test
+    public void removeOrder()
+    {
+        Dictionary<String, String> removeOrder = new Hashtable<String, String>();
+        int idOrder = tr.getOperations().getOrderRepo().getMaxId();
+        removeOrder.put("id", Integer.toString(idOrder));
+        boolean b = tr.getOperations().removeOrder(removeOrder);
+        assertTrue(b);
+    }
+    @Test
+    public void removeTransport()
+    {
+        int idTransport = tr.getTransportRepo().getMaxId();
+        boolean b = tr.remove(idTransport);
+        assertTrue(b);
+    }
+
+
 
 }

@@ -11,7 +11,6 @@ public class OrderDAO implements IDAO {
         OrderDTO order = (OrderDTO) object;
         try {
             Connection connection = DB.getConnection();
-            //Connection connection = db.getDB();
             String sql = "INSERT INTO `Order`(date,idSource ,source, idDestination,destination,idT) VALUES(?, ?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 

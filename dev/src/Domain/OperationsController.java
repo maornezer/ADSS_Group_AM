@@ -152,7 +152,6 @@ public class OperationsController {
                 itemsOfOrder.add(item);
             }
             order.setItems(itemsOfOrder);
-            //orderRepo.insert(order);
         }
         return order;
     }
@@ -192,7 +191,6 @@ public class OperationsController {
 
     }
 
-    //public int getSizeOrders() {return orderRepo.countRecords();}
     public int getSizeOrders() {
         return orderRepo.getSizeOrders();
     }
@@ -205,7 +203,6 @@ public class OperationsController {
         return newItem;
     }
     public boolean searchItem(int id) {return itemRepo.search(id);}
-
 
     public boolean associatedTransport(int id) {
         Order o = getOrder(id);

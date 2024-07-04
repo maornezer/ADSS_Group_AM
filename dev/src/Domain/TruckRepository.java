@@ -6,7 +6,7 @@ import DAL.TruckDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TruckRepository
+public class TruckRepository implements IRepository
 {
     private ArrayList<Truck> trucks;
     private TruckDAO truckDAO;
@@ -17,7 +17,8 @@ public class TruckRepository
         truckDAO = new TruckDAO();
     }
 
-    public boolean insert(Truck truck) {
+    public boolean insert(Object o) {
+        Truck truck = (Truck)o;
         TruckDTO truckDTO = new TruckDTO(truck.getInitialWeight(),truck.getMaxWeight(),truck.getTruckModel(),truck.getIdTruck());
         truckDAO.insert(truckDTO);
         trucks.add(truck);

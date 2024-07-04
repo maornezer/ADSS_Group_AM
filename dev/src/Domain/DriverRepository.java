@@ -1,7 +1,6 @@
 package Domain;
 import DAL.DriverDAO;
 import DAL.DriverDTO;
-import DAL.TruckDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,6 @@ public class DriverRepository {
         }
         return driverDAO.checkIfDriverExistsByLicence(type);
     }
-
 
     public List<Driver> getDrivers() {
         return drivers;

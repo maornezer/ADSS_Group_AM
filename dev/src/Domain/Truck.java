@@ -12,7 +12,6 @@ public class Truck
     private double maxWeight;
     private int id;
     private String model;
-    private ArrayList<LocalDate> datesTruck;
 
 
     public Truck(int id, double initialWeight, double maxWeight, String model )
@@ -22,7 +21,6 @@ public class Truck
         setMaxWeight(maxWeight);
         setTruckModel(model);
         setAddToCurrWeight(initialWeight);
-        datesTruck = new ArrayList<>();
 
     }
 
@@ -81,46 +79,11 @@ public class Truck
         return true;
     }
 
-    public void setDatesTruck(ArrayList<LocalDate> datesTruck)
-    {
-        this.datesTruck = datesTruck;
-    }
-
     public int getIdTruck() {return id;}
     public double getInitialWeight() {return initialWeight;}
     public double getCurrWeight() {return currWeight;}
     public double getMaxWeight() {return maxWeight;}
     public String getTruckModel() {return model;}
-    public boolean addDate(LocalDate localDate)
-    {
-        if(checkShiftDate(localDate))
-        {
-            return false;
-        }
-        datesTruck.add(localDate);
-        return true;
-    }
-
-    public boolean removeDate(LocalDate localDate)
-    {
-        if(checkShiftDate(localDate))
-        {
-            datesTruck.remove(localDate);
-            return true;
-        }
-        return false;
-    }
-    public boolean checkShiftDate(LocalDate localDate)
-    {
-        for (LocalDate date: datesTruck)
-        {
-            if (date.isEqual(localDate))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public boolean equals(Object obj)

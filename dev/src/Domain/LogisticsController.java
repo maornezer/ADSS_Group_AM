@@ -106,10 +106,6 @@ public class LogisticsController {
 
     public boolean checkIfDriverExistsByLicence(String type) {return driverRepo.checkIfDriverExistsByLicence(type);}
 
-
-
-
-
     ///truck list:
     public String toStringTrucks() {
     StringBuilder allTrucksInfo = new StringBuilder();
@@ -123,18 +119,7 @@ public class LogisticsController {
         if (truck != null) {
             return truck.toString();
         }
-
         return "Truck with ID " + id + " not found."; ///delete print in the domain
-    }
-
-
-    ///driver list:
-    public String toStringDrivers() {
-        StringBuilder sb = new StringBuilder();
-        for (Driver driver : driverRepo.getDrivers()) {
-            sb.append(driver.toString()).append("\n");
-        }
-        return sb.toString();
     }
 
     public String printDriversByLicenseType(String licenseType) {

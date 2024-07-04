@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Order
 {
-    //private static int next_id = 51;
     private int id;
     private ArrayList<Item> items;
     private Site source;
@@ -48,15 +47,11 @@ public class Order
         setOrderWeight(0.0);
         setSource(null);//set in operation controller
         setDestination(null);//set in operation controller
-        setSourceID(orderDTO.sourceID);//add
-        setDestinationID(orderDTO.destinationID);//add
+        setSourceID(orderDTO.sourceID);
+        setDestinationID(orderDTO.destinationID);
         transportAssociation = orderDTO.transportId;
-        // Load items from the OrderDTO
         this.items = new ArrayList<>();//set in operation controller
     }
-
-
-
 
     public void setId(int id) {this.id = id;}
 
@@ -193,7 +188,6 @@ public class Order
         }
         return report.toString();
     }
-
     public List<Integer> getItemIdsForOrder(int orderId, ItemRepository itemRepository) {
         return itemRepository.getItemsByOrderId(orderId);
     }

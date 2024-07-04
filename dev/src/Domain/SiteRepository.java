@@ -7,7 +7,7 @@ import DAL.TruckDTO;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class SiteRepository
+public class SiteRepository implements IRepository
 {
     private ArrayList<Site> sites;
     private SiteDAO siteDAO;
@@ -19,8 +19,9 @@ public class SiteRepository
     }
 
 
-    public boolean insert (Site s)
+    public boolean insert (Object o)
     {
+        Site s = (Site)o;
         SiteDTO siteDTO = new SiteDTO(s.getAddress(),s.getSiteZone(),s.getContactName(),s.getPhoneNumber(),s.getId());
         siteDAO.insert(siteDTO);
         sites.add(s);
@@ -34,13 +35,6 @@ public class SiteRepository
                 break;
             }
         }
-//        Iterator<Site> iterator = sites.iterator();
-//        while (iterator.hasNext()) {
-//            Site s = iterator.next();
-//            if (s.getId() == id) {
-//                iterator.remove();
-//            }
-//        }
         siteDAO.remove(id);
         return true;
     }
@@ -96,9 +90,5 @@ public class SiteRepository
         return sites;
     }
     public int getSizeSites(){return sites.size();}
-
-
-
-    //public int countRecords() {return siteDAO.countRecords();}
 
 }

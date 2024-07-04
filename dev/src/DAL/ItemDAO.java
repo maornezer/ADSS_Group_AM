@@ -4,19 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemDAO implements IDAO {
-//    private DB db;
-//
-//    public ItemDAO() {
-//        this.db = new DB();
-//    }
 
-    // Insert a new item
     @Override
     public void insert(Object object) {
         ItemDTO item = (ItemDTO) object;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "INSERT INTO Item(id,name, amount, id0) VALUES(?,?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -37,8 +30,7 @@ public class ItemDAO implements IDAO {
     // Delete an item
     public void remove(int id) {
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "DELETE FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -54,8 +46,7 @@ public class ItemDAO implements IDAO {
     public Object get(int id) {
         ItemDTO item = null;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Item WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -77,8 +68,7 @@ public class ItemDAO implements IDAO {
     public ArrayList<Integer> getItemIdsByOrderId(int idOrder) {
         ArrayList<Integer> itemIds = new ArrayList<>();
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "SELECT id FROM Item WHERE id0 = ?";
             PreparedStatement ps = connection.prepareStatement(sql);

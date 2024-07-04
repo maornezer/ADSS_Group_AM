@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ItemRepository{
+public class ItemRepository implements IRepository{
     private ArrayList<Item> items;
     private ItemDAO itemDAO;
     private Map<Integer, List<Integer>> orderItemsMap;//(orderID,list of items id)
@@ -20,7 +20,8 @@ public class ItemRepository{
     }
 
 
-    public boolean insert(Item item) {
+    public boolean insert(Object o) {
+        Item item = (Item) o;
         ItemDTO itemDTO = new ItemDTO(item.getId(),item.getName(),item.getAmount(), item.getIdO());
         itemDAO.insert(itemDTO);
         items.add(item);

@@ -7,7 +7,7 @@ import DAL.TruckDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportRepository
+public class TransportRepository implements IRepository
 {
     private ArrayList<Transport> transports;
     public TransportDAO transportDAO;
@@ -18,8 +18,9 @@ public class TransportRepository
         transportDAO = new TransportDAO();
     }
 
-    public boolean insert(Transport transport)
+    public boolean insert(Object o)
     {
+        Transport transport = (Transport)o;
         TransportDTO transportDTO = new TransportDTO(transport.getId(), transport.getTruck().getIdTruck(),transport.getDriver().getId());
         transports.add(transport);
         transportDAO.insert(transportDTO);
@@ -54,8 +55,6 @@ public class TransportRepository
                 return transport;
             }
         }
-        //Transport transport = new Transport((TransportDTO) transportDAO.get(id));
-        //transports.add(transport);
         return null;
     }
 

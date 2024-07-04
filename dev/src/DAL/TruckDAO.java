@@ -3,19 +3,12 @@ package DAL;
 import java.sql.*;
 
 public class TruckDAO implements IDAO {
-//    private DB db;
-//
-//    public TruckDAO() {
-//        this.db = new DB();
-//    }
-
     // Insert a new truck
     @Override
     public void insert(Object object) {
         TruckDTO truck = (TruckDTO) object;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "INSERT INTO Truck(initialWeight, maxWeight, model, id) VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -35,8 +28,7 @@ public class TruckDAO implements IDAO {
     public void remove(int id) {
         //Connection connection = db.getDB();
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "DELETE FROM Truck WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -52,8 +44,7 @@ public class TruckDAO implements IDAO {
     public Object get(int id) {
         TruckDTO truck = null;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
+
             Connection connection = DB.getConnection();
             String sql = "SELECT * FROM Truck WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -75,8 +66,6 @@ public class TruckDAO implements IDAO {
     public int countRecords() {
         int count = 0;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "SELECT COUNT(*) AS count FROM Truck";
             PreparedStatement ps = connection.prepareStatement(sql);

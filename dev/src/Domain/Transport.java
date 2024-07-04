@@ -43,24 +43,10 @@ public class Transport
         setDriver(driver);
         setTime();
         setId(id);
-        //myOrders = new ArrayList<>();
         changeDestination = false;
         unloadingItems = false;
         changeTruck = false;
     }
-
-//    public Transport(TransportDTO transportDTO)
-//    {
-//        setTruck(null);
-//        setDriver(null);
-//        setTime();
-//        setId(transportDTO.id);
-//        //myOrders = new ArrayList<>();
-//        changeDestination = false;
-//        unloadingItems = false;
-//        changeTruck = false;
-//    }
-
 
     public int getId() {
         return id;
@@ -127,27 +113,6 @@ public class Transport
             this.truck = truck;
         }
     }
-
-//    public boolean addOrderToMYTransport(Order order) {
-//
-//        if (order.getDestination().getSiteZone().compareTo(this.getMyOrders().get(0).getDestination().getSiteZone()) != 0 || order.getSource().getSiteZone().compareTo(this.getMyOrders().get(0).getSource().getSiteZone())!= 0){
-//            return false;
-//        }
-//        if(!order.getDate().isEqual(this.getMyOrders().get(0).getDate())) {
-//            return false;
-//        }
-//
-//        myOrders.add(order);
-//       return true;
-//    }
-
-//    public Order getOrderByID(int orderID) {
-//        for (Order order : myOrders) {
-//            if ( order.getId()== orderID)
-//                return order;
-//        }
-//        return null;
-//    }
 
     public String toStringTransportReport() {
         StringBuilder sb = new StringBuilder();
