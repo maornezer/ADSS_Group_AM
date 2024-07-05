@@ -1,8 +1,6 @@
 package Domain;
 
-import DAL.ItemDTO;
 import DAL.OrderDTO;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -59,14 +57,13 @@ public class Order
         this.date = date;
     }
 
-    public void setDestination(Site destination) {
-        this.destination = destination;
-    }
+    public void setDestination(Site destination) {this.destination = destination;}
+
     public void setDestinationID(int id){this.destinationID = id;}
+
     public void setSourceID(int id){this.sourceID = id;}
 
-    public boolean isHaveTransport() {
-        return transportAssociation != -1;}
+    public boolean isHaveTransport() {return transportAssociation != -1;}
 
     public int setTransportAssociation(int transportID) {return this.transportAssociation = transportID;}
 
@@ -78,9 +75,7 @@ public class Order
         return destinationID;
     }
 
-    public void setSource(Site source) {
-            this.source = source;
-    }
+    public void setSource(Site source) {this.source = source;}
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
@@ -90,13 +85,8 @@ public class Order
         this.orderWeight = orderWeight;
     }
 
-    public double getOrderWeight() {
-        return orderWeight;
-    }
 
-    public int getTransportAssociation() {
-        return transportAssociation;
-    }
+    public int getTransportAssociation() {return transportAssociation;}
 
     public int getId() {
         return id;
@@ -133,15 +123,6 @@ public class Order
         return items.remove(item);
     }
 
-    public Item getItemByID(int itemID)
-    {
-        for (Item item :items)
-        {
-            if(item.getId() == itemID)
-                return item;
-        }
-        return null;
-    }
     public boolean changeAmount(int id, int amount)
     {
         Item item1 = null;
@@ -188,9 +169,7 @@ public class Order
         }
         return report.toString();
     }
-    public List<Integer> getItemIdsForOrder(int orderId, ItemRepository itemRepository) {
-        return itemRepository.getItemsByOrderId(orderId);
-    }
+
 }
 
 

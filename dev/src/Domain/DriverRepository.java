@@ -1,7 +1,6 @@
 package Domain;
 import DAL.DriverDAO;
 import DAL.DriverDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 

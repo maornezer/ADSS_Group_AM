@@ -1,6 +1,5 @@
 package Domain;
 
-import DAL.OrderDTO;
 import DAL.TransportDTO;
 
 import java.time.LocalDate;
@@ -79,9 +78,6 @@ public class TransportController
         }
         return transportRepo.get(id);
     }
-    public boolean searchOrder(String transportID, String idOrder) {return transportRepo.searchOrder(Integer.parseInt(transportID), Integer.parseInt(idOrder));}
-
-    public int getSizeOfListTransports() {return transportRepo.countRecords();}
 
     public boolean addOrderToTransport(Dictionary<String,String> data){
         int transportID = Integer.parseInt(data.get("transportID"));
@@ -97,32 +93,6 @@ public class TransportController
         }
         return false;
     }
-
-    public boolean listSizeIsEmpty() {return operations.sizeOfSites() == 0;}
-
-    public int getSizeOfListTrucks() {
-        return logistics.getSizeTrucks();
-    }
-
-    public int getSizeOfListDrivers() {return logistics.getSizeDrivers();}
-
-    public int getSizeOfListOrders() {return operations.getSizeOrders();}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public boolean changeTruck(Dictionary<String,String> data) {
         int idTransport = Integer.parseInt(data.get("idTransport"));
@@ -159,18 +129,6 @@ public class TransportController
             }
         }
         return false;
-    }
-    ///it will be change:
-    public boolean driverAvailability (LocalDate date,Driver driver)
-    {
-        for (Transport tempTransport : transportRepo.getTransports())
-        {
-            if (tempTransport.getDriver() == driver && tempTransport.getDate()== date)
-            {
-                return false;
-            }
-        }
-        return true;
     }
     public String generateTransportReport(String id) {
         int idT = Integer.parseInt(id);
@@ -219,7 +177,6 @@ public class TransportController
                 truckTemp.setSubFromCurrWeight(orderWeight);
                 return true;
             }
-            System.out.println("Error! The order " + orderID + " is not in transport " + transportID);
         }
         return false;
     }
@@ -247,7 +204,6 @@ public class TransportController
         return true;
         }
     }
-
 
     public boolean changeDriver(Dictionary<String,String> data)
     {

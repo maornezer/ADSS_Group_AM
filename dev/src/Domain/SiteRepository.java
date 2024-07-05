@@ -2,10 +2,7 @@ package Domain;
 
 import DAL.SiteDAO;
 import DAL.SiteDTO;
-import DAL.TruckDTO;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class SiteRepository implements IRepository
 {
@@ -17,7 +14,6 @@ public class SiteRepository implements IRepository
         sites = new ArrayList<>();
         siteDAO = new SiteDAO();
     }
-
 
     public boolean insert (Object o)
     {
@@ -89,6 +85,7 @@ public class SiteRepository implements IRepository
     public ArrayList<Site> getSites() {
         return sites;
     }
+
     public int getSizeSites(){return sites.size();}
 
 }

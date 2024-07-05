@@ -68,9 +68,7 @@ public class Site
 
     public String getSiteZone() {return zone;}
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
     public void setId(int id) {
         this.id = id;
@@ -82,7 +80,7 @@ public class Site
     public String getContactName() {return contactName;}
 
 
-      @Override
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -98,7 +96,7 @@ public class Site
         return Objects.hash(address);
     }
 
-    public String toString()//add site zone?
+    public String toString()
     {
         return "Address: " + address + ", Contact Name: " + contactName + ", Phone number: " + phoneNumber + " Zone: " + zone;
     }

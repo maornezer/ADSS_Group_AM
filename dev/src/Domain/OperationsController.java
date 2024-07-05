@@ -17,7 +17,7 @@ public class OperationsController {
         itemRepo = new ItemRepository();
     }
 
-    //**********************SITE:**********************//
+    //**************************************SITE:**************************************//
     public boolean addSite(Dictionary<String, String> data) {
         int siteID = Integer.parseInt(data.get("id"));
         if (searchSite(siteID)) {
@@ -43,6 +43,7 @@ public class OperationsController {
         return siteRepo.remove(id);
     }
     public boolean searchSite(int idSite){return siteRepo.search(idSite);}
+
     public Site getSite(Dictionary<String, String> data)
     {
         int siteID = Integer.parseInt(data.get("id"));
@@ -56,25 +57,11 @@ public class OperationsController {
         return siteRepo.get(id);
     }
 
-    public SiteRepository getSiteRepo() {
-        return siteRepo;
-    }
+    public SiteRepository getSiteRepo() {return siteRepo;}
 
     public int sizeOfSites(){return siteRepo.getSizeSites();}
 
-    public boolean isAddressSiteAlreadyIn(String address) {return siteRepo.isAddressSiteAlreadyIn(address);}//לשנות את הפונקציות שמשתמשות בזה
 
-    public Site getSiteByAddress(String address)
-    {
-        return siteRepo.getSiteByAddress(address);
-    }
-    public String printAllAddress() {
-        StringBuilder result = new StringBuilder();
-        for (Site site : siteRepo.getSites()) {
-            result.append(site.getAddress()).append("\n");
-        }
-        return result.toString();
-    }
     public String toString(String zone) {
         StringBuilder result = new StringBuilder();
         for (Site site : siteRepo.getSites()) {
@@ -83,11 +70,8 @@ public class OperationsController {
         }
         return result.toString();
     }
-    public boolean validMatchZone(String source, String destination )
-    {
-        return siteRepo.validMatchZone(source,destination);
-    }
-    //**********************ORDER:**********************//
+    public boolean validMatchZone(String source, String destination ) {return siteRepo.validMatchZone(source,destination);}
+    //**************************************ORDER:**************************************//
 
     public int addOrder(Dictionary<String,String> data1,  Dictionary<Integer, ArrayList<String>> data2) {
         LocalDate date = LocalDate.of(Integer.parseInt(data1.get("year")),Integer.parseInt(data1.get("month")),Integer.parseInt(data1.get("day")));
@@ -126,12 +110,10 @@ public class OperationsController {
     }
     public boolean searchOrder(int id) {return orderRepo.search(id);}
 
-    public OrderRepository getOrderRepo() {
-        return orderRepo;
-    }
-    public List<Integer> getOrderIdsByTransportId(int idTransport){
-        return orderRepo.getOrderIdsByTransportId(idTransport);
-    }
+    public OrderRepository getOrderRepo() {return orderRepo;}
+
+    public List<Integer> getOrderIdsByTransportId(int idTransport){return orderRepo.getOrderIdsByTransportId(idTransport);}
+
     public Order getOrder(int id) {
         if(!searchOrder(id))
         {
@@ -174,13 +156,7 @@ public class OperationsController {
         sb.append(order.toStringReport());
         return sb.toString();
     }
-    public String toStringOrders() {
-        StringBuilder result = new StringBuilder();
-        for (Order order : orderRepo.getAllOrders()) {
-            result.append(order.toStringReport()).append("\n");
-        }
-        return result.toString();
-    }
+
     public String printOrder(Dictionary<String, String> data)
     {
         int orderId = Integer.parseInt(data.get("orderID"));
@@ -188,13 +164,11 @@ public class OperationsController {
         StringBuilder sb = new StringBuilder();
         sb.append(getOrder.toStringReport());
         return sb.toString();
-
     }
 
-    public int getSizeOrders() {
-        return orderRepo.getSizeOrders();
-    }
-    //**********************ITEM:**********************//
+    public int getSizeOrders() {return orderRepo.getSizeOrders();}
+
+    //**************************************ITEM:**************************************//
     public Item addItem(ArrayList<String> item) {
         int id = Integer.parseInt(item.get(0));
         String name = item.get(1);
@@ -218,7 +192,5 @@ public class OperationsController {
 
     public void updateIDTransport(int idOrder,int idTransport){orderRepo.updateIDTransport(idOrder,idTransport);}
 
-    public ItemRepository getItemRepo() {
-        return itemRepo;
-    }
+    public ItemRepository getItemRepo() {return itemRepo;}
 }

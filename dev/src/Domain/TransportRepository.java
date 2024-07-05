@@ -2,7 +2,6 @@ package Domain;
 
 import DAL.TransportDAO;
 import DAL.TransportDTO;
-import DAL.TruckDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,33 +59,17 @@ public class TransportRepository implements IRepository
 
     public TransportDTO helpGetFunc(int id) {return (TransportDTO) transportDAO.get(id);}
 
-    public int countRecords() {return transportDAO.countRecords();}
 
     public ArrayList<Transport> getTransports() {return transports;}
-
-    public boolean searchOrder(int id, int idOrder)
-    {
-        Transport transport = get(id);
-        ArrayList<Order> myOrders = transport.getMyOrders();
-        for (Order order: myOrders){
-            if (order.getId() == idOrder)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
     public List<Integer> getTransportIdsByTruck(int idTruck){return transportDAO.getTransportIdsByTruck(idTruck);}
 
     public List<Integer> getTransportIdsByDriver(int idDriver){return transportDAO.getTransportIdsByDriver(idDriver);}
+
     public int getMaxId() {return transportDAO.getMaxTransportId();}
 
-
-    public void updateTruck(int idTruck, int idTransport) {
-        transportDAO.updateTruck(idTruck, idTransport);
-    }
+    public void updateTruck(int idTruck, int idTransport) {transportDAO.updateTruck(idTruck, idTransport);}
 
     public void updateDriver(int newDriverID, int transportID) {transportDAO.updateDriver(newDriverID,transportID);}
 

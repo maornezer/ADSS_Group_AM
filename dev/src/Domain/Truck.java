@@ -1,10 +1,6 @@
 package Domain;
 
 import DAL.TruckDTO;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Truck
 {
     private double initialWeight;

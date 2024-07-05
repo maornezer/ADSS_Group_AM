@@ -34,7 +34,6 @@ public class OrderRepository implements IRepository{
                 allOrders.remove(o);
                 break;
             }
-
         }
         orderDAO.remove(id);
         return true;
@@ -60,10 +59,6 @@ public class OrderRepository implements IRepository{
         allOrders.add(order);
         return order;
     }
-    public OrderDTO helpGetFunc(int id) {return (OrderDTO) orderDAO.get(id);}
-
-
-    public ArrayList<Order> getAllOrders() {return allOrders;}
 
     public int getSizeOrders() {return allOrders.size();}
 
@@ -71,9 +66,6 @@ public class OrderRepository implements IRepository{
 
     public void updateIDTransport(int idOrder,int idTransport){orderDAO.updateIDTransport(idOrder,idTransport);}
 
-    public OrderDAO getOrderDAO() {
-        return orderDAO;
-    }
     public List<Integer> getOrderIdsByTransportId(int idTransport) {return orderDAO.getOrderIdsByTransportId(idTransport);}
 
     public void updateSiteDest(Order orderTemp, Site site) {

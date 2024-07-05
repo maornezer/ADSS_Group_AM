@@ -94,10 +94,7 @@ public class ItemRepository implements IRepository{
     }
 
     // Add item to order-items map
-    private void addToOrderItemsMap(int idOrder, int idItem) {
-        orderItemsMap.computeIfAbsent(idOrder, k -> new ArrayList<>()).add(idItem);
-    }
-
+    private void addToOrderItemsMap(int idOrder, int idItem) {orderItemsMap.computeIfAbsent(idOrder, k -> new ArrayList<>()).add(idItem);}
 
     public void updateAmount(int itemID, int amount) {itemDAO.updateAmount( itemID, amount);}
 }

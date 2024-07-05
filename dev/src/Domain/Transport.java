@@ -1,9 +1,4 @@
 package Domain;
-
-import DAL.TransportDTO;
-import DAL.TruckDTO;
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -52,13 +47,8 @@ public class Transport
         return id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
+    public LocalDate getDate() {return date;}
 
-    public LocalTime getTime() {
-        return time;
-    }
 
     public String getZone() {
         return zone;
@@ -87,20 +77,16 @@ public class Transport
 
     public void setTime() {this.time = LocalTime.of(8, 0);;}
 
-    public void setMyOrders(ArrayList<Order> myOrders) {
-        this.myOrders = myOrders;
-    }
+    public void setMyOrders(ArrayList<Order> myOrders) {this.myOrders = myOrders;}
 
     public void setZone(String zone)
     {
             this.zone = zone;
     }
 
-    public void setChangeTruck() {changeTruck = true;}
 
     public void setUnloadingItems() {unloadingItems = true;}
 
-    public void setChangeDestination() {changeDestination = true; }
 
     public void setDriver(Driver driver){
         if (driver != null){

@@ -1,5 +1,4 @@
 package DAL;
-
 import java.sql.*;
 
 public class DriverDAO implements IDAO {
@@ -8,10 +7,8 @@ public class DriverDAO implements IDAO {
     public void insert(Object object) {
         DriverDTO driver = (DriverDTO) object;
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
-            Connection connection = DB.getConnection();
 
+            Connection connection = DB.getConnection();
             String sql = "INSERT INTO Driver(name, typeOflicence,id) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, driver.name);
@@ -29,8 +26,6 @@ public class DriverDAO implements IDAO {
     // Delete a driver
     public void remove(int id) {
         try {
-            //Connection connection = DB.connect();
-            //Connection connection = db.getDB();
             Connection connection = DB.getConnection();
             String sql = "DELETE FROM Driver WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);

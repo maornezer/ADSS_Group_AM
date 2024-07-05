@@ -15,7 +15,6 @@ public class LogisticsController {
     public TruckRepository getTruckRepo() {
         return truckRepo;
     }
-
     public DriverRepository getDriverRepo() {
         return driverRepo;
     }
@@ -104,37 +103,6 @@ public class LogisticsController {
         return driverRepo.countRecords();
     }
 
-    public boolean checkIfDriverExistsByLicence(String type) {return driverRepo.checkIfDriverExistsByLicence(type);}
-
-    ///truck list:
-    public String toStringTrucks() {
-    StringBuilder allTrucksInfo = new StringBuilder();
-    for (Truck truck : truckRepo.getTrucks()) {
-        allTrucksInfo.append(truck.toString()).append("\n");
-    }
-    return allTrucksInfo.toString();
-    }
-    public String printTruckByID(int id) {
-        Truck truck = getTruck(id);
-        if (truck != null) {
-            return truck.toString();
-        }
-        return "Truck with ID " + id + " not found."; ///delete print in the domain
-    }
-
-    public String printDriversByLicenseType(String licenseType) {
-        StringBuilder sb = new StringBuilder();
-        for (Driver driver : driverRepo.getDrivers()) {
-            if (driver.getTypeOfLicense().equalsIgnoreCase(licenseType)) {
-                sb.append(driver.toString()).append("\n");
-            }
-        }
-        if (sb.length() == 0)
-        {
-            System.out.println("There are no drivers with a license type in the system " + licenseType);
-        }
-        return sb.toString();
-    }
 
     public boolean checkMatchLicense(String idT, String idD) {
         Driver d = getDriver(Integer.parseInt(idD));

@@ -49,9 +49,7 @@ public class Item
           this.name = name;
      }
 
-     public void setIdO(int idO) {
-          this.idO = idO;
-     }
+     public void setIdO(int idO) {this.idO = idO;}
      @Override
      public String toString() {
           return "Item ID: " + id + ", Name: " + name + ", Amount: " + amount ;

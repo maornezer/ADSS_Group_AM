@@ -59,9 +59,4 @@ public class TruckRepository implements IRepository
     public int countRecords() {return truckDAO.countRecords();}
 
 
-
-
-    public List<Truck> getTrucks() {return trucks;}//for tostring
-
-
 }
