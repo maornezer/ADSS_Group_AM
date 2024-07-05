@@ -9,9 +9,10 @@ public class DB {
     private DriverDAO driverDAO;
     private TransportDAO transportDAO;
     private SiteDAO siteDAO;
-    private static final String URL = "jdbc:sqlite:identifier.sqlite";
-    protected static Connection connection;
 
+    protected static Connection connection;
+    private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
+    //    //private static final String URL = "jdbc:sqlite:resource\\Transports.sqlite";
     static {
         try{
             connection = DriverManager.getConnection(URL);
