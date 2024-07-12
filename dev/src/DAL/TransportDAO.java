@@ -192,4 +192,62 @@ public class TransportDAO implements IDAO {
         }
         return status;
     }
+
+    //FOR NOA!!!
+    public List<String[]> getTransportDetails() {
+        List<String[]> transportDetails = new ArrayList<>();
+
+        try {
+            Connection connection = DB.getConnection();
+            String sql = "SELECT o.idD, o.destination, o.date " +
+                    "FROM `Order` o " +
+                    "JOIN Transport t ON o.idT = t.id";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int driverId = rs.getInt("idD");
+                int destinationId = rs.getInt("destination");
+                String date = rs.getString("date");
+
+                // Extract year, month, and day from the date
+                String[] dateParts = date.split("-");
+                String year = dateParts[0];
+                String month = dateParts[1];
+                String day = dateParts[2];
+
+                // Get the driver's name
+                String driverName = getDriverNameById(driverId, connection);
+
+                // Create an array and add it to the list
+                String[] detail = {driverName, String.valueOf(destinationId), year, month, day};
+                transportDetails.add(detail);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return transportDetails;
+    }
+
+    private String getDriverNameById(int driverId, Connection connection) {
+        String driverName = "";
+        try {
+            String sql = "SELECT name FROM Driver WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, driverId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                driverName = rs.getString("name");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return driverName;
+    }
 }

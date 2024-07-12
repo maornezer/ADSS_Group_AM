@@ -63,4 +63,9 @@ public class PresentationController {
     public boolean isTransportExist(int transID) {return transportController.searchTransport(transID);}
     public void updateComplete(int transportID) {transportController.updateComplete(transportID);}
     public boolean getStatus(int idT) {return transportController.getStatus(idT);}
+
+
+    public String getTransportDetails() {
+        return transportController.getTransportDetails();
+    }
 }

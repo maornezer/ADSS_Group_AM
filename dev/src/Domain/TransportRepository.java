@@ -76,4 +76,18 @@ public class TransportRepository implements IRepository
     public void updateComplete(int transportID) {transportDAO.updateComplete(transportID);}
 
     public boolean getStatus(int idT) {return transportDAO.getStatus(idT);}
+
+    public String getTransportDetails() {
+        List<String[]> transportDetails = transportDAO.getTransportDetails();
+        StringBuilder detailsStringBuilder = new StringBuilder();
+
+        for (String[] detail : transportDetails) {
+            for (String field : detail) {
+                detailsStringBuilder.append(field).append(" ");
+            }
+            detailsStringBuilder.append("\n");
+        }
+
+        return detailsStringBuilder.toString();
+    }
 }

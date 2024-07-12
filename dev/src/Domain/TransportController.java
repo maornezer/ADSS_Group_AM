@@ -320,4 +320,8 @@ public class TransportController
     public void updateComplete(int transportID) {transportRepo.updateComplete(transportID);}
 
     public boolean getStatus(int idT) {return transportRepo.getStatus(idT);}
+
+    public String getTransportDetails() {
+        return transportRepo.getTransportDetails();
+    }
 }

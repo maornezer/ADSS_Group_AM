@@ -59,7 +59,8 @@ public class Menu {
             switch (choice)
             {
                 case "1":
-                    editDatabase();
+                    //editDatabase();
+                    getTransportDetails();
                     break;
                 case "2":
                     createNewTransport();
@@ -1030,4 +1031,9 @@ public class Menu {
             return null;
         }
     }
+    public void getTransportDetails()
+    {
+        System.out.println(controller.getTransportDetails());
+    }
+
 }
