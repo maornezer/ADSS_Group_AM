@@ -199,15 +199,15 @@ public class TransportDAO implements IDAO {
 
         try {
             Connection connection = DB.getConnection();
-            String sql = "SELECT o.idD, o.destination, o.date " +
+            String sql = "SELECT t.idD AS idDriver, o.idDestination, o.date " +
                     "FROM `Order` o " +
                     "JOIN Transport t ON o.idT = t.id";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int driverId = rs.getInt("idD");
-                int destinationId = rs.getInt("destination");
+                int driverId = rs.getInt("idDriver");
+                int destinationId = rs.getInt("idDestination");
                 String date = rs.getString("date");
 
                 // Extract year, month, and day from the date
