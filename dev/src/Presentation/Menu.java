@@ -60,6 +60,7 @@ public class Menu {
             {
                 case "1":
                     //editDatabase();
+
                     getTransportDetails();
                     break;
                 case "2":
