@@ -60,18 +60,6 @@ public class Branch {
         return Chain.getWorkersRepository().createWorker(data);
     }
 
-    public LocalDate removeWorker(Dictionary<String, String> data){
-        LocalDate date = null;
-
-        Worker worker = Chain.getWorkersRepository().getWorker(Integer.parseInt(data.get("id")));
-        worker.setEmploymentEnd(Chain.getNextWeekDates()[0]);
-
-        Chain.fireWorker(Integer.parseInt(data.get("id")));
-
-        date = Chain.getNextWeekDates()[0];
-
-        return date;
-    }
 
     public SystemLimitations getSystemLimitations() {
         return systemLimitations;

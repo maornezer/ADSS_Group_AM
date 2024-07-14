@@ -165,6 +165,7 @@ public class DomainController {
 
         LocalDate date = LocalDate.of(year, month,day);
         LocalDate nextSunday = Chain.getNextWeekDates()[0];
+
         if(date.isBefore(nextSunday)){
             data.put("year",Integer.toString(nextSunday.getYear()));
             data.put("month",Integer.toString(nextSunday.getMonthValue()));
@@ -185,8 +186,23 @@ public class DomainController {
         Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
         if(branch == null || branch.checkBranchDeadLinePassed())
             return null;
+        LocalDate date = null;
 
-        return branch.removeWorker(data);
+        data.put("update","date");
+        data.put("key", data.get("id"));
+
+        Worker worker = Chain.getWorkersRepository().getWorker(Integer.parseInt(data.get("id")));
+        worker.setEmploymentEnd(Chain.getNextWeekDates()[0]);
+
+        data.put("year",Integer.toString(Chain.getNextWeekDates()[0].getYear()));
+        data.put("month",Integer.toString(Chain.getNextWeekDates()[0].getMonthValue()));
+        data.put("day",Integer.toString(Chain.getNextWeekDates()[0].getDayOfMonth()));
+
+        Chain.updateWorker(data);
+
+        date = Chain.getNextWeekDates()[0];
+
+        return date;
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data) {

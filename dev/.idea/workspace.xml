@@ -10,8 +10,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="bugs fixed">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Data/DatabaseUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/adss2024_v02.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/adss2024_v02.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Personnel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Personnel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/TransportationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/TransportationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../release/adss2024_v02.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../release/adss2024_v02.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,49 +57,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM/release",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM/dev/identifier.sqlite&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\noash\OneDrive - post.bgu.ac.il\Studies\2024B\Analysis and Design of Software Systems\projects\ADSS_Group_AM\dev" />
+      <recent name="C:\Users\noash\OneDrive - post.bgu.ac.il\Studies\2024B\Analysis and Design of Software Systems\projects\ADSS_Group_AM\dev\src\resources" />
+      <recent name="C:\Users\noash\OneDrive - post.bgu.ac.il\Studies\2024B\Analysis and Design of Software Systems\projects\ADSS_Group_AM\dev\src" />
       <recent name="C:\Users\noash\OneDrive - post.bgu.ac.il\Studies\2024B\Analysis and Design of Software Systems\projects\ADSS_Group_AM\dev\src\main\resources" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="Domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.WorkerTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Personnel" />
@@ -179,9 +200,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.BranchTest" />
         <item itemvalue="JUnit.WorkerTest" />
+        <item itemvalue="JUnit.BranchTest" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.BranchTest.getWorkers" />
         <item itemvalue="JUnit.WorkerTest.testToString" />
       </list>
@@ -223,7 +244,15 @@
       <workItem from="1719937220464" duration="16838000" />
       <workItem from="1719962193194" duration="1413000" />
       <workItem from="1719968088782" duration="2057000" />
-      <workItem from="1720000412007" duration="45742000" />
+      <workItem from="1720000412007" duration="46292000" />
+      <workItem from="1720126796849" duration="9010000" />
+      <workItem from="1720339686490" duration="192000" />
+      <workItem from="1720727453754" duration="938000" />
+      <workItem from="1720859633649" duration="2557000" />
+      <workItem from="1720956822274" duration="5845000" />
+      <workItem from="1720963253720" duration="1165000" />
+      <workItem from="1720967868492" duration="2530000" />
+      <workItem from="1720979831977" duration="1053000" />
     </task>
     <task id="LOCAL‎-00001" summary="bla">
       <created>1717521888018</created>
@@ -372,7 +401,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1720121984991</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL‎-00022" summary="bugs fixed">
+      <created>1720125585970</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL‎-00022" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1720125585970</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,18 +458,13 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java</url>
-          <line>301</line>
+          <line>325</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Presentation/PresentationController.java</url>
           <line>138</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Main.java</url>
-          <line>8</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Domain/Scheduling.java</url>
@@ -455,7 +486,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java</url>
-          <line>288</line>
+          <line>312</line>
           <properties class="Presentation.MainMenu" method="ChangesInBranch">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

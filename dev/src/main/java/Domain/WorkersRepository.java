@@ -25,6 +25,14 @@ public class WorkersRepository {
         return worker;
     }
 
+//    public void fireWorkers(){
+//        List<Integer> workers = DB.getWorkersDAO().fireWorkers();
+//        if(workers != null){
+//            for(int id : workers)
+//                workersRepo.remove(id);
+//        }
+//    }
+
     public List<Worker> getWorkersOfBranch(int branchNum){
         List<Worker> workerList = DB.getWorkersDAO().readWorkersByBranch(branchNum);
         List<Worker> res = new ArrayList<>();

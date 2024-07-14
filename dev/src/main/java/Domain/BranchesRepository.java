@@ -19,6 +19,8 @@ public class BranchesRepository {
         Branch branch  = branchesRepo.get(id);
         if(branch == null) {
             branch = DB.getBranchesDAO().read(id);
+            if(branch == null)
+                System.out.println("kuku - problem -"+ id +" branch is null");
             branchesRepo.put(id, branch);
         }
         return branch;

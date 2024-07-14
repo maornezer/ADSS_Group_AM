@@ -19,8 +19,6 @@ public class Chain {
 
     protected static TransportationRepository transportationRepository;
 
-    protected static List<Integer> firedWorkers;
-
     protected static WorkersRepository workersRepository;
 
     protected static List<Integer> branchesNums;
@@ -41,7 +39,6 @@ public class Chain {
         branchesNums = new ArrayList<>();
         branchesNums.addAll(branchesRepository.getBranchesNums());
 
-        firedWorkers = new ArrayList<>();
         nextWeekDates = new LocalDate[7];
         for(int i =0; i< 7; i++){
             nextWeekDates[i] = Chain.getToday().with(next(SUNDAY)).plusDays(i);
@@ -107,6 +104,7 @@ public class Chain {
 
     public static void tomorrow(){
         today = today.plusDays(1);
+//        Chain.getWorkersRepository().fireWorkers();
         if(today.getDayOfWeek().equals(SUNDAY)){
             creatNextWeek();
         }
@@ -195,11 +193,6 @@ public class Chain {
         if(!flag)
             return false;
 
-        for(int worker: firedWorkers){
-            workersRepository.deleteWorker(worker);
-        }
-        firedWorkers.clear();
-
         Dictionary<LocalDate, List<String[]>> transports = transportationRepository.getTransports();
 
         for(LocalDate date : nextWeekDates){
@@ -207,9 +200,13 @@ public class Chain {
             for(String[] transport : temp){
                 String driverName = transport[1];
                 int branchNum = Integer.parseInt(transport[2]);
-                int shiftNum = Integer.parseInt(transport[6]);
-                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), shiftNum);
-                shift.transport(driverName);
+                int shiftNum = 1;
+                Branch branch = branchesRepository.getBranch(branchNum);
+                Shift shift;
+                if(branch != null) {
+                    shift = branch.getShiftNextWeek(date.getDayOfWeek(), shiftNum);
+                    shift.transport(driverName);
+                }
             }
         }
         for (int branchNum : branchesNums)
@@ -234,9 +231,5 @@ public class Chain {
         return branchesRepository.updateBranch(data);
     }
 
-
-    public static void fireWorker(int id){
-
-    }
 }
 

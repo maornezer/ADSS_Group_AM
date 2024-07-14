@@ -54,7 +54,7 @@ public class MainMenu {
         presentationController.creatChain(data);
     }
 
-    public static void createNewBranch(){
+    public static void createNewBranch(){ // kuku change this later
         Dictionary<String,String> data = new Hashtable<>();
         System.out.println("please enter the branch number:");
         int branchNum = scanner.nextInt();
@@ -62,7 +62,7 @@ public class MainMenu {
         System.out.println("address:");
         scanner.skip("\\R?");
         String address = scanner.nextLine();
-        data.put("firstName", address);
+        data.put("address", address);
         System.out.println("Enter day to make the DeadLine at:\n" +
                 "1. Sunday\n" +
                 "2. Monday\n" +
@@ -73,6 +73,30 @@ public class MainMenu {
                 "7. Saturday");
         int day = scanner.nextInt();
         data.put("deadLine", Chain.getDayOfWeekString(day));
+        System.out.println("Choose Site Zone: [North, South, Center]");
+        scanner.skip("\\R?");
+        String zone = scanner.nextLine();
+
+        while (zone.compareTo("North") !=0 && zone.compareTo("South")!=0 && zone.compareTo("Center")!=0)
+        {
+            System.out.println("There is no such option of choice");
+            System.out.println("Choose Site Zone: [North, South, Center]");
+            scanner.skip("\\R?");
+            zone = scanner.nextLine();
+        }
+
+        data.put("zone", zone);
+
+        System.out.println("Enter Contact Name of Site: ");
+        scanner.skip("\\R?");
+        String contactName = scanner.nextLine();
+        data.put("contactName", contactName);
+
+        System.out.println("Enter Contact Phone Number of Site: ");
+        scanner.skip("\\R?");
+        String phoneNumber = scanner.nextLine();
+        data.put("phoneNumber", phoneNumber);
+
         presentationController.addBranch(data);
     }
 
