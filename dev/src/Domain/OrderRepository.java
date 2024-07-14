@@ -68,9 +68,9 @@ public class OrderRepository implements IRepository{
 
     public List<Integer> getOrderIdsByTransportId(int idTransport) {return orderDAO.getOrderIdsByTransportId(idTransport);}
 
-    public void updateSiteDest(Order orderTemp, Site site) {
-        orderTemp.setDestinationID(site.getId());
+    public void updateSiteDest(Order orderTemp, Branch site) {
+        orderTemp.setDestinationID(site.getBranchNum());
         orderTemp.setDestination(site);
-        orderDAO.updateDestination(orderTemp.getId(), site.getId(), site.getAddress());
+        orderDAO.updateDestination(orderTemp.getId(), site.getBranchNum(), site.getAddress());
     }
 }

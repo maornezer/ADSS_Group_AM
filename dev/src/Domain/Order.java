@@ -10,8 +10,8 @@ public class Order
 {
     private int id;
     private ArrayList<Item> items;
-    private Site source;
-    private Site destination;
+    private Branch source;
+    private Branch destination;
     private int sourceID;
     private int destinationID;
     private LocalDate date;
@@ -19,7 +19,7 @@ public class Order
     private int transportAssociation;
 
 
-    public Order(int id, LocalDate date, int destID,Site destination, int sourceID,Site source, ArrayList<Item> itemsList)
+    public Order(int id, LocalDate date, int destID,Branch destination, int sourceID,Branch source, ArrayList<Item> itemsList)
     {
         setId(id);
         setDate(date);
@@ -57,7 +57,7 @@ public class Order
         this.date = date;
     }
 
-    public void setDestination(Site destination) {this.destination = destination;}
+    public void setDestination(Branch destination) {this.destination = destination;}
 
     public void setDestinationID(int id){this.destinationID = id;}
 
@@ -75,7 +75,7 @@ public class Order
         return destinationID;
     }
 
-    public void setSource(Site source) {this.source = source;}
+    public void setSource(Branch source) {this.source = source;}
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
@@ -96,11 +96,11 @@ public class Order
         return items;
     }
 
-    public Site getSource() {
+    public Branch getSource() {
         return source;
     }
 
-    public Site getDestination() {
+    public Branch getDestination() {
         return destination;
     }
 

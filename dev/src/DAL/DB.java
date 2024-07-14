@@ -9,6 +9,9 @@ public class DB {
     private DriverDAO driverDAO;
     private TransportDAO transportDAO;
     private SiteDAO siteDAO;
+    private WorkersDAO workersDAO;
+    private static RolesDAO rolesDAO = new RolesDAO();
+    private ShiftHistoryDAO shiftHistoryDAO;
 
     protected static Connection connection;
     private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
@@ -30,6 +33,12 @@ public class DB {
         driverDAO=new DriverDAO();
         transportDAO=new TransportDAO();
         siteDAO=new SiteDAO();
+        workersDAO = new WorkersDAO();
+        shiftHistoryDAO = new ShiftHistoryDAO();
     }
     public static Connection connect()throws SQLException{return DriverManager.getConnection(URL);}
+
+    public static RolesDAO getRolesDAO() {
+        return rolesDAO;
+    }
 }
