@@ -321,7 +321,12 @@ public class TransportController
 
     public boolean getStatus(int idT) {return transportRepo.getStatus(idT);}
 
-    public String getTransportDetails() {
-        return transportRepo.getTransportDetails();
+    public String getTransportDetails(LocalDate date) {
+        return transportRepo.getTransportDetails(date);
     }
+//    public Dictionary<LocalDate, List<String[]>> getTransportDetails()
+//    {
+//        return transportRepo.getTransportDetails();
+//    }
+
 }

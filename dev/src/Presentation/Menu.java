@@ -1050,7 +1050,22 @@ public class Menu {
     }
     public void getTransportDetails()
     {
-        System.out.println(controller.getTransportDetails());
+        System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
+        scanner.skip("\\R?");
+        String date = scanner.nextLine();
+        LocalDate check = validateAndParseDate(date);
+        if (check == null) {
+            System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
+            createOrder();
+        }
+        String[] dateParts = date.split("/");
+        if (dateParts.length == 3)
+        {
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];
+        }
+        System.out.println(controller.getTransportDetails(check));
     }
 
 }
