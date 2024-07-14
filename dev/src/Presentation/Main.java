@@ -8,7 +8,9 @@ public class Main
     public static void main(String[] args) {
         createDB();
         Menu menu = new Menu();
-        menu.printMenu();
+        //menu.printMenu();
+        menu.printMainMenu();
+
     }
     private static boolean createDB() {
         // if directory does not exist, create it

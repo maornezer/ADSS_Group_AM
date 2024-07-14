@@ -9,11 +9,30 @@ import java.util.*;
 public class Menu {
     private Scanner scanner;
     private PresentationController controller;
-
-    public void printMenu()
+    public void printMainMenu()
     {
         scanner = new Scanner(System.in);
         controller = new PresentationController();
+        System.out.println("Welcome to Super-Li :)");
+        System.out.println("Please enter which module you want");
+        System.out.println("1. Transport module");
+        System.out.println("2. Employee model");
+        scanner.skip("\\R?");
+        String module =  scanner.nextLine();
+        switch (module) {
+            case "1":
+                printMenu();
+                break;
+            case "2":
+                break;
+        }
+    }
+
+    public void printMenu()
+    {
+//        scanner = new Scanner(System.in);
+
+//        controller = new PresentationController();
         System.out.println("Welcome to Super-Li Shipment module :)");
         while (true) {
             System.out.println("Please enter your username [for logout please enter exit]");
@@ -59,9 +78,7 @@ public class Menu {
             switch (choice)
             {
                 case "1":
-                    //editDatabase();
-
-                    getTransportDetails();
+                    editDatabase();
                     break;
                 case "2":
                     createNewTransport();
@@ -1034,7 +1051,22 @@ public class Menu {
     }
     public void getTransportDetails()
     {
-        System.out.println(controller.getTransportDetails());
+        System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
+        scanner.skip("\\R?");
+        String date = scanner.nextLine();
+        LocalDate check = validateAndParseDate(date);
+        if (check == null) {
+            System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
+            createOrder();
+        }
+        String[] dateParts = date.split("/");
+        if (dateParts.length == 3)
+        {
+            String year = dateParts[0];
+            String month = dateParts[1];
+            String day = dateParts[2];
+        }
+        System.out.println(controller.getTransportDetails(check));
     }
 
 }

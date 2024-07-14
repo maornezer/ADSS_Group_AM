@@ -2,14 +2,20 @@ package Domain;
 
 import DAL.TransportDAO;
 import DAL.TransportDTO;
+import com.sun.net.httpserver.Filter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 
 public class TransportRepository implements IRepository
 {
     private ArrayList<Transport> transports;
+    protected Dictionary<LocalDate, List<String[]>> transportDetails;
     public TransportDAO transportDAO;
+
 
     public TransportRepository()
     {
@@ -77,8 +83,8 @@ public class TransportRepository implements IRepository
 
     public boolean getStatus(int idT) {return transportDAO.getStatus(idT);}
 
-    public String getTransportDetails() {
-        List<String[]> transportDetails = transportDAO.getTransportDetails();
+    public String getTransportDetails(LocalDate date) {
+        List<String[]> transportDetails = transportDAO.getTransportDetails(date);
         StringBuilder detailsStringBuilder = new StringBuilder();
 
         for (String[] detail : transportDetails) {
@@ -90,4 +96,23 @@ public class TransportRepository implements IRepository
 
         return detailsStringBuilder.toString();
     }
+    //for noa
+//    public Dictionary<LocalDate, List<String[]>> getTransportDetails()
+//    {
+//        Dictionary<LocalDate, List<String[]>> res = new Hashtable<>();
+//        for(int i = 0; i < 7; i++)
+//        {
+//            List<String[]> transports = transportDetails.get(Chain.getNextWeekDates()[i]);
+//            if (transports == null)
+//            {
+//                transports = transportDAO.getTransportDetails(Chain.getNextWeekDates()[i]);
+//                if (transports != null)
+//                {
+//                    transportDetails.put(Chain.getNextWeekDates()[i], transports);
+//                }
+//            }
+//            res.put(Chain.getNextWeekDates()[i],transports);
+//        }
+//        return res;
+//    }
 }

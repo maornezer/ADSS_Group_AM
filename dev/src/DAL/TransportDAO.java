@@ -1,6 +1,7 @@
 package DAL;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,32 +195,38 @@ public class TransportDAO implements IDAO {
     }
 
     //FOR NOA!!!
-    public List<String[]> getTransportDetails() {
+
+    public List<String[]> getTransportDetails(LocalDate date) {
         List<String[]> transportDetails = new ArrayList<>();
 
         try {
             Connection connection = DB.getConnection();
-            String sql = "SELECT o.idD, o.destination, o.date " +
+            // שאילתה שמחפשת לפי שנה, חודש ויום מהתאריך הנתון באמצעות strftime
+            String sql = "SELECT t.idD AS idDriver, o.idDestination, o.date " +
                     "FROM `Order` o " +
-                    "JOIN Transport t ON o.idT = t.id";
+                    "JOIN Transport t ON o.idT = t.id " +
+                    "WHERE strftime('%Y', o.date) = ? AND strftime('%m', o.date) = ? AND strftime('%d', o.date) = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, String.valueOf(date.getYear()));
+            ps.setString(2, String.format("%02d", date.getMonthValue()));
+            ps.setString(3, String.format("%02d", date.getDayOfMonth()));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int driverId = rs.getInt("idD");
-                int destinationId = rs.getInt("destination");
-                String date = rs.getString("date");
+                int driverId = rs.getInt("idDriver");
+                int destinationId = rs.getInt("idDestination");
+                String dateStr = rs.getString("date");
 
-                // Extract year, month, and day from the date
-                String[] dateParts = date.split("-");
+                // פיצול התאריך לשנה, חודש ויום
+                String[] dateParts = dateStr.split("-");
                 String year = dateParts[0];
                 String month = dateParts[1];
                 String day = dateParts[2];
 
-                // Get the driver's name
+                // קבלת שם הנהג
                 String driverName = getDriverNameById(driverId, connection);
 
-                // Create an array and add it to the list
+                // יצירת מערך והוספתו לרשימה
                 String[] detail = {driverName, String.valueOf(destinationId), year, month, day};
                 transportDetails.add(detail);
             }
@@ -250,4 +257,62 @@ public class TransportDAO implements IDAO {
         }
         return driverName;
     }
+
+//    public List<String[]> getTransportDetails() {
+//        List<String[]> transportDetails = new ArrayList<>();
+//
+//        try {
+//            Connection connection = DB.getConnection();
+//            String sql = "SELECT t.idD AS idDriver, o.idDestination, o.date " +
+//                    "FROM `Order` o " +
+//                    "JOIN Transport t ON o.idT = t.id";
+//            PreparedStatement ps = connection.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                int driverId = rs.getInt("idDriver");
+//                int destinationId = rs.getInt("idDestination");
+//                String date = rs.getString("date");
+//
+//                // Extract year, month, and day from the date
+//                String[] dateParts = date.split("-");
+//                String year = dateParts[0];
+//                String month = dateParts[1];
+//                String day = dateParts[2];
+//
+//                // Get the driver's name
+//                String driverName = getDriverNameById(driverId, connection);
+//
+//                // Create an array and add it to the list
+//                String[] detail = {driverName, String.valueOf(destinationId), year, month, day};
+//                transportDetails.add(detail);
+//            }
+//
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return transportDetails;
+//    }
+//
+//    private String getDriverNameById(int driverId, Connection connection) {
+//        String driverName = "";
+//        try {
+//            String sql = "SELECT name FROM Driver WHERE id = ?";
+//            PreparedStatement ps = connection.prepareStatement(sql);
+//            ps.setInt(1, driverId);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                driverName = rs.getString("name");
+//            }
+//            rs.close();
+//            ps.close();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return driverName;
+//    }
+
 }

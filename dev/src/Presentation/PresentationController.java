@@ -2,6 +2,7 @@ package Presentation;
 
 import Domain.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 
@@ -65,7 +66,7 @@ public class PresentationController {
     public boolean getStatus(int idT) {return transportController.getStatus(idT);}
 
 
-    public String getTransportDetails() {
-        return transportController.getTransportDetails();
+    public String getTransportDetails(LocalDate date) {
+        return transportController.getTransportDetails( date);
     }
 }
