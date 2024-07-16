@@ -2,6 +2,8 @@ package Domain;
 
 import DAL.WorkersDAO;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -72,6 +74,10 @@ public class WorkersRepository {
     }
 
     public void deleteFiredWorkers() {
-        // delete all workers that date passed in table and delete from repo
+        LocalDate today = Chain.getToday();// delete all workers that date passed in table and delete from repo
+        List<Integer> idsFiredWorker = workersDAO.deleteWorkersBeforeDate(today);
+        for (Integer id : idsFiredWorker) {
+            workersRepo.remove(id);
+        }
     }
 }

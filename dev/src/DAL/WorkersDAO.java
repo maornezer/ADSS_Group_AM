@@ -5,6 +5,7 @@ import Domain.Worker;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -177,5 +178,45 @@ public class WorkersDAO {
             System.out.println(e.getMessage());
         }
     }
+    public List<Integer> deleteWorkersBeforeDate(LocalDate date) {
+        List<Integer> deletedWorkerIds = new ArrayList<>();
+        try {
+            Connection connection = DB.getConnection();
+
+            // שליפת העובדים עם תאריך קטן או שווה לתאריך שהתקבל
+            String selectSql = "SELECT id FROM Workers WHERE (year < ?) OR (year = ? AND month < ?) OR (year = ? AND month = ? AND day <= ?);";
+            PreparedStatement selectStatement = connection.prepareStatement(selectSql);
+            selectStatement.setInt(1, date.getYear());
+            selectStatement.setInt(2, date.getYear());
+            selectStatement.setInt(3, date.getMonthValue());
+            selectStatement.setInt(4, date.getYear());
+            selectStatement.setInt(5, date.getMonthValue());
+            selectStatement.setInt(6, date.getDayOfMonth());
+            ResultSet resultSet = selectStatement.executeQuery();
+
+            // שמירת תעודות הזהות של העובדים
+            while (resultSet.next()) {
+                deletedWorkerIds.add(resultSet.getInt("id"));
+            }
+
+            // מחיקת העובדים מהטבלה
+            if (!deletedWorkerIds.isEmpty()) {
+                String deleteSql = "DELETE FROM Workers WHERE (year < ?) OR (year = ? AND month < ?) OR (year = ? AND month = ? AND day <= ?);";
+                PreparedStatement deleteStatement = connection.prepareStatement(deleteSql);
+                deleteStatement.setInt(1, date.getYear());
+                deleteStatement.setInt(2, date.getYear());
+                deleteStatement.setInt(3, date.getMonthValue());
+                deleteStatement.setInt(4, date.getYear());
+                deleteStatement.setInt(5, date.getMonthValue());
+                deleteStatement.setInt(6, date.getDayOfMonth());
+                deleteStatement.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return deletedWorkerIds;
+    }
+
 
 }
