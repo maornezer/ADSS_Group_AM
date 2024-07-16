@@ -36,8 +36,8 @@ public class Chain {
 //        workersRepository = new WorkersRepository();
 //        shiftHistoryRepository = new ShiftHistoryRepository();
 
-        branchesNums = new ArrayList<>();
-        branchesNums.addAll(branchesRepository.getBranchesNums());
+//        branchesNums = new ArrayList<>();
+//        branchesNums.addAll(branchesRepository.getBranchesNums());
 
         firedWorkers = new ArrayList<>();
         nextWeekDates = new LocalDate[7];
@@ -59,11 +59,8 @@ public class Chain {
     }
 
     public static void creatNextWeek(){
-        for(int i = 0; i< nextWeekDates.length; i++){
+        for(int i = 0; i< nextWeekDates.length; i++) {
             nextWeekDates[i] = nextWeekDates[i].plusDays(7);
-        }
-        for(int branchNum: branchesNums){
-            branchesRepository.getBranch(branchNum).creatNextWeek();
         }
     }
 
@@ -83,46 +80,43 @@ public class Chain {
         return (today.getDayOfWeek().getValue()%7) +1;
     }
 
-    public static int getDeadLineValue(int branchId){
-        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
-        int deadLineVal = (deadline.getValue()+1)%7;
-        return deadLineVal;
-    }
+//    public static int getDeadLineValue(int branchId){
+//        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
+//        int deadLineVal = (deadline.getValue()+1)%7;
+//        return deadLineVal;
+//    }
 
     public static int getDayValue(DayOfWeek day){
-        int dayVal = (day.getValue()%7) + 1;
+        int dayVal = (day.getValue()+1) %7;
         return dayVal;
     }
 
-    public static ShiftHistoryRepository getShiftHistoryRepository() {
-        return shiftHistoryRepository;
-    }
+//    public static ShiftHistoryRepository getShiftHistoryRepository() {
+//        return shiftHistoryRepository;
+//    }
 
-    public static void tomorrow(){
+    public static boolean tomorrow(){
         today = today.plusDays(1);
         if(today.getDayOfWeek().equals(SUNDAY)){
             creatNextWeek();
+            return true;
         }
+        return false;
     }
 
-    public static SystemLimitations getSystemLimit(int branchId){
-        return branchesRepository.getBranch(branchId).getSystemLimitations();
-    }
+//    public static SystemLimitations getSystemLimit(int branchId){
+//        return branchesRepository.getBranch(branchId).getSystemLimitations();
+//    }
 
-    public void addBranch(int branchId, String address){
-        Dictionary<String, String> data = new Hashtable<>();
-        data.put("branchId", Integer.toString(branchId));
-        data.put("address", address);
-        data.put("deadline", "THURSDAY");
-        branchesNums.add(branchId);
-
-        branchesRepository.createBranch(data);
-    }
-
-    public static void addBranch(Dictionary<String,String> data){
-        branchesNums.add(Integer.parseInt(data.get("branchNum")));
-        branchesRepository.createBranch(data);
-    }
+//    public void addBranch(int branchId, String address){
+//        Dictionary<String, String> data = new Hashtable<>();
+//        data.put("branchId", Integer.toString(branchId));
+//        data.put("address", address);
+//        data.put("deadline", "THURSDAY");
+//        branchesNums.add(branchId);
+//
+//        branchesRepository.createBranch(data);
+//    }
 
     public static DayOfWeek getDayOfWeek(int day){
         switch (day){
@@ -166,13 +160,6 @@ public class Chain {
         }
     }
 
-
-    public static void creatScheduleForConfig(){
-        for (int branchNum : branchesNums) {
-            branchesRepository.getBranch(branchNum).creatNextWeek();
-        }
-    }
-
     public static boolean ShiftsAssignment(TransportRepository transportRepository){
 
         boolean flag = true;
@@ -207,24 +194,24 @@ public class Chain {
         return true;
     }
 
-    public static BranchesRepository getBranchesRepository() {
-        return branchesRepository;
-    }
+//    public static BranchesRepository getBranchesRepository() {
+//        return branchesRepository;
+//    }
 
-    public static WorkersRepository getWorkersRepository() {
-        return workersRepository;
-    }
+//    public static WorkersRepository getWorkersRepository() {
+//        return workersRepository;
+//    }
 
-    public static void updateWorker(Dictionary<String, String> data){
-        workersRepository.updateWorker(data);
-    }
+//    public static void updateWorker(Dictionary<String, String> data){
+//        workersRepository.updateWorker(data);
+//    }
 
-    public static boolean updateBranch(Dictionary<String, String> data){
-        return branchesRepository.updateBranch(data);
-    }
-
-
-    public static void fireWorker(int id){
-
-    }
+//    public static boolean updateBranch(Dictionary<String, String> data){
+//        return branchesRepository.updateBranch(data);
+//    }
+//
+//
+//    public static void fireWorker(int id){
+//
+//    }
 }

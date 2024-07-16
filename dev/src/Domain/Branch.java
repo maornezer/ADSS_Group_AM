@@ -46,9 +46,9 @@ public class Branch {
         this.systemLimitations.setDeadLine(DayOfWeek.valueOf(data.get("deadline")));
     }
 
-    public List<Worker> getWorkers() {
-        return Chain.getWorkersRepository().getWorkersOfBranch(branchNum);
-    }
+//    public List<Worker> getWorkers() {
+//        return Chain.getWorkersRepository().getWorkersOfBranch(branchNum);
+//    }
 
     public int getBranchNum() {
         return branchNum;
@@ -101,23 +101,10 @@ public class Branch {
         return this.systemLimitations.getShiftsOffTemp();
     }
 
-    public void creatNextWeek(){
+    public Dictionary<String, String> creatNextWeek(){
 
         this.weekCounter++;
 
-        addToHistory();
-
-        this.scheduleNextWeek = new Scheduling(this.branchNum);
-        this.scheduleNextWeek.creatSchedule();
-
-        List<Worker> workers = getWorkers();
-
-        for(Worker worker : workers){
-            worker.DefaultNextWeek();
-        }
-    }
-
-    public void addToHistory(){
         Shift[][] shifts = this.scheduleNextWeek.getSchedule();
 
         Dictionary<String, String> data = new Hashtable<>();
@@ -134,7 +121,14 @@ public class Branch {
             }
         }
 
-        Chain.getShiftHistoryRepository().create(data);
+        this.scheduleNextWeek = new Scheduling(this.branchNum, systemLimitations);
+        this.scheduleNextWeek.creatSchedule(systemLimitations);
+
+        return data;
+    }
+
+    public void addToHistory(){
+
     }
 
     public String getScheduleThisWeek() {
@@ -181,15 +175,15 @@ public class Branch {
         return true;
     }
 
-    public String getShiftHistory(){
-        List<String> history = Chain.shiftHistoryRepository.getHistory(branchNum, weekCounter);
-
-        StringBuilder res = new StringBuilder("Branch number: " + this.branchNum + "\n");
-        for (String schedule: history){
-            res.append(schedule);
-        }
-        return res.toString();
-    }
+//    public String getShiftHistory(){
+//        List<String> history = Chain.shiftHistoryRepository.getHistory(branchNum);
+//
+//        StringBuilder res = new StringBuilder("Branch number: " + this.branchNum + "\n");
+//        for (String schedule: history){
+//            res.append(schedule);
+//        }
+//        return res.toString();
+//    }
 
     public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) {
         int action = Integer.parseInt(data.get("action"));
@@ -213,9 +207,9 @@ public class Branch {
         return true;
     }
 
-    public boolean checkDeadLine(){
-        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchNum);
-    }
+//    public boolean checkDeadLine(){
+//        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchNum);
+//    }
     public void makeASchedule(){
         this.scheduleNextWeek.makeASchedule();
         this.scheduleThisWeek = this.scheduleNextWeek.toString();
@@ -224,6 +218,12 @@ public class Branch {
     public boolean checkBranchDeadLine(){
         return Chain.getDayValue(Chain.getToday().getDayOfWeek()) <= Chain.getDayValue(getDeadLine());
     }
+
+//    public int getDeadLineValue(int branchId){
+//        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
+//        int deadLineVal = (deadline.getValue()+1)%7;
+//        return deadLineVal;
+//    }
 
     public String toString(){
         StringBuilder res = new StringBuilder();

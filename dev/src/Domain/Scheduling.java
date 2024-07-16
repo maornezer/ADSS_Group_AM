@@ -10,27 +10,26 @@ public class Scheduling {
     private Shift[][] schedule;
     private LocalDate[] dates;
 
-    public Scheduling(int branchId, SystemLimitations limits) {
-        this.branchId = branchId;
-        schedule = new Shift[7][2];
-        dates = Chain.getNextWeekDates();
-        limits.creatNextWeek();
-    }
+//    public Scheduling(int branchId, SystemLimitations limits) {
+//        this.branchId = branchId;
+//        schedule = new Shift[7][2];
+//        dates = Chain.getNextWeekDates();
+//        limits.creatNextWeek();
+//    }
 
-    public Scheduling(int branchId) {
+    public Scheduling(int branchId, SystemLimitations systemLimitations) {
         this.branchId = branchId;
         schedule = new Shift[7][2];
         dates = Chain.getNextWeekDates();
-        SystemLimitations limits = Chain.getSystemLimit(branchId);
-        limits.creatNextWeek();
+        systemLimitations.creatNextWeek();
     }
 
     public Shift[][] getSchedule() {
         return schedule;
     }
 
-    public void creatSchedule(){
-        int[][] nextWeekLimits = Chain.getBranch(branchId).getSystemLimitations().getNextWeekLimits();
+    public void creatSchedule(SystemLimitations systemLimitations){
+        int[][] nextWeekLimits = systemLimitations.getNextWeekLimits();
         for(int i =0; i<7; i++){
             for (int j = 0; j<2; j++){
                 if(nextWeekLimits[i][j] == 1){

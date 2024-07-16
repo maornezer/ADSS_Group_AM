@@ -13,7 +13,7 @@ public class WorkersController {
     protected TransportRepository transportRepository;
     protected BranchesRepository branchesRepository;
     protected WorkersRepository workersRepository;
-    protected static ShiftHistoryRepository shiftHistoryRepository;
+    protected ShiftHistoryRepository shiftHistoryRepository;
 
     public WorkersController(TransportRepository transportRepository){
         this.transportRepository = transportRepository;
@@ -28,7 +28,7 @@ public class WorkersController {
     }
 
     public void addBranch(Dictionary<String, String> data) {
-        Chain.addBranch(data);
+        branchesRepository.createBranch(data);
     }
 
     public List<Worker> getWorkers(int branchId){
@@ -64,13 +64,24 @@ public class WorkersController {
         return null;
     }
 
+    public boolean checkDeadline(int branchNum){
+        Branch branch= branchesRepository.getBranch(branchNum);
+        if(branch == null)
+            return false;
+        return Chain.getTodayValue() <= Chain.getDayValue(branch.getDeadLine());
+    }
+
+    public boolean updateBranch(Dictionary<String, String> data){
+        return branchesRepository.updateBranch(data);
+    }
+
     public LocalDate WorkerResignationNotice(Dictionary<String, String> info){
         return getWorker(info).resignationNotice();
     }
 
-    public int[][] getBranchLimitation(int branchNum){
-        return (Chain.getSystemLimit(branchNum).getNextWeekLimits()).clone();
-    }
+//    public int[][] getBranchLimitation(int branchNum){
+//        return (Chain.getSystemLimit(branchNum).getNextWeekLimits()).clone();
+//    }
 
     public LocalDate[] getDatesForNextWeek(){
         return Chain.getNextWeekDates();
@@ -82,28 +93,21 @@ public class WorkersController {
     }
 
     public boolean checkBranchDeadLine(Dictionary<String, String> data){
-        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
-        if(branch == null)
-            return false;
-        return branch.checkBranchDeadLine();
+        return checkDeadline(Integer.parseInt(data.get("branchNum")));
     }
 
     public boolean checkBranchDeadLinePassed(Dictionary<String, String> data){
-        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
+        Branch branch = branchesRepository.getBranch(Integer.parseInt(data.get("branchNum")));
         if(branch == null)
             return false;
         return !checkBranchDeadLine(data);
     }
 
     public void ChangeAmountTypeOfWorkersShift(Dictionary<String, String> data){
-//        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
-//        if(branch == null)
-//            return;
-//        branch.ChangeAmountTypeOfWorkersShift(data);
         data.put("key", data.get("branchNum"));
         data.put("update","changeAmount");
 
-        Chain.updateBranch(data);
+        updateBranch(data);
     }
 
     public void changeFirstName(Dictionary<String, String> data){
@@ -111,7 +115,7 @@ public class WorkersController {
         data.put("update","firstName");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public void changeLastName(Dictionary<String, String> data){
@@ -119,7 +123,7 @@ public class WorkersController {
         data.put("update","lastName");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public void changeBankDetails(Dictionary<String, String> data){
@@ -127,7 +131,7 @@ public class WorkersController {
         data.put("update","bankDetails");
         data.put("type", "int");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public void addRole(Dictionary<String, String> data){
@@ -136,7 +140,7 @@ public class WorkersController {
         data.put("update2","add");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public void removeRole(Dictionary<String, String> data){
@@ -145,10 +149,7 @@ public class WorkersController {
         data.put("update2","remove");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
-
-//        String roleToRemove = data.get("RoleToRemove");
-//        return getWorker(data).removeRole(roleToRemove);
+        updateWorker(data);
     }
 
     public void changeHourRate(Dictionary<String, String> data){
@@ -156,7 +157,7 @@ public class WorkersController {
         data.put("update","hourRate");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public void changeVacationDays(Dictionary<String, String> data){
@@ -174,7 +175,7 @@ public class WorkersController {
         data.put("update","jobType");
         data.put("type", "string");
 
-        Chain.updateWorker(data);
+        updateWorker(data);
     }
 
     public LocalDate changingEndOfEmployment(Dictionary<String, String> data){
@@ -194,17 +195,20 @@ public class WorkersController {
             date = nextSunday;
         }
 
-        Chain.updateWorker(data);
+        updateWorker(data);
 
         return date;
     }
 
+    public void updateWorker(Dictionary<String, String> data){
+        workersRepository.updateWorker(data);
+    }
     public void hireWorker(Dictionary<String, String> data){
-        Chain.getBranch(Integer.parseInt(data.get("branchNum"))).addWorker(data);
+        branchesRepository.getBranch(Integer.parseInt(data.get("branchNum"))).addWorker(data);
     }
 
     public LocalDate fireEmployee(Dictionary<String, String> data){
-        Branch branch = Chain.getBranch(Integer.parseInt(data.get("branchNum")));
+        Branch branch = branchesRepository.getBranch(Integer.parseInt(data.get("branchNum")));
         if(branch == null || branch.checkBranchDeadLinePassed())
             return null;
 
@@ -215,34 +219,32 @@ public class WorkersController {
         data.put("key", data.get("branchNum"));
         data.put("update","changeTime");
 
-        return Chain.updateBranch(data);
+        return updateBranch(data);
     }
 
     public String ViewShiftHistory(Dictionary<String, String> data) {
         int branchNum = Integer.parseInt(data.get("branchNum"));
-        Branch branch = Chain.getBranch(branchNum);
+        Branch branch = branchesRepository.getBranch(branchNum);
         if(branch == null){
             return "Branch number does not exists";
         }
-        return branch.getShiftHistory();
+        List<String> history = shiftHistoryRepository.getHistory(branchNum);
+
+        StringBuilder res = new StringBuilder("Branch number: " + Integer.parseInt(data.get("branchNum")) + "\n");
+        for (String schedule: history){
+            res.append(schedule);
+        }
+        return res.toString();
     }
 
     public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) {
-//        int branchNum = Integer.parseInt(data.get("branchNum"));
-//        Branch branch = Chain.getBranch(branchNum);
-//        if(branch == null)
-//            return false;
-//        branch.AddOrRemoveDaysOffWork(data);
-//        return true;
         data.put("key", data.get("branchNum"));
         data.put("update","daysOff");
 
-        return Chain.updateBranch(data);
+        return updateBranch(data);
     }
 
     public void ChangingDeadline(Dictionary<String, String> data){
-//        int branchNum = Integer.parseInt(data.get("branchNum"));
-//        Branch branch = Chain.getBranch(branchNum);
         data.put("key", data.get("branchNum"));
         data.put("update","deadline");
 
@@ -251,17 +253,45 @@ public class WorkersController {
 
         data.put("value", dayOfWeek.toString());
 
-        Chain.updateBranch(data);
-//        return branch.ChangingDeadline(data);
+        updateBranch(data);
     }
 
     public boolean ShiftsAssignment(){
-        return Chain.ShiftsAssignment(this.transportRepository);
+        boolean flag = true;
+
+        List<Integer> branchesNums = branchesRepository.getBranchesNums();
+        for (int branchNum : branchesNums) {
+            flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
+        }
+
+        if(!flag)
+            return false;
+
+        workersRepository.deleteFiredWorkeres();
+
+        Dictionary<LocalDate, List<String[]>> transports = transportRepository.getTransportDetails();
+
+        LocalDate[] nextWeekDates = Chain.getNextWeekDates();
+        for(LocalDate date : nextWeekDates){
+            List<String[]> temp = transports.get(date);
+            for(String[] transport : temp){
+                String driverName = transport[1];
+                int branchNum = Integer.parseInt(transport[2]);
+                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), 1);
+                shift.transport(driverName);
+            }
+        }
+
+        for (int branchNum : branchesNums)
+            branchesRepository.getBranch(branchNum).makeASchedule();
+
+        return true;
+
     }
 
     public String PrintShiftsAssignment(Dictionary<String, String> data){
         int branchNum = Integer.parseInt(data.get("branchNum"));
-        Branch branch = Chain.getBranch(branchNum);
+        Branch branch = branchesRepository.getBranch(branchNum);
         if(branch == null)
             return "Branch doesnt exist";
         String res = branch.getScheduleThisWeek();
@@ -269,12 +299,25 @@ public class WorkersController {
     }
 
     public String makeTomorrow(){
-        Chain.tomorrow();
+        if(Chain.tomorrow())
+            creatNextWeek();
         return Chain.getToday().toString() + " " + Chain.getToday().getDayOfWeek().toString();
     }
 
-    public void creatScheduleForConfig(){
-        Chain.creatScheduleForConfig();
+    public void creatNextWeek(){
+        List<Integer> branchesNums = branchesRepository.getBranchesNums();
+        for(int branchNum: branchesNums){
+
+            Dictionary <String, String> data = branchesRepository.getBranch(branchNum).creatNextWeek();
+            this.shiftHistoryRepository.create(data);
+
+            List<Worker> workers = workersRepository.getWorkersOfBranch(branchNum);
+            for(Worker worker : workers){
+                worker.DefaultNextWeek();
+            }
+        }
     }
+
+
 
 }

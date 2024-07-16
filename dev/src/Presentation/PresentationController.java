@@ -195,6 +195,6 @@ public class PresentationController {
     }
 
     public void creatScheduleForConfig(){
-        this.workersController.creatScheduleForConfig();
+        this.workersController.creatNextWeek();
     }
 }

@@ -1,6 +1,6 @@
 package Domain;
 
-import DAL.BranchesDAO;
+import DAL.BranchDAO;
 import DAL.DB;
 import DAL.SiteDAO;
 

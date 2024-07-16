@@ -4,83 +4,112 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
 public class ShiftHistoryDAO {
 
-    public List<String> read(int branchNum){
+    public List<String> read(int branchNum) {
+        List<String> res = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try {
-            Connection connection = DB.getConnection();
-            String sql = "SELECT * FROM ShiftHistory WHERE branchNum =" + branchNum + ";";
+            connection = DB.getConnection();
+            String sql = "SELECT * FROM ShiftHistory WHERE branchNum = ? ORDER BY weekCounter;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, branchNum);
+            resultSet = preparedStatement.executeQuery();
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet resultSet  = preparedStatement.executeQuery();
-
-            ArrayList<String> res = new ArrayList<>();
-
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 res.add(resultSet.getString("shiftString"));
             }
-            return res;
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return new ArrayList<>();
+        } finally {
+            closeResources(resultSet, preparedStatement, connection);
         }
+        return res;
     }
 
-    public void create(Dictionary<String, String> data){
+    public void create(Dictionary<String, String> data) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
         try {
-            Connection connection = DB.getConnection();
-            String sql = "insert into ShiftHistory (branchNum, weekCounter, shiftString, dayOfWeek) values (?, ?, ?, ?);";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            connection = DB.getConnection();
+            String sql = "INSERT INTO ShiftHistory (branchNum, weekCounter, shiftString, dayOfWeek) VALUES (?, ?, ?, ?);";
+            preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setInt(1, Integer.parseInt(data.get("branchNum")));
-            preparedStatement.setInt(2, Integer.parseInt(data.get("weekCounter")));
+            int branchNum = Integer.parseInt(data.get("branchNum"));
+            int weekCounter = Integer.parseInt(data.get("weekCounter"));
 
-            for(int i = 0; i<7; i++) {
-                if(data.get("shiftString" + Integer.toString(i)) != null) {
-                    preparedStatement.setString(3, data.get("shiftString" + Integer.toString(i)));
+            for (int i = 0; i < 7; i++) {
+                String shiftStringKey = "shiftString" + i;
+                if (data.get(shiftStringKey) != null) {
+                    preparedStatement.setInt(1, branchNum);
+                    preparedStatement.setInt(2, weekCounter);
+                    preparedStatement.setString(3, data.get(shiftStringKey));
                     preparedStatement.setInt(4, i + 1);
-
-                    preparedStatement.execute();
+                    preparedStatement.addBatch();
                 }
             }
-        }
-        catch (Exception e) {
+
+            preparedStatement.executeBatch();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            closeResources(null, preparedStatement, connection);
         }
     }
 
-    public Boolean update(Dictionary<String, String> data){
+    public Boolean update(Dictionary<String, String> data) {
+        // Placeholder for update logic. To be implemented as per requirements.
         return true;
     }
 
-    public void delete(int id){
+    public void delete(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
         try {
-            Connection connection = DB.getConnection();
-            String sql = "DELETE FROM ShiftHistory WHERE branchNum = "+ id + ";";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
-        }
-        catch (Exception e){
+            connection = DB.getConnection();
+            String sql = "DELETE FROM ShiftHistory WHERE branchNum = ?;";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            closeResources(null, preparedStatement, connection);
         }
     }
 
-    public void delete(){
+    public void delete() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
         try {
-            Connection connection = DB.getConnection();
+            connection = DB.getConnection();
             String sql = "DELETE FROM ShiftHistory;";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
-        }
-        catch (Exception e){
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            closeResources(null, preparedStatement, connection);
         }
     }
 
+    private void closeResources(ResultSet resultSet, PreparedStatement preparedStatement, Connection connection) {
+        try {
+            if (resultSet != null) resultSet.close();
+            if (preparedStatement != null) preparedStatement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
