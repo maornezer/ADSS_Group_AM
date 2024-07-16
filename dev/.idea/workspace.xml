@@ -9,27 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="bugs fixed">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Data/DatabaseUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/adss2024_v02.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/adss2024_v02.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="530e82b2-cad4-47a5-a2e8-795a1532a053" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PROJECT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Personnel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Personnel.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/BranchesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/RolesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/ShiftHistoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/TransportationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/TransportationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/WorkersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/BranchesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/Chain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/DomainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Domain/WorkersRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presentation/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../release/adss2024_v02.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../release/adss2024_v02.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +28,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="207279142_206393456_318283116" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -200,18 +188,18 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WorkerTest.testToString" />
         <item itemvalue="JUnit.WorkerTest" />
+        <item itemvalue="JUnit.BranchTest.getWorkers" />
         <item itemvalue="JUnit.BranchTest" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.BranchTest.getWorkers" />
-        <item itemvalue="JUnit.WorkerTest.testToString" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="597c7901-ae72-4bd9-a18b-ef73b57c3dd3" name="Changes" comment="" />
+      <changelist id="530e82b2-cad4-47a5-a2e8-795a1532a053" name="Changes" comment="" />
       <created>1715098154821</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -253,6 +241,7 @@
       <workItem from="1720963253720" duration="1165000" />
       <workItem from="1720967868492" duration="2530000" />
       <workItem from="1720979831977" duration="1053000" />
+      <workItem from="1721168214563" duration="8000" />
     </task>
     <task id="LOCAL‎-00001" summary="bla">
       <created>1717521888018</created>
@@ -478,7 +467,7 @@
         <line-breakpoint type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Domain/Branch.java</url>
           <line>25</line>
-          <properties class="Domain.Branch" method="getScheduleNextWeek">
+          <properties class="Domain.Branch">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
