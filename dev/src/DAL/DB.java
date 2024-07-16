@@ -8,13 +8,14 @@ public class DB {
     private TruckDAO truckDAO;
     private DriverDAO driverDAO;
     private TransportDAO transportDAO;
-    private SiteDAO siteDAO;
     private WorkersDAO workersDAO;
     private static RolesDAO rolesDAO = new RolesDAO();
     private ShiftHistoryDAO shiftHistoryDAO;
 
     protected static Connection connection;
-    private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
+    //jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/release/src/resources/Transports.sqlite
+    //private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
+    private static final String URL = "jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/dev/src/resources/Transports.sqlite";
     //    //private static final String URL = "jdbc:sqlite:resource\\Transports.sqlite";
     static {
         try{
@@ -32,7 +33,6 @@ public class DB {
         truckDAO=new TruckDAO();
         driverDAO=new DriverDAO();
         transportDAO=new TransportDAO();
-        siteDAO=new SiteDAO();
         workersDAO = new WorkersDAO();
         shiftHistoryDAO = new ShiftHistoryDAO();
     }

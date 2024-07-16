@@ -16,8 +16,9 @@ public class RolesDAO {
     public ArrayList<String> read(int id){
         try {
             Connection connection = DB.getConnection();
-            String sql = "SELECT role FROM Roles WHERE id = " + id + ";";
+            String sql = "SELECT role FROM Roles WHERE id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             ResultSet resultSet  = preparedStatement.executeQuery();
 
             ArrayList<String> res = new ArrayList<>();
@@ -73,8 +74,9 @@ public class RolesDAO {
     public void delete(int id){
         try {
             Connection connection = DB.getConnection();
-            String sql = "DELETE FROM Roles WHERE id = "+ id + ";";
+            String sql = "DELETE FROM Roles WHERE id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
         }
@@ -86,8 +88,10 @@ public class RolesDAO {
     public void delete(int id, String role){
         try {
             Connection connection = DB.getConnection();
-            String sql = "DELETE FROM Roles WHERE id = "+ id + " AND role = "+ role + ";";
+            String sql = "DELETE FROM Roles WHERE id = ? AND role = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, role);
             preparedStatement.execute();
 
         }

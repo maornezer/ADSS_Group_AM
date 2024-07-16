@@ -14,7 +14,7 @@ public class TransportMenu {
         System.out.println("Welcome to Super-Li :)");
         System.out.println("Please enter which module you want");
         System.out.println("1. Transport module");
-        System.out.println("2. Employee model");
+        System.out.println("2. Employee module");
         System.out.println("3. Exit");
         scanner.skip("\\R?");
         String module =  scanner.nextLine();
@@ -23,7 +23,7 @@ public class TransportMenu {
                 printMenu(scanner,controller);
                 break;
             case "2":
-                WorkerMenu.creatChain(scanner, controller);
+                WorkerMenu.printMain();
                 break;
             case "3":
                 System.out.println("Exiting the program. Goodbye!");

@@ -87,7 +87,7 @@ public class Chain {
 //    }
 
     public static int getDayValue(DayOfWeek day){
-        int dayVal = (day.getValue()+1) %7;
+        int dayVal = (day.getValue()%7 ) +1 ;
         return dayVal;
     }
 

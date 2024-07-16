@@ -16,8 +16,9 @@ public class WorkersDAO {
     public Worker read(int id){
         try {
             Connection connection = DB.getConnection();
-            String sql = "SELECT * FROM Workers WHERE id = " + id + ";";
+            String sql = "SELECT * FROM Workers WHERE id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             ResultSet  resultSet  = preparedStatement.executeQuery();
             Dictionary<String,String> data = new Hashtable<>();
 
@@ -35,8 +36,9 @@ public class WorkersDAO {
     public List<Worker> readWorkersByBranch(int branchNum){
         try {
             Connection connection = DB.getConnection();
-            String sql = "SELECT * FROM Workers WHERE branchNum = " + branchNum + ";";
+            String sql = "SELECT * FROM Workers WHERE branchNum = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, branchNum);
             ResultSet  resultSet  = preparedStatement.executeQuery();
             List<Worker> workerList = new ArrayList<>();
 
@@ -127,33 +129,42 @@ public class WorkersDAO {
 //            System.out.println("value = " + data.get("value"));
             if(data.get("update").equals("date"))
             {
-                String sql = "UPDATE Workers SET year = "+ Integer.parseInt(data.get("year")) + " WHERE id = "+ Integer.parseInt(data.get("key")) +";";
+                String sql = "UPDATE Workers SET year = ? WHERE id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, Integer.parseInt(data.get("year")));
+                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
+
                 preparedStatement.execute();
 
-                sql = "UPDATE Workers SET month = "+ Integer.parseInt(data.get("month")) + " WHERE id = "+ Integer.parseInt(data.get("key")) +";";
+                sql = "UPDATE Workers SET month = ? WHERE id = ?;";
                 preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, Integer.parseInt(data.get("month")));
+                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
+
                 preparedStatement.execute();
 
-                sql = "UPDATE Workers SET day = "+ Integer.parseInt(data.get("day")) + " WHERE id = "+ Integer.parseInt(data.get("key")) +";";
+                sql = "UPDATE Workers SET day = ? WHERE id = ?;";
                 preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, Integer.parseInt(data.get("day")));
+                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
+
                 preparedStatement.execute();
             }
 
             else {
-                String columnToUpdate = data.get("update");
-                String sql = "UPDATE Workers SET " + columnToUpdate + " = ? WHERE id = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-                // Set the value based on the type
-                if (data.get("type").equals("int")) {
-                    preparedStatement.setInt(1, Integer.parseInt(data.get("value")));
-                } else {
-                    preparedStatement.setString(1, data.get("value"));
-                }
-
-                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
-                preparedStatement.execute();
+//                String columnToUpdate = data.get("update");
+//                String sql = "UPDATE Workers SET " + columnToUpdate + " = ? WHERE id = ?";
+//                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//
+//                // Set the value based on the type
+//                if (data.get("type").equals("int")) {
+//                    preparedStatement.setInt(1, Integer.parseInt(data.get("value")));
+//                } else {
+//                    preparedStatement.setString(1, data.get("value"));
+//                }
+//
+//                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
+//                preparedStatement.execute();
             }
 
 
@@ -168,8 +179,10 @@ public class WorkersDAO {
     public void delete(int id){
         try {
             Connection connection = DB.getConnection();
-            String sql = "DELETE FROM Workers WHERE id = "+ id + ";";
+            String sql = "DELETE FROM Workers WHERE id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
             preparedStatement.execute();
 
             DB.getRolesDAO().delete(id);
@@ -183,7 +196,7 @@ public class WorkersDAO {
         try {
             Connection connection = DB.getConnection();
 
-            // שליפת העובדים עם תאריך קטן או שווה לתאריך שהתקבל
+
             String selectSql = "SELECT id FROM Workers WHERE (year < ?) OR (year = ? AND month < ?) OR (year = ? AND month = ? AND day <= ?);";
             PreparedStatement selectStatement = connection.prepareStatement(selectSql);
             selectStatement.setInt(1, date.getYear());
@@ -194,7 +207,7 @@ public class WorkersDAO {
             selectStatement.setInt(6, date.getDayOfMonth());
             ResultSet resultSet = selectStatement.executeQuery();
 
-            // שמירת תעודות הזהות של העובדים
+
             while (resultSet.next()) {
                 deletedWorkerIds.add(resultSet.getInt("id"));
             }

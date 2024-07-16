@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="delete workers - to update">
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Chain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Worker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" afterDir="false" />
+    <list default="true" id="685b29d5-88dc-4534-9de5-44a4c47dbf2b" name="Changes" comment="fix bugs">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Test/transportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Test/transportTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,41 +35,150 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2jIJrxrInfrP0FSPT0kQPlFdBno" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "JUnit.transportTest.ChangeTransportSent.executor": "Run",
+    "JUnit.transportTest.addOrder1 (1).executor": "Run",
+    "JUnit.transportTest.addOrder1.executor": "Run",
+    "JUnit.transportTest.addOrder2.executor": "Run",
+    "JUnit.transportTest.addTransport.executor": "Run",
+    "JUnit.transportTest.executor": "Run",
+    "JUnit.transportTest.removeOrder1.executor": "Run",
+    "JUnit.transportTest.removeTransport.executor": "Run",
+    "JUnit.transportTest.unmatched_licence.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora_aws",
+      "sqlite"
+    ]
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USER\Desktop\Ben Gurion\second year\semester D\analysis and planning\PROJECT\dev\src\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="transportTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.ChangeTransportSent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="ChangeTransportSent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.removeOrder1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="removeOrder1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.removeTransport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="removeTransport" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.unmatched_licence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="unmatched_licence" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.transportTest" />
+      <item itemvalue="JUnit.transportTest.ChangeTransportSent" />
+      <item itemvalue="JUnit.transportTest.removeOrder1" />
+      <item itemvalue="JUnit.transportTest.removeTransport" />
+      <item itemvalue="JUnit.transportTest.unmatched_licence" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.transportTest" />
+        <item itemvalue="JUnit.transportTest.removeTransport" />
+        <item itemvalue="JUnit.transportTest.removeOrder1" />
+        <item itemvalue="JUnit.transportTest.ChangeTransportSent" />
+        <item itemvalue="JUnit.transportTest.unmatched_licence" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -104,16 +211,58 @@
       <option name="project" value="LOCAL‎" />
       <updated>1721137452255</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL‎-00004" summary="fix bugs">
+      <option name="closed" value="true" />
+      <created>1721155099923</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1721155099923</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="errors created and starting to change site to branch" />
     <MESSAGE value="\" />
     <MESSAGE value="delete workers - to update" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete workers - to update" />
+    <MESSAGE value=" integration with workers" />
+    <MESSAGE value="fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dev/src/Presentation/Main.java</url>
+          <line>5</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dev/src/Presentation/Main.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/dev/src/Domain/BranchesRepository.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
