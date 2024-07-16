@@ -40,11 +40,8 @@ public class PresentationController {
     public boolean freeTruck(int idT, int idOrder) {return transportController.freeTruck(idT,idOrder);}
 
     /// site ///
-//    public boolean addSite(Dictionary<String, String> data) {return this.transportController.getOperations().addSite(data);}
     public boolean changeDestination(Dictionary<String, String> data){return this.transportController.getOperations().changeDestination(data);}
-//    public boolean validMatchZone(String source, String destination ) {return transportController.getOperations().validMatchZone( source, destination );}
-//    public boolean removeSite(Dictionary<String, String> data) {return transportController.getOperations().removeSite(data);}
-    public Branch getSite(Dictionary<String, String> data) { return  workersController.getBranch(Integer.parseInt(sourceID));}
+    public boolean validMatchZone(String source, String destination ) {return workersController.getBranchesRepository().validMatchZone( source, destination );}
     public boolean searchSite(String sourceID) {return workersController.getBranch(Integer.parseInt(sourceID)) != null;}
 
     /// order + item ///
@@ -73,7 +70,7 @@ public class PresentationController {
 
 
 
-
+//
     public void creatChain(Dictionary<String, String> data){
         this.workersController.createChain(data);
         creatScheduleForConfig();
@@ -98,7 +95,7 @@ public class PresentationController {
 
 
     public int[][] getBranchLimitation(int branchNum) {
-        return this.workersController.getBranchLimitation(branchNum);
+        return this.workersController.getBranchesRepository().getBranchLimitation(branchNum);
     }
 
     public LocalDate[] getDatesForNextWeek() {

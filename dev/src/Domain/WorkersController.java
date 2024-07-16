@@ -87,7 +87,19 @@ public class WorkersController {
         return Chain.getNextWeekDates();
     }
 
-    public boolean submitWorkerLimits(Dictionary<String, String> data,int[][] workerLimits){
+    public TransportRepository getTransportRepository() {
+        return transportRepository;
+    }
+
+    public BranchesRepository getBranchesRepository() {
+        return branchesRepository;
+    }
+
+//    public WorkersRepository getWorkersRepository() {
+//        return workersRepository;
+//    }
+
+    public boolean submitWorkerLimits(Dictionary<String, String> data, int[][] workerLimits){
         Worker worker = getWorker(data);
         return worker.setLimitations(workerLimits);
     }

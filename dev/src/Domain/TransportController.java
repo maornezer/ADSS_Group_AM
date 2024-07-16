@@ -72,7 +72,7 @@ public class TransportController
             Transport t = new Transport(truck,driver,tDTO.id);//order
             t.setDate(orders.get(0).getDate());
             t.setMyOrders(orders);
-            t.setZone(orders.get(0).getSource().getSiteZone());
+            t.setZone(orders.get(0).getSource().getZone());
             transportRepo.getTransports().add(t);
             return t;
         }
@@ -84,7 +84,7 @@ public class TransportController
         int orderID = Integer.parseInt(data.get("orderID"));
         Transport transport = getTransport(transportID);
         Order order = operations.getOrder(orderID);
-        if(order.getSource().getSiteZone().compareTo(transport.getZone()) == 0) {
+        if(order.getSource().getZone().compareTo(transport.getZone()) == 0) {
             if(transport.getDate().isEqual(order.getDate())) {
                 transport.getMyOrders().add(order);
                 operations.updateIDTransport(orderID,transportID);
