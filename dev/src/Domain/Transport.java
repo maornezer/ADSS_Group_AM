@@ -24,7 +24,7 @@ public class Transport
         setDriver(driver);
         setTime();
         setDate(order.getDate());
-        setZone(order.getDestination().getSiteZone());
+        setZone(order.getDestination().getZone());
         myOrders = new ArrayList<>();
         myOrders.add(order);
         changeDestination = false;

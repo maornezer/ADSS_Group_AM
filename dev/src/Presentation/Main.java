@@ -1,17 +1,40 @@
 package Presentation;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Main
 {
-
+    private static Scanner scanner;
+    private static PresentationController controller;
     public static void main(String[] args) {
         createDB();
-        Menu menu = new Menu();
-        //menu.printMenu();
-        menu.printMainMenu();
-
+        TransportMenu menuT = new TransportMenu();
+        WorkerMenu menuW = new WorkerMenu();
+        scanner = new Scanner(System.in);
+        controller = new PresentationController();
+        System.out.println("Welcome to Super-Li :)");
+        System.out.println("Please enter which module you want");
+        System.out.println("1. Transport module");
+        System.out.println("2. Employee model");
+        System.out.println("0. Exit");
+        scanner.skip("\\R?");
+        String module =  scanner.nextLine();
+        switch (module) {
+            case "1":
+                menuT.printMenu(scanner,controller);
+                break;
+            case "2":
+                WorkerMenu.creatChain(scanner,controller);
+                break;
+            case "0":
+                System.out.println("Exiting the program. Goodbye!");
+                scanner.close();
+                System.exit(0);
+                break;
+        }
     }
+
     private static boolean createDB() {
         // if directory does not exist, create it
         File directory = new File("src/");

@@ -6,33 +6,38 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-public class Menu {
-    private Scanner scanner;
-    private PresentationController controller;
-    public void printMainMenu()
+public class TransportMenu {
+    private static Scanner scanner;
+    private static PresentationController controller;
+    public static void printIntegrationMenu()
     {
-        scanner = new Scanner(System.in);
-        controller = new PresentationController();
         System.out.println("Welcome to Super-Li :)");
         System.out.println("Please enter which module you want");
         System.out.println("1. Transport module");
         System.out.println("2. Employee model");
+        System.out.println("3. Exit");
         scanner.skip("\\R?");
         String module =  scanner.nextLine();
         switch (module) {
             case "1":
-                printMenu();
+                printMenu(scanner, controller);
                 break;
             case "2":
+                WorkerMenu.creatChain(scanner, controller);
+                break;
+            case "3":
+                System.out.println("Exiting the program. Goodbye!");
+                scanner.close();
+                System.exit(0);
                 break;
         }
     }
 
-    public void printMenu()
-    {
-//        scanner = new Scanner(System.in);
 
-//        controller = new PresentationController();
+    public static void printMenu(Scanner scanner, PresentationController controller)
+    {
+        TransportMenu.scanner = scanner;
+        TransportMenu.controller = controller;
         System.out.println("Welcome to Super-Li Shipment module :)");
         while (true) {
             System.out.println("Please enter your username [for logout please enter exit]");
@@ -61,7 +66,7 @@ public class Menu {
         }
     }
 
-    public void managerMenu()
+    public static void managerMenu()
     {
         System.out.println("Hello Manager!");
         while (true)
@@ -91,7 +96,7 @@ public class Menu {
                     break;
                 case "5":
                     System.out.println("Logging out. Returning to the main menu...");
-                    printMenu();
+                    printIntegrationMenu();
                     break;
                 case "6":
                     System.out.println("Exiting the program. Goodbye!");
@@ -105,9 +110,8 @@ public class Menu {
         }
     }
 
-    public void DriverMenu()
+    public static void DriverMenu()
     {
-        Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Hello Driver!");
         while (true)
         {
@@ -129,7 +133,7 @@ public class Menu {
                     break;
                 case "3":
                     System.out.println("Logging out. Returning to the main menu...");
-                    printMenu();
+                    printIntegrationMenu();
                     break;
                 case "4":
                     System.out.println("Exiting the program. Goodbye!");
@@ -138,13 +142,12 @@ public class Menu {
                     break;
                 default:
                     System.out.println("There is no such option of choice, please choose valid number\n");
-                    //DriverMenu();
                     break;
             }
          }
     }
 
-    public void createOrder()
+    public static void createOrder()
     {
         Dictionary<String, String> data1= new Hashtable<String, String>();
         System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
@@ -170,7 +173,7 @@ public class Menu {
         String sourceID = scanner.nextLine();
         boolean checkId = controller.searchSite(sourceID);
         if (!checkId) {
-            System.out.println("Site id is not registered in the system, order canceled");
+            System.out.println("Branch id is not registered in the system, order canceled");
             return;
         }
         System.out.println("Enter destination site id:");
@@ -178,7 +181,7 @@ public class Menu {
         String destID = scanner.nextLine();
         boolean checkDestID = controller.searchSite(destID);
         if (!checkDestID) {
-            System.out.println("Site id is not registered in the system, order canceled");
+            System.out.println("Branch id is not registered in the system, order canceled");
             return;
         }
         boolean machZone = controller.validMatchZone(sourceID, destID);
@@ -195,7 +198,7 @@ public class Menu {
         managerMenu();
     }
 
-    public Dictionary<Integer, ArrayList<String>> addItems(){
+    public static Dictionary<Integer, ArrayList<String>> addItems(){
         Dictionary<Integer, ArrayList<String>> data2 = new Hashtable< Integer,ArrayList<String>>();
 
         System.out.println("Enter the items of the order ");
@@ -241,7 +244,7 @@ public class Menu {
         return data2;
     }
 
-    public void  createNewTransport()
+    public static void  createNewTransport()
     {
 
         Dictionary<String, String> data = new Hashtable<String, String>();
@@ -320,7 +323,7 @@ public class Menu {
     }
 
 
-    public void addOrderTonewTransport(int transportID)
+    public static void addOrderTonewTransport(int transportID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         boolean complete = controller.getStatus(transportID);
@@ -376,7 +379,7 @@ public class Menu {
         }
     }
 
-    public void editTransport()
+    public static void editTransport()
     {
         System.out.println("Enter ID of the Transport you want to edit: ");
         scanner.skip("\\R?");
@@ -411,7 +414,7 @@ public class Menu {
         }
     }
 
-    public boolean changeTruck(int id)
+    public static boolean changeTruck(int id)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
@@ -444,7 +447,7 @@ public class Menu {
         }
     }
 
-    public void changeDriver(int id)
+    public static void changeDriver(int id)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         int idTransport = id;
@@ -476,145 +479,145 @@ public class Menu {
             System.out.println("Driver in transport "+ idTransport + " was change successfully");
     }
 
-    public void editDatabase()
+    public static void editDatabase()
     {
         System.out.println("Enter what do you want to edit:");
-        System.out.println("1. Site");
-        System.out.println("2. Truck");
-        System.out.println("3. Driver");
-        System.out.println("4. Order");
-        System.out.println("5. Return back");
+        //System.out.println("1. Site");
+        System.out.println("1. Truck");
+        System.out.println("2. Driver");
+        System.out.println("3. Order");
+        System.out.println("4. Return back");
 
         scanner.skip("\\R?");
         String choice = scanner.nextLine();
         switch (choice)
         {
+//            case "1":
+//                siteMenu();
+//                break;
             case "1":
-                siteMenu();
-                break;
-            case "2":
                 truckMenu();
                 break;
-            case "3":
+            case "2":
                 driverMenu();
                 break;
-            case "4":
+            case "3":
                 orderMenu();
                 break;
-            case "5":
-                managerMenu();
-                break;
-            default:
-                System.out.println("There is no such option of choice, please choose 1 or 2 or 3 or 4 for return to back");
-                editDatabase();
-        }
-    }
-    public void siteMenu()
-    {
-        System.out.println("Enter what do you want to do:");
-        System.out.println("1. Add new Site");
-        System.out.println("2. Remove site");
-        System.out.println("3. Get Site information");
-        System.out.println("4. Return back");
-        scanner.skip("\\R?");
-        String choice = scanner.nextLine();
-        switch (choice)
-        {
-            case "1":
-                addSite();
-                break;
-            case "2":
-                removeSite();
-                break;
-            case "3":
-                getSite();
-                break;
             case "4":
                 managerMenu();
                 break;
             default:
-                System.out.println("There is no such option of choice please try again");
+                System.out.println("There is no such option of choice, please try again");
                 editDatabase();
         }
     }
+//    public void siteMenu()
+//    {
+//        System.out.println("Enter what do you want to do:");
+//        System.out.println("1. Add new Site");
+//        System.out.println("2. Remove site");
+//        System.out.println("3. Get Site information");
+//        System.out.println("4. Return back");
+//        scanner.skip("\\R?");
+//        String choice = scanner.nextLine();
+//        switch (choice)
+//        {
+//            case "1":
+//                addSite();
+//                break;
+//            case "2":
+//                removeSite();
+//                break;
+//            case "3":
+//                getSite();
+//                break;
+//            case "4":
+//                managerMenu();
+//                break;
+//            default:
+//                System.out.println("There is no such option of choice please try again");
+//                editDatabase();
+//        }
+//    }
 
-
-    public void addSite()
-    {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-
-        System.out.println("Enter Site id: ");
-        scanner.skip("\\R?");
-        String id = scanner.nextLine();
-        data.put("id", id);
-        System.out.println("Enter Site Address: ");
-        scanner.skip("\\R?");
-        String address = scanner.nextLine();
-        data.put("address", address);
-
-        System.out.println("Choose Site Zone: [North, South, Center]");
-        scanner.skip("\\R?");
-        String zone = scanner.nextLine();
-
-        while (zone.compareTo("North") !=0 && zone.compareTo("South")!=0 && zone.compareTo("Center")!=0)
-        {
-            System.out.println("There is no such option of choice");
-            System.out.println("Choose Site Zone: [North, South, Center]");
-            scanner.skip("\\R?");
-            zone = scanner.nextLine();
-        }
-
-        data.put("zone", zone);
-
-        System.out.println("Enter Contact Name of Site: ");
-        scanner.skip("\\R?");
-        String contactName = scanner.nextLine();
-        data.put("contactName", contactName);
-
-        System.out.println("Enter Contact Phone Number of Site: ");
-        scanner.skip("\\R?");
-        String phoneNumber = scanner.nextLine();
-        data.put("phoneNumber", phoneNumber);
-
-        boolean b = controller.addSite(data);
-        if (!b) {
-            System.out.println("Adding the site failed");
-
-        }
-        else
-            System.out.println("Adding the site complete");
-    }
-    public void removeSite()
-    {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Please enter site id you want to remove: ");
-        scanner.skip("\\R?");
-        String id = scanner.nextLine();
-        data.put("id", id);
-        boolean b = controller.removeSite(data);
-        if (!b) {
-            System.out.println("Removing the site failed");
-
-        }
-        else
-            System.out.println("Removing the site complete");
-    }
-
-    public void getSite()
-    {
-        Dictionary<String, String> data = new Hashtable<String, String>();
-        System.out.println("Please enter site id you want to get his information: ");
-        scanner.skip("\\R?");
-        String id = scanner.nextLine();
-        data.put("id", id);
-        Site s = controller.getSite(data);
-        if (s == null) {
-            System.out.println("There is no site with id " + id + " in the system");
-        }
-        else
-            System.out.println("Address: " + s.getAddress() + ", Contact Name: " + s.getContactName() + ", Phone number: " + s.getPhoneNumber() + " Zone: " + s.getSiteZone());
-    }
-    public void truckMenu()
+//
+//    public void addSite()
+//    {
+//        Dictionary<String, String> data = new Hashtable<String, String>();
+//
+//        System.out.println("Enter Site id: ");
+//        scanner.skip("\\R?");
+//        String id = scanner.nextLine();
+//        data.put("id", id);
+//        System.out.println("Enter Site Address: ");
+//        scanner.skip("\\R?");
+//        String address = scanner.nextLine();
+//        data.put("address", address);
+//
+//        System.out.println("Choose Site Zone: [North, South, Center]");
+//        scanner.skip("\\R?");
+//        String zone = scanner.nextLine();
+//
+//        while (zone.compareTo("North") !=0 && zone.compareTo("South")!=0 && zone.compareTo("Center")!=0)
+//        {
+//            System.out.println("There is no such option of choice");
+//            System.out.println("Choose Site Zone: [North, South, Center]");
+//            scanner.skip("\\R?");
+//            zone = scanner.nextLine();
+//        }
+//
+//        data.put("zone", zone);
+//
+//        System.out.println("Enter Contact Name of Site: ");
+//        scanner.skip("\\R?");
+//        String contactName = scanner.nextLine();
+//        data.put("contactName", contactName);
+//
+//        System.out.println("Enter Contact Phone Number of Site: ");
+//        scanner.skip("\\R?");
+//        String phoneNumber = scanner.nextLine();
+//        data.put("phoneNumber", phoneNumber);
+//
+//        boolean b = controller.addSite(data);
+//        if (!b) {
+//            System.out.println("Adding the site failed");
+//
+//        }
+//        else
+//            System.out.println("Adding the site complete");
+//    }
+//    public void removeSite()
+//    {
+//        Dictionary<String, String> data = new Hashtable<String, String>();
+//        System.out.println("Please enter site id you want to remove: ");
+//        scanner.skip("\\R?");
+//        String id = scanner.nextLine();
+//        data.put("id", id);
+//        boolean b = controller.removeSite(data);
+//        if (!b) {
+//            System.out.println("Removing the site failed");
+//
+//        }
+//        else
+//            System.out.println("Removing the site complete");
+//    }
+//
+//    public void getSite()
+//    {
+//        Dictionary<String, String> data = new Hashtable<String, String>();
+//        System.out.println("Please enter site id you want to get his information: ");
+//        scanner.skip("\\R?");
+//        String id = scanner.nextLine();
+//        data.put("id", id);
+//        Site s = controller.getSite(data);
+//        if (s == null) {
+//            System.out.println("There is no site with id " + id + " in the system");
+//        }
+//        else
+//            System.out.println("Address: " + s.getAddress() + ", Contact Name: " + s.getContactName() + ", Phone number: " + s.getPhoneNumber() + " Zone: " + s.getSiteZone());
+//    }
+    public static void truckMenu()
     {
         System.out.println("Enter what do you want to do:");
         System.out.println("1. Add new truck");
@@ -642,7 +645,7 @@ public class Menu {
                 editDatabase();
         }
     }
-    public void addTruck()
+    public static void addTruck()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
 
@@ -673,7 +676,7 @@ public class Menu {
             System.out.println("Adding the truck complete");
 
     }
-    public void removeTruck()
+    public static void removeTruck()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter truck id you want to remove: ");
@@ -687,7 +690,7 @@ public class Menu {
             System.out.println("Removing the truck complete");
     }
 
-    public void getTruck()
+    public static void getTruck()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter truck id you want to get his information: ");
@@ -701,7 +704,7 @@ public class Menu {
         else
             System.out.println("Truck ID: " + id + ", Model: " + t.getTruckModel() + ", Initial Weight: " + t.getInitialWeight() + ", Max Weight: " + t.getMaxWeight() + ", License required: " + t.getTypeOfLicense());
     }
-    public void driverMenu()
+    public static void driverMenu()
     {
         System.out.println("Enter what do you want to do:");
         System.out.println("1. Add new driver");
@@ -730,7 +733,7 @@ public class Menu {
         }
     }
 
-    public void addDriver()
+    public static void addDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Enter Driver Name: ");
@@ -760,7 +763,7 @@ public class Menu {
         else
             System.out.println("Adding the driver complete");
     }
-    public void removeDriver()
+    public static void removeDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter driver id you want to remove: ");
@@ -773,7 +776,7 @@ public class Menu {
         else
             System.out.println("Removing the driver complete");
     }
-    public void getDriver()
+    public static void getDriver()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter driver id you want to get his information: ");
@@ -787,7 +790,7 @@ public class Menu {
         else
             System.out.println("Name: "+ d.getName() + ", ID: " + id +", License type: " + d.getTypeOfLicense());
     }
-    public void orderMenu()
+    public static void orderMenu()
     {
         System.out.println("Enter what do you want to do:");
         System.out.println("1. Add new order");
@@ -815,7 +818,7 @@ public class Menu {
                 editDatabase();
         }
     }
-    public void removeOrder()
+    public static void removeOrder()
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter oder id you want to remove: ");
@@ -828,7 +831,7 @@ public class Menu {
         else
             System.out.println("Removing the order complete");
     }
-    public void getOrder()
+    public static void getOrder()
     {
         System.out.println("Please enter order id you want to get her information: ");
         scanner.skip("\\R?");
@@ -840,7 +843,7 @@ public class Menu {
         else
         {
             System.out.println("Order ID: "+ id);
-            System.out.println("Zone: "+ o.getDestination().getSiteZone());
+            System.out.println("Zone: "+ o.getDestination().getZone());
             System.out.println("Source: "+ o.getSource().getAddress());
             System.out.println("Destination: "+ o.getDestination().getAddress());
             System.out.println("Deliver in: "+ o.getDate().toString());
@@ -858,7 +861,7 @@ public class Menu {
     }
 
 
-    public void getItemsReport()
+    public static void getItemsReport()
     {
         System.out.println("Please enter order ID:");
         scanner.skip("\\R?");
@@ -871,7 +874,7 @@ public class Menu {
         }
         System.out.println(controller.getItemInOrder(idOrder));
     }
-    public void getTransportReport()
+    public static void getTransportReport()
     {
         System.out.println("Please enter transport ID:");
         scanner.skip("\\R?");
@@ -886,12 +889,12 @@ public class Menu {
     }
 
 
-    public String getTypeOfLicense(int idT)
+    public static String getTypeOfLicense(int idT)
     {
         return controller.getTypeOfLicense(idT);
     }
 
-    public void deliveryStartUpdate()
+    public static void deliveryStartUpdate()
     {
         System.out.println("Please enter the transport id you want to send ");
         scanner.skip("\\R?");
@@ -930,7 +933,7 @@ public class Menu {
         controller.updateComplete(Integer.parseInt(transportID));
         System.out.println("Loading the truck was done successfully");
     }
-    public boolean Orderweightupdate(int transportID, int orderID)
+    public static boolean Orderweightupdate(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter the weight of order "+ orderID +": ");
@@ -941,7 +944,7 @@ public class Menu {
         data.put("weight", weight);
         return controller.loadOrderToTruck(data);
     }
-    public void managerSulotion(int transportID, int orderID)
+    public static void managerSulotion(int transportID, int orderID)
     {
         System.out.println("1. Change Truck");
         System.out.println("2. Unloading Item");
@@ -968,7 +971,7 @@ public class Menu {
 
 
 
-    public void changeTruckSol(int transportID , int orderID)
+    public static void changeTruckSol(int transportID, int orderID)
     {
         boolean sol1 = changeTruck(transportID);
         if (!sol1)
@@ -984,7 +987,7 @@ public class Menu {
         }
     }
 
-    public void UnloadingItemSol(int transportID , int orderID)
+    public static void UnloadingItemSol(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         data.put("transportID", Integer.toString(transportID));
@@ -1011,7 +1014,7 @@ public class Menu {
             Orderweightupdate(transportID, orderID);
         }
     }
-    private void changeDestinationSol(int transportID, int orderID)
+    private static void changeDestinationSol(int transportID, int orderID)
     {
         Dictionary<String, String> data = new Hashtable<String, String>();
         System.out.println("Please enter new destination id: ");
@@ -1020,7 +1023,7 @@ public class Menu {
         boolean b = controller.searchSite(idSite);
         if (!b)
         {
-            System.out.println("Site with ID "+idSite+" does not exist");
+            System.out.println("Branch with ID "+idSite+" does not exist");
             return;
         }
         data.put("orderID", Integer.toString(orderID));
@@ -1049,24 +1052,24 @@ public class Menu {
             return null;
         }
     }
-    public void getTransportDetails()
-    {
-        System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
-        scanner.skip("\\R?");
-        String date = scanner.nextLine();
-        LocalDate check = validateAndParseDate(date);
-        if (check == null) {
-            System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
-            createOrder();
-        }
-        String[] dateParts = date.split("/");
-        if (dateParts.length == 3)
-        {
-            String year = dateParts[0];
-            String month = dateParts[1];
-            String day = dateParts[2];
-        }
-        System.out.println(controller.getTransportDetails(check));
-    }
+//    public void getTransportDetails()
+//    {
+//        System.out.println("Enter Shipping Date [yyyy/mm/dd]: ");
+//        scanner.skip("\\R?");
+//        String date = scanner.nextLine();
+//        LocalDate check = validateAndParseDate(date);
+//        if (check == null) {
+//            System.out.println("Invalid date format. Please enter the date in the format [yyyy/mm/dd]");
+//            createOrder();
+//        }
+//        String[] dateParts = date.split("/");
+//        if (dateParts.length == 3)
+//        {
+//            String year = dateParts[0];
+//            String month = dateParts[1];
+//            String day = dateParts[2];
+//        }
+//        System.out.println(controller.getTransportDetails(check));
+//    }
 
 }
