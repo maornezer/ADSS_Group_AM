@@ -1,8 +1,6 @@
 package Domain;
 
 import DAL.WorkersDAO;
-import DAL.DB;
-import DAL.WorkersDAO;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -71,5 +69,9 @@ public class WorkersRepository {
             workersRepo.remove(id);
         }
         workersDAO.delete(id);
+    }
+
+    public void deleteFiredWorkers() {
+        // delete all workers that date passed in table and delete from repo
     }
 }

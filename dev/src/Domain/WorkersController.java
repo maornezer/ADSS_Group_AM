@@ -2,7 +2,6 @@ package Domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Objects;
@@ -224,7 +223,12 @@ public class WorkersController {
         if(branch == null || branch.checkBranchDeadLinePassed())
             return null;
 
-        return branch.removeWorker(data);
+        Worker worker = workersRepository.getWorker(Integer.parseInt(data.get("id")));
+        if(worker == null)
+            return null;
+        worker.setEmploymentEnd(Chain.getNextWeekDates()[0]);
+
+        return Chain.getNextWeekDates()[0];
     }
 
     public boolean changeStartAndEndTime(Dictionary<String, String> data) {
@@ -279,7 +283,7 @@ public class WorkersController {
         if(!flag)
             return false;
 
-        workersRepository.deleteFiredWorkeres();
+        workersRepository.deleteFiredWorkers();
 
         Dictionary<LocalDate, List<String[]>> transports = transportRepository.getTransportDetails();
 

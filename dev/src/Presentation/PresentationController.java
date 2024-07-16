@@ -95,7 +95,10 @@ public class PresentationController {
 
 
     public int[][] getBranchLimitation(int branchNum) {
-        return this.workersController.getBranchesRepository().getBranchLimitation(branchNum);
+        Branch branch =  this.workersController.getBranchesRepository().getBranch(branchNum);
+        if(branch == null)
+            return null;
+        return branch.getSystemLimitations().getNextWeekLimits();
     }
 
     public LocalDate[] getDatesForNextWeek() {
