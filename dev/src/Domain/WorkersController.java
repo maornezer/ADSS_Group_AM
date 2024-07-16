@@ -99,8 +99,13 @@ public class WorkersController {
 //    }
 
     public boolean submitWorkerLimits(Dictionary<String, String> data, int[][] workerLimits){
+        if(!checkDeadline(Integer.parseInt(data.get("branchNum"))))
+            return false;
         Worker worker = getWorker(data);
-        return worker.setLimitations(workerLimits);
+        if (worker == null)
+            return false;
+        worker.setLimitations(workerLimits);
+        return true;
     }
 
     public boolean checkBranchDeadLine(Dictionary<String, String> data){
@@ -215,7 +220,7 @@ public class WorkersController {
         workersRepository.updateWorker(data);
     }
     public void hireWorker(Dictionary<String, String> data){
-        branchesRepository.getBranch(Integer.parseInt(data.get("branchNum"))).addWorker(data);
+        workersRepository.createWorker(data);
     }
 
     public LocalDate fireEmployee(Dictionary<String, String> data){
@@ -299,7 +304,7 @@ public class WorkersController {
         }
 
         for (int branchNum : branchesNums)
-            branchesRepository.getBranch(branchNum).makeASchedule();
+            branchesRepository.getBranch(branchNum).makeASchedule(workersRepository.getWorkersOfBranch(branchNum));
 
         return true;
 
@@ -329,7 +334,7 @@ public class WorkersController {
 
             List<Worker> workers = workersRepository.getWorkersOfBranch(branchNum);
             for(Worker worker : workers){
-                worker.DefaultNextWeek();
+                worker.DefaultNextWeek(branchesRepository.getBranch(branchNum).getSystemLimitations().getNextWeekLimits());
             }
         }
     }

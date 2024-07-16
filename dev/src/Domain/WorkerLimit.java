@@ -12,7 +12,16 @@ public class WorkerLimit{
         this.id = id;
         this.branchId = branchId;
         this.Limitations = new int[7][2];
-        DefaultNextWeek();
+
+        for(int i =0; i<7; i++){
+            for(int j = 0; j<2; j++){
+                if(i != 6)
+                    Limitations[i][j] = 1;
+                else{
+                    Limitations[i][j] = 0;
+                }
+            }
+        }
     }
 
     public int getId() {
@@ -24,13 +33,11 @@ public class WorkerLimit{
     }
 
     public void setLimitations(int[][] limitations) { // limitations contains default values from next week
-        if(Chain.getTodayValue() <= Chain.getDeadLineValue(branchId)){
-            this.Limitations = limitations.clone();
-        }
+        this.Limitations = limitations.clone();
     }
 
-    public void DefaultNextWeek(){
-        this.Limitations = Chain.getSystemLimit(branchId).getNextWeekLimits().clone();
+    public void DefaultNextWeek(int[][] nextWeekLimits){
+        this.Limitations = nextWeekLimits.clone();
     }
 
     public boolean ifCanWork(DayOfWeek day, int shiftType){

@@ -58,9 +58,9 @@ public class Branch {
         return address;
     }
 
-    public Worker addWorker(Dictionary<String, String> data){
-        return Chain.getWorkersRepository().createWorker(data);
-    }
+//    public Worker addWorker(Dictionary<String, String> data){
+//        return Chain.getWorkersRepository().createWorker(data);
+//    }
 
 //    public LocalDate removeWorker(Dictionary<String, String> data){
 //        LocalDate date = null;
@@ -127,9 +127,9 @@ public class Branch {
         return data;
     }
 
-    public void addToHistory(){
-
-    }
+//    public void addToHistory(){
+//
+//    }
 
     public String getScheduleThisWeek() {
         return scheduleThisWeek;
@@ -210,8 +210,8 @@ public class Branch {
 //    public boolean checkDeadLine(){
 //        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchNum);
 //    }
-    public void makeASchedule(){
-        this.scheduleNextWeek.makeASchedule();
+    public void makeASchedule(List<Worker> workers){
+        this.scheduleNextWeek.makeASchedule(workers);
         this.scheduleThisWeek = this.scheduleNextWeek.toString();
     }
 
@@ -225,18 +225,18 @@ public class Branch {
 //        return deadLineVal;
 //    }
 
-    public String toString(){
-        StringBuilder res = new StringBuilder();
-        res.append("branch number: " + this.branchNum + "\nbranch location: " + this.address + "\nworkers in branch are:\n");
-
-        List<Worker> workers = getWorkers();
-
-        for(Worker worker : workers){
-            res.append(worker.toString());
-            res.append("\n");
-        }
-        return res.toString();
-    }
+//    public String toString(){
+//        StringBuilder res = new StringBuilder();
+//        res.append("branch number: " + this.branchNum + "\nbranch location: " + this.address + "\nworkers in branch are:\n");
+//
+//        List<Worker> workers = getWorkers();
+//
+//        for(Worker worker : workers){
+//            res.append(worker.toString());
+//            res.append("\n");
+//        }
+//        return res.toString();
+//    }
 
     public boolean updateBranch(Dictionary<String, String> data){
         String updateTo = data.get("update");

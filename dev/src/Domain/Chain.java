@@ -160,39 +160,39 @@ public class Chain {
         }
     }
 
-    public static boolean ShiftsAssignment(TransportRepository transportRepository){
-
-        boolean flag = true;
-
-        for (int branchNum : branchesNums) {
-            flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
-        }
-
-        if(!flag)
-            return false;
-
-        for(int worker: firedWorkers){
-            workersRepository.deleteWorker(worker);
-        }
-        firedWorkers.clear();
-
-        Dictionary<LocalDate, List<String[]>> transports = transportRepository.getTransportDetails();
-
-        for(LocalDate date : nextWeekDates){
-            List<String[]> temp = transports.get(date);
-            for(String[] transport : temp){
-                String driverName = transport[1];
-                int branchNum = Integer.parseInt(transport[2]);
-                int shiftNum = Integer.parseInt(transport[6]);
-                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), shiftNum);
-                shift.transport(driverName);
-            }
-        }
-        for (int branchNum : branchesNums)
-            branchesRepository.getBranch(branchNum).makeASchedule();
-
-        return true;
-    }
+//    public static boolean ShiftsAssignment(TransportRepository transportRepository){
+//
+//        boolean flag = true;
+//
+//        for (int branchNum : branchesNums) {
+//            flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
+//        }
+//
+//        if(!flag)
+//            return false;
+//
+//        for(int worker: firedWorkers){
+//            workersRepository.deleteWorker(worker);
+//        }
+//        firedWorkers.clear();
+//
+//        Dictionary<LocalDate, List<String[]>> transports = transportRepository.getTransportDetails();
+//
+//        for(LocalDate date : nextWeekDates){
+//            List<String[]> temp = transports.get(date);
+//            for(String[] transport : temp){
+//                String driverName = transport[1];
+//                int branchNum = Integer.parseInt(transport[2]);
+//                int shiftNum = Integer.parseInt(transport[6]);
+//                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), shiftNum);
+//                shift.transport(driverName);
+//            }
+//        }
+//        for (int branchNum : branchesNums)
+//            branchesRepository.getBranch(branchNum).makeASchedule();
+//
+//        return true;
+//    }
 
 //    public static BranchesRepository getBranchesRepository() {
 //        return branchesRepository;

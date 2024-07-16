@@ -42,16 +42,16 @@ public class Scheduling {
         }
     }
 
-    public void makeASchedule() {
+    public void makeASchedule(List<Worker> workers) {
         for(Shift[] day : schedule){
             for(int j = 0; j<2; j++) {
                 if(day[j] == null)
                     continue;
-                List<Worker> workersList = workersForOneShift(day[j].getGenShift());
+                List<Worker> workersList = workersForOneShift(day[j].getGenShift(), workers);
                 assignShift(day , workersList, j);
             }
             if(day[0] != null && day[1] != null) {
-                List<Worker> workersList = workersForDay(day[0].getGenShift().getDay());
+                List<Worker> workersList = workersForDay(day[0].getGenShift().getDay(), workers);
                 List<Worker> notAssigned = assignShift(day, workersList, 0);
                 assignShift(day, notAssigned, 1);
             }
@@ -103,8 +103,7 @@ public class Scheduling {
         return res.toString();
     }
 
-    public List<Worker> workersForOneShift(genShift shift){
-        List<Worker> workerList = Chain.getWorkers(this.branchId);
+    public List<Worker> workersForOneShift(genShift shift, List<Worker> workerList){
         List<Worker> workersForShift = new ArrayList<>();
         if (workerList == null)
             return null;
@@ -118,8 +117,7 @@ public class Scheduling {
         return workersForShift;
     }
 
-    public List<Worker> workersForDay(DayOfWeek dayOfWeek){
-        List<Worker> workerList = Chain.getWorkers(this.branchId);
+    public List<Worker> workersForDay(DayOfWeek dayOfWeek, List<Worker> workerList){
         List<Worker> workersForShift = new ArrayList<>();
         if (workerList == null)
             return null;

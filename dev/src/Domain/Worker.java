@@ -112,15 +112,13 @@ public class Worker {
     public LocalDate setEmploymentEnd(LocalDate employmentEnd) {
         return this.contract.setEmploymentEnd(employmentEnd);
     }
-    public boolean setLimitations(int[][] Limitations){
-        if(checkDeadLine())
-            this.limitations.setLimitations(Limitations);
-        return checkDeadLine();
+    public void setLimitations(int[][] Limitations){
+        this.limitations.setLimitations(Limitations);
     }
 
-    public boolean checkDeadLine(){
-        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchId);
-    }
+//    public boolean checkDeadLine(){
+//        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchId);
+//    }
 
     public boolean stillEmployed(LocalDate now){
         return this.contract.getEmploymentEnd().isAfter(now);
@@ -134,8 +132,8 @@ public class Worker {
         return this.roles.checkRole(role);
     }
 
-    public void DefaultNextWeek(){
-        this.limitations.DefaultNextWeek();
+    public void DefaultNextWeek(int[][] nextWeekLimits){
+        this.limitations.DefaultNextWeek(nextWeekLimits);
     }
 
     public void updateWorker(Dictionary <String, String> data){

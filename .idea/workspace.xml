@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="errors created and starting to change site to branch" />
+    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="delete workers - to update">
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Branch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Chain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Worker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,24 +47,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -67,6 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1721068860940</updated>
       <workItem from="1721068862906" duration="8132000" />
+      <workItem from="1721135980962" duration="3014000" />
     </task>
     <task id="LOCAL‎-00001" summary="errors created and starting to change site to branch">
       <created>1721119922968</created>
@@ -75,7 +83,21 @@
       <option name="project" value="LOCAL‎" />
       <updated>1721119922969</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎-00002" summary="\">
+      <created>1721136597536</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL‎-00002" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1721136597536</updated>
+    </task>
+    <task id="LOCAL‎-00003" summary="delete workers - to update">
+      <created>1721137452255</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL‎-00003" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1721137452255</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -83,6 +105,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="errors created and starting to change site to branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="errors created and starting to change site to branch" />
+    <MESSAGE value="\" />
+    <MESSAGE value="delete workers - to update" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete workers - to update" />
   </component>
 </project>
