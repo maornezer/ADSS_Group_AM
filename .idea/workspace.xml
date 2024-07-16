@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="delete workers - to update">
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Chain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Scheduling.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Worker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkerLimit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" afterDir="false" />
-    </list>
+    <list default="true" id="685b29d5-88dc-4534-9de5-44a4c47dbf2b" name="Changes" comment="deleteFiredWorkers" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,6 +95,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="errors created and starting to change site to branch" />
