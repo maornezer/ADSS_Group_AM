@@ -14,7 +14,9 @@ public class DB {
     private ShiftHistoryDAO shiftHistoryDAO;
 
     protected static Connection connection;
-    private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
+    //jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/release/src/resources/Transports.sqlite
+    //private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
+    private static final String URL = "jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/dev/src/resources/Transports.sqlite";
     //    //private static final String URL = "jdbc:sqlite:resource\\Transports.sqlite";
     static {
         try{

@@ -19,8 +19,9 @@ public class ShiftHistoryRepository {
 
     public List<String> getHistory(int branchNum) {
         List<String> history = shiftHistoryRepo.get(branchNum);
-        if (history == null) {
-            history = shiftHistoryDAO.read(branchNum);
+        List<String> tempHistory = shiftHistoryDAO.read(branchNum);
+        if (history == null || history.size() < tempHistory.size()) {
+            history = tempHistory;
             shiftHistoryRepo.put(branchNum, history);
         }
         return history;
@@ -28,7 +29,7 @@ public class ShiftHistoryRepository {
 
     public void create(Dictionary<String, String> data) {
         int branchNum = Integer.parseInt(data.get("branchNum"));
-        String shiftString = data.get("shiftString");
+        String shiftString = data.get("shiftString"); //?
 
         shiftHistoryDAO.create(data);
 

@@ -38,12 +38,17 @@ public class Branch {
         this.scheduleNextWeek = new Scheduling(branchId, this.systemLimitations);
         this.scheduleThisWeek = "No shifts yet";
         this.weekCounter = 0;
+        this.contactName = contactName;
+        this.phoneNumber = phoneNumber;
+        this.zone = zone;
 //        this.branchHistory = new ArrayList<>();
     }
 
     public Branch(Dictionary<String,String> data) {
         this(Integer.parseInt(data.get("branchNum")),  data.get("address"),data.get("zone"),data.get("contactName"),data.get("phoneNumber"));
         this.systemLimitations.setDeadLine(DayOfWeek.valueOf(data.get("deadline")));
+//        System.out.println("");
+//        this.systemLimitations.setDeadLine(DayOfWeek.THURSDAY);
     }
 
 //    public List<Worker> getWorkers() {
@@ -94,7 +99,7 @@ public class Branch {
     public void addShiftOffConst(genShift shift) {
         this.systemLimitations.addShiftOffConst(shift);
         Shift[][] shifts = this.scheduleNextWeek.getSchedule();
-        shifts[Chain.getDayValue(shift.getDay())-1][shift.getShiftType()-1] = null;
+        shifts[Chain.getDayValue(shift.getDay()) -1][shift.getShiftType()-1] = null;
     }
 
     public List<genShift> getDaysOffTemp() {
@@ -116,7 +121,7 @@ public class Branch {
             for (int j = 0; j< 2; j++){
                 Shift shift = shifts[i][j];
                 if(shift != null) {
-                    data.put("shiftString" + Integer.toString(i), shift.toString());
+                    data.put("shiftString" + Integer.toString(i)+ Integer.toString(j), shift.toString());
                 }
             }
         }

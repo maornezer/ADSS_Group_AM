@@ -104,6 +104,7 @@ public class SystemLimitations {
         }
         for (genShift shift: shiftsOffConst) {
             int[] temp = shift.getShiftValue();
+//            nextWeekLimits[temp[0]-1][temp[1]-1] = -1;
             nextWeekLimits[temp[0]-1][temp[1]-1] = -1;
         }
     }

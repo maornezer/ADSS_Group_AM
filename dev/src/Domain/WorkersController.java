@@ -53,14 +53,15 @@ public class WorkersController {
     }
 
     public Worker getWorker(Dictionary<String, String> info){
-        List<Worker> workers = getWorkers(Integer.parseInt(info.get("branchNum")));
-        if(workers == null)
-            return null;
-        for (Worker worker: workers){
-            if (Integer.toString(worker.getId()).equals(info.get("id")))
-                return worker;
-        }
-        return null;
+//        List<Worker> workers = getWorkers(Integer.parseInt(info.get("branchNum")));
+//        if(workers == null)
+//            return null;
+//        for (Worker worker: workers){
+//            if (Integer.toString(worker.getId()).equals(info.get("id")))
+//                return worker;
+//        }
+//        return null;
+        return workersRepository.getWorker(Integer.parseInt(info.get("id")));
     }
 
     public boolean checkDeadline(int branchNum){
@@ -296,8 +297,8 @@ public class WorkersController {
         for(LocalDate date : nextWeekDates){
             List<String[]> temp = transports.get(date);
             for(String[] transport : temp){
-                String driverName = transport[1];
-                int branchNum = Integer.parseInt(transport[2]);
+                String driverName = transport[0];
+                int branchNum = Integer.parseInt(transport[1]);
                 Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), 1);
                 shift.transport(driverName);
             }

@@ -23,7 +23,7 @@ public class TransportMenu {
                 printMenu(scanner,controller);
                 break;
             case "2":
-                WorkerMenu.creatChain(scanner, controller);
+                WorkerMenu.printMain();
                 break;
             case "3":
                 System.out.println("Exiting the program. Goodbye!");

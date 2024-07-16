@@ -19,6 +19,7 @@ public class TransportRepository implements IRepository
 
     public TransportRepository()
     {
+        transportDetails = new Hashtable<>();
         transports = new ArrayList<>();
         transportDAO = new TransportDAO();
     }
