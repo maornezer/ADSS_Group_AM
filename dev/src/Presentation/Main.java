@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class Main
 {
     private static Scanner scanner;
-    private static PresentationController controller;
+   //private static PresentationController controller;
     public static void main(String[] args) {
         createDB();
         TransportMenu menuT = new TransportMenu();
         WorkerMenu menuW = new WorkerMenu();
+        PresentationController controller = new PresentationController();
         scanner = new Scanner(System.in);
-        controller = new PresentationController();
         System.out.println("Welcome to Super-Li :)");
         System.out.println("Please enter which module you want");
         System.out.println("1. Transport module");
@@ -22,10 +22,10 @@ public class Main
         String module =  scanner.nextLine();
         switch (module) {
             case "1":
-                menuT.printMenu(scanner,controller);
+                menuT.printMenu(scanner, controller);
                 break;
             case "2":
-                WorkerMenu.creatChain(scanner,controller);
+                WorkerMenu.creatChain(scanner, controller);
                 break;
             case "0":
                 System.out.println("Exiting the program. Goodbye!");
