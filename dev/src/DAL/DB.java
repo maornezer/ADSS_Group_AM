@@ -8,7 +8,6 @@ public class DB {
     private TruckDAO truckDAO;
     private DriverDAO driverDAO;
     private TransportDAO transportDAO;
-    private SiteDAO siteDAO;
     private WorkersDAO workersDAO;
     private static RolesDAO rolesDAO = new RolesDAO();
     private ShiftHistoryDAO shiftHistoryDAO;
@@ -34,7 +33,6 @@ public class DB {
         truckDAO=new TruckDAO();
         driverDAO=new DriverDAO();
         transportDAO=new TransportDAO();
-        siteDAO=new SiteDAO();
         workersDAO = new WorkersDAO();
         shiftHistoryDAO = new ShiftHistoryDAO();
     }

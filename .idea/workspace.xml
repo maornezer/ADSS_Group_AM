@@ -4,42 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="685b29d5-88dc-4534-9de5-44a4c47dbf2b" name="Changes" comment=" integration with workers">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="685b29d5-88dc-4534-9de5-44a4c47dbf2b" name="Changes" comment="fix bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/BranchDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/BranchDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/RolesDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/RolesDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/ShiftHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/ShiftHistoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/WorkersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/WorkersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Branch.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Branch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/BranchesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/BranchesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/Chain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/ShiftHistoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/ShiftHistoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/SystemLimitations.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/SystemLimitations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/TransportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/TransportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Domain/WorkersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Domain/WorkersRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Presentation/TransportMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Presentation/TransportMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Presentation/WorkerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Presentation/WorkerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/src/Test/transportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Test/transportTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DAL/DB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DAL/DB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DAL/WorkersDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DAL/WorkersDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/Driver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/ItemRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/OperationsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/OperationsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/OrderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/Transport.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/Transport.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/TransportController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/TransportController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/TransportRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/TransportRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/Truck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/Truck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Domain/TruckRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Domain/TruckRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Presentation/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Presentation/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Presentation/PresentationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Presentation/PresentationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/release/src/resources/Transports.sqlite" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +39,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "JUnit.transportTest.ChangeTransportSent.executor": "Run",
+    "JUnit.transportTest.addOrder1 (1).executor": "Run",
+    "JUnit.transportTest.addOrder1.executor": "Run",
+    "JUnit.transportTest.addOrder2.executor": "Run",
+    "JUnit.transportTest.addTransport.executor": "Run",
+    "JUnit.transportTest.executor": "Run",
+    "JUnit.transportTest.removeOrder1.executor": "Run",
+    "JUnit.transportTest.removeTransport.executor": "Run",
+    "JUnit.transportTest.unmatched_licence.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -98,22 +76,99 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Presentation.Main" />
+    <configuration name="transportTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PROJECT" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Presentation.*" />
+          <option name="PATTERN" value="Test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="transportTest.ChangeTransportSent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="ChangeTransportSent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.removeOrder1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="removeOrder1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.removeTransport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="removeTransport" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="transportTest.unmatched_licence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test" />
+      <option name="MAIN_CLASS_NAME" value="Test.transportTest" />
+      <option name="METHOD_NAME" value="unmatched_licence" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.transportTest" />
+      <item itemvalue="JUnit.transportTest.ChangeTransportSent" />
+      <item itemvalue="JUnit.transportTest.removeOrder1" />
+      <item itemvalue="JUnit.transportTest.removeTransport" />
+      <item itemvalue="JUnit.transportTest.unmatched_licence" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.transportTest" />
+        <item itemvalue="JUnit.transportTest.removeTransport" />
+        <item itemvalue="JUnit.transportTest.removeOrder1" />
+        <item itemvalue="JUnit.transportTest.ChangeTransportSent" />
+        <item itemvalue="JUnit.transportTest.unmatched_licence" />
       </list>
     </recent_temporary>
   </component>
@@ -149,7 +204,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1721137452255</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL‎-00004" summary="fix bugs">
+      <option name="closed" value="true" />
+      <created>1721155099923</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1721155099923</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +234,8 @@
     <MESSAGE value="\" />
     <MESSAGE value="delete workers - to update" />
     <MESSAGE value=" integration with workers" />
-    <option name="LAST_COMMIT_MESSAGE" value=" integration with workers" />
+    <MESSAGE value="fix bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
