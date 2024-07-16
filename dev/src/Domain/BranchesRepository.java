@@ -29,13 +29,13 @@ public class BranchesRepository {
         return branch;
     }
 
-    public Boolean createBranch(Dictionary<String, String> data){
+    public Branch createBranch(Dictionary<String, String> data){
         Branch branch = branchDAO.create(data);
         if(branch != null){
             branchesRepo.put(branch.getBranchNum(), branch);
-            return true;
+            return branch;
         }
-        return false;
+        return null;
     }
 
     public boolean updateBranch(Dictionary<String, String> data){

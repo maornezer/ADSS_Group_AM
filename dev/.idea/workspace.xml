@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="530e82b2-cad4-47a5-a2e8-795a1532a053" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/c973f3c6-f734-4096-8134-8920027fd2fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/dataSources/c973f3c6-f734-4096-8134-8920027fd2fa.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/BranchDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/BranchDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/BranchesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/BranchesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/Chain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/Chain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Domain/WorkersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Domain/WorkersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/WorkerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/WorkerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/transportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/transportTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/Transports.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/DAL/BranchDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/DAL/BranchDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/DAL/DB.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/DAL/DB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/DAL/ShiftHistoryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/DAL/ShiftHistoryDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Domain/BranchesRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/Domain/BranchesRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Domain/Chain.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/Domain/Chain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Domain/WorkersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/Domain/WorkersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Presentation/PresentationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/Presentation/PresentationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/Presentation/WorkerMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/Presentation/WorkerMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../out/production/resources/Transports.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/../src/resources/Transports.sqlite" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2jLYleCcYLPuFugTHxGjVZCJpU7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="530e82b2-cad4-47a5-a2e8-795a1532a053" name="Changes" comment="" />
+      <created>1721167976634</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721167976634</updated>
+      <workItem from="1721167978249" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

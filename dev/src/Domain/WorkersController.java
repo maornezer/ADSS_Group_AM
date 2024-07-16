@@ -26,8 +26,8 @@ public class WorkersController {
         shiftHistoryRepository.deleteHistory();
     }
 
-    public void addBranch(Dictionary<String, String> data) {
-        branchesRepository.createBranch(data);
+    public Branch addBranch(Dictionary<String, String> data) {
+        return branchesRepository.createBranch(data);
     }
 
     public List<Worker> getWorkers(int branchId){
@@ -341,5 +341,8 @@ public class WorkersController {
     }
 
 
+    public void deleteBranchForTest(int branchNum){
+        this.branchesRepository.deleteBranch(branchNum);
+    }
 
 }

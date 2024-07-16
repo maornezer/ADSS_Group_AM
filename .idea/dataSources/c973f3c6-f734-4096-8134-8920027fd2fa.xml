@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Transports.sqlite">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.52">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.45">
     <root id="1">
       <ServerVersion>3.45.1</ServerVersion>
     </root>
@@ -499,7 +499,6 @@
     </routine>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-07-16.17:24:06</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>

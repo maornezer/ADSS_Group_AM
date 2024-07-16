@@ -47,8 +47,8 @@ public class BranchDAO {
             preparedStatement.setString(4, data.get("contactName"));
             preparedStatement.setString(5, data.get("phoneNumber"));
             preparedStatement.setString(6, data.get("deadline"));
+            preparedStatement.executeQuery();
 
-            preparedStatement.executeUpdate();
             return new Branch(data);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -79,17 +79,77 @@ public class BranchDAO {
     }
 
     public void delete(int id) {
+        String deleteSiteSql = "DELETE FROM Site WHERE id = ?;";
+        String selectWorkersSql = "SELECT * FROM Workers WHERE branchNum = ?;";
+        String deleteRoleSql = "DELETE FROM Roles WHERE id = ?;";
+        String deleteWorkersSql = "DELETE FROM Workers WHERE branchNum = ?;";
 
-        try {
-            Connection connection = DB.getConnection();
-            String sql = "DELETE FROM Site WHERE id = ?;";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+        try (Connection connection = DB.getConnection()) {
+            connection.setAutoCommit(false);  // Start transaction
+
+            try (PreparedStatement deleteSiteStmt = connection.prepareStatement(deleteSiteSql);
+                 PreparedStatement selectWorkersStmt = connection.prepareStatement(selectWorkersSql);
+                 PreparedStatement deleteRoleStmt = connection.prepareStatement(deleteRoleSql);
+                 PreparedStatement deleteWorkersStmt = connection.prepareStatement(deleteWorkersSql)) {
+
+                // Delete from Site
+                deleteSiteStmt.setInt(1, id);
+                deleteSiteStmt.executeUpdate();
+
+                // Select from Workers
+                selectWorkersStmt.setInt(1, id);
+                try (ResultSet resultSet = selectWorkersStmt.executeQuery()) {
+                    while (resultSet.next()) {
+                        // Delete from Roles
+                        deleteRoleStmt.setInt(1, resultSet.getInt("id"));
+                        deleteRoleStmt.executeUpdate();
+                    }
+                }
+
+                // Delete from Workers
+                deleteWorkersStmt.setInt(1, id);
+                deleteWorkersStmt.executeUpdate();
+
+                connection.commit();  // Commit transaction
+            } catch (Exception e) {
+                connection.rollback();  // Rollback transaction on error
+                throw e;  // Rethrow exception
+            }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();  // Consider using a logging framework
         }
     }
+
+//
+//        try {
+//            Connection connection = DB.getConnection();
+//            String sql = "DELETE FROM Site WHERE id = ?;";
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, id);
+//            preparedStatement.executeUpdate();
+//
+//            sql = "SELECT * FROM Workers WHERE branchNum = ?;";
+//            preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, id);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            while(resultSet.next()){
+//                sql = "DELETE FROM Roles WHERE id = ?;";
+//                preparedStatement = connection.prepareStatement(sql);
+//                preparedStatement.setInt(1, resultSet.getInt("id"));
+//                preparedStatement.executeUpdate();
+//            }
+//
+//            sql = "DELETE FROM Workers WHERE branchNum = ?;";
+//            preparedStatement = connection.prepareStatement(sql);
+//            preparedStatement.setInt(1, id);
+//            preparedStatement.executeUpdate();
+//
+//
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
 
     public List<Integer> getBranchesNums() {
         try {
