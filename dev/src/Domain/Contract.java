@@ -1,9 +1,6 @@
 package Domain;
 
-import netscape.javascript.JSObject;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Contract {
     private int id;

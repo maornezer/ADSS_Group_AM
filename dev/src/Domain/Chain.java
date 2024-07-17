@@ -13,13 +13,7 @@ import static java.time.temporal.TemporalAdjusters.next;
 public class Chain {
     protected static LocalDate today;
 
-//    protected static BranchesRepository branchesRepository;
-
-//    protected static ShiftHistoryRepository shiftHistoryRepository;
-
     protected static List<Integer> firedWorkers;
-
-//    protected static WorkersRepository workersRepository;
 
     protected static List<Integer> branchesNums;
 
@@ -70,20 +64,10 @@ public class Chain {
         return (today.getDayOfWeek().getValue()%7) +1;
     }
 
-//    public static int getDeadLineValue(int branchId){
-//        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
-//        int deadLineVal = (deadline.getValue()+1)%7;
-//        return deadLineVal;
-//    }
-
     public static int getDayValue(DayOfWeek day){
         int dayVal = (day.getValue()%7 ) +1 ;
         return dayVal;
     }
-
-//    public static ShiftHistoryRepository getShiftHistoryRepository() {
-//        return shiftHistoryRepository;
-//    }
 
     public static boolean tomorrow(){
         today = today.plusDays(1);
@@ -94,19 +78,6 @@ public class Chain {
         return false;
     }
 
-//    public static SystemLimitations getSystemLimit(int branchId){
-//        return branchesRepository.getBranch(branchId).getSystemLimitations();
-//    }
-
-//    public void addBranch(int branchId, String address){
-//        Dictionary<String, String> data = new Hashtable<>();
-//        data.put("branchId", Integer.toString(branchId));
-//        data.put("address", address);
-//        data.put("deadline", "THURSDAY");
-//        branchesNums.add(branchId);
-//
-//        branchesRepository.createBranch(data);
-//    }
 
     public static DayOfWeek getDayOfWeek(int day){
         switch (day){
@@ -149,59 +120,4 @@ public class Chain {
                 return null;
         }
     }
-
-//    public static boolean ShiftsAssignment(TransportRepository transportRepository){
-//
-//        boolean flag = true;
-//
-//        for (int branchNum : branchesNums) {
-//            flag = flag & branchesRepository.getBranch(branchNum).checkBranchDeadLinePassed();
-//        }
-//
-//        if(!flag)
-//            return false;
-//
-//        for(int worker: firedWorkers){
-//            workersRepository.deleteWorker(worker);
-//        }
-//        firedWorkers.clear();
-//
-//        Dictionary<LocalDate, List<String[]>> transports = transportRepository.getTransportDetails();
-//
-//        for(LocalDate date : nextWeekDates){
-//            List<String[]> temp = transports.get(date);
-//            for(String[] transport : temp){
-//                String driverName = transport[1];
-//                int branchNum = Integer.parseInt(transport[2]);
-//                int shiftNum = Integer.parseInt(transport[6]);
-//                Shift shift = branchesRepository.getBranch(branchNum).getShiftNextWeek(date.getDayOfWeek(), shiftNum);
-//                shift.transport(driverName);
-//            }
-//        }
-//        for (int branchNum : branchesNums)
-//            branchesRepository.getBranch(branchNum).makeASchedule();
-//
-//        return true;
-//    }
-
-//    public static BranchesRepository getBranchesRepository() {
-//        return branchesRepository;
-//    }
-
-//    public static WorkersRepository getWorkersRepository() {
-//        return workersRepository;
-//    }
-
-//    public static void updateWorker(Dictionary<String, String> data){
-//        workersRepository.updateWorker(data);
-//    }
-
-//    public static boolean updateBranch(Dictionary<String, String> data){
-//        return branchesRepository.updateBranch(data);
-//    }
-//
-//
-//    public static void fireWorker(int id){
-//
-//    }
 }

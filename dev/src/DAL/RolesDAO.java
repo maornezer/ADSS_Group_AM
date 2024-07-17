@@ -1,7 +1,5 @@
 package DAL;
 
-import Domain.Branch;
-import Domain.Worker;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Dictionary;
-import java.util.Hashtable;
 
 public class RolesDAO {
 

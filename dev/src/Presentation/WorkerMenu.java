@@ -15,7 +15,7 @@ public class WorkerMenu {
 
     public static void printIntegrationMenu()
     {
-        System.out.println("Welcome to Super-Li :)");
+        System.out.println("Welcome to Super-Lee:)");
         System.out.println("Please enter which module you want");
         System.out.println("1. Transport module");
         System.out.println("2. Employee module");
@@ -45,7 +45,7 @@ public class WorkerMenu {
             WorkerMenu.scanner = scanner;
             WorkerMenu.presentationController = presentationController;
             Dictionary<String,String> data = new Hashtable<>();
-            System.out.println("Welcome to Super-Le!\n" +
+            System.out.println("Welcome to Super-Lee!\n" +
                     "please enter HR Manager's info:\n" +
                     "ID:");
             int id = scanner.nextInt();
@@ -64,7 +64,7 @@ public class WorkerMenu {
             data.put("year", Integer.toString(LocalDate.now().getYear()));
             data.put("month",  Integer.toString(LocalDate.now().getMonthValue()));
             data.put("day",  Integer.toString(LocalDate.now().getDayOfMonth()));
-            System.out.println("thank you! Super-Le will be with you shortly");
+            System.out.println("thank you! Super-Lee will be with you shortly");
             presentationController.creatChain(data);
             printMain();
         }

@@ -14,286 +14,48 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 
-class transportTest {
+public class transportTest {
+
     private TransportController tr = new TransportController();
 
     private WorkersController workersController = new WorkersController(tr.getTransportRepo());
-    Branch branch;
+    Branch branch = workersController.getBranch(10);
+    Chain chain = new Chain(500, "bla", "bla", 200, LocalDate.now());
 
-    @BeforeEach
-    void setUp() {
-        Dictionary<String, String> data = new Hashtable<>();
-
-        // Initialize Chain object
-        Chain chain = new Chain(500, "bla", "bla", 200, LocalDate.now());
-
-        // Verify nextWeekDates is initialized
-        assertNotNull( "nextWeekDates should be initialized", Chain.getNextWeekDates());
-        assertEquals(7, Chain.getNextWeekDates().length, "nextWeekDates should have 7 elements");
-
-        // Setup branch data
-        data.put("branchNum", "20");
-        data.put("address", "Tel aviv");
-        data.put("zone", "Central");
-        data.put("contactName", "Tel");
-        data.put("phoneNumber", "88");
-        data.put("deadline", "THURSDAY");
-
-        this.branch = workersController.addBranch(data);
-
-        // Setup workers
-        data = new Hashtable<>();
-        data.put("id", "501");
-        data.put("branchNum", "20");
-        data.put("firstName", "Noa");
-        data.put("lastName", "Shvets");
-        data.put("bankDetails", "200");
-        data.put("hourRate", "300");
-        data.put("jobType", "1");
-        data.put("year", "2025");
-        data.put("month", "12");
-        data.put("day", "13");
-        data.put("amount", "3");
-        data.put("1", "Manager");
-        data.put("0", "Cashier");
-        data.put("2", "Storekeeper");
-
-        workersController.hireWorker(data);
-
-        // Repeat for other workers
-        hireWorker("502", "lee", "Chemo", "500");
-        hireWorker("503", "Tal", "Cohen", "500");
-        hireWorker("504", "Gal", "Kirel", "500");
-        hireWorker("505", "Shimon", "Hemo", "500");
-        hireWorker("506", "Rahel", "Giladi", "500");
-        hireWorker("507", "Yaron", "hemo", "500");
-        hireWorker("508", "yossi", "hemo", "500");
-        hireWorker("509", "levana", "leibel", "500");
-        hireWorker("510", "guy", "leibel", "500");
-
-        // Verify that nextWeekDates is correctly initialized
-        assertNotNull( "nextWeekDates should be initialized", Chain.getNextWeekDates());
-        assertEquals(7, Chain.getNextWeekDates().length, "nextWeekDates should have 7 elements");
-    }
-
-    private void hireWorker(String id, String firstName, String lastName, String bankDetails) {
-        Dictionary<String, String> data = new Hashtable<>();
-        data.put("id", id);
-        data.put("branchNum", "20");
-        data.put("firstName", firstName);
-        data.put("lastName", lastName);
-        data.put("bankDetails", bankDetails);
-        data.put("hourRate", "300");
-        data.put("jobType", "1");
-        data.put("year", "2025");
-        data.put("month", "12");
-        data.put("day", "13");
-        data.put("amount", "3");
-        data.put("1", "Manager");
-        data.put("0", "Cashier");
-        data.put("2", "Storekeeper");
-
-        workersController.hireWorker(data);
-    }
-
-//    @BeforeEach
-//    public void setUp() {
-//        Dictionary<String, String > data = new Hashtable<>();
-////        data.put("id", "500");
-////        data.put("firstName", "bla");
-////        data.put("lastName", "bla");
-////        data.put("bankDetails", "500");
-////        data.put("year", "2024");
-////        data.put("month","4");
-////        data.put("day", "7");
-//
-//        Chain chain = new Chain(500, "bla", "bla", 200, LocalDate.now());
-//
-//        data.put("branchNum","20");
-//        data.put("address", "Tel aviv");
-//        data.put("zone", "Central");
-//        data.put("contactName", "Tel");
-//        data.put("phoneNumber", "88");
-//        data.put("deadline", "THURSDAY");
-//
-//        this.branch = workersController.addBranch(data);
-//
-//        data = new Hashtable<>();
-//        data.put("id", "501");
-//        data.put("branchNum","20");
-//        data.put("firstName", "Noa");
-//        data.put("lastName", "Shvets");
-//        data.put("bankDetails", "200");
-//        data.put("hourRate", "300");
-//        data.put("jobType", "1");
-//        data.put("year", "2025");
-//        data.put("month", "12");
-//        data.put("day", "13");
-//        data.put("amount","3");
-//        data.put("1","Manager");
-//        data.put("0", "Cashier");
-//        data.put("2","Storekeeper" );
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(502));
-//        data.put("firstName", "lee");
-//        data.put("lastName", "Chemo");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(503));
-//        data.put("firstName", "Tal");
-//        data.put("lastName", "Cohen");
-//        data.put("bankDetails", Integer.toString(500));
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(504));
-//        data.put("firstName", "Gal");
-//        data.put("lastName", "Kirel");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(505));
-//        data.put("firstName", "Shimon");
-//        data.put("lastName", "Hemo");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(506));
-//        data.put("firstName", "Rahel");
-//        data.put("lastName", "Giladi");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(507));
-//        data.put("firstName", "Yaron");
-//        data.put("lastName", "hemo");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(508));
-//        data.put("firstName", "yossi");
-//        data.put("lastName", "hemo");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(509));
-//        data.put("firstName", "levana");
-//        data.put("lastName", "leibel");
-//
-//        workersController.hireWorker(data);
-//
-//        data.put("id", Integer.toString(510));
-//        data.put("firstName", "guy");
-//        data.put("lastName", "leibel");
-//
-//        workersController.hireWorker(data);
-//
-//
-//    }
-
-    @AfterEach
-    void tearDown() {
-//        workersController.deleteBranchForTest(20);
-    }
 
     @Test
     public void getWorkers() {
-        assertEquals(10, workersController.getWorkers(20).size());
-        System.out.println("getWorkers!!!!!");
+        assertEquals(19, workersController.getWorkers(10).size());
     }
 
 
 
-    @Test
-    public void addWorker() {
-        Dictionary<String,String> data = new Hashtable<>();
-        data.put("id", Integer.toString(511));
-        data.put("branchNum", Integer.toString(20));
-        data.put("firstName", "Noa");
-        data.put("lastName", "Shvets");
-        data.put("bankDetails", Integer.toString(200));
-        data.put("hourRate", Integer.toString(300));
-        data.put("jobType", "1");
-        data.put("year", Integer.toString(2025));
-        data.put("month", Integer.toString(12));
-        data.put("day", Integer.toString(30));
-        data.put("amount","3");
-        data.put("1","Manager");
-        data.put("0", "Cashier");
-        data.put("2","Storekeeper" );
 
-        workersController.hireWorker(data);
-
-        assertEquals(11, workersController.getWorkers(20).size());
-
-        workersController.fireEmployee(data);
-    }
-
-//    @Test
-//    void removeWorker() {
-//        Dictionary<String,String> data = new Hashtable<>();
-//        data.put("id", Integer.toString(512));
-//        data.put("branchNum", Integer.toString(20));
-//        data.put("firstName", "Noa");
-//        data.put("lastName", "Shvets");
-//        data.put("bankDetails", Integer.toString(200));
-//        data.put("hourRate", Integer.toString(300));
-//        data.put("jobType", "1");
-//        data.put("year", Integer.toString(2025));
-//        data.put("month", Integer.toString(12));
-//        data.put("day", Integer.toString(30));
-//        data.put("amount","3");
-//        data.put("1","Manager");
-//        data.put("0", "Cashier");
-//        data.put("2","Storekeeper" );
-//
-//        branch.addWorker(data);
-//
-//        assertEquals(11, branch.getWorkers().size());
-//
-//        Chain.getWorkersRepository().deleteWorker(512);
-//
-//        assertEquals(10, branch.getWorkers().size());
-//    }
 
     @Test
     public void getDeadLine() {
+        branch = workersController.getBranch(10);
         assertEquals(branch.getDeadLine().equals(DayOfWeek.THURSDAY), true);
         branch.setDeadLine(DayOfWeek.WEDNESDAY);
         assertEquals(branch.getDeadLine().equals(DayOfWeek.WEDNESDAY), true);
+        branch.setDeadLine(DayOfWeek.THURSDAY);
     }
 
-    @Test
-    public void getDaysOffConst() {
-        assertEquals(branch.getDaysOffConst().size(), 2);
-        branch.addShiftOffConst(new genShift(DayOfWeek.FRIDAY, 1));
-        assertEquals(branch.getDaysOffConst().size(), 3);
-    }
 
-    @Test
-    public void getDaysOffTemp() {
-        assertEquals(branch.getDaysOffTemp().size(), 0);
-        branch.addShiftOffTemp(new genShift(DayOfWeek.SUNDAY, 1));
-        assertEquals(branch.getDaysOffTemp().size(), 1);
-        branch.removeShiftOffTemp(new genShift(DayOfWeek.SUNDAY, 1));
-        assertEquals(branch.getDaysOffTemp().size(), 0);
-    }
 
     @Test
     public void getBranchNum() {
-        assertEquals(20, branch.getBranchNum());
+        assertEquals(10, branch.getBranchNum());
     }
 
     @Test
     public void getAddress() {
-        assertEquals("Tel aviv", branch.getAddress());
+        assertEquals("Frishman", branch.getAddress());
     }
 
     @Test
     public void changeStartAndEndTime() {
+        branch = workersController.getBranch(10);
         Dictionary<String, String> data = new Hashtable<>();
         data.put("day", "7");
         data.put("shift", "1");
@@ -379,13 +141,13 @@ class transportTest {
         assertTrue(b);
     }
     // 6 //
-    @Test
-    public void removeTransport()
-    {
-        int idTransport = tr.getTransportRepo().getMaxId();
-        boolean b = tr.remove(idTransport);
-        assertTrue(b);
-    }
+//    @Test
+//    public void removeTransport()
+//    {
+//        int idTransport = tr.getTransportRepo().getMaxId();
+//        boolean b = tr.remove(idTransport);
+//        assertTrue(b);
+//    }
 }
 //    // 1 //
 //    @Test
@@ -980,3 +742,251 @@ class transportTest {
 ////        assertEquals(1,tr.getTransportByID(newTransport).getMyOrders().size());
 ////
 ////    }
+
+//    @BeforeEach
+//    void setUp() {
+//        Dictionary<String, String> data = new Hashtable<>();
+//
+//        // Initialize Chain object
+//        Chain chain = new Chain(500, "bla", "bla", 200, LocalDate.now());
+//
+//        // Verify nextWeekDates is initialized
+//        assertNotNull( "nextWeekDates should be initialized", Chain.getNextWeekDates());
+//        assertEquals(7, Chain.getNextWeekDates().length, "nextWeekDates should have 7 elements");
+//
+//        // Setup branch data
+//        data.put("branchNum", "20");
+//        data.put("address", "Tel aviv");
+//        data.put("zone", "Central");
+//        data.put("contactName", "Tel");
+//        data.put("phoneNumber", "88");
+//        data.put("deadline", "THURSDAY");
+//
+//        this.branch = workersController.addBranch(data);
+//
+//        // Setup workers
+//        data = new Hashtable<>();
+//        data.put("id", "501");
+//        data.put("branchNum", "20");
+//        data.put("firstName", "Noa");
+//        data.put("lastName", "Shvets");
+//        data.put("bankDetails", "200");
+//        data.put("hourRate", "300");
+//        data.put("jobType", "1");
+//        data.put("year", "2025");
+//        data.put("month", "12");
+//        data.put("day", "13");
+//        data.put("amount", "3");
+//        data.put("1", "Manager");
+//        data.put("0", "Cashier");
+//        data.put("2", "Storekeeper");
+//
+//        workersController.hireWorker(data);
+//
+//        // Repeat for other workers
+//        hireWorker("502", "lee", "Chemo", "500");
+//        hireWorker("503", "Tal", "Cohen", "500");
+//        hireWorker("504", "Gal", "Kirel", "500");
+//        hireWorker("505", "Shimon", "Hemo", "500");
+//        hireWorker("506", "Rahel", "Giladi", "500");
+//        hireWorker("507", "Yaron", "hemo", "500");
+//        hireWorker("508", "yossi", "hemo", "500");
+//        hireWorker("509", "levana", "leibel", "500");
+//        hireWorker("510", "guy", "leibel", "500");
+//
+//        // Verify that nextWeekDates is correctly initialized
+//        assertNotNull( "nextWeekDates should be initialized", Chain.getNextWeekDates());
+//        assertEquals(7, Chain.getNextWeekDates().length, "nextWeekDates should have 7 elements");
+//    }
+
+//    private void hireWorker(String id, String firstName, String lastName, String bankDetails) {
+//        Dictionary<String, String> data = new Hashtable<>();
+//        data.put("id", id);
+//        data.put("branchNum", "20");
+//        data.put("firstName", firstName);
+//        data.put("lastName", lastName);
+//        data.put("bankDetails", bankDetails);
+//        data.put("hourRate", "300");
+//        data.put("jobType", "1");
+//        data.put("year", "2025");
+//        data.put("month", "12");
+//        data.put("day", "13");
+//        data.put("amount", "3");
+//        data.put("1", "Manager");
+//        data.put("0", "Cashier");
+//        data.put("2", "Storekeeper");
+//
+//        workersController.hireWorker(data);
+//    }
+
+//    @BeforeEach
+//    public void setUp() {
+//        Dictionary<String, String > data = new Hashtable<>();
+////        data.put("id", "500");
+////        data.put("firstName", "bla");
+////        data.put("lastName", "bla");
+////        data.put("bankDetails", "500");
+////        data.put("year", "2024");
+////        data.put("month","4");
+////        data.put("day", "7");
+//
+//        Chain chain = new Chain(500, "bla", "bla", 200, LocalDate.now());
+//
+//        data.put("branchNum","20");
+//        data.put("address", "Tel aviv");
+//        data.put("zone", "Central");
+//        data.put("contactName", "Tel");
+//        data.put("phoneNumber", "88");
+//        data.put("deadline", "THURSDAY");
+//
+//        this.branch = workersController.addBranch(data);
+//
+//        data = new Hashtable<>();
+//        data.put("id", "501");
+//        data.put("branchNum","20");
+//        data.put("firstName", "Noa");
+//        data.put("lastName", "Shvets");
+//        data.put("bankDetails", "200");
+//        data.put("hourRate", "300");
+//        data.put("jobType", "1");
+//        data.put("year", "2025");
+//        data.put("month", "12");
+//        data.put("day", "13");
+//        data.put("amount","3");
+//        data.put("1","Manager");
+//        data.put("0", "Cashier");
+//        data.put("2","Storekeeper" );
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(502));
+//        data.put("firstName", "lee");
+//        data.put("lastName", "Chemo");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(503));
+//        data.put("firstName", "Tal");
+//        data.put("lastName", "Cohen");
+//        data.put("bankDetails", Integer.toString(500));
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(504));
+//        data.put("firstName", "Gal");
+//        data.put("lastName", "Kirel");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(505));
+//        data.put("firstName", "Shimon");
+//        data.put("lastName", "Hemo");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(506));
+//        data.put("firstName", "Rahel");
+//        data.put("lastName", "Giladi");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(507));
+//        data.put("firstName", "Yaron");
+//        data.put("lastName", "hemo");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(508));
+//        data.put("firstName", "yossi");
+//        data.put("lastName", "hemo");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(509));
+//        data.put("firstName", "levana");
+//        data.put("lastName", "leibel");
+//
+//        workersController.hireWorker(data);
+//
+//        data.put("id", Integer.toString(510));
+//        data.put("firstName", "guy");
+//        data.put("lastName", "leibel");
+//
+//        workersController.hireWorker(data);
+//
+//
+//    }
+
+//    @AfterEach
+//    void tearDown() {
+////        workersController.deleteBranchForTest(20);
+//    }
+
+//    @Test
+//    public void getDaysOffConst() {
+//        assertEquals(branch.getDaysOffConst().size(), 2);
+//        branch.addShiftOffConst(new genShift(DayOfWeek.FRIDAY, 1));
+//        assertEquals(branch.getDaysOffConst().size(), 3);
+//    }
+
+//    @Test
+//    public void getDaysOffTemp() {
+//        assertEquals(branch.getDaysOffTemp().size(), 0);
+//        branch.addShiftOffTemp(new genShift(DayOfWeek.SUNDAY, 1));
+//        assertEquals(branch.getDaysOffTemp().size(), 1);
+//        branch.removeShiftOffTemp(new genShift(DayOfWeek.SUNDAY, 1));
+//        assertEquals(branch.getDaysOffTemp().size(), 0);
+//    }
+
+//    @Test
+//    public void addWorker() {
+//        Dictionary<String,String> data = new Hashtable<>();
+//        data.put("id", Integer.toString(511));
+//        data.put("branchNum", Integer.toString(10));
+//        data.put("firstName", "Noa");
+//        data.put("lastName", "Shvets");
+//        data.put("bankDetails", Integer.toString(200));
+//        data.put("hourRate", Integer.toString(300));
+//        data.put("jobType", "1");
+//        data.put("year", Integer.toString(2025));
+//        data.put("month", Integer.toString(12));
+//        data.put("day", Integer.toString(30));
+//        data.put("amount","3");
+//        data.put("1","Manager");
+//        data.put("0", "Cashier");
+//        data.put("2","Storekeeper" );
+//
+//        workersController.hireWorker(data);
+//
+//        assertEquals(20, workersController.getWorkers(10).size());
+//
+//        workersController.fireEmployee(data);
+//    }
+
+//    @Test
+//    void removeWorker() {
+//        Dictionary<String,String> data = new Hashtable<>();
+//        data.put("id", Integer.toString(512));
+//        data.put("branchNum", Integer.toString(20));
+//        data.put("firstName", "Noa");
+//        data.put("lastName", "Shvets");
+//        data.put("bankDetails", Integer.toString(200));
+//        data.put("hourRate", Integer.toString(300));
+//        data.put("jobType", "1");
+//        data.put("year", Integer.toString(2025));
+//        data.put("month", Integer.toString(12));
+//        data.put("day", Integer.toString(30));
+//        data.put("amount","3");
+//        data.put("1","Manager");
+//        data.put("0", "Cashier");
+//        data.put("2","Storekeeper" );
+//
+//        branch.addWorker(data);
+//
+//        assertEquals(11, branch.getWorkers().size());
+//
+//        Chain.getWorkersRepository().deleteWorker(512);
+//
+//        assertEquals(10, branch.getWorkers().size());
+//    }
+

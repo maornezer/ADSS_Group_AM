@@ -23,7 +23,6 @@ public class Branch {
 
     private int weekCounter;
 
-//    private List<String> branchHistory;
 
     public Scheduling getScheduleNextWeek() {
         return scheduleNextWeek;
@@ -32,8 +31,6 @@ public class Branch {
     public Branch(int branchId, String address,String zone ,String contactName, String phoneNumber) {
         this.branchNum = branchId;
         this.address = address;
-//        this.workers = new ArrayList<Worker>();
-//        this.firedWorkers = new ArrayList<Worker>();
         this.systemLimitations = new SystemLimitations(branchId);
         this.scheduleNextWeek = new Scheduling(branchId, this.systemLimitations);
         this.scheduleThisWeek = "No shifts yet";
@@ -41,19 +38,13 @@ public class Branch {
         this.contactName = contactName;
         this.phoneNumber = phoneNumber;
         this.zone = zone;
-//        this.branchHistory = new ArrayList<>();
     }
 
     public Branch(Dictionary<String,String> data) {
         this(Integer.parseInt(data.get("branchNum")),  data.get("address"),data.get("zone"),data.get("contactName"),data.get("phoneNumber"));
         this.systemLimitations.setDeadLine(DayOfWeek.valueOf(data.get("deadline")));
-//        System.out.println("");
-//        this.systemLimitations.setDeadLine(DayOfWeek.THURSDAY);
     }
 
-//    public List<Worker> getWorkers() {
-//        return Chain.getWorkersRepository().getWorkersOfBranch(branchNum);
-//    }
 
     public int getBranchNum() {
         return branchNum;
@@ -63,22 +54,6 @@ public class Branch {
         return address;
     }
 
-//    public Worker addWorker(Dictionary<String, String> data){
-//        return Chain.getWorkersRepository().createWorker(data);
-//    }
-
-//    public LocalDate removeWorker(Dictionary<String, String> data){
-//        LocalDate date = null;
-//
-//        Worker worker = Chain.getWorkersRepository().getWorker(Integer.parseInt(data.get("id")));
-//        worker.setEmploymentEnd(Chain.getNextWeekDates()[0]);
-//
-//        Chain.fireWorker(Integer.parseInt(data.get("id")));
-//
-//        date = Chain.getNextWeekDates()[0];
-//
-//        return date;
-//    }
 
     public SystemLimitations getSystemLimitations() {
         return systemLimitations;
@@ -132,9 +107,6 @@ public class Branch {
         return data;
     }
 
-//    public void addToHistory(){
-//
-//    }
 
     public String getScheduleThisWeek() {
         return scheduleThisWeek;
@@ -180,16 +152,6 @@ public class Branch {
         return true;
     }
 
-//    public String getShiftHistory(){
-//        List<String> history = Chain.shiftHistoryRepository.getHistory(branchNum);
-//
-//        StringBuilder res = new StringBuilder("Branch number: " + this.branchNum + "\n");
-//        for (String schedule: history){
-//            res.append(schedule);
-//        }
-//        return res.toString();
-//    }
-
     public boolean AddOrRemoveDaysOffWork(Dictionary<String, String> data) {
         int action = Integer.parseInt(data.get("action"));
         int day = Integer.parseInt(data.get("day"));
@@ -212,9 +174,6 @@ public class Branch {
         return true;
     }
 
-//    public boolean checkDeadLine(){
-//        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchNum);
-//    }
     public void makeASchedule(List<Worker> workers){
         this.scheduleNextWeek.makeASchedule(workers);
         this.scheduleThisWeek = this.scheduleNextWeek.toString();
@@ -224,24 +183,6 @@ public class Branch {
         return Chain.getDayValue(Chain.getToday().getDayOfWeek()) <= Chain.getDayValue(getDeadLine());
     }
 
-//    public int getDeadLineValue(int branchId){
-//        DayOfWeek deadline = getSystemLimit(branchId).getDeadLine();
-//        int deadLineVal = (deadline.getValue()+1)%7;
-//        return deadLineVal;
-//    }
-
-//    public String toString(){
-//        StringBuilder res = new StringBuilder();
-//        res.append("branch number: " + this.branchNum + "\nbranch location: " + this.address + "\nworkers in branch are:\n");
-//
-//        List<Worker> workers = getWorkers();
-//
-//        for(Worker worker : workers){
-//            res.append(worker.toString());
-//            res.append("\n");
-//        }
-//        return res.toString();
-//    }
 
     public boolean updateBranch(Dictionary<String, String> data){
         String updateTo = data.get("update");

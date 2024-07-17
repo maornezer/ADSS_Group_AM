@@ -34,12 +34,6 @@ public class WorkersRepository {
         List<Worker> res = new ArrayList<>();
         for(Worker worker: workerList){
             Worker tempWorker = workersRepo.get(worker.getId());
-//            if (tempWorker != null && tempWorker.getEmploymentEnd().isBefore(Chain.getToday())) {
-//                res.add(tempWorker);
-//            } else {
-//                if(worker.getEmploymentEnd().isBefore(Chain.getToday()))
-//                    res.add(worker);
-//            }
             res.add(worker);
             if(tempWorker == null) {
                 workersRepo.put(worker.getId(), worker);

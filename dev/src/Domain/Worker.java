@@ -116,10 +116,6 @@ public class Worker {
         this.limitations.setLimitations(Limitations);
     }
 
-//    public boolean checkDeadLine(){
-//        return Chain.getTodayValue() <= Chain.getDeadLineValue(this.branchId);
-//    }
-
     public boolean stillEmployed(LocalDate now){
         return this.contract.getEmploymentEnd().isAfter(now);
     }

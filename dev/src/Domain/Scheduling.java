@@ -10,13 +10,6 @@ public class Scheduling {
     private Shift[][] schedule;
     private LocalDate[] dates;
 
-//    public Scheduling(int branchId, SystemLimitations limits) {
-//        this.branchId = branchId;
-//        schedule = new Shift[7][2];
-//        dates = Chain.getNextWeekDates();
-//        limits.creatNextWeek();
-//    }
-
     public Scheduling(int branchId, SystemLimitations systemLimitations) {
         this.branchId = branchId;
         schedule = new Shift[7][2];

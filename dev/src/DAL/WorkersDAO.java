@@ -22,9 +22,8 @@ public class WorkersDAO {
             ResultSet  resultSet  = preparedStatement.executeQuery();
             Dictionary<String,String> data = new Hashtable<>();
 
-            createWorkerDict(resultSet, data);
+            return createWorkerDict(resultSet);
 
-            return new Worker(data);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -44,8 +43,7 @@ public class WorkersDAO {
 
             while(resultSet.next()) {
                 Dictionary<String, String> data = new Hashtable<>();
-                createWorkerDict(resultSet, data);
-                workerList.add(new Worker(data));
+                workerList.add(createWorkerDict(resultSet));
             }
             return workerList;
         }
@@ -55,8 +53,9 @@ public class WorkersDAO {
         }
     }
 
-    private void createWorkerDict(ResultSet resultSet, Dictionary<String, String> data){
+    private Worker createWorkerDict(ResultSet resultSet){
         try {
+            Dictionary<String, String> data = new Hashtable<>();
             data.put("branchNum", Integer.toString(resultSet.getInt("branchNum")));
             data.put("firstName", resultSet.getString("firstName"));
             data.put("lastName", resultSet.getString(("lastName")));
@@ -75,10 +74,13 @@ public class WorkersDAO {
             for (int i = 0; i < amount; i++) {
                 data.put(Integer.toString(i), roles.get(i));
             }
+
+            return new Worker(data);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
     public Worker create(Dictionary<String, String> data){
@@ -121,12 +123,6 @@ public class WorkersDAO {
         }
         try {
             Connection connection = DB.getConnection();
-//            System.out.println("update = " + data.get("update"));
-//            System.out.println("year = " + data.get("year"));
-//            System.out.println("month = " + data.get("month"));
-//            System.out.println("day = " + data.get("day"));
-//            System.out.println("key = " + data.get("key"));
-//            System.out.println("value = " + data.get("value"));
             if(data.get("update").equals("date"))
             {
                 String sql = "UPDATE Workers SET year = ? WHERE id = ?;";
@@ -150,23 +146,6 @@ public class WorkersDAO {
 
                 preparedStatement.execute();
             }
-
-            else {
-//                String columnToUpdate = data.get("update");
-//                String sql = "UPDATE Workers SET " + columnToUpdate + " = ? WHERE id = ?";
-//                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-//
-//                // Set the value based on the type
-//                if (data.get("type").equals("int")) {
-//                    preparedStatement.setInt(1, Integer.parseInt(data.get("value")));
-//                } else {
-//                    preparedStatement.setString(1, data.get("value"));
-//                }
-//
-//                preparedStatement.setInt(2, Integer.parseInt(data.get("key")));
-//                preparedStatement.execute();
-            }
-
 
         }
         catch (Exception e){
@@ -212,7 +191,6 @@ public class WorkersDAO {
                 deletedWorkerIds.add(resultSet.getInt("id"));
             }
 
-            // מחיקת העובדים מהטבלה
             if (!deletedWorkerIds.isEmpty()) {
                 String deleteSql = "DELETE FROM Workers WHERE (year < ?) OR (year = ? AND month < ?) OR (year = ? AND month = ? AND day <= ?);";
                 PreparedStatement deleteStatement = connection.prepareStatement(deleteSql);

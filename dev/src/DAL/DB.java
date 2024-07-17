@@ -13,10 +13,8 @@ public class DB {
     private ShiftHistoryDAO shiftHistoryDAO;
 
     protected static Connection connection;
-    //jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/release/src/resources/Transports.sqlite
-    //private static final String URL = "jdbc:sqlite:src/resources/Transports.sqlite";
-    private static final String URL = "jdbc:sqlite:C:/Users/noash/OneDrive - post.bgu.ac.il/Studies/2024B/Analysis and Design of Software Systems/projects/ADSS_Group_AM/dev/src/resources/Transports.sqlite";
-    //    //private static final String URL = "jdbc:sqlite:resource\\Transports.sqlite";
+    private static final String URL = "jdbc:sqlite:C:/Users/USER/Desktop/Ben Gurion/second year/semester D/analysis and planning/PROJECT/dev/src/resources/Transports.sqlite";
+
     static {
         try{
             connection = DriverManager.getConnection(URL);

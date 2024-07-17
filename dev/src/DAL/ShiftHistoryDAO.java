@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
-// add col of type shift
 
 public class ShiftHistoryDAO {
 

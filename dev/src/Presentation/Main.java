@@ -1,13 +1,16 @@
 package Presentation;
 
+
 import java.io.*;
 import java.util.Scanner;
+
 
 public class Main
 {
     private static Scanner scanner;
-   //private static PresentationController controller;
+
     public static void main(String[] args) {
+
         createDB();
         TransportMenu menuT = new TransportMenu();
         WorkerMenu menuW = new WorkerMenu();
@@ -61,6 +64,7 @@ public class Main
         }
         return true;
     }
+
 }
 
 

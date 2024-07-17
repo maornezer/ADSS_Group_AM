@@ -53,14 +53,6 @@ public class WorkersController {
     }
 
     public Worker getWorker(Dictionary<String, String> info){
-//        List<Worker> workers = getWorkers(Integer.parseInt(info.get("branchNum")));
-//        if(workers == null)
-//            return null;
-//        for (Worker worker: workers){
-//            if (Integer.toString(worker.getId()).equals(info.get("id")))
-//                return worker;
-//        }
-//        return null;
         return workersRepository.getWorker(Integer.parseInt(info.get("id")));
     }
 
@@ -79,10 +71,6 @@ public class WorkersController {
         return getWorker(info).resignationNotice();
     }
 
-//    public int[][] getBranchLimitation(int branchNum){
-//        return (Chain.getSystemLimit(branchNum).getNextWeekLimits()).clone();
-//    }
-
     public LocalDate[] getDatesForNextWeek(){
         return Chain.getNextWeekDates();
     }
@@ -94,10 +82,6 @@ public class WorkersController {
     public BranchesRepository getBranchesRepository() {
         return branchesRepository;
     }
-
-//    public WorkersRepository getWorkersRepository() {
-//        return workersRepository;
-//    }
 
     public boolean submitWorkerLimits(Dictionary<String, String> data, int[][] workerLimits){
         if(!checkDeadline(Integer.parseInt(data.get("branchNum"))))
@@ -341,8 +325,8 @@ public class WorkersController {
     }
 
 
-    public void deleteBranchForTest(int branchNum){
-        this.branchesRepository.deleteBranch(branchNum);
-    }
+//    public void deleteBranchForTest(int branchNum){
+//        this.branchesRepository.deleteBranch(branchNum);
+//    }
 
 }
