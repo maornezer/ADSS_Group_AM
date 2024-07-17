@@ -15,6 +15,8 @@ public class ShiftHistoryDAO {
     public List<String> read(int branchNum) {
         List<String> res = new ArrayList<>();
 
+
+
         try {
             Connection connection = DB.getConnection();
             String sql = "SELECT * FROM ShiftHistory WHERE branchNum = ? ORDER BY weekCounter;";

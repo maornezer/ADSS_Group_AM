@@ -103,8 +103,12 @@ public class WorkerMenu {
         public static void printMain(){
             Dictionary<String, String> data = new Hashtable<>();
             do {
-                System.out.println("Enter branch Number: [press -1 for Log out");
+                System.out.println("Enter branch Number: [press -1 for Log out]");
                 int branchNum = scanner.nextInt();
+                if(branchNum == -1) {
+                    System.out.println("Logging out. Returning to the main menu...");
+                    printIntegrationMenu();
+                }
                 System.out.println("Enter worker ID: ");
                 int id = scanner.nextInt();
                 data.put("branchNum", Integer.toString(branchNum));
@@ -112,11 +116,6 @@ public class WorkerMenu {
             } while (!presentationController.verification(data));
             if(data.get("branchNum").equals("0")){
                 HRMenu();
-            }
-            if (data.get("branchNum").equals("-1"))
-            {
-                System.out.println("Logging out. Returning to the main menu...");
-                printIntegrationMenu();
             }
             else{
                 WorkerMenu(data);

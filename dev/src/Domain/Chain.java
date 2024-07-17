@@ -28,17 +28,8 @@ public class Chain {
     protected static HRManager hrManager;
 
     public Chain(int id, String firstName, String lastName,int bankInfo, LocalDate date ) {
+
         today = date;
-//        branches = new ArrayList<>();
-//        branchesLimits = new Hashtable<>();
-//        branchesRepository = new BranchesRepository();
-
-//        workersRepository = new WorkersRepository();
-//        shiftHistoryRepository = new ShiftHistoryRepository();
-
-//        branchesNums = new ArrayList<>();
-//        branchesNums.addAll(branchesRepository.getBranchesNums());
-
         firedWorkers = new ArrayList<>();
         nextWeekDates = new LocalDate[7];
         for(int i =0; i< 7; i++){
@@ -71,7 +62,6 @@ public class Chain {
     public void setNextWeekDates(LocalDate[] nextWeekDates) {
         this.nextWeekDates = nextWeekDates;
     }
-
     public static LocalDate getToday(){
         return today;
     }
