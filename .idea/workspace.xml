@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="PROJECT:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="transport tests">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1f9b2f02-4bd2-4332-988f-74696bb80713.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1f9b2f02-4bd2-4332-988f-74696bb80713/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3a597031-baac-48ea-a2e0-bb4686252c99.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3a597031-baac-48ea-a2e0-bb4686252c99/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4465a72a-4a3e-4385-9f03-2b0e36c31bc6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4465a72a-4a3e-4385-9f03-2b0e36c31bc6/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6b68313c-2b92-48ad-adac-1ca65a8e151d.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6b68313c-2b92-48ad-adac-1ca65a8e151d/storage_v2/_src_/schema/main.uQUzAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7d7828ba-a4c6-4478-bef8-a7204fbef674.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c973f3c6-f734-4096-8134-8920027fd2fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c973f3c6-f734-4096-8134-8920027fd2fa.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/dev/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/BranchDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/BranchDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/DB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/DAL/WorkersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/DAL/WorkersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Presentation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Presentation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/Test/transportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/Test/transportTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/dev/src/resources/Transports.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DAL/BranchDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DAL/BranchDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DAL/DB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DAL/DB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DAL/WorkersDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DAL/WorkersDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Presentation/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Presentation/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/Transports.sqlite" afterDir="false" />
-    </list>
+    <list default="true" id="3c00dbfd-9fae-41a9-bf5e-abf3d7170df9" name="Changes" comment="test added - code sorted" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -236,7 +216,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1721155099923</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL‎-00005" summary="test added - code sorted">
+      <option name="closed" value="true" />
+      <created>1721212986971</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL‎-00005" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1721212986971</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +248,7 @@
     <MESSAGE value=" integration with workers" />
     <MESSAGE value="fix bugs" />
     <MESSAGE value="transport tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="transport tests" />
+    <MESSAGE value="test added - code sorted" />
+    <option name="LAST_COMMIT_MESSAGE" value="test added - code sorted" />
   </component>
 </project>
